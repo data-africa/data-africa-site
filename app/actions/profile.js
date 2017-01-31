@@ -30,14 +30,14 @@ export function fetchStats(store) {
 
     });
 
-  const rainfall = axios.get(`${prefix}&show=geo&required=rainfall_awa_mm,year`)
+  const rainfall = axios.get(`${prefix}&show=geo&required=rainfall_awa_mm,year,start_year`)
     .then(res => {
 
       const d = fold(res.data)[0];
 
       return {
         key: "rainfall_awa_mm",
-        label: `${DICTIONARY.rainfall_awa_mm} in ${d.year}`,
+        label: `${DICTIONARY.rainfall_awa_mm} from ${d.start_year} to ${d.year}`,
         source: res.data.source[0],
         subs: res.data.subs,
         url: res.config.url,
