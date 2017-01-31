@@ -58,8 +58,10 @@ class Profile extends Component {
   render() {
 
     const {id} = this.props.params;
-    const {attrs, stats} = this.props;
-    const attr = attrs.geo.find(d => d.id === id);
+    const {attrs, focus, stats} = this.props;
+    const geos = attrs.geo.reduce((obj, d) => (obj[d.id] = d, obj), {});
+    const attr = geos[id];
+    const focusISO = focus.map(f => geos[f].iso3);
 
     return (
       <div className="profile">
@@ -75,7 +77,7 @@ class Profile extends Component {
               ocean: "transparent",
               padding: 0,
               shapeConfig: {Path: {
-                fill: d => d.properties.iso_a3 === attr.iso3 ? "white" : "rgba(255, 255, 255, 0.25)",
+                fill: d => d.properties.iso_a3 === attr.iso3 ? "white" : focusISO.includes(d.properties.iso_a3) ? "rgba(255, 255, 255, 0.35)" : "rgba(255, 255, 255, 0.1)",
                 stroke: "rgba(255, 255, 255, 0.25)"
               }},
               tiles: false,
@@ -120,5 +122,6 @@ Profile.need = [
 
 export default connect(state => ({
   attrs: state.attrs,
+  focus: state.focus,
   stats: state.profile.stats
 }), {})(Profile);
