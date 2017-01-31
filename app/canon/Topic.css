@@ -1,0 +1,11 @@
+.topic {
+
+  & h3 {
+
+  }
+
+  & .viz {
+    min-height: 400px;
+  }
+
+}

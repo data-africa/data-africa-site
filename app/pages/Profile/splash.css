@@ -1,0 +1,25 @@
+@import "../../helpers/variables";
+
+.profile {
+
+  & .splash {
+    background-size: cover;
+    height: 100vh;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    z-index: $background;
+
+    & .gradient {
+      background: linear-gradient(0deg, $dark, color($dark alpha(-50%)));
+      height: 100vh;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100vw;
+    }
+
+  }
+
+}

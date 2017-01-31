@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>Climate Icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M30.5859375,18.7894737 C32.1171952,18.8947374 33.4023386,19.4824508 34.4414062,20.5526316 C35.4804739,21.6228124 36,22.8947295 36,24.3684211 C36,25.9122884 35.425787,27.2368366 34.2773438,28.3421053 C33.1289005,29.4473739 31.7526122,30 30.1484375,30 L15,30 C13.0676987,30 11.4179756,29.3421118 10.0507812,28.0263158 C8.68358691,26.7105197 8,25.1228163 8,23.2631579 C8,21.5087632 8.60155648,20.0000063 9.8046875,18.7368421 C11.0078185,17.4736779 12.4843663,16.7543868 14.234375,16.5789474 C15.0000038,15.1754316 16.0755139,14.0614076 17.4609375,13.2368421 C18.8463611,12.4122766 20.3593668,12 22,12 C24.1145939,12 25.9739503,12.6491163 27.578125,13.9473684 C29.1822997,15.2456205 30.1848938,16.8596395 30.5859375,18.7894737 Z" id="path-1"></path>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="28" height="18" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Climate-Icon">
+            <use id="Icon" stroke="#FFFFFF" mask="url(#mask-2)" stroke-width="4" transform="translate(22.000000, 21.000000) scale(-1, 1) translate(-22.000000, -21.000000) " xlink:href="#path-1"></use>
+            <rect id="Rectangle-4" fill="#FFFFFF" x="11" y="2" width="2" height="4" rx="1"></rect>
+            <rect id="Rectangle-4-Copy-3" fill="#FFFFFF" transform="translate(19.000000, 7.000000) rotate(45.000000) translate(-19.000000, -7.000000) " x="18" y="5" width="2" height="4" rx="1"></rect>
+            <rect id="Rectangle-4-Copy-4" fill="#FFFFFF" transform="translate(5.121320, 21.121320) rotate(45.000000) translate(-5.121320, -21.121320) " x="4.12132034" y="19.1213203" width="2" height="4" rx="1"></rect>
+            <rect id="Rectangle-4-Copy-5" fill="#FFFFFF" transform="translate(5.000000, 7.000000) rotate(-45.000000) translate(-5.000000, -7.000000) " x="4" y="5" width="2" height="4" rx="1"></rect>
+            <rect id="Rectangle-4-Copy" fill="#FFFFFF" transform="translate(2.000000, 14.000000) rotate(-270.000000) translate(-2.000000, -14.000000) " x="1" y="12" width="2" height="4" rx="1"></rect>
+            <path d="M30,23 C30,19.9624339 27.3137085,17.5 24,17.5" id="Oval-2" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" transform="translate(27.000000, 20.250000) scale(-1, 1) translate(-27.000000, -20.250000) "></path>
+            <path d="M16.9521253,14.6947126 C16.983686,14.4676637 17,14.235737 17,14 C17,11.2385763 14.7614237,9 12,9 C9.23857625,9 7,11.2385763 7,14 C7,16.7614237 9.23857625,19 12,19 L12,19 C12.987047,19 13.9072927,18.7139899 14.6823829,18.2203239" id="Oval" stroke="#FFFFFF" stroke-width="2"></path>
+        </g>
+    </g>
+</svg>

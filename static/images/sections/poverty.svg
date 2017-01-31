@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>Poverty Icon</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Poverty-Icon">
+            <rect id="Rectangle-3" fill="#FFFFFF" x="0" y="26" width="36" height="2" rx="1"></rect>
+            <polygon id="Rectangle-5" fill="#FFFFFF" points="2 15 4 13.4518485 4 26 2 26"></polygon>
+            <rect id="Rectangle-5-Copy" fill="#FFFFFF" x="24" y="22" width="2" height="4"></rect>
+            <polygon id="Rectangle-5-Copy-2" fill="#FFFFFF" points="18 13.4978626 20 15 20 26 18 26"></polygon>
+            <rect id="Rectangle-5-Copy-3" fill="#FFFFFF" x="32" y="22" width="2" height="4"></rect>
+            <polyline id="Triangle" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="1 16 11 8 11 8 21 16"></polyline>
+            <polyline id="Triangle-Copy" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" points="24 23 29 18.7142857 29 18.7142857 34 23"></polyline>
+            <rect id="Rectangle-8" stroke="#FFFFFF" stroke-width="2" stroke-linejoin="round" x="9" y="21" width="4" height="6"></rect>
+            <rect id="Rectangle-9" fill="#FFFFFF" x="28" y="24" width="2" height="2"></rect>
+        </g>
+    </g>
+</svg>
