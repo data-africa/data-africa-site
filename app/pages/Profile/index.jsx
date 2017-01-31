@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {fetchStats} from "../../actions/profile";
+import {fetchStats, fetchVars} from "../../actions/profile";
 import "./splash.css";
 import "./intro.css";
 import "./sections.css";
@@ -101,7 +101,7 @@ class Profile extends Component {
           {
             sections.map(s => <div className="section" key={ s.slug }>
               <h2><a name={ s.slug } href={ `#${ s.slug }`}>{ s.title }</a></h2>
-              { s.topics.map((Comp, i) => <Comp id={ id } key={ i } />)}
+              { s.topics.map((Comp, i) => <Comp id={ id } profile={ attr } key={ i } />)}
             </div>)
           }
 
@@ -113,7 +113,8 @@ class Profile extends Component {
 }
 
 Profile.need = [
-  fetchStats
+  fetchStats,
+  fetchVars
 ];
 
 export default connect(state => ({

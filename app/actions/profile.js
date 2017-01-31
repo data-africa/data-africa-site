@@ -87,3 +87,35 @@ export function fetchStats(store) {
   };
 
 }
+
+function formatVars(res) {
+
+  const data = fold(res.data);
+  const url = res.config.url;
+  const name = (/show=([a-z_,]+)/g).exec(url)[1];
+  const key = url.includes("order=") ? (/order=([a-z_,]+)/g).exec(url)[1] : (/required=([a-z_,]+)/g).exec(url)[1];
+
+  return {
+    name,
+    data,
+    key
+  };
+
+}
+
+export function fetchVars(store) {
+
+  const prefix = `${API}api/join/?geo=${store.id}`;
+
+  const harvest = axios.get(`${prefix}&show=crop&required=harvested_area,value_of_production&limit=5&order=harvested_area&sort=desc`)
+    .then(formatVars);
+
+  const production = axios.get(`${prefix}&show=crop&required=value_of_production,harvested_area&limit=5&order=value_of_production&sort=desc`)
+    .then(formatVars);
+
+  return {
+    type: "GET_VARS",
+    promise: Promise.all([harvest, production])
+  };
+
+}
