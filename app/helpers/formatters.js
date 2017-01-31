@@ -19,5 +19,7 @@ export const FORMATTERS = {
 };
 
 export const VARIABLES = {
-  rainfall_awa_mm: d => `${format(",.2f")(d)}mm`
+  harvested_area: d => `${format(",")(d)} ha`,
+  rainfall_awa_mm: d => `${format(",.2f")(d)}mm`,
+  value_of_production: d => `Intl.$${format(",")(d)}`
 };
