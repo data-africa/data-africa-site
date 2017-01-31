@@ -6,6 +6,7 @@ import Viz from "../../../canon/Viz.jsx";
 import "../../../canon/Topic.css";
 
 import {API} from "../../../../.env";
+import {DICTIONARY} from "../../../helpers/dictionary";
 
 class Topic extends Component {
 
@@ -18,6 +19,7 @@ class Topic extends Component {
           data: `${API}api/join/?show=year&geo=${id}&required=poverty_level,hc,povgap,sevpov&sumlevel=latest_by_geo`,
           discrete: "y",
           groupBy: "measure",
+          label: d => `${DICTIONARY[d.measure]}`,
           legend: false,
           shapeConfig: {
             fill: "rgb(61, 71, 55)",
