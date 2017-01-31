@@ -7,6 +7,7 @@ import "./sections.css";
 
 import {strip} from "d3plus-text";
 
+import "../../canon/Section.css";
 import Stat from "../../canon/Stat";
 import Viz from "../../canon/Viz.jsx";
 
