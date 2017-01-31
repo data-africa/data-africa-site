@@ -49,7 +49,7 @@
     "d3plus-common": "^0.6.13",
     "d3plus-geomap": "^0.3.0",
     "d3plus-hierarchy": "^0.3.1",
-    "d3plus-plot": "^0.5.3",
+    "d3plus-plot": "^0.5.4",
     "d3plus-text": "^0.9.14",
     "d3plus-viz": "^0.6.2",
     "es6-promise": "^3.1.2",
