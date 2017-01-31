@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {fetchStats, fetchVars} from "../../actions/profile";
-import "./splash.css";
 import "./intro.css";
 import "./sections.css";
 
@@ -65,11 +64,12 @@ class Profile extends Component {
     return (
       <div className="profile">
 
-        <div className="splash" style={{backgroundImage: `url('/images/geo/${id}.jpg')`}}>
-          <div className="gradient"></div>
-        </div>
-
         <div className="intro">
+
+          <div className="splash" style={{backgroundImage: `url('/images/geo/${id}.jpg')`}}>
+            <div className="gradient"></div>
+          </div>
+
           <div className="header">
             <Viz type="Geomap" config={{
               ocean: "transparent",

@@ -1,14 +1,38 @@
+@import "../../helpers/variables";
+
 .profile {
 
   & .intro {
     color: white;
     margin: 0 auto;
-    min-height: 100vh;
     position: relative;
-    width: 80%;
+    width: 100vw;
+
+    & .splash {
+      background-size: cover;
+      bottom: 0;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      z-index: $background;
+
+      & .gradient {
+        background: linear-gradient(0deg, $dark, color($dark alpha(-50%)));
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+      }
+
+    }
 
     & .header {
       display: flex;
+      margin: 0 auto;
+      justify-content: center;
+      width: 80%;
     }
 
     & .viz {
