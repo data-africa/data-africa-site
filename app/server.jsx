@@ -6,6 +6,7 @@ import createRoutes from "routes";
 import configureStore from "store/configureStore";
 import preRenderMiddleware from "middlewares/preRenderMiddleware";
 import header from "components/Meta";
+import {NODE_ENV} from "../.env";
 
 const analtyicsScript =
   typeof trackingID === "undefined" ? ""
@@ -51,6 +52,8 @@ export default function(defaultStore = {}) {
             </Provider>
           );
 
+          const css = NODE_ENV === "production" ? "<link rel='stylesheet' type='text/css' href='/assets/styles.css'>" : "";
+
           res.status(200).send(`
             <!doctype html>
             <html ${header.htmlAttributes.toString()}>
@@ -58,6 +61,7 @@ export default function(defaultStore = {}) {
                 ${header.title.toString()}
                 ${header.meta.toString()}
                 ${header.link.toString()}
+                ${css}
               </head>
               <body>
                 <div id="app">${componentHTML}</div>

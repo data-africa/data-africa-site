@@ -28,8 +28,7 @@ const commonLoaders = [
   },
   {
     test: /\.css$/,
-    // loader: ExtractTextPlugin.extract("style-loader", "css-loader!postcss-loader")
-    loader: "style!css!postcss-loader"
+    loader: ExtractTextPlugin.extract("style-loader", "css-loader!postcss-loader")
   }
 ];
 
@@ -62,7 +61,7 @@ module.exports = [
       extensions: ["", ".js", ".jsx", ".css"]
     },
     plugins: [
-      // new ExtractTextPlugin("styles/main.css", {allChunks: true}),
+      new ExtractTextPlugin("styles.css", {allChunks: true}),
       new webpack.optimize.UglifyJsPlugin({compressor: {warnings: false}}),
       new webpack.DefinePlugin({__DEVCLIENT__: false, __DEVSERVER__: false}),
       new InlineEnviromentVariablesPlugin({NODE_ENV: "production"})
@@ -90,7 +89,7 @@ module.exports = [
     },
     plugins: [
       new webpack.optimize.OccurenceOrderPlugin(),
-      // new ExtractTextPlugin("styles/main.css", {allChunks: true}),
+      new ExtractTextPlugin("styles.css", {allChunks: true}),
       new webpack.optimize.UglifyJsPlugin({compressor: {warnings: false}}),
       new webpack.DefinePlugin({__DEVCLIENT__: false, __DEVSERVER__: false}),
       new webpack.IgnorePlugin(/vertx/),
