@@ -2,8 +2,8 @@ import React, {Component} from "react";
 
 import {Geomap} from "d3plus-geomap";
 import {Treemap} from "d3plus-hierarchy";
-import {BarChart} from "d3plus-plot";
-const types = {BarChart, Geomap, Treemap};
+import {BarChart, Plot} from "d3plus-plot";
+const types = {BarChart, Geomap, Plot, Treemap};
 
 import {dataFold} from "d3plus-viz";
 import {default as globalConfig} from "./Viz.js";

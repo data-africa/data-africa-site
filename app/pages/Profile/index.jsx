@@ -10,6 +10,7 @@ import {strip} from "d3plus-text";
 import Stat from "../../canon/Stat";
 import Viz from "../../canon/Viz.jsx";
 
+import CropsAreaVsValue from "./agriculture/CropsAreaVsValue";
 import CropsByHarvest from "./agriculture/CropsByHarvest";
 import CropsByProduction from "./agriculture/CropsByProduction";
 
@@ -24,7 +25,8 @@ const sections = [
     title: "Agriculture",
     topics: [
       CropsByHarvest,
-      CropsByProduction
+      CropsByProduction,
+      CropsAreaVsValue
     ]
   },
   {
