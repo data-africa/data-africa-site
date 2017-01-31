@@ -1,7 +1,13 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {activateSearch} from "../actions/users";
-// import {strip} from "d3plus-text";
+import "./Search.css";
+
+import {API} from "../../.env";
+import axios from "axios";
+
+import {strip} from "d3plus-text";
+import {dataFold} from "d3plus-viz";
 
 class Search extends Component {
 
@@ -13,63 +19,54 @@ class Search extends Component {
   }
 
   onChange(e) {
+
     const userQuery = e.target.value;
-    if (userQuery.length < 3) return;
-    // if (userQuery.length === 0) this.setState({ professionResults:[], placeResults:[], personResults:[] });
-    //
-    // let userQueryCleaned = userQuery.split(" ");
-    // userQueryCleaned = userQueryCleaned.map(strip);
-    // const lastItem = userQueryCleaned[userQueryCleaned.length-1];
-    // userQueryCleaned[userQueryCleaned.length-1] = `${lastItem}:*`;
-    // userQueryCleaned = userQueryCleaned.join("%26");
-    //
-    // console.log("axios.defaults.baseURL--", apiClient.defaults.baseURL)
-    //
-    // apiClient.get(`/search?document=@@.${userQueryCleaned}&order=weight.desc.nullslast&limit=100`)
-    //   .then((queryResults) => {
-    //     const results = queryResults.data;
-    //     if(results){
-    //       this.setState({ results });
-    //     }
-    //   })
+
+    if (userQuery.length === 0) this.setState({results: []});
+    // else if (userQuery.length < 3) return;
+    else {
+      axios.get(`${API}attrs/search/?q=${strip(userQuery)}`)
+        .then(res => this.setState({results: dataFold(res.data)}));
+    }
+
   }
 
   handleKeyDown(e) {
-    console.log(e.keyCode);
-    // const DOWN_ARROW = 40;
-    // const UP_ARROW = 38;
-    // const ENTER = 13;
-    // const highlighted = document.querySelector('.highlighted');
 
-    // if(e.keyCode == ENTER){
-    //   if(highlighted){
-    //     window.location = highlighted.querySelector('a').href;
-    //   }
-    // }
-    //
-    // if(e.keyCode == DOWN_ARROW || e.keyCode == UP_ARROW){
-    //   if(!highlighted){
-    //     if(e.keyCode == DOWN_ARROW)
-    //       document.querySelector('.results-list > li:first-child').classList.add('highlighted');
-    //   } else {
-    //     const currentIndex = [].indexOf.call(document.querySelectorAll('.results-list > li'), highlighted);
-    //     //Highlight the next thing
-    //     if(e.keyCode == DOWN_ARROW && currentIndex < document.querySelectorAll('.results-list > li').length-1){
-    //       document.querySelectorAll('.results-list > li')[currentIndex+1].classList.add('highlighted');
-    //       highlighted.classList.remove('highlighted');
-    //     }
-    //     else if(e.keyCode == UP_ARROW) {
-    //       if(currentIndex > 0) {
-    //         document.querySelectorAll('.results-list > li')[currentIndex-1].classList.add('highlighted');
-    //       }
-    //       highlighted.classList.remove('highlighted');
-    //     }
-    //   }
-    // }
+    const DOWN_ARROW = 40;
+    const UP_ARROW = 38;
+    const ENTER = 13;
+
+    const highlighted = document.querySelector(".highlighted");
+
+    if (e.keyCode === ENTER && highlighted) {
+      window.location = highlighted.querySelector("a").href;
+    }
+    else if (e.keyCode === DOWN_ARROW || e.keyCode === UP_ARROW) {
+
+      if (!highlighted) {
+        if (e.keyCode === DOWN_ARROW) document.querySelector(".results > li:first-child").classList.add("highlighted");
+      }
+      else {
+
+        const results = document.querySelectorAll(".results > li");
+
+        const currentIndex = [].indexOf.call(results, highlighted);
+
+        if (e.keyCode === DOWN_ARROW && currentIndex < results.length - 1) {
+          results[currentIndex + 1].classList.add("highlighted");
+          highlighted.classList.remove("highlighted");
+        }
+        else if (e.keyCode === UP_ARROW) {
+          if (currentIndex > 0) results[currentIndex - 1].classList.add("highlighted");
+          highlighted.classList.remove("highlighted");
+        }
+      }
+    }
   }
 
   componentDidMount() {
-    this._searchInput.focus();
+    this.refs.input.focus();
     window.addEventListener("keydown", this.handleKeyDown);
   }
 
@@ -79,15 +76,24 @@ class Search extends Component {
 
   render() {
     const {activateSearch} = this.props;
+    const {results} = this.state;
+    console.log(results);
     return (
-      <div>
-        <i onClick={activateSearch}>✕</i>
-        Search Window
+      <div className="search">
+        <div className="close" onClick={activateSearch}>X</div>
+        <input type="text" ref="input" onChange={ this.onChange.bind(this) } />
+        <ul className="results">
+          { results.map(result =>
+            <li key={ result.id } className="result">
+              <a href={ `/profile/${result.id}` }>{ result.name }</a>
+            </li>
+          )}
+        </ul>
       </div>
     );
   }
 }
 
 export default connect(state => ({
-  placeProfile: state.placeProfile
+  focus: state.focus
 }), {activateSearch})(Search);
