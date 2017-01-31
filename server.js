@@ -76,10 +76,6 @@ axios.get(`${prefix}list`)
         }));
         app.listen(PORT);
 
-      })
-      .catch(err => {
-        console.log("Unable to cache attributes, please try again.");
-        return Promise.reject(err);
       });
 
   });
