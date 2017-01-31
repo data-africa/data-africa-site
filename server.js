@@ -27,6 +27,9 @@ axios.get(`${prefix}list`)
         });
         attrs[attr] = data;
         return data;
+      })
+      .catch(err => {
+        console.log(err);
       }));
 
     Promise.all(promises).then(() => {
