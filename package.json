@@ -6,8 +6,7 @@
   "scripts": {
     "babel": "babel --presets es2015,stage-0 --ignore node_modules,public",
     "babel-node": "babel-node --presets es2015,stage-0 --ignore node_modules,public",
-    "start2": "NODE_ENV=production node index.js",
-    "start": "NODE_ENV=production npm run babel-node server.js",
+    "start": "NODE_ENV=production node index.js",
     "dev": "NODE_ENV=development nodemon",
     "build:dev": "NODE_ENV=development webpack --colors --config ./webpack/webpack.config.dev-server.js",
     "build:prod": "NODE_ENV=production HOSTNAME=dataafrica.io webpack --colors --config ./webpack/webpack.config.prod.js",
