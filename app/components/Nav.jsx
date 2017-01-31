@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {Link} from "react-router";
+import {activateSearch} from "actions/users";
 import "./Nav.css";
 
 class Nav extends Component {
@@ -8,6 +9,7 @@ class Nav extends Component {
   render() {
     return (
       <nav className="nav">
+        <img className="search-btn" src="/images/nav/search.svg" onClick={ this.props.activateSearch } alt="Search" />
         <Link className="logo" to="/">
           <span className="data">Data</span>
           <span className="africa">Africa</span>
@@ -20,4 +22,4 @@ class Nav extends Component {
   }
 }
 
-export default connect(() => ({}), {})(Nav);
+export default connect(() => ({}), {activateSearch})(Nav);
