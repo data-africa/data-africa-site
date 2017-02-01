@@ -21,7 +21,7 @@ class Topic extends Component {
           label: d => `${titleCase(d.severity)} ${titleCase(d.condition)}`,
           legend: false,
           shapeConfig: {
-            fill: d => d.severity === "severe" ? "rgb(120, 0, 0)" : d.severity === "moderate" ? "yellow" : "#ccc",
+            fill: d => d.severity === "severe" ? "rgb(120, 0, 0)" : d.severity === "moderate" ? "#EDCB62" : "#ccc",
             label: false
           },
           stacked: true,
@@ -36,6 +36,7 @@ class Topic extends Component {
           },
           y: "condition",
           yConfig: {
+            tickFormat: d => titleCase(d),
             title: "Condition"
           }
         }} />

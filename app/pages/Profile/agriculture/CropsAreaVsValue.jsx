@@ -5,6 +5,7 @@ import Viz from "../../../canon/Viz.jsx";
 import "../../../canon/Topic.css";
 
 import {API} from "../../../../.env";
+import {VARIABLES} from "../../../helpers/formatters";
 
 class Topic extends Component {
 
@@ -21,10 +22,12 @@ class Topic extends Component {
           groupBy: "crop",
           x: "harvested_area",
           xConfig: {
+            tickFormat: VARIABLES.harvested_area,
             title: "Harvested Area"
           },
           y: "value_of_production",
           yConfig: {
+            tickFormat: VARIABLES.value_of_production,
             title: "Value of Production"
           }
         }} />

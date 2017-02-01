@@ -31,6 +31,7 @@ class Topic extends Component {
           },
           y: "poverty_level",
           yConfig: {
+            tickFormat: d => d.toUpperCase(),
             title: "Poverty Level"
           }
         }} dataFormat={d => dataFold(d).reduce((arr, d) => {

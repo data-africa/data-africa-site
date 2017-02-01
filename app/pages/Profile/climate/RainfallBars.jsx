@@ -15,6 +15,7 @@ class Topic extends Component {
       <div className="topic">
         <h3>Rainfall by Location</h3>
         <Viz type="BarChart" config={{
+          barPadding: 5,
           data: `${API}api/join/?show=geo&geo=${ focus.join(",") }sumlevel=all&required=rainfall_awa_mm`,
           discrete: "y",
           groupBy: "geo",
@@ -29,6 +30,7 @@ class Topic extends Component {
           },
           y: "geo",
           yConfig: {
+            labels: [],
             title: "Locations"
           }
         }} />
