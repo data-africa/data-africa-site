@@ -21,6 +21,7 @@ import ConditionsByGender from "./health/ConditionsByGender";
 import ConditionsByResidence from "./health/ConditionsByResidence";
 
 import Poverty from "./poverty/Poverty";
+import PovertyByGender from "./poverty/PovertyByGender";
 
 const sections = [
   {
@@ -48,7 +49,9 @@ const sections = [
   {
     title: "Poverty",
     topics: [
-      Poverty
+      Poverty,
+      [PovertyByGender, {povertyLevel: "ppp1"}],
+      [PovertyByGender, {povertyLevel: "ppp2"}]
     ]
   }
 ];
@@ -108,7 +111,15 @@ class Profile extends Component {
           {
             sections.map(s => <div className="section" key={ s.slug }>
               <h2><a name={ s.slug } href={ `#${ s.slug }`}>{ s.title }</a></h2>
-              { s.topics.map((Comp, i) => <Comp id={ id } profile={ attr } key={ i } />)}
+              { s.topics.map((Comp, i) => {
+                let params = {};
+                if (Array.isArray(Comp)) {
+                  [Comp, params] = Comp;
+                }
+                const defaultParams = {id, profile: attr, key: i, ...params};
+                return React.createElement(Comp, defaultParams, null);
+              }
+            )}
             </div>)
           }
 
