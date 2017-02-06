@@ -17,6 +17,7 @@ import CropsByProduction from "./agriculture/CropsByProduction";
 import RainfallBars from "./climate/RainfallBars";
 
 import Conditions from "./health/Conditions";
+import ConditionsByGender from "./health/ConditionsByGender";
 
 import Poverty from "./poverty/Poverty";
 
@@ -38,7 +39,8 @@ const sections = [
   {
     title: "Health",
     topics: [
-      Conditions
+      Conditions,
+      ConditionsByGender
     ]
   },
   {
