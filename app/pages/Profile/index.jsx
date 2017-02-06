@@ -18,6 +18,7 @@ import RainfallBars from "./climate/RainfallBars";
 
 import Conditions from "./health/Conditions";
 import ConditionsByGender from "./health/ConditionsByGender";
+import ConditionsByResidence from "./health/ConditionsByResidence";
 
 import Poverty from "./poverty/Poverty";
 
@@ -40,7 +41,8 @@ const sections = [
     title: "Health",
     topics: [
       Conditions,
-      ConditionsByGender
+      ConditionsByGender,
+      ConditionsByResidence
     ]
   },
   {

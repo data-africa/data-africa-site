@@ -13,12 +13,12 @@ class Topic extends Component {
     const {id} = this.props;
     return (
       <div className="topic">
-        <h3>Health Condition Severity by Gender</h3>
+        <h3>Health Condition Severity by Residence</h3>
         <Viz type="BarChart" config={{
-          data: `${API}api/join/?show=condition,gender&geo=${ id }&required=condition,severity,proportion_of_children`,
+          data: `${API}api/join/?show=condition,residence&geo=${ id }&required=condition,severity,proportion_of_children`,
           discrete: "y",
-          groupBy: ["gender", "severity"],
-          label: d => `${titleCase(d.severity)}ly ${titleCase(d.condition)} ${titleCase(d.gender)}s`,
+          groupBy: ["residence", "severity"],
+          label: d => `${titleCase(d.severity)}ly ${titleCase(d.condition)} Children in ${titleCase(d.residence)} Areas`,
           legend: false,
           shapeConfig: {
             fill: d => d.severity === "severe" ? "rgb(120, 0, 0)" : d.severity === "moderate" ? "#EDCB62" : "#ccc",
