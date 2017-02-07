@@ -8,6 +8,7 @@ import "../../../canon/Topic.css";
 
 import {API} from "../../../../.env";
 import {DICTIONARY} from "../../../helpers/dictionary";
+import {FORMATTERS} from "../../../helpers/formatters";
 
 class Topic extends Component {
 
@@ -29,6 +30,8 @@ class Topic extends Component {
           },
           x: "value",
           xConfig: {
+            domain: [0, 1],
+            tickFormat: FORMATTERS.shareWhole,
             title: "Proportion of Poverty"
           },
           y: "measure",

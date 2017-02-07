@@ -6,6 +6,7 @@ import Viz from "../../../canon/Viz.jsx";
 import "../../../canon/Topic.css";
 
 import {API} from "../../../../.env";
+import {FORMATTERS} from "../../../helpers/formatters";
 
 class Topic extends Component {
 
@@ -32,6 +33,7 @@ class Topic extends Component {
           x: "proportion_of_children",
           xConfig: {
             domain: [0, 1],
+            tickFormat: FORMATTERS.shareWhole,
             title: "Proportion of Children"
           },
           y: "condition",
