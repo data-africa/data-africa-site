@@ -56,11 +56,11 @@ export function fetchStats(store) {
 
       return {
         key: "proportion_of_children,condition",
-        label: `Most Severe Condition in ${d.year}`,
+        label: `Most Acute Condition Among Children in ${d.year}`,
         source: res.data.source[0],
         subs: res.data.subs,
         url: res.config.url,
-        value: `${FORMATTERS.shareWhole(d.proportion_of_children)} ${DICTIONARY[d.condition]}`
+        value: `${FORMATTERS.shareWhole(d.proportion_of_children)} Severely ${DICTIONARY[d.condition]}`
       };
 
     });
