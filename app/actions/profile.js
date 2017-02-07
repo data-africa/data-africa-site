@@ -72,7 +72,7 @@ export function fetchStats(store) {
 
       return {
         key: "hc",
-        label: `Poverty (PPP1) in ${d.year}`,
+        label: `Poverty Headcount Ratio ${DICTIONARY.ppp1} in ${d.year}`,
         source: res.data.source[0],
         subs: res.data.subs,
         url: res.config.url,
