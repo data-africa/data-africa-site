@@ -32,6 +32,6 @@ export const FORMATTERS = {
 
 export const VARIABLES = {
   harvested_area: d => `${abbreviate(d)} ha`,
-  rainfall_awa_mm: d => `${format(",.2f")(d)}mm`,
+  rainfall_awa_mm: d => `${format(",.0f")(d)}mm`,
   value_of_production: d => `Intl.$${abbreviate(d)}`
 };
