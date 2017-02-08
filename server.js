@@ -28,7 +28,7 @@ axios.get(`${prefix}list`)
         return data;
       })
       .catch(err => {
-        console.log(`${API}attrs/d${attr} errored with code ${err.response.status}`);
+        console.log(`${API}attrs/${attr} errored with code ${err.response.status}`);
         return Promise.reject(err);
       }));
 
