@@ -4,7 +4,7 @@ import {activateSearch} from "actions/users";
 import Nav from "components/Nav";
 import Footer from "components/Footer";
 import Search from "components/Search";
-import "../../node_modules/normalize.css/normalize.css";
+import "normalize.css/normalize.css";
 import "./App.css";
 
 class App extends Component {

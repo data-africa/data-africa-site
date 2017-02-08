@@ -1,14 +1,14 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {fetchStats, fetchVars} from "../../actions/profile";
+import {fetchStats, fetchVars} from "actions/profile";
 import "./intro.css";
 import "./sections.css";
 
 import {strip} from "d3plus-text";
 
-import "../../canon/Section.css";
-import Stat from "../../canon/Stat";
-import Viz from "../../canon/Viz.jsx";
+import "canon/Section.css";
+import Stat from "canon/Stat";
+import Viz from "canon/Viz.jsx";
 
 import CropsAreaVsValue from "./agriculture/CropsAreaVsValue";
 import CropsByHarvest from "./agriculture/CropsByHarvest";

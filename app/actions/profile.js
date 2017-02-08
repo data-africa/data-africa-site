@@ -1,11 +1,11 @@
 /* eslint consistent-return: 0, no-else-return: 0*/
-import {API} from "../../.env";
+import {API} from ".env";
 import {polyfill} from "es6-promise";
 import axios from "axios";
 
 import {dataFold as fold} from "d3plus-viz";
-import {DICTIONARY} from "../helpers/dictionary";
-import {FORMATTERS, VARIABLES} from "../helpers/formatters";
+import {DICTIONARY} from "helpers/dictionary";
+import {FORMATTERS, VARIABLES} from "helpers/formatters";
 
 polyfill();
 

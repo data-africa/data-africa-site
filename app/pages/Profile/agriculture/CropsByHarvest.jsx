@@ -1,12 +1,12 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 
-import Viz from "../../../canon/Viz.jsx";
-import "../../../canon/Topic.css";
+import Viz from "canon/Viz.jsx";
+import "canon/Topic.css";
 
-import {VARIABLES} from "../../../helpers/formatters";
+import {VARIABLES} from "helpers/formatters";
 
-import {API} from "../../../../.env";
+import {API} from ".env";
 
 class Topic extends Component {
 

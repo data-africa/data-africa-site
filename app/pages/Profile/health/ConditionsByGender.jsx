@@ -2,11 +2,11 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {titleCase} from "d3plus-text";
 
-import Viz from "../../../canon/Viz.jsx";
-import "../../../canon/Topic.css";
+import Viz from "canon/Viz.jsx";
+import "canon/Topic.css";
 
-import {API} from "../../../../.env";
-import {FORMATTERS} from "../../../helpers/formatters";
+import {API} from ".env";
+import {FORMATTERS} from "helpers/formatters";
 
 class Topic extends Component {
 

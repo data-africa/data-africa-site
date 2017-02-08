@@ -1,9 +1,9 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {activateSearch} from "../actions/users";
+import {activateSearch} from "actions/users";
 import "./Search.css";
 
-import {API} from "../../.env";
+import {API} from ".env";
 import axios from "axios";
 
 import {strip} from "d3plus-text";

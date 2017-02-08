@@ -1,4 +1,4 @@
-import {API, NODE_ENV, PORT} from "./.env";
+import {API, NODE_ENV, PORT} from "./app/.env";
 import axios from "axios";
 import gzip from "compression";
 import express from "express";

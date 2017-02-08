@@ -6,7 +6,7 @@ import createRoutes from "routes";
 import configureStore from "store/configureStore";
 import preRenderMiddleware from "middlewares/preRenderMiddleware";
 import header from "components/Meta";
-import {NODE_ENV} from "../.env";
+import {NODE_ENV} from ".env";
 
 const analtyicsScript =
   typeof trackingID === "undefined" ? ""
