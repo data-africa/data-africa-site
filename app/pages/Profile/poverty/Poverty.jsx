@@ -23,8 +23,7 @@ class Topic extends Component {
           label: d => `${DICTIONARY[d.measure]}`,
           legend: false,
           shapeConfig: {
-            fill: "rgb(61, 71, 55)",
-            label: false
+            fill: "rgb(61, 71, 55)"
           },
           x: "value",
           xConfig: {

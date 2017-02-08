@@ -19,11 +19,9 @@ class Topic extends Component {
           data: `${API}api/join/?show=condition,residence&geo=${ id }&required=condition,severity,proportion_of_children`,
           discrete: "y",
           groupBy: ["residence", "severity"],
-          label: d => `${titleCase(d.severity)}ly ${titleCase(d.condition)} Children in ${titleCase(d.residence)} Areas`,
-          legend: false,
+          label: d => d.condition instanceof Array ? titleCase(d.severity) : `${titleCase(d.severity)}ly ${titleCase(d.condition)} Children in ${titleCase(d.residence)} Areas`,
           shapeConfig: {
-            fill: d => d.severity === "severe" ? "rgb(120, 0, 0)" : d.severity === "moderate" ? "#EDCB62" : "#ccc",
-            label: false
+            fill: d => d.severity === "severe" ? "rgb(120, 0, 0)" : d.severity === "moderate" ? "#EDCB62" : "#ccc"
           },
           stacked: true,
           time: "year",
