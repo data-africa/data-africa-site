@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React from "react";
 import {connect} from "react-redux";
 import {dataFold} from "d3plus-viz";
 import {titleCase} from "d3plus-text";
