@@ -1,21 +1,21 @@
-import React, {Component} from "react";
+import React from "react";
 import {connect} from "react-redux";
 import {titleCase} from "d3plus-text";
 
-import Viz from "canon/Viz.jsx";
-import "canon/Topic.css";
+import {BarChart} from "d3plus-react";
+import Topic from "canon/Topic";
 
 import {API} from ".env";
 import {FORMATTERS} from "helpers/formatters";
 
-class Topic extends Component {
+class Conditions extends Topic {
 
   render() {
     const {id} = this.props;
     return (
       <div className="topic">
         <h3>Health Condition Severity</h3>
-        <Viz type="BarChart" config={{
+        <BarChart config={{
           data: `${API}api/join/?show=condition&geo=${ id }&required=condition,severity,proportion_of_children`,
           discrete: "y",
           groupBy: "severity",
@@ -45,4 +45,4 @@ class Topic extends Component {
   }
 }
 
-export default connect(() => ({}), {})(Topic);
+export default connect(() => ({}), {})(Conditions);

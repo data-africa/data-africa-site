@@ -1,14 +1,14 @@
-import React, {Component} from "react";
+import React from "react";
 import {connect} from "react-redux";
 
-import Viz from "canon/Viz.jsx";
-import "canon/Topic.css";
+import {Treemap} from "d3plus-react";
+import Topic from "canon/Topic";
 
 import {VARIABLES} from "helpers/formatters";
 
 import {API} from ".env";
 
-class Topic extends Component {
+class CropsByProduction extends Topic {
 
   render() {
     const {attrs, profile, vars} = this.props;
@@ -25,7 +25,7 @@ class Topic extends Component {
           <div className="text">
             The crop with the highest production value in { profile.name } is { crops[0].name }, with a value of { VARIABLES.value_of_production(crops[0].value_of_production) }.
           </div>
-          <Viz type="Treemap" config={{
+          <Treemap config={{
             data: `${API}api/join/?show=crop&geo=${profile.id}&sumlevel=lowest&required=value_of_production`,
             groupBy: "crop",
             label: d => attrs[d.crop] ? attrs[d.crop].name : d.crop,
@@ -41,4 +41,4 @@ class Topic extends Component {
 export default connect(state => ({
   attrs: state.attrs.crop.reduce((obj, d) => (obj[d.id] = d, obj), {}),
   vars: state.profile.vars.crop
-}), {})(Topic);
+}), {})(CropsByProduction);

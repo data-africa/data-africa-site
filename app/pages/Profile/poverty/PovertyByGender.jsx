@@ -3,14 +3,14 @@ import {connect} from "react-redux";
 import {dataFold} from "d3plus-viz";
 import {titleCase} from "d3plus-text";
 
-import Viz from "canon/Viz.jsx";
-import "canon/Topic.css";
+import {BarChart} from "d3plus-react";
+import Topic from "canon/Topic";
 
 import {API} from ".env";
 import {DICTIONARY} from "helpers/dictionary";
 import {FORMATTERS} from "helpers/formatters";
 
-class Topic extends Component {
+class PovertyByGender extends Topic {
 
   render() {
     const {id} = this.props;
@@ -18,7 +18,7 @@ class Topic extends Component {
     return (
       <div className="topic">
         <h3>Poverty Measures by Gender {DICTIONARY[povertyLevel]}</h3>
-        <Viz type="BarChart" config={{
+        <BarChart config={{
           data: `${API}api/join/?show=year,gender&geo=${id}&required=poverty_level,hc,povgap,sevpov&sumlevel=latest_by_geo,all&poverty_level=${povertyLevel}`,
           discrete: "y",
           groupBy: ["gender", "poverty_level"],
@@ -38,7 +38,8 @@ class Topic extends Component {
             tickFormat: d => DICTIONARY[d],
             title: "Poverty Level"
           }
-        }} dataFormat={d => dataFold(d).reduce((arr, d) => {
+        }}
+        dataFormat={d => dataFold(d).reduce((arr, d) => {
           arr.push({
             geo: d.geo,
             measure: "hc",
@@ -73,4 +74,4 @@ class Topic extends Component {
   }
 }
 
-export default connect(() => ({}), {})(Topic);
+export default connect(() => ({}), {})(PovertyByGender);

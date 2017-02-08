@@ -2,21 +2,21 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {dataFold} from "d3plus-viz";
 
-import Viz from "canon/Viz.jsx";
-import "canon/Topic.css";
+import {BarChart} from "d3plus-react";
+import Topic from "canon/Topic";
 
 import {API} from ".env";
 import {DICTIONARY} from "helpers/dictionary";
 import {FORMATTERS} from "helpers/formatters";
 
-class Topic extends Component {
+class Poverty extends Topic {
 
   render() {
     const {id} = this.props;
     return (
       <div className="topic">
         <h3>Poverty Level by Measure</h3>
-        <Viz type="BarChart" config={{
+        <BarChart config={{
           data: `${API}api/join/?show=year&geo=${id}&required=poverty_level,hc,povgap,sevpov&sumlevel=latest_by_geo`,
           discrete: "y",
           groupBy: "measure",
@@ -68,4 +68,4 @@ class Topic extends Component {
   }
 }
 
-export default connect(() => ({}), {})(Topic);
+export default connect(() => ({}), {})(Poverty);

@@ -1,13 +1,13 @@
-import React, {Component} from "react";
+import React from "react";
 import {connect} from "react-redux";
 
-import Viz from "canon/Viz.jsx";
-import "canon/Topic.css";
+import Topic from "canon/Topic";
+import {Plot} from "d3plus-react";
 
 import {API} from ".env";
 import {VARIABLES} from "helpers/formatters";
 
-class Topic extends Component {
+class CropsAreaVsValue extends Topic {
 
   render() {
     const {attrs, id} = this.props;
@@ -15,7 +15,7 @@ class Topic extends Component {
     return (
       <div className="topic">
         <h3>Harvested Area Versus Value of Production</h3>
-        <Viz type="Plot" config={{
+        <Plot config={{
           data: `${API}api/join/?show=crop&geo=${id}&sumlevel=lowest&required=harvested_area,value_of_production`,
           label: d => attrLookup[d.crop] ? attrLookup[d.crop].name : d.crop,
           legend: false,
@@ -38,4 +38,4 @@ class Topic extends Component {
 
 export default connect(state => ({
   attrs: state.attrs.crop
-}), {})(Topic);
+}), {})(CropsAreaVsValue);

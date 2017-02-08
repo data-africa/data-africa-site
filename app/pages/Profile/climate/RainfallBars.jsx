@@ -1,12 +1,12 @@
-import React, {Component} from "react";
+import React from "react";
 import {connect} from "react-redux";
 
-import Viz from "canon/Viz.jsx";
-import "canon/Topic.css";
+import {BarChart} from "d3plus-react";
+import Topic from "canon/Topic";
 
 import {API} from ".env";
 
-class Topic extends Component {
+class RainfallBars extends Topic {
 
   render() {
     const {attrs, focus, id} = this.props;
@@ -14,7 +14,7 @@ class Topic extends Component {
     return (
       <div className="topic">
         <h3>Rainfall by Location</h3>
-        <Viz type="BarChart" config={{
+        <BarChart config={{
           barPadding: 5,
           data: `${API}api/join/?show=geo&geo=${ focus.join(",") }sumlevel=all&required=rainfall_awa_mm`,
           discrete: "y",
@@ -42,4 +42,4 @@ class Topic extends Component {
 export default connect(state => ({
   attrs: state.attrs.geo,
   focus: state.focus
-}), {})(Topic);
+}), {})(RainfallBars);

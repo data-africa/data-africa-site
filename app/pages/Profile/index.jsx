@@ -8,7 +8,7 @@ import {strip} from "d3plus-text";
 
 import "canon/Section.css";
 import Stat from "canon/Stat";
-import Viz from "canon/Viz.jsx";
+import {Geomap} from "d3plus-react";
 
 import CropsAreaVsValue from "./agriculture/CropsAreaVsValue";
 import CropsByHarvest from "./agriculture/CropsByHarvest";
@@ -80,7 +80,7 @@ class Profile extends Component {
           </div>
 
           <div className="header">
-            <Viz type="Geomap" config={{
+            <Geomap config={{
               ocean: "transparent",
               padding: 0,
               shapeConfig: {Path: {
