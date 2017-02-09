@@ -17,7 +17,7 @@ const commonLoaders = [
       presets: ["react-hmre", "es2015", "react", "stage-0"],
       plugins: ["transform-decorators-legacy"]
     },
-    include: appPath,
+    include: [appPath, path.join(__dirname, "../src")],
     exclude: path.join(appDir, "node_modules")
   },
   {
@@ -46,9 +46,9 @@ function postCSSConfig() {
 module.exports = {
   devtool: "eval",
   name: "browser",
-  // context: appPath,
+  context: path.join(__dirname, "../src"),
   entry: {
-    app: [path.join(__dirname, "..", "client"), hotMiddlewareScript]
+    app: ["./client", hotMiddlewareScript]
   },
   output: {
     path: assetsPath,
@@ -59,7 +59,7 @@ module.exports = {
     loaders: commonLoaders
   },
   resolve: {
-    root: [appPath],
+    root: [appDir, appPath],
     extensions: ["", ".js", ".jsx", ".css"]
   },
   plugins: [

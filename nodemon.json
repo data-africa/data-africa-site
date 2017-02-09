@@ -1,5 +1,0 @@
-{
-  "verbose": false,
-  "watch": ["app"],
-  "exec": "npm run build:dev && npm run babel-node -- server.js"
-}

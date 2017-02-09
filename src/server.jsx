@@ -3,8 +3,8 @@ import {renderToString} from "react-dom/server";
 import {createMemoryHistory, match, RouterContext} from "react-router";
 import {Provider} from "react-redux";
 import createRoutes from "routes";
-import configureStore from "canon/store/storeConfig";
-import preRenderMiddleware from "canon/middlewares/preRenderMiddleware";
+import configureStore from "./store/storeConfig";
+import preRenderMiddleware from "./middlewares/preRenderMiddleware";
 
 import header from "./components/Meta";
 import {GOOGLE_ANALYTICS, NODE_ENV} from ".env";

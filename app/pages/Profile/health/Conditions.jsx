@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {titleCase} from "d3plus-text";
 
 import {BarChart} from "d3plus-react";
-import Topic from "canon/components/Topic";
+import Topic from "src/components/Topic";
 
 import {API} from ".env";
 import {FORMATTERS} from "helpers/formatters";

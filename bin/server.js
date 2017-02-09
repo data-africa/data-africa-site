@@ -6,20 +6,21 @@ import helmet from "helmet";
 import path from "path";
 import webpack from "webpack";
 
-import {API, ATTRS, NODE_ENV, PORT} from "./app/.env";
-import store from "./app/store";
+const appDir = process.cwd();
+const env = require(path.join(appDir, "app/.env"));
+const store = require(path.join(appDir, "app/store"));
 
 function start() {
 
-  const App = require("./static/assets/server");
+  const App = require(path.join(appDir, "static/assets/server"));
 
   console.log("\n🌐  Starting Express Server\n");
-  console.log(`   ⚙️  Environment: ${NODE_ENV}`);
+  console.log(`   ⚙️  Environment: ${env.NODE_ENV}`);
 
   const app = express();
 
-  if (NODE_ENV === "development") {
-    const webpackDevConfig = require("./app/canon/webpack/webpack.config.dev-client");
+  if (env.NODE_ENV === "development") {
+    const webpackDevConfig = require(path.join(__dirname, "../webpack/webpack.config.dev-client"));
     const compiler = webpack(webpackDevConfig);
     app.use(require("webpack-dev-middleware")(compiler, {
       noInfo: true,
@@ -28,45 +29,45 @@ function start() {
     app.use(require("webpack-hot-middleware")(compiler));
   }
 
-  app.set("port", PORT);
+  app.set("port", env.PORT);
 
-  if (NODE_ENV === "production") {
+  if (env.NODE_ENV === "production") {
     app.use(gzip());
     app.use(helmet());
   }
 
-  app.use(express.static(path.join(__dirname, "static")));
+  app.use(express.static(path.join(appDir, "static")));
 
   app.set("trust proxy", "loopback");
 
   app.use(flash());
 
   app.get("*", App.default(store));
-  app.listen(PORT);
+  app.listen(env.PORT);
 
-  console.log(`   ⚙️  Port: ${PORT}`);
+  console.log(`   ⚙️  Port: ${env.PORT}`);
   console.log("\n");
 
 }
 
-if (ATTRS === void 0) start();
+if (env.ATTRS === void 0) start();
 else {
 
-  axios.get(ATTRS)
+  axios.get(env.ATTRS)
     .then(res => {
 
       store.attrs = {};
 
       console.log("\n📚  Caching Attributes\n");
 
-      const promises = res.data.data.map(attr => axios.get(`${API}attrs/${attr}`)
+      const promises = res.data.data.map(attr => axios.get(`${env.API}attrs/${attr}`)
         .then(res => {
           console.log(`   ✔️️  Cached ${attr} attributes`);
           store.attrs[attr] = res.data;
           return res;
         })
         .catch(err => {
-          console.log(`   ❌  ${API}attrs/${attr} errored with code ${err.response.status}`);
+          console.log(`   ❌  ${env.API}attrs/${attr} errored with code ${err.response.status}`);
           return Promise.reject(err);
         }));
 

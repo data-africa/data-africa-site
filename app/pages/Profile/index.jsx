@@ -1,13 +1,13 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {fetchStats, fetchVars} from "actions/profile";
-import Sections from "canon/components/Sections";
+import Sections from "src/components/Sections";
 import "./intro.css";
 import "./sections.css";
 
 import {strip} from "d3plus-text";
 
-import Stat from "canon/components/Stat";
+import Stat from "src/components/Stat";
 import {Geomap} from "d3plus-react";
 
 import CropsAreaVsValue from "./agriculture/CropsAreaVsValue";

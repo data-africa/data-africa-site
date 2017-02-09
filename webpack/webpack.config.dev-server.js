@@ -15,7 +15,7 @@ const commonLoaders = [
       presets: ["es2015", "react", "stage-0"],
       plugins: ["transform-decorators-legacy"]
     },
-    include: appPath,
+    include: [appPath, path.join(__dirname, "../src")],
     exclude: path.join(appDir, "node_modules")
   },
   {
@@ -29,8 +29,8 @@ const commonLoaders = [
 module.exports = {
   // The configuration for the server-side rendering
   name: "server-side rendering",
-  context: appPath,
-  entry: {server: path.join(__dirname, "..", "server")},
+  context: path.join(__dirname, "../src"),
+  entry: {server: "./server"},
   target: "node",
   output: {
     path: assetsPath,
@@ -42,7 +42,7 @@ module.exports = {
     loaders: commonLoaders
   },
   resolve: {
-    root: [appPath],
+    root: [appDir, appPath],
     extensions: ["", ".js", ".jsx", ".css"]
   },
   plugins: [
