@@ -3,26 +3,23 @@ import {renderToString} from "react-dom/server";
 import {createMemoryHistory, match, RouterContext} from "react-router";
 import {Provider} from "react-redux";
 import createRoutes from "routes";
-import configureStore from "store/configureStore";
-import preRenderMiddleware from "middlewares/preRenderMiddleware";
-import header from "components/Meta";
-import {NODE_ENV} from ".env";
+import configureStore from "canon/store/storeConfig";
+import preRenderMiddleware from "canon/middlewares/preRenderMiddleware";
 
-const analtyicsScript =
-  typeof trackingID === "undefined" ? ""
+import header from "./components/Meta";
+import {GOOGLE_ANALYTICS, NODE_ENV} from ".env";
+
+const analtyicsScript = GOOGLE_ANALYTICS === void 0 ? ""
   : `<script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-      ga('create', ${trackingID}, 'auto');
+      ga('create', '${GOOGLE_ANALYTICS}', 'auto');
       ga('send', 'pageview');
     </script>`;
 
-/*
- * To Enable Google analytics simply replace the hashes with your tracking ID and move the constant to above the analtyicsScript constant.
- */
-const trackingID  = "'UA-########-#'";
+const cssLink = NODE_ENV === "production" ? "<link rel='stylesheet' type='text/css' href='/assets/styles.css'>" : "";
 
 export default function(defaultStore = {}) {
 
@@ -52,8 +49,6 @@ export default function(defaultStore = {}) {
             </Provider>
           );
 
-          const css = NODE_ENV === "production" ? "<link rel='stylesheet' type='text/css' href='/assets/styles.css'>" : "";
-
           res.status(200).send(`
             <!doctype html>
             <html ${header.htmlAttributes.toString()}>
@@ -61,7 +56,7 @@ export default function(defaultStore = {}) {
                 ${header.title.toString()}
                 ${header.meta.toString()}
                 ${header.link.toString()}
-                ${css}
+                ${cssLink}
               </head>
               <body>
                 <div id="app">${componentHTML}</div>

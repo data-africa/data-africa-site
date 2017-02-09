@@ -1,8 +1,10 @@
 const path = require("path");
+const appDir = process.cwd();
 const webpack = require("webpack");
 
-const assetsPath = path.join(__dirname, "..", "static", "assets");
+const assetsPath = path.join(appDir, "static", "assets");
 const publicPath = "/assets/";
+const appPath = path.join(appDir, "app");
 
 const hotMiddlewareScript = "webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true";
 
@@ -11,28 +13,31 @@ const commonLoaders = [
     test: /\.js$|\.jsx$/,
     loader: "babel-loader",
     query: {
+      compact: false,
       presets: ["react-hmre", "es2015", "react", "stage-0"],
       plugins: ["transform-decorators-legacy"]
     },
-    include: path.join(__dirname, "..", "app"),
-    exclude: path.join(__dirname, "..", "node_modules")
+    include: appPath,
+    exclude: path.join(appDir, "node_modules")
   },
   {
-    test: /\.json$/, loader: "json-loader"
+    test: /\.json$/, loader: "json"
   },
   {
-    test: /\.css$/, loader: "style!css!postcss-loader"
+    test: /\.css$/, loader: "style!css!postcss"
   }
 ];
 
 function postCSSConfig() {
   return [
     require("postcss-import")({
-      path: path.join(__dirname, "..", "app"),
+      path: appPath,
       addDependencyTo: webpack // for hot-reloading
     }),
+    require("postcss-css-variables")(),
     require("postcss-simple-vars")(),
     require("postcss-nesting")(),
+    require("postcss-conditionals")(),
     require("postcss-cssnext")({browsers: ["> 1%", "last 2 versions"]}),
     require("postcss-reporter")({clearMessages: true, filter: msg => msg.type === "warning" || msg.type !== "dependency"})
   ];
@@ -41,9 +46,9 @@ function postCSSConfig() {
 module.exports = {
   devtool: "eval",
   name: "browser",
-  context: path.join(__dirname, "..", "app"),
+  // context: appPath,
   entry: {
-    app: ["./client", hotMiddlewareScript]
+    app: [path.join(__dirname, "..", "client"), hotMiddlewareScript]
   },
   output: {
     path: assetsPath,
@@ -54,7 +59,7 @@ module.exports = {
     loaders: commonLoaders
   },
   resolve: {
-    root: [path.join(__dirname, "..", "app")],
+    root: [appPath],
     extensions: ["", ".js", ".jsx", ".css"]
   },
   plugins: [

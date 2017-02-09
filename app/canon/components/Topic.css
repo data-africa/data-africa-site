@@ -1,6 +1,9 @@
+@import "./variables";
+
 .topic {
 
   & h3 {
+    color: var(--test);
     font-size: 32px;
   }
 

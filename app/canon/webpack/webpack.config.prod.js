@@ -1,8 +1,10 @@
 const path = require("path");
+const appDir = process.cwd();
 const webpack = require("webpack");
 
-const assetsPath = path.join(__dirname, "..", "static", "assets");
+const assetsPath = path.join(appDir, "static", "assets");
 const publicPath = "/assets/";
+const appPath = path.join(appDir, "app");
 
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const InlineEnviromentVariablesPlugin = require("inline-environment-variables-webpack-plugin");
@@ -12,6 +14,7 @@ const commonLoaders = [
     test: /\.js$|\.jsx$/,
     loader: "babel-loader",
     query: {
+      compact: true,
       presets: ["es2015", "react", "stage-0"],
       plugins: [
         "transform-decorators-legacy",
@@ -20,23 +23,25 @@ const commonLoaders = [
         "transform-react-inline-elements"
       ]
     },
-    include: path.join(__dirname, "..", "app"),
-    exclude: path.join(__dirname, "..", "node_modules")
+    include: appPath,
+    exclude: path.join(appDir, "node_modules")
   },
   {
-    test: /\.json$/, loader: "json-loader"
+    test: /\.json$/, loader: "json"
   },
   {
     test: /\.css$/,
-    loader: ExtractTextPlugin.extract("style-loader", "css-loader!postcss-loader")
+    loader: ExtractTextPlugin.extract("style", "css!postcss")
   }
 ];
 
 function postCSSConfig() {
   return [
-    require("postcss-import")({path: path.join(__dirname, "..", "app")}),
+    require("postcss-import")({path: appPath}),
+    require("postcss-css-variables")(),
     require("postcss-simple-vars")(),
     require("postcss-nesting")(),
+    require("postcss-conditionals")(),
     require("postcss-cssnext")({browsers: ["> 1%", "last 2 versions"]}),
     require("postcss-reporter")({clearMessages: true, filter: msg => msg.type === "warning" || msg.type !== "dependency"})
   ];
@@ -46,8 +51,8 @@ module.exports = [
   {
     name: "browser",
     devtool: "cheap-module-source-map",
-    context: path.join(__dirname, "..", "app"),
-    entry: {app: "./client"},
+    context: appPath,
+    entry: {app: path.join(__dirname, "..", "client")},
     output: {
       path: assetsPath,
       filename: "[name].js",
@@ -57,7 +62,7 @@ module.exports = [
       loaders: commonLoaders
     },
     resolve: {
-      root: [path.join(__dirname, "..", "app")],
+      root: [appPath],
       extensions: ["", ".js", ".jsx", ".css"]
     },
     plugins: [
@@ -71,8 +76,8 @@ module.exports = [
   {
     // The configuration for the server-side rendering
     name: "server-side rendering",
-    context: path.join(__dirname, "..", "app"),
-    entry: {server: "./server"},
+    context: appPath,
+    entry: {server: "./canon/server"},
     target: "node",
     output: {
       path: assetsPath,
@@ -84,7 +89,7 @@ module.exports = [
       loaders: commonLoaders
     },
     resolve: {
-      root: [path.join(__dirname, "..", "app")],
+      root: [appPath],
       extensions: ["", ".js", ".jsx", ".css"]
     },
     plugins: [

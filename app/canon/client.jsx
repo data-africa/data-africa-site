@@ -4,8 +4,8 @@ import {Provider} from "react-redux";
 import {Router, browserHistory} from "react-router";
 import {syncHistoryWithStore} from "react-router-redux";
 import createRoutes from "routes";
-import configureStore from "store/configureStore";
-import preRenderMiddleware from "middlewares/preRenderMiddleware";
+import configureStore from "./store/storeConfig";
+import preRenderMiddleware from "./middlewares/preRenderMiddleware";
 
 const initialState = window.__INITIAL_STATE__;
 const store = configureStore(initialState, browserHistory);

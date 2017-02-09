@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {dataFold} from "d3plus-viz";
 
 import {BarChart} from "d3plus-react";
-import Topic from "canon/Topic";
+import Topic from "canon/components/Topic";
 
 import {API} from ".env";
 import {DICTIONARY} from "helpers/dictionary";
@@ -12,12 +12,12 @@ import {FORMATTERS} from "helpers/formatters";
 class Poverty extends Topic {
 
   render() {
-    const {id} = this.props;
+    const {profile} = this.props;
     return (
       <div className="topic">
         <h3>Poverty Level by Measure</h3>
         <BarChart config={{
-          data: `${API}api/join/?show=year&geo=${id}&required=poverty_level,hc,povgap,sevpov&sumlevel=latest_by_geo`,
+          data: `${API}api/join/?show=year&geo=${profile.id}&required=poverty_level,hc,povgap,sevpov&sumlevel=latest_by_geo`,
           discrete: "y",
           groupBy: "measure",
           label: d => `${DICTIONARY[d.measure]}`,

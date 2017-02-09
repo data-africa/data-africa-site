@@ -4,7 +4,7 @@ import {dataFold} from "d3plus-viz";
 import {titleCase} from "d3plus-text";
 
 import {BarChart} from "d3plus-react";
-import Topic from "canon/Topic";
+import Topic from "canon/components/Topic";
 
 import {API} from ".env";
 import {DICTIONARY} from "helpers/dictionary";
@@ -13,13 +13,13 @@ import {FORMATTERS} from "helpers/formatters";
 class PovertyByGender extends Topic {
 
   render() {
-    const {id} = this.props;
+    const {profile} = this.props;
     const povertyLevel = this.props.povertyLevel;
     return (
       <div className="topic">
         <h3>Poverty Measures by Gender {DICTIONARY[povertyLevel]}</h3>
         <BarChart config={{
-          data: `${API}api/join/?show=year,gender&geo=${id}&required=poverty_level,hc,povgap,sevpov&sumlevel=latest_by_geo,all&poverty_level=${povertyLevel}`,
+          data: `${API}api/join/?show=year,gender&geo=${profile.id}&required=poverty_level,hc,povgap,sevpov&sumlevel=latest_by_geo,all&poverty_level=${povertyLevel}`,
           discrete: "y",
           groupBy: ["gender", "poverty_level"],
           label: d => `${titleCase(d.gender)} ${DICTIONARY[d.measure]}`,

@@ -1,6 +1,8 @@
 import React from "react";
 import {Route, IndexRoute} from "react-router";
 
+import store from "store";
+
 import App from "components/App";
 import Home from "pages/Home";
 import Profile from "pages/Profile";
@@ -8,10 +10,7 @@ import NotFound from "pages/NotFound";
 
 export default function RouteCreate() {
 
-  function genRandId() {
-    const candidates = ["040AF00094", "040AF00253", "040AF00170", "040AF00217", "040AF00042", "040AF00152", "040AF00270", "040AF00257", "040AF00079", "040AF00205", "040AF00182", "040AF00133"];
-    return candidates[Math.floor(Math.random() * candidates.length)];
-  }
+  const genRandId = () => store.focus[Math.floor(Math.random() * store.focus.length)];
 
   function checkForId(nextState, replaceState) {
 

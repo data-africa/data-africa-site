@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {titleCase} from "d3plus-text";
 
 import {BarChart} from "d3plus-react";
-import Topic from "canon/Topic";
+import Topic from "canon/components/Topic";
 
 import {API} from ".env";
 import {FORMATTERS} from "helpers/formatters";
@@ -11,12 +11,12 @@ import {FORMATTERS} from "helpers/formatters";
 class ConditionsByResidence extends Topic {
 
   render() {
-    const {id} = this.props;
+    const {profile} = this.props;
     return (
       <div className="topic">
         <h3>Health Condition Severity by Residence</h3>
         <BarChart config={{
-          data: `${API}api/join/?show=condition,residence&geo=${ id }&required=condition,severity,proportion_of_children`,
+          data: `${API}api/join/?show=condition,residence&geo=${ profile.id }&required=condition,severity,proportion_of_children`,
           discrete: "y",
           groupBy: ["residence", "severity"],
           label: d => d.condition instanceof Array ? titleCase(d.severity) : `${titleCase(d.severity)}ly ${titleCase(d.condition)} Children in ${titleCase(d.residence)} Areas`,

@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 
-import Topic from "canon/Topic";
+import Topic from "canon/components/Topic";
 import {Plot} from "d3plus-react";
 
 import {API} from ".env";
@@ -10,14 +10,13 @@ import {VARIABLES} from "helpers/formatters";
 class CropsAreaVsValue extends Topic {
 
   render() {
-    const {attrs, id} = this.props;
-    const attrLookup = attrs.reduce((obj, d) => (obj[d.id] = d, obj), {});
+    const {attrs, profile} = this.props;
     return (
       <div className="topic">
         <h3>Harvested Area Versus Value of Production</h3>
         <Plot config={{
-          data: `${API}api/join/?show=crop&geo=${id}&sumlevel=lowest&required=harvested_area,value_of_production`,
-          label: d => attrLookup[d.crop] ? attrLookup[d.crop].name : d.crop,
+          data: `${API}api/join/?show=crop&geo=${profile.id}&sumlevel=lowest&required=harvested_area,value_of_production`,
+          label: d => attrs[d.crop] ? attrs[d.crop].name : d.crop,
           legend: false,
           groupBy: "crop",
           x: "harvested_area",

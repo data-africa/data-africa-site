@@ -1,13 +1,13 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {fetchStats, fetchVars} from "actions/profile";
+import Sections from "canon/components/Sections";
 import "./intro.css";
 import "./sections.css";
 
 import {strip} from "d3plus-text";
 
-import "canon/Section.css";
-import Stat from "canon/Stat";
+import Stat from "canon/components/Stat";
 import {Geomap} from "d3plus-react";
 
 import CropsAreaVsValue from "./agriculture/CropsAreaVsValue";
@@ -66,16 +66,15 @@ class Profile extends Component {
 
     const {id} = this.props.params;
     const {attrs, focus, stats} = this.props;
-    const geos = attrs.geo.reduce((obj, d) => (obj[d.id] = d, obj), {});
-    const attr = geos[id];
-    const focusISO = focus.map(f => geos[f].iso3);
+    const attr = attrs.geo[id];
+    const focusISO = focus.map(f => attrs.geo[f].iso3);
 
     return (
       <div className="profile">
 
         <div className="intro">
 
-          <div className="splash" style={{backgroundImage: `url('/images/geo/${id}.jpg')`}}>
+          <div className="splash" style={{backgroundImage: `url('/images/geo/${attr.id}.jpg')`}}>
             <div className="gradient"></div>
           </div>
 
@@ -94,9 +93,10 @@ class Profile extends Component {
             }} />
             <div className="meta">
               <div className="title">{ attr.name }</div>
-              { stats.map(stat => <Stat key={ stat.key } label={ stat.label } value={ stat.attr ? attrs[stat.attr].find(d => d.id === stat.value).name : stat.value } />) }
+              { stats.map(stat => <Stat key={ stat.key } label={ stat.label } value={ stat.attr ? attrs[stat.attr][stat.value].name : stat.value } />) }
             </div>
           </div>
+
           <div className="subnav">
             { sections.map(s =>
               <a className="sublink" href={ `#${s.slug}` } key={ s.slug }>
@@ -104,26 +104,10 @@ class Profile extends Component {
                 { s.title }
               </a>) }
           </div>
-        </div>
-
-        <div className="sections">
-
-          {
-            sections.map(s => <div className="section" key={ s.slug }>
-              <h2><a name={ s.slug } href={ `#${ s.slug }`}>{ s.title }</a></h2>
-              { s.topics.map((Comp, i) => {
-                let params = {};
-                if (Array.isArray(Comp)) {
-                  [Comp, params] = Comp;
-                }
-                const defaultParams = {id, profile: attr, key: i, ...params};
-                return React.createElement(Comp, defaultParams, null);
-              }
-            )}
-            </div>)
-          }
 
         </div>
+
+        <Sections data={sections} profile={attr} />
 
       </div>
     );

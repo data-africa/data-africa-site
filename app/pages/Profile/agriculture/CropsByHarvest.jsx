@@ -2,7 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 
 import {Treemap} from "d3plus-react";
-import Topic from "canon/Topic";
+import Topic from "canon/components/Topic";
 
 import {VARIABLES} from "helpers/formatters";
 
@@ -40,6 +40,6 @@ class CropsByHarvest extends Topic {
 }
 
 export default connect(state => ({
-  attrs: state.attrs.crop.reduce((obj, d) => (obj[d.id] = d, obj), {}),
+  attrs: state.attrs.crop,
   vars: state.profile.vars.crop
 }), {})(CropsByHarvest);

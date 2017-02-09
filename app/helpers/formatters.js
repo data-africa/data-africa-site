@@ -15,10 +15,7 @@ function abbreviate(n) {
 
 export const FORMATTERS = {
   commas: format(","),
-  share: format(".2%"),
-  shareWhole: format(".0%"),
   date: timeFormat("%B %d, %Y"),
-  year: y => y < 0 ? `${Math.abs(y)} BC` : y,
   ordinal: n => {
     if (n > 3 && n < 21) return `${n}th`; // thanks kennebec
     switch (n % 10) {
@@ -27,7 +24,10 @@ export const FORMATTERS = {
       case 3: return `${n}rd`;
       default: return `${n}th`;
     }
-  }
+  },
+  share: format(".2%"),
+  shareWhole: format(".0%"),
+  year: y => y < 0 ? `${Math.abs(y)} BC` : y
 };
 
 export const VARIABLES = {

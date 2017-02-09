@@ -1,33 +1,36 @@
 const path = require("path");
+const appDir = process.cwd();
 const webpack = require("webpack");
 
-const assetsPath = path.join(__dirname, "..", "static", "assets");
+const assetsPath = path.join(appDir, "static", "assets");
 const publicPath = "/assets/";
+const appPath = path.join(appDir, "app");
 
 const commonLoaders = [
   {
     test: /\.js$|\.jsx$/,
     loader: "babel-loader",
     query: {
+      compact: false,
       presets: ["es2015", "react", "stage-0"],
       plugins: ["transform-decorators-legacy"]
     },
-    include: path.join(__dirname, "..", "app"),
-    exclude: path.join(__dirname, "..", "node_modules")
+    include: appPath,
+    exclude: path.join(appDir, "node_modules")
   },
   {
-    test: /\.json$/, loader: "json-loader"
+    test: /\.json$/, loader: "json"
   },
   {
-    test: /\.css$/, loader: "css"
+    test: /\.css$/, loader: "css?modules&importLoaders=1"
   }
 ];
 
 module.exports = {
   // The configuration for the server-side rendering
   name: "server-side rendering",
-  context: path.join(__dirname, "..", "app"),
-  entry: {server: "./server"},
+  context: appPath,
+  entry: {server: path.join(__dirname, "..", "server")},
   target: "node",
   output: {
     path: assetsPath,
@@ -39,7 +42,7 @@ module.exports = {
     loaders: commonLoaders
   },
   resolve: {
-    root: [path.join(__dirname, "..", "app")],
+    root: [appPath],
     extensions: ["", ".js", ".jsx", ".css"]
   },
   plugins: [

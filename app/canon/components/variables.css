@@ -1,0 +1,12 @@
+@import "variables.css";
+
+:root {
+
+  $background: -10;
+  $foreground: 10;
+  $cover: 20;
+
+  --dark: rgb(61, 71, 55);
+  --accent: var(--accent, color(var(--dark) l(50%)));
+
+}

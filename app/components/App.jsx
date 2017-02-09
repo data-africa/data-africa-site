@@ -19,7 +19,7 @@ class App extends Component {
       <div className="container">
         { searchActive ? <Search /> : null }
         <Nav />
-        {children}
+        { children }
         <Footer />
       </div>
     );
