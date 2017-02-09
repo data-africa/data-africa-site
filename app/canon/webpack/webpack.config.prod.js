@@ -77,7 +77,7 @@ module.exports = [
     // The configuration for the server-side rendering
     name: "server-side rendering",
     context: appPath,
-    entry: {server: "./canon/server"},
+    entry: {server: path.join(__dirname, "..", "server")},
     target: "node",
     output: {
       path: assetsPath,
