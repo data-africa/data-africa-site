@@ -1,10 +1,5 @@
 {
   "verbose": false,
-  "watch": [
-    "app",
-    "server.js",
-    "webpack/webpack.config.dev-client.js",
-    "webpack/webpack.config.dev-server.js"
-  ],
+  "watch": ["app"],
   "exec": "npm run build:dev && npm run babel-node -- server.js"
 }
