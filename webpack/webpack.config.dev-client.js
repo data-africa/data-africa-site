@@ -5,6 +5,7 @@ const webpack = require("webpack");
 const assetsPath = path.join(appDir, "static", "assets");
 const publicPath = "/assets/";
 const appPath = path.join(appDir, "app");
+const variables = require(path.join(appPath, "style.js"));
 
 const hotMiddlewareScript = "webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true";
 
@@ -34,8 +35,7 @@ function postCSSConfig() {
       path: appPath,
       addDependencyTo: webpack // for hot-reloading
     }),
-    require("postcss-custom-properties")(),
-    require("postcss-simple-vars")(),
+    require("postcss-custom-properties")({variables}),
     require("postcss-nesting")(),
     require("postcss-conditionals")(),
     require("postcss-cssnext")({browsers: ["> 1%", "last 2 versions"]}),

@@ -1,5 +1,3 @@
-@import "variables";
-
 .home {
 
   & .title {
@@ -12,7 +10,7 @@
   }
 
   & .splash {
-    background-color: $dark;
+    background-color: var(--dark);
     height: 100vh;
     left: 0;
     position: absolute;

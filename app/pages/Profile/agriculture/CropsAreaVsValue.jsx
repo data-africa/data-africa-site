@@ -1,19 +1,21 @@
-import React from "react";
+import React, {Component} from "react";
 import {connect} from "react-redux";
 
-import Section from "src/components/Section";
 import {Plot} from "d3plus-react";
+import Section from "src/components/Section";
 
-import {API} from ".env";
 import {VARIABLES} from "helpers/formatters";
 
-class CropsAreaVsValue extends Section {
+import {API} from ".env";
+
+class CropsAreaVsValue extends Component {
 
   render() {
+
     const {attrs, profile} = this.props;
+
     return (
-      <div className="section">
-        <h3>Harvested Area Versus Value of Production</h3>
+      <Section title="Harvested Area Versus Value of Production">
         <Plot config={{
           data: `${API}api/join/?show=crop&geo=${profile.id}&sumlevel=lowest&required=harvested_area,value_of_production`,
           label: d => attrs[d.crop] ? attrs[d.crop].name : d.crop,
@@ -30,7 +32,7 @@ class CropsAreaVsValue extends Section {
             title: "Value of Production"
           }
         }} />
-      </div>
+      </Section>
     );
   }
 }

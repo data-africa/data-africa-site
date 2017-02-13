@@ -1,12 +1,10 @@
-@import "variables.css";
-
 .nav {
   margin: 0 auto;
   position: absolute;
   left: 10%;
   top: 0;
   width: 80%;
-  z-index: $foreground;
+  z-index: var(--foreground);
 
   & .search-btn {
     display: inline-block;
@@ -33,7 +31,7 @@
     }
 
     & .africa {
-      color: $accent;
+      color: var(--light);
       margin-left: 5px;
     }
 

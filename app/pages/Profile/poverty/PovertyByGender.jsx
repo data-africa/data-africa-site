@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Component} from "react";
 import {connect} from "react-redux";
 import {dataFold} from "d3plus-viz";
 import {titleCase} from "d3plus-text";
@@ -10,14 +10,13 @@ import {API} from ".env";
 import {DICTIONARY} from "helpers/dictionary";
 import {FORMATTERS} from "helpers/formatters";
 
-class PovertyByGender extends Section {
+class PovertyByGender extends Component {
 
   render() {
     const {profile} = this.props;
     const povertyLevel = this.props.povertyLevel;
     return (
-      <div className="section">
-        <h3>Poverty Measures by Gender {DICTIONARY[povertyLevel]}</h3>
+      <Section title={ `Poverty Measures by Gender ${ DICTIONARY[povertyLevel] }` }>
         <BarChart config={{
           data: `${API}api/join/?show=year,gender&geo=${profile.id}&required=poverty_level,hc,povgap,sevpov&sumlevel=latest_by_geo,all&poverty_level=${povertyLevel}`,
           discrete: "y",
@@ -69,7 +68,7 @@ class PovertyByGender extends Section {
           });
           return arr;
         }, [])} />
-      </div>
+    </Section>
     );
   }
 }

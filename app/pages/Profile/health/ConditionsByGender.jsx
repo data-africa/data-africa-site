@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Component} from "react";
 import {connect} from "react-redux";
 import {titleCase} from "d3plus-text";
 
@@ -8,13 +8,12 @@ import Section from "src/components/Section";
 import {API} from ".env";
 import {FORMATTERS} from "helpers/formatters";
 
-class ConditionsByGender extends Section {
+class ConditionsByGender extends Component {
 
   render() {
     const {profile} = this.props;
     return (
-      <div className="section">
-        <h3>Health Condition Severity by Gender</h3>
+      <Section title="Health Condition Severity by Gender">
         <BarChart config={{
           data: `${API}api/join/?show=condition,gender&geo=${ profile.id }&required=condition,severity,proportion_of_children`,
           discrete: "y",
@@ -40,7 +39,7 @@ class ConditionsByGender extends Section {
             title: "Condition"
           }
         }} />
-      </div>
+    </Section>
     );
   }
 }

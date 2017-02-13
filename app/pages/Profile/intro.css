@@ -1,6 +1,5 @@
-@import "variables";
-
 .profile {
+  font-family: var(--font-family);
 
   & .intro {
     color: white;
@@ -15,10 +14,10 @@
       position: absolute;
       top: 0;
       width: 100%;
-      z-index: $background;
+      z-index: var(--background);
 
       & .gradient {
-        background: linear-gradient(0deg, $dark, color($dark alpha(-50%)));
+        background: linear-gradient(0deg, var(--dark), color(var(--dark) alpha(-50%)));
         bottom: 0;
         left: 0;
         position: absolute;

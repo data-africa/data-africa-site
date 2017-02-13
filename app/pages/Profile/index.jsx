@@ -3,7 +3,6 @@ import {connect} from "react-redux";
 import {fetchStats, fetchVars} from "actions/profile";
 import Topics from "src/components/Topics";
 import "./intro.css";
-import "./topic.css";
 
 import {strip} from "d3plus-text";
 

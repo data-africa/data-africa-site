@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Component} from "react";
 import {connect} from "react-redux";
 import {dataFold} from "d3plus-viz";
 
@@ -9,13 +9,12 @@ import {API} from ".env";
 import {DICTIONARY} from "helpers/dictionary";
 import {FORMATTERS} from "helpers/formatters";
 
-class Poverty extends Section {
+class Poverty extends Component {
 
   render() {
     const {profile} = this.props;
     return (
-      <div className="section">
-        <h3>Poverty Level by Measure</h3>
+      <Section title="Poverty Level by Measure">
         <BarChart config={{
           data: `${API}api/join/?show=year&geo=${profile.id}&required=poverty_level,hc,povgap,sevpov&sumlevel=latest_by_geo`,
           discrete: "y",
@@ -63,7 +62,7 @@ class Poverty extends Section {
           });
           return arr;
         }, [])} />
-      </div>
+    </Section>
     );
   }
 }

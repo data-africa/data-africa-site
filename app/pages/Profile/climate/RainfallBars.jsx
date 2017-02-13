@@ -1,19 +1,17 @@
-import React from "react";
+import React, {Component} from "react";
 import {connect} from "react-redux";
 
-import {dataFold} from "d3plus-viz";
 import {BarChart} from "d3plus-react";
 import Section from "src/components/Section";
 
 import {API} from ".env";
 
-class RainfallBars extends Section {
+class RainfallBars extends Component {
 
   render() {
     const {attrs, focus, profile} = this.props;
     return (
-      <div className="section">
-        <h3>Rainfall by Location</h3>
+      <Section title="Rainfall by Location">
         <BarChart config={{
           barPadding: 5,
           data: `${API}api/join/?show=geo&geo=${ focus.join(",") }sumlevel=all&required=rainfall_awa_mm`,
@@ -34,7 +32,7 @@ class RainfallBars extends Section {
             title: "Locations"
           }
         }} />
-      </div>
+    </Section>
     );
   }
 }
