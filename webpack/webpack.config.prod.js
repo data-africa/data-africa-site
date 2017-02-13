@@ -38,7 +38,7 @@ const commonLoaders = [
 function postCSSConfig() {
   return [
     require("postcss-import")({path: appPath}),
-    require("postcss-css-variables")(),
+    require("postcss-custom-properties")(),
     require("postcss-simple-vars")(),
     require("postcss-nesting")(),
     require("postcss-conditionals")(),

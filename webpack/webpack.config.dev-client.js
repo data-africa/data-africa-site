@@ -34,7 +34,7 @@ function postCSSConfig() {
       path: appPath,
       addDependencyTo: webpack // for hot-reloading
     }),
-    require("postcss-css-variables")(),
+    require("postcss-custom-properties")(),
     require("postcss-simple-vars")(),
     require("postcss-nesting")(),
     require("postcss-conditionals")(),
