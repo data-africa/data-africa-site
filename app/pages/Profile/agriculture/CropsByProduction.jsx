@@ -3,13 +3,13 @@ import {connect} from "react-redux";
 
 import {dataFold} from "d3plus-viz";
 import {Treemap} from "d3plus-react";
-import Topic from "src/components/Topic";
+import Section from "src/components/Section";
 
 import {VARIABLES} from "helpers/formatters";
 
 import {API} from ".env";
 
-class CropsByProduction extends Topic {
+class CropsByProduction extends Section {
 
   render() {
     const {attrs, profile, vars} = this.props;
@@ -20,7 +20,7 @@ class CropsByProduction extends Topic {
     });
 
     return (
-      <div className="topic">
+      <div className="section">
         <h3>Crops by Production Value</h3>
         <div className="side-by-side">
           <div className="text">

@@ -1,18 +1,18 @@
 import React from "react";
 import {connect} from "react-redux";
 
-import Topic from "src/components/Topic";
+import Section from "src/components/Section";
 import {Plot} from "d3plus-react";
 
 import {API} from ".env";
 import {VARIABLES} from "helpers/formatters";
 
-class CropsAreaVsValue extends Topic {
+class CropsAreaVsValue extends Section {
 
   render() {
     const {attrs, profile} = this.props;
     return (
-      <div className="topic">
+      <div className="section">
         <h3>Harvested Area Versus Value of Production</h3>
         <Plot config={{
           data: `${API}api/join/?show=crop&geo=${profile.id}&sumlevel=lowest&required=harvested_area,value_of_production`,

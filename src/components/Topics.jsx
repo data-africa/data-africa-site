@@ -1,20 +1,20 @@
 import React, {Component} from "react";
-import "./Section.css";
+import "./Topics.css";
 
-class Sections extends Component {
+class Topics extends Component {
 
   render() {
     const {data, profile} = this.props;
 
     return (
-      <div className="sections">
+      <div className="topics">
 
         {
           data.map(s =>
-            <div className="section" key={ s.slug }>
+            <div className="topic" key={ s.slug }>
               <h2><a name={ s.slug } href={ `#${ s.slug }`}>{ s.title }</a></h2>
               {
-                s.topics.map((Comp, i) => {
+                s.sections.map((Comp, i) => {
                   let params = {};
                   if (Array.isArray(Comp)) [Comp, params] = Comp;
                   return React.createElement(Comp, {profile, key: i, ...params}, null);
@@ -30,5 +30,5 @@ class Sections extends Component {
 
 }
 
-Sections.defaultProps = {data: [], profile: {}};
-export default Sections;
+Topics.defaultProps = {data: [], profile: {}};
+export default Topics;

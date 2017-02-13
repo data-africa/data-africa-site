@@ -3,16 +3,16 @@ import {connect} from "react-redux";
 
 import {dataFold} from "d3plus-viz";
 import {BarChart} from "d3plus-react";
-import Topic from "src/components/Topic";
+import Section from "src/components/Section";
 
 import {API} from ".env";
 
-class RainfallBars extends Topic {
+class RainfallBars extends Section {
 
   render() {
     const {attrs, focus, profile} = this.props;
     return (
-      <div className="topic">
+      <div className="section">
         <h3>Rainfall by Location</h3>
         <BarChart config={{
           barPadding: 5,

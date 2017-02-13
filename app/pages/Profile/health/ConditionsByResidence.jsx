@@ -3,17 +3,17 @@ import {connect} from "react-redux";
 import {titleCase} from "d3plus-text";
 
 import {BarChart} from "d3plus-react";
-import Topic from "src/components/Topic";
+import Section from "src/components/Section";
 
 import {API} from ".env";
 import {FORMATTERS} from "helpers/formatters";
 
-class ConditionsByResidence extends Topic {
+class ConditionsByResidence extends Section {
 
   render() {
     const {profile} = this.props;
     return (
-      <div className="topic">
+      <div className="section">
         <h3>Health Condition Severity by Residence</h3>
         <BarChart config={{
           data: `${API}api/join/?show=condition,residence&geo=${ profile.id }&required=condition,severity,proportion_of_children`,

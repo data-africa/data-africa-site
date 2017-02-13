@@ -1,7 +1,26 @@
+@import "./variables";
+
 .section {
 
-  & h2 {
-    font-size: 48px;
+  & h3 {
+    font-size: 32px;
+  }
+
+  & .side-by-side {
+    display: flex;
+    width: 100%;
+
+    & .text {
+      flex: none;
+      margin-right: 25px;
+      width: 250px;
+    }
+
+  }
+
+  & .viz {
+    flex: 1;
+    min-height: 400px;
   }
 
 }

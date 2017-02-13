@@ -4,19 +4,19 @@ import {dataFold} from "d3plus-viz";
 import {titleCase} from "d3plus-text";
 
 import {BarChart} from "d3plus-react";
-import Topic from "src/components/Topic";
+import Section from "src/components/Section";
 
 import {API} from ".env";
 import {DICTIONARY} from "helpers/dictionary";
 import {FORMATTERS} from "helpers/formatters";
 
-class PovertyByGender extends Topic {
+class PovertyByGender extends Section {
 
   render() {
     const {profile} = this.props;
     const povertyLevel = this.props.povertyLevel;
     return (
-      <div className="topic">
+      <div className="section">
         <h3>Poverty Measures by Gender {DICTIONARY[povertyLevel]}</h3>
         <BarChart config={{
           data: `${API}api/join/?show=year,gender&geo=${profile.id}&required=poverty_level,hc,povgap,sevpov&sumlevel=latest_by_geo,all&poverty_level=${povertyLevel}`,

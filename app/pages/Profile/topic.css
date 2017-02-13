@@ -2,7 +2,7 @@
 
 .profile {
 
-  & .sections {
+  & .topics {
     margin: 50px;
 
     & h2 > a {
@@ -10,7 +10,7 @@
       text-decoration: none;
     }
 
-    & .section {
+    & .topic {
       margin: 25px 0;
     }
 

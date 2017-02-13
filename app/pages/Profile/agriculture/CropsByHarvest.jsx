@@ -2,13 +2,13 @@ import React from "react";
 import {connect} from "react-redux";
 
 import {Treemap} from "d3plus-react";
-import Topic from "src/components/Topic";
+import Section from "src/components/Section";
 
 import {VARIABLES} from "helpers/formatters";
 
 import {API} from ".env";
 
-class CropsByHarvest extends Topic {
+class CropsByHarvest extends Section {
 
   render() {
 
@@ -20,7 +20,7 @@ class CropsByHarvest extends Topic {
     });
 
     return (
-      <div className="topic">
+      <div className="section">
         <h3>Crops by Harvested Area</h3>
         <div className="side-by-side">
           <div className="text">

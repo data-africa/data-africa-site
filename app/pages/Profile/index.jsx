@@ -1,9 +1,9 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {fetchStats, fetchVars} from "actions/profile";
-import Sections from "src/components/Sections";
+import Topics from "src/components/Topics";
 import "./intro.css";
-import "./sections.css";
+import "./topic.css";
 
 import {strip} from "d3plus-text";
 
@@ -23,10 +23,10 @@ import ConditionsByResidence from "./health/ConditionsByResidence";
 import Poverty from "./poverty/Poverty";
 import PovertyByGender from "./poverty/PovertyByGender";
 
-const sections = [
+const topics = [
   {
     title: "Agriculture",
-    topics: [
+    sections: [
       CropsByHarvest,
       CropsByProduction,
       CropsAreaVsValue
@@ -34,13 +34,13 @@ const sections = [
   },
   {
     title: "Climate",
-    topics: [
+    sections: [
       RainfallBars
     ]
   },
   {
     title: "Health",
-    topics: [
+    sections: [
       Conditions,
       ConditionsByGender,
       ConditionsByResidence
@@ -48,7 +48,7 @@ const sections = [
   },
   {
     title: "Poverty",
-    topics: [
+    sections: [
       Poverty,
       [PovertyByGender, {povertyLevel: "ppp1"}],
       [PovertyByGender, {povertyLevel: "ppp2"}]
@@ -56,8 +56,9 @@ const sections = [
   }
 ];
 
-sections.forEach(s => {
+topics.forEach(s => {
   s.slug = strip(s.title).toLowerCase();
+  s.image = `/images/topics/${s.slug}.svg`;
 });
 
 class Profile extends Component {
@@ -98,16 +99,16 @@ class Profile extends Component {
           </div>
 
           <div className="subnav">
-            { sections.map(s =>
+            { topics.map(s =>
               <a className="sublink" href={ `#${s.slug}` } key={ s.slug }>
-                <img className="icon" src={ `/images/sections/${s.slug}.svg` } />
+                <img className="icon" src={ s.image } />
                 { s.title }
               </a>) }
           </div>
 
         </div>
 
-        <Sections data={sections} profile={attr} />
+        <Topics data={topics} profile={attr} />
 
       </div>
     );
