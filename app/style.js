@@ -9,4 +9,4 @@ module.exports = {
   "foreground": "10",
   "cover": "20"
 
-}
+};

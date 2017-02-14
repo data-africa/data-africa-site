@@ -1,12 +1,10 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {fetchStats, fetchVars} from "actions/profile";
-import Topics from "src/components/Topics";
+import {Stat, Topics} from "datawheel-canon";
 import "./intro.css";
 
 import {strip} from "d3plus-text";
-
-import Stat from "src/components/Stat";
 import {Geomap} from "d3plus-react";
 
 import CropsAreaVsValue from "./agriculture/CropsAreaVsValue";

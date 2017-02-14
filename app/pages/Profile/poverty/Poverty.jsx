@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import {dataFold} from "d3plus-viz";
 
 import {BarChart} from "d3plus-react";
-import Section from "src/components/Section";
+import {Section} from "datawheel-canon";
 
 import {API} from ".env";
 import {DICTIONARY} from "helpers/dictionary";

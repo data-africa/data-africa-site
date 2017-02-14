@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 
 import {Treemap} from "d3plus-react";
-import SectionColumns from "src/components/Section";
+import {SectionColumns} from "datawheel-canon";
 
 import {VARIABLES} from "helpers/formatters";
 
