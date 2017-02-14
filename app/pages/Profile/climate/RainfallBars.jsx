@@ -10,10 +10,9 @@ class RainfallBars extends Component {
 
   render() {
     const {attrs, focus, profile} = this.props;
-    const countryUrl = `${API}api/join/?show=geo&geo=${ focus.join(",") }sumlevel=all&required=rainfall_awa_mm`;
-    const provinceUrl = `${API}api/join/?show=geo&neighbors=${ profile.id }&sumlevel=all&required=rainfall_awa_mm`;
     const sumlevel = attrs[profile.id].level;
-    const apiUrl = sumlevel === "adm0" ? countryUrl : provinceUrl;
+    const param = sumlevel === "adm0" ? `geo=${ focus.join(",") }` : `neighbors=${ profile.id }`;
+    const apiUrl = `${API}api/join/?show=geo&${param}&sumlevel=all&required=rainfall_awa_mm`;
 
     return (
       <Section title="Rainfall by Location">
