@@ -66,6 +66,7 @@ class Profile extends Component {
     const {attrs, focus, stats} = this.props;
     const attr = attrs.geo[id];
     const focusISO = focus.map(f => attrs.geo[f].iso3);
+    const topoPath = attr.level === "adm0" ? "/topojson/continent.json" : "/topojson/cell5m/adm1.json";
 
     return (
       <div className="profile">
@@ -85,7 +86,7 @@ class Profile extends Component {
                 stroke: "rgba(255, 255, 255, 0.25)"
               }},
               tiles: false,
-              topojson: "/topojson/continent.json",
+              topojson: topoPath,
               topojsonKey: "collection",
               zoom: false
             }} />
