@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {Plot} from "d3plus-react";
 import pluralize from "pluralize";
 
+import {fetchData} from "actions/profile";
 import {VARIABLES, FORMATTERS} from "helpers/formatters";
 import {SectionColumns} from "datawheel-canon";
 
@@ -11,11 +12,11 @@ class CropsAreaVsValue extends Component {
 
   render() {
 
-    const {attrs, profile, vars} = this.props;
-    let crops = vars.harvested_area.slice();
+    const {data, profile} = this.props;
+    let crops = data.slice();
     crops = crops.filter(c => c.harvested_area && c.harvested_area > 0);
     crops.forEach(c => {
-      c.name = attrs[c.crop] ? pluralize.plural(attrs[c.crop].name) : c.crop;
+      c.name = c.crop_name ? pluralize.plural(c.crop_name) : c.crop;
       c.density = c.value_of_production / c.harvested_area;
     });
     crops.sort((a, b) => b.density - a.density);
@@ -31,7 +32,7 @@ class CropsAreaVsValue extends Component {
       </article>
         <Plot config={{
           data: crops,
-          label: d => attrs[d.crop] ? attrs[d.crop].name : d.crop,
+          label: d => d.name,
           legend: false,
           groupBy: "crop",
           x: "harvested_area",
@@ -50,7 +51,10 @@ class CropsAreaVsValue extends Component {
   }
 }
 
+CropsAreaVsValue.need = [
+  fetchData("harvested_area", "api/join/?geo=<id>&show=crop&required=harvested_area,value_of_production&order=harvested_area&sort=desc&display_names=true")
+];
+
 export default connect(state => ({
-  attrs: state.attrs.crop,
-  vars: state.profile.vars.crop
+  data: state.profile.data.harvested_area
 }), {})(CropsAreaVsValue);

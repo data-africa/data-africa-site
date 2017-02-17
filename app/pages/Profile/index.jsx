@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {fetchStats, fetchVars} from "actions/profile";
+import {fetchStats} from "actions/profile";
 import {Stat, Topics} from "datawheel-canon";
 import "./intro.css";
 
@@ -127,9 +127,20 @@ class Profile extends Component {
 }
 
 Profile.need = [
-  fetchStats,
-  fetchVars
+  fetchStats
 ];
+
+const needKeys = [];
+topics.forEach(topic => {
+  topic.sections.forEach(section => {
+    (section.need || []).forEach(need => {
+      if (!needKeys.includes(need.key)) {
+        needKeys.push(need.key);
+        Profile.need.push(need);
+      }
+    });
+  });
+});
 
 export default connect(state => ({
   attrs: state.attrs,
