@@ -67,12 +67,18 @@ class Profile extends Component {
     const attr = attrs.geo[id];
     const focusISO = focus.map(f => attrs.geo[f].iso3);
     const isAdm0 = attr.level === "adm0";
-    const topoPath = isAdm0 ? "/topojson/continent.json" : "/topojson/cell5m/adm1.json";
-    const topoFilt = isAdm0 ? d => d : d => adm0 === d.properties.geo.slice(5, 10);
-    const fillAdm0 = d => d.properties.iso_a3 === attr.iso3 ? "white" : focusISO.includes(d.properties.iso_a3) ? "rgba(255, 255, 255, 0.35)" : "rgba(255, 255, 255, 0.1)";
-    const fillAdm1 = d => d.properties.geo === id ? "white" : focusISO.includes(d.properties.iso_a3) ? "rgba(255, 255, 255, 0.35)" : "rgba(255, 255, 255, 0.1)";
-    const fill = isAdm0 ? fillAdm0 : fillAdm1;
     const adm0 = id.slice(5, 10);
+
+    let fill = d => d.properties.iso_a3 === attr.iso3 ? "white" : focusISO.includes(d.properties.iso_a3) ? "rgba(255, 255, 255, 0.35)" : "rgba(255, 255, 255, 0.1)";
+    let topoFilt = d => d;
+    let topoPath = "/topojson/continent.json";
+
+    if (!isAdm0) {
+      fill = d => d.properties.geo === id ? "white" : focusISO.includes(d.properties.iso_a3) ? "rgba(255, 255, 255, 0.35)" : "rgba(255, 255, 255, 0.1)";
+      topoFilt = d => adm0 === d.properties.geo.slice(5, 10);
+      topoPath = "/topojson/cell5m/adm1.json";
+    }
+
 
     return (
       <div className="profile">
