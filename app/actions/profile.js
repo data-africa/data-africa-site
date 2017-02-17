@@ -107,7 +107,7 @@ export function fetchVars(store) {
 
   const prefix = `${API}api/join/?geo=${store.id}`;
 
-  const harvest = axios.get(`${prefix}&show=crop&required=harvested_area,value_of_production&limit=5&order=harvested_area&sort=desc`)
+  const harvest = axios.get(`${prefix}&show=crop&required=harvested_area,value_of_production&order=harvested_area&sort=desc`)
     .then(formatVars);
 
   const production = axios.get(`${prefix}&show=crop&required=value_of_production,harvested_area&limit=5&order=value_of_production&sort=desc`)
