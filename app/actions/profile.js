@@ -91,10 +91,10 @@ export function fetchStats(store) {
 export function fetchData(key, url) {
 
   function retFunc(store) {
-    url = `${API}${url.replace("<id>", store.id)}`;
+    const u = `${API}${url.replace("<id>", store.id)}`;
     return {
       type: "GET_DATA",
-      promise: axios.get(url).then(res => ({key, data: fold(res.data)}))
+      promise: axios.get(u).then(res => ({key, data: fold(res.data)}))
     };
   }
   retFunc.key = key;
