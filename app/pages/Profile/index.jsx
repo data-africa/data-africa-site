@@ -6,6 +6,7 @@ import "./intro.css";
 
 import {strip} from "d3plus-text";
 import {Geomap} from "d3plus-react";
+import IntroParagraph from "./splash/IntroParagraph";
 
 import CropsAreaVsValue from "./agriculture/CropsAreaVsValue";
 import CropsByHarvest from "./agriculture/CropsByHarvest";
@@ -21,6 +22,10 @@ import Poverty from "./poverty/Poverty";
 import PovertyByGender from "./poverty/PovertyByGender";
 
 const topics = [
+  {
+    title: "Introduction",
+    sections: [IntroParagraph]
+  },
   {
     title: "Agriculture",
     sections: [

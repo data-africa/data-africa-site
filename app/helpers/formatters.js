@@ -2,7 +2,6 @@ import {format, formatPrefix} from "d3-format";
 import {timeFormat} from "d3-time-format";
 
 function abbreviate(n) {
-
   const length = n.toString().split(".")[0].length;
 
   if (n === 0) return "0";
@@ -35,5 +34,6 @@ export const VARIABLES = {
   harvested_area: d => `${abbreviate(d)} ha`,
   rainfall_awa_mm: d => `${FORMATTERS.round(d)}mm`,
   value_of_production: d => `Intl.$${abbreviate(d)}`,
-  value_density: d => `Intl.$ ${abbreviate(d)} per ha`
+  value_density: d => `Intl.$ ${abbreviate(d)} per ha`,
+  totpop: d => abbreviate(d)
 };
