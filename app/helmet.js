@@ -12,7 +12,8 @@ const config = {
     {name: "apple-mobile-web-app-capable", content: "yes"},
     {name: "apple-mobile-web-app-status-bar-style", content: "black"},
     {name: "apple-mobile-web-app-title", content: "Data Africa"}
-  ]
+  ],
+  title: "Data Africa"
 };
 
 export default config;
