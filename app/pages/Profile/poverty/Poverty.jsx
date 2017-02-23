@@ -1,20 +1,20 @@
-import React, {Component} from "react";
-import {connect} from "react-redux";
+import React from "react";
 import {dataFold} from "d3plus-viz";
 
 import {BarChart} from "d3plus-react";
-import {Section} from "datawheel-canon";
+import {SectionColumns, SectionTitle} from "datawheel-canon";
 
 import {API} from ".env";
 import {DICTIONARY} from "helpers/dictionary";
 import {FORMATTERS} from "helpers/formatters";
 
-class Poverty extends Component {
+class Poverty extends SectionColumns {
 
   render() {
     const {profile} = this.props;
     return (
-      <Section title="Poverty Level by Measure">
+      <SectionColumns>
+        <SectionTitle>Poverty Level by Measure</SectionTitle>
         <BarChart config={{
           data: `${API}api/join/?show=year&geo=${profile.id}&required=poverty_level,hc,povgap,sevpov&sumlevel=latest_by_geo`,
           discrete: "y",
@@ -62,9 +62,9 @@ class Poverty extends Component {
           });
           return arr;
         }, [])} />
-    </Section>
+    </SectionColumns>
     );
   }
 }
 
-export default connect(() => ({}), {})(Poverty);
+export default Poverty;

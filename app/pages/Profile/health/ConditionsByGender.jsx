@@ -1,19 +1,19 @@
-import React, {Component} from "react";
-import {connect} from "react-redux";
+import React from "react";
 import {titleCase} from "d3plus-text";
 
 import {BarChart} from "d3plus-react";
-import {Section} from "datawheel-canon";
+import {SectionColumns, SectionTitle} from "datawheel-canon";
 
 import {API} from ".env";
 import {FORMATTERS} from "helpers/formatters";
 
-class ConditionsByGender extends Component {
+class ConditionsByGender extends SectionColumns {
 
   render() {
     const {profile} = this.props;
     return (
-      <Section title="Health Condition Severity by Gender">
+      <SectionColumns>
+        <SectionTitle>Health Condition Severity by Gender</SectionTitle>
         <BarChart config={{
           data: `${API}api/join/?show=condition,gender&geo=${ profile.id }&required=condition,severity,proportion_of_children`,
           discrete: "y",
@@ -39,9 +39,9 @@ class ConditionsByGender extends Component {
             title: "Condition"
           }
         }} />
-    </Section>
+    </SectionColumns>
     );
   }
 }
 
-export default connect(() => ({}), {})(ConditionsByGender);
+export default ConditionsByGender;

@@ -1,10 +1,10 @@
-import React, {Component} from "react";
+import React from "react";
 import {connect} from "react-redux";
 import {fetchStats} from "actions/profile";
-import {Stat, Topics} from "datawheel-canon";
+import {Profile, Stat, TopicTitle} from "datawheel-canon";
+import d3plus from "helpers/d3plus";
 import "./intro.css";
 
-import {strip} from "d3plus-text";
 import {Geomap} from "d3plus-react";
 import IntroParagraph from "./splash/IntroParagraph";
 
@@ -21,49 +21,7 @@ import ConditionsByResidence from "./health/ConditionsByResidence";
 import Poverty from "./poverty/Poverty";
 import PovertyByGender from "./poverty/PovertyByGender";
 
-const topics = [
-  {
-    title: "Introduction",
-    sections: [IntroParagraph]
-  },
-  {
-    title: "Agriculture",
-    sections: [
-      CropsByHarvest,
-      CropsByProduction,
-      CropsAreaVsValue
-    ]
-  },
-  {
-    title: "Climate",
-    sections: [
-      RainfallBars
-    ]
-  },
-  {
-    title: "Health",
-    sections: [
-      Conditions,
-      ConditionsByGender,
-      ConditionsByResidence
-    ]
-  },
-  {
-    title: "Poverty",
-    sections: [
-      Poverty,
-      [PovertyByGender, {povertyLevel: "ppp1"}],
-      [PovertyByGender, {povertyLevel: "ppp2"}]
-    ]
-  }
-];
-
-topics.forEach(s => {
-  s.slug = strip(s.title).toLowerCase();
-  s.image = `/images/topics/${s.slug}.svg`;
-});
-
-class Profile extends Component {
+class GeoProfile extends Profile {
 
   render() {
 
@@ -115,40 +73,70 @@ class Profile extends Component {
           </div>
 
           <div className="subnav">
-            { topics.map(s =>
-              <a className="sublink" href={ `#${s.slug}` } key={ s.slug }>
-                <img className="icon" src={ s.image } />
-                { s.title }
-              </a>) }
+            <a className="sublink" href="#introduction">
+              <img className="icon" src="/images/topics/introduction.svg" />
+              Introduction
+            </a>
+            <a className="sublink" href="#agriculture">
+              <img className="icon" src="/images/topics/agriculture.svg" />
+              Agriculture
+            </a>
+            <a className="sublink" href="#climate">
+              <img className="icon" src="/images/topics/climate.svg" />
+              Climate
+            </a>
+            <a className="sublink" href="#health">
+              <img className="icon" src="/images/topics/health.svg" />
+              Health
+            </a>
+            <a className="sublink" href="#poverty">
+              <img className="icon" src="/images/topics/poverty.svg" />
+              Poverty
+            </a>
           </div>
 
         </div>
 
-        <Topics data={topics} profile={attr} />
+        <TopicTitle slug="introduction">Introduction</TopicTitle>
+        <IntroParagraph profile={attr} />
+
+        <TopicTitle slug="agriculture">Agriculture</TopicTitle>
+        <CropsByHarvest profile={attr} />
+        <CropsByProduction profile={attr} />
+        <CropsAreaVsValue profile={attr} />
+
+        <TopicTitle slug="climate">Climate</TopicTitle>
+        <RainfallBars profile={attr} />
+
+        <TopicTitle slug="health">Health</TopicTitle>
+        <Conditions profile={attr} />
+        <ConditionsByGender profile={attr} />
+        <ConditionsByResidence profile={attr} />
+
+        <TopicTitle slug="poverty">Poverty</TopicTitle>
+        <Poverty profile={attr} />
+        <PovertyByGender profile={attr} povertyLevel="ppp1" />
+        <PovertyByGender profile={attr} povertyLevel="ppp2" />
 
       </div>
     );
   }
 }
 
-Profile.need = [
-  fetchStats
-];
+GeoProfile.defaultProps = {d3plus};
 
-const needKeys = [];
-topics.forEach(topic => {
-  topic.sections.forEach(section => {
-    (section.need || []).forEach(need => {
-      if (!needKeys.includes(need.key)) {
-        needKeys.push(need.key);
-        Profile.need.push(need);
-      }
-    });
-  });
-});
+GeoProfile.need = [
+  fetchStats,
+  IntroParagraph,
+  CropsByHarvest,
+  CropsByProduction,
+  CropsAreaVsValue,
+  RainfallBars
+];
 
 export default connect(state => ({
   attrs: state.attrs,
+  data: state.profile.data,
   focus: state.focus,
   stats: state.profile.stats
-}), {})(Profile);
+}), {})(GeoProfile);

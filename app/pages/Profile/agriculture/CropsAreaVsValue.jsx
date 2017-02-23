@@ -1,18 +1,18 @@
-import React, {Component} from "react";
-import {connect} from "react-redux";
+import React from "react";
 
 import {Plot} from "d3plus-react";
 import pluralize from "pluralize";
 
 import {fetchData} from "actions/profile";
 import {VARIABLES, FORMATTERS} from "helpers/formatters";
-import {SectionColumns} from "datawheel-canon";
+import {SectionColumns, SectionTitle} from "datawheel-canon";
 
-class CropsAreaVsValue extends Component {
+class CropsAreaVsValue extends SectionColumns {
 
   render() {
 
-    const {data, profile} = this.props;
+    const {profile} = this.props;
+    const data = this.context.data.harvested_area;
     let crops = data.slice();
     crops = crops.filter(c => c.harvested_area && c.harvested_area > 0);
     crops.forEach(c => {
@@ -24,12 +24,13 @@ class CropsAreaVsValue extends Component {
     const bottomCrop = crops[crops.length - 1];
 
     return (
-      <SectionColumns title="Harvested Area Versus Value of Production">
-      <article>
-        <p><strong>{ topCrop.name }</strong> are the crop with the highest production value per area in { profile.name }, with a harvested area of { VARIABLES.value_density(topCrop.density) }.</p>
-        <p><strong>{ bottomCrop.name }</strong> are the crop with the lowest production value per area in { profile.name }, with a harvested area of { VARIABLES.value_density(bottomCrop.density) }.</p>
-        <p>This means that growers of {topCrop.name} will earn approximately <strong>{FORMATTERS.round(topCrop.density / bottomCrop.density)} times</strong> more per hectacre of {topCrop.name} that they grow versus {bottomCrop.name}.</p>
-      </article>
+      <SectionColumns>
+        <SectionTitle>Harvested Area Versus Value of Production</SectionTitle>
+        <article>
+          <p><strong>{ topCrop.name }</strong> are the crop with the highest production value per area in { profile.name }, with a harvested area of { VARIABLES.value_density(topCrop.density) }.</p>
+          <p><strong>{ bottomCrop.name }</strong> are the crop with the lowest production value per area in { profile.name }, with a harvested area of { VARIABLES.value_density(bottomCrop.density) }.</p>
+          <p>This means that growers of {topCrop.name} will earn approximately <strong>{FORMATTERS.round(topCrop.density / bottomCrop.density)} times</strong> more per hectacre of {topCrop.name} that they grow versus {bottomCrop.name}.</p>
+        </article>
         <Plot config={{
           data: crops,
           label: d => d.name,
@@ -55,6 +56,4 @@ CropsAreaVsValue.need = [
   fetchData("harvested_area", "api/join/?geo=<id>&show=crop&required=harvested_area,value_of_production&order=harvested_area&sort=desc&display_names=true")
 ];
 
-export default connect(state => ({
-  data: state.profile.data.harvested_area
-}), {})(CropsAreaVsValue);
+export default CropsAreaVsValue;

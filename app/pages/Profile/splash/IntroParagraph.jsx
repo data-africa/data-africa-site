@@ -1,5 +1,4 @@
-import React, {Component} from "react";
-import {connect} from "react-redux";
+import React from "react";
 
 import {Section} from "datawheel-canon";
 
@@ -8,7 +7,7 @@ import {fetchData} from "actions/profile";
 import {VARIABLES, FORMATTERS} from "helpers/formatters";
 import {DICTIONARY} from "helpers/dictionary";
 
-class IntroParagraph extends Component {
+class IntroParagraph extends Section {
 
   population(profile, popData) {
     const recentPop = popData[0];
@@ -47,7 +46,8 @@ class IntroParagraph extends Component {
   }
 
   render() {
-    const {profile, popData, crops, health, poverty} = this.props;
+    const {profile} = this.props;
+    const {popData, crops, health, poverty} = this.context.data;
     return (
       <Section>
         <article>
@@ -68,9 +68,4 @@ IntroParagraph.need = [
   fetchData("popData", "api/join/?geo=<id>&show=year&required=totpop&sumlevel=all&order=year&sort=desc&display_names=true")
 ];
 
-export default connect(state => ({
-  crops: state.profile.data.crops,
-  health: state.profile.data.health,
-  popData: state.profile.data.popData,
-  poverty: state.profile.data.poverty
-}), {})(IntroParagraph);
+export default IntroParagraph;
