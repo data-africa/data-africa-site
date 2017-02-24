@@ -4,6 +4,7 @@ import {fetchStats} from "actions/profile";
 import {Profile, Stat, TopicTitle} from "datawheel-canon";
 import d3plus from "helpers/d3plus";
 import "./intro.css";
+import "./topics.css";
 
 import {Geomap} from "d3plus-react";
 import IntroParagraph from "./splash/IntroParagraph";
@@ -97,23 +98,38 @@ class GeoProfile extends Profile {
 
         </div>
 
-        <TopicTitle slug="introduction">Introduction</TopicTitle>
+        <TopicTitle slug="introduction">
+          <div className="icon" style={{backgroundImage: "url('/images/topics/introduction.svg')"}}></div>
+          Introduction
+        </TopicTitle>
         <IntroParagraph profile={attr} />
 
-        <TopicTitle slug="agriculture">Agriculture</TopicTitle>
+        <TopicTitle slug="agriculture">
+          <div className="icon" style={{backgroundImage: "url('/images/topics/agriculture.svg')"}}></div>
+          Agriculture
+        </TopicTitle>
         <CropsByHarvest profile={attr} />
         <CropsByProduction profile={attr} />
         <CropsAreaVsValue profile={attr} />
 
-        <TopicTitle slug="climate">Climate</TopicTitle>
+        <TopicTitle slug="climate">
+          <div className="icon" style={{backgroundImage: "url('/images/topics/climate.svg')"}}></div>
+          Climate
+        </TopicTitle>
         <RainfallBars profile={attr} />
 
-        <TopicTitle slug="health">Health</TopicTitle>
+        <TopicTitle slug="health">
+          <div className="icon" style={{backgroundImage: "url('/images/topics/health.svg')"}}></div>
+          Health
+        </TopicTitle>
         <Conditions profile={attr} />
         <ConditionsByGender profile={attr} />
         <ConditionsByResidence profile={attr} />
 
-        <TopicTitle slug="poverty">Poverty</TopicTitle>
+        <TopicTitle slug="poverty">
+          <div className="icon" style={{backgroundImage: "url('/images/topics/poverty.svg')"}}></div>
+          Poverty
+        </TopicTitle>
         <Poverty profile={attr} />
         <PovertyByGender profile={attr} povertyLevel="ppp1" />
         <PovertyByGender profile={attr} povertyLevel="ppp2" />
