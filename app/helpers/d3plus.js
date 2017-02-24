@@ -1,5 +1,7 @@
 export default {
   shapeConfig: {
-    fontFamily: "Work Sans"
+    fontColor: "rgba(0, 0, 0, 0.4)",
+    fontFamily: "Work Sans",
+    fontWeight: 600
   }
 };
