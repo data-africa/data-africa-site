@@ -1,5 +1,5 @@
 export default {
   shapeConfig: {
-    fontFamily: "Source Sans Pro"
+    fontFamily: "Work Sans"
   }
 };
