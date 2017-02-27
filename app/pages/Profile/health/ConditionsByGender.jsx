@@ -5,6 +5,7 @@ import {BarChart} from "d3plus-react";
 import {SectionColumns, SectionTitle} from "datawheel-canon";
 
 import {API} from ".env";
+import {COLORS_GENDER} from "helpers/colors";
 import {FORMATTERS} from "helpers/formatters";
 
 class ConditionsByGender extends SectionColumns {
@@ -13,14 +14,16 @@ class ConditionsByGender extends SectionColumns {
     const {profile} = this.props;
     return (
       <SectionColumns>
-        <SectionTitle>Health Condition Severity by Gender</SectionTitle>
+        <SectionTitle>Severity by Gender</SectionTitle>
         <BarChart config={{
           data: `${API}api/join/?show=condition,gender&geo=${ profile.id }&required=condition,severity,proportion_of_children`,
           discrete: "y",
           groupBy: ["gender", "severity"],
-          label: d => d.condition instanceof Array ? titleCase(d.severity) : `${titleCase(d.severity)}ly ${titleCase(d.condition)} ${titleCase(d.gender)}s`,
+          label: d => d.condition instanceof Array ? titleCase(d.gender) : `${titleCase(d.severity)}ly ${titleCase(d.condition)} ${titleCase(d.gender)}s`,
           shapeConfig: {
-            fill: d => d.severity === "severe" ? "rgb(120, 0, 0)" : d.severity === "moderate" ? "#EDCB62" : "#ccc"
+            fill: d => COLORS_GENDER[d.gender],
+            label: false,
+            opacity: d => d.severity === "severe" ? 1 : 0.4
           },
           stacked: true,
           time: "year",
@@ -35,6 +38,7 @@ class ConditionsByGender extends SectionColumns {
           },
           y: "condition",
           yConfig: {
+            gridSize: 0,
             tickFormat: d => titleCase(d),
             title: "Condition"
           }

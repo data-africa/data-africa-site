@@ -5,6 +5,7 @@ import {BarChart} from "d3plus-react";
 import {SectionColumns, SectionTitle} from "datawheel-canon";
 
 import {API} from ".env";
+import {COLORS_RESIDENCE} from "helpers/colors";
 import {FORMATTERS} from "helpers/formatters";
 
 class ConditionsByResidence extends SectionColumns {
@@ -13,14 +14,16 @@ class ConditionsByResidence extends SectionColumns {
     const {profile} = this.props;
     return (
       <SectionColumns>
-        <SectionTitle>Health Condition Severity by Residence</SectionTitle>
+        <SectionTitle>Severity by Residence</SectionTitle>
         <BarChart config={{
           data: `${API}api/join/?show=condition,residence&geo=${ profile.id }&required=condition,severity,proportion_of_children`,
           discrete: "y",
           groupBy: ["residence", "severity"],
-          label: d => d.condition instanceof Array ? titleCase(d.severity) : `${titleCase(d.severity)}ly ${titleCase(d.condition)} Children in ${titleCase(d.residence)} Areas`,
+          label: d => d.condition instanceof Array ? titleCase(d.residence) : `${titleCase(d.severity)}ly ${titleCase(d.condition)} Children in ${titleCase(d.residence)} Areas`,
           shapeConfig: {
-            fill: d => d.severity === "severe" ? "rgb(120, 0, 0)" : d.severity === "moderate" ? "#EDCB62" : "#ccc"
+            fill: d => COLORS_RESIDENCE[d.residence],
+            label: false,
+            opacity: d => d.severity === "severe" ? 1 : 0.4
           },
           stacked: true,
           time: "year",
@@ -35,6 +38,7 @@ class ConditionsByResidence extends SectionColumns {
           },
           y: "condition",
           yConfig: {
+            gridSize: 0,
             tickFormat: d => titleCase(d),
             title: "Condition"
           }
