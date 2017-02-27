@@ -27,19 +27,20 @@ class RainfallBars extends SectionColumns {
           barPadding: 5,
           data: apiUrl,
           discrete: "y",
-          groupBy: "geo",
-          label: d => d.geo_name,
+          groupBy: "geo_name",
           legend: false,
           shapeConfig: {
-            fill: d => d.geo === profile.id ? "rgb(120, 220, 133)" : "rgb(61, 71, 55)"
+            fill: d => d.geo === profile.id ? "#0A86B7" : "rgba(10, 134, 183, 0.3)",
+            label: false
           },
           x: "rainfall_awa_mm",
           xConfig: {
+            tickFormat: d => VARIABLES.rainfall_awa_mm(d),
             title: "Rainfall"
           },
-          y: "geo",
+          y: "geo_name",
           yConfig: {
-            labels: [],
+            gridSize: 0,
             title: "Locations"
           }
         }} />
