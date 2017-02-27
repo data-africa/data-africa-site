@@ -144,6 +144,7 @@ GeoProfile.defaultProps = {d3plus};
 GeoProfile.need = [
   fetchStats,
   IntroParagraph,
+  Conditions,
   CropsByHarvest,
   CropsByProduction,
   CropsAreaVsValue,
