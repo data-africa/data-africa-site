@@ -145,6 +145,7 @@ GeoProfile.need = [
   fetchStats,
   IntroParagraph,
   Conditions,
+  ConditionsByGender,
   CropsByHarvest,
   CropsByProduction,
   CropsAreaVsValue,
