@@ -42,7 +42,9 @@ class IntroParagraph extends Section {
   poverty(profile, poverty) {
     const first = poverty && poverty.length > 0 ? poverty[0] : null;
     const items = poverty.map(row => `${VARIABLES.totpop(row.num)} people living below ${DICTIONARY[row.poverty_level]}`);
-    return <p>As of {first.year}, in {profile.name} there were {items.join(" and ")}.</p>;
+    let place = first.poverty_geo_name;
+    if (profile.level === "adm1") place += `, ${first.poverty_geo_parent_name}`;
+    return <p>As of {first.year}, in {place} there were {items.join(" and ")}.</p>;
   }
 
   render() {
@@ -62,7 +64,7 @@ class IntroParagraph extends Section {
 }
 
 IntroParagraph.need = [
-  fetchData("poverty", "api/join/?geo=<id>&show=year,poverty_level&sumlevel=latest_by_geo,all&required=num"),
+  fetchData("poverty", "api/join/?geo=<id>&show=year,poverty_level&sumlevel=latest_by_geo,all&required=num,poverty_geo_name,poverty_geo_parent_name&limit=1"),
   fetchData("health", "api/join/?geo=<id>&show=year,condition&required=proportion_of_children&display_names=true&order=proportion_of_children&sort=desc&severity=severe&sumlevel=latest_by_geo,all"),
   fetchData("crops", "api/join/?geo=<id>&show=crop&required=harvested_area,value_of_production&display_names=true&order=harvested_area&sort=desc&year=latest"),
   fetchData("popData", "api/join/?geo=<id>&show=year&required=totpop&sumlevel=all&order=year&sort=desc&display_names=true")
