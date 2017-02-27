@@ -2,6 +2,8 @@ import {format, formatPrefix} from "d3-format";
 import {timeFormat} from "d3-time-format";
 
 function abbreviate(n) {
+  if (n === undefined || n === null) return "N/A";
+
   const length = n.toString().split(".")[0].length;
 
   if (n === 0) return "0";
