@@ -5,6 +5,7 @@ import pluralize from "pluralize";
 
 import {fetchData} from "actions/profile";
 import {VARIABLES, FORMATTERS} from "helpers/formatters";
+import {COLORS_CROP} from "helpers/colors";
 import {SectionColumns, SectionTitle} from "datawheel-canon";
 
 class CropsAreaVsValue extends SectionColumns {
@@ -33,9 +34,14 @@ class CropsAreaVsValue extends SectionColumns {
         </article>
         <Plot config={{
           data: crops,
-          label: d => d.name,
+          label: d => d.crop_name instanceof Array ? d.crop_parent : d.crop_name,
           legend: false,
-          groupBy: "crop",
+          groupBy: ["crop_parent", "crop_name"],
+          shapeConfig: {
+            fill: d => COLORS_CROP[d.crop_parent],
+            stroke: "#979797",
+            strokeWidth: 1
+          },
           x: "harvested_area",
           xConfig: {
             tickFormat: VARIABLES.harvested_area,
@@ -53,7 +59,7 @@ class CropsAreaVsValue extends SectionColumns {
 }
 
 CropsAreaVsValue.need = [
-  fetchData("harvested_area", "api/join/?geo=<id>&show=crop&required=harvested_area,value_of_production&order=harvested_area&sort=desc&display_names=true")
+  fetchData("harvested_area", "api/join/?geo=<id>&sumlevel=lowest&show=crop&required=harvested_area,value_of_production,crop_parent,crop_name&order=harvested_area&sort=desc")
 ];
 
 export default CropsAreaVsValue;
