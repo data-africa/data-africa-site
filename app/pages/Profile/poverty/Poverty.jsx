@@ -5,6 +5,7 @@ import {BarChart} from "d3plus-react";
 import {SectionColumns, SectionTitle} from "datawheel-canon";
 
 import {API} from ".env";
+import {COLORS_POVERTY} from "helpers/colors";
 import {DICTIONARY} from "helpers/dictionary";
 import {FORMATTERS} from "helpers/formatters";
 
@@ -20,9 +21,8 @@ class Poverty extends SectionColumns {
           discrete: "y",
           groupBy: "measure",
           label: d => `${DICTIONARY[d.measure]}`,
-          legend: false,
           shapeConfig: {
-            fill: "rgb(61, 71, 55)"
+            fill: d => COLORS_POVERTY[d.measure]
           },
           x: "value",
           xConfig: {

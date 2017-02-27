@@ -15,6 +15,12 @@ export const COLORS_GENDER = {
   male: "#C9DB78"
 };
 
+export const COLORS_POVERTY = {
+  hc: "#C993A8",
+  povgap: "#DB968E",
+  sevpov: "#DBC678"
+};
+
 export const COLORS_RESIDENCE = {
   rural: "#AED7A1",
   urban: "#809FC2"
