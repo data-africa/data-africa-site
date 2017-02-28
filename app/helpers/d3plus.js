@@ -24,6 +24,8 @@ const axisConfig = {
 };
 
 export default {
+  barPadding: 4,
+  groupPadding: 32,
   legendConfig: {
     shapeConfig: {
       fontColor: "rgba(0, 0, 0, 0.8)",
