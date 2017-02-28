@@ -31,9 +31,10 @@ export function childHealthByMode(profile, healthData, mode = "gender") {
     return <p>No Data</p>;
   }
   else {
+    const latestYear = Math.max(...healthData.map(d => d.year));
     const first = healthData[0];
-    const catAData = healthData.filter(x => x[mode] === categoryA && x.severity === "severe");
-    const catBData = healthData.filter(x => x[mode] === categoryB && x.severity === "severe");
+    const catAData = healthData.filter(x => x.year === latestYear && x[mode] === categoryA && x.severity === "severe");
+    const catBData = healthData.filter(x => x.year === latestYear && x[mode] === categoryB && x.severity === "severe");
 
     const mostSevereSort = (a, b) => b.proportion_of_children - a.proportion_of_children;
     catAData.sort(mostSevereSort);

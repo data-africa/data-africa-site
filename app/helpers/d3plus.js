@@ -25,7 +25,18 @@ const axisConfig = {
 
 export default {
   barPadding: 4,
+  controlConfig: {
+    labelStyle: {
+      "color": "rgba(0, 0, 0, 0.4)",
+      "display": "inline-block",
+      "font-family": "Work Sans",
+      "font-size": "12px",
+      "font-weight": 600,
+      "padding": "12px 16px"
+    }
+  },
   legendConfig: {
+    padding: 8,
     shapeConfig: {
       fontColor: "rgba(0, 0, 0, 0.8)",
       fontFamily: "Work Sans",
@@ -33,7 +44,6 @@ export default {
       fontSize: 12,
       fontWeight: 400,
       height: () => 20,
-      textTransform: "uppercase",
       width: () => 20
     }
   },
@@ -42,8 +52,25 @@ export default {
     fontFamily: "Work Sans",
     fontWeight: 600
   },
+  timeline: false,
   xConfig: axisConfig,
   x2Config: {barConfig: axisConfig.barConfig},
   yConfig: axisConfig,
   y2Config: {barConfig: axisConfig.barConfig}
 };
+
+export function yearControls(data) {
+  const years = Array.from(new Set(data.map(d => d.year))).sort();
+  if (years.length < 2) return [];
+  return [{
+    checked: Math.max(...years),
+    on: {
+      change: function(year) {
+        console.log(year, this);
+        this.timeFilter(d => d.year === parseFloat(year)).render();
+      }
+    },
+    options: years.map(year => ({text: year, value: year})),
+    type: "Radio"
+  }];
+}
