@@ -6,6 +6,7 @@ import {BarChart} from "d3plus-react";
 import {SectionColumns, SectionTitle} from "datawheel-canon";
 
 import {API} from ".env";
+import {COLORS_GENDER} from "helpers/colors";
 import {DICTIONARY} from "helpers/dictionary";
 import {FORMATTERS} from "helpers/formatters";
 
@@ -19,23 +20,23 @@ class PovertyByGender extends SectionColumns {
         <SectionTitle>{ `Poverty Measures by Gender ${ DICTIONARY[povertyLevel] }` }</SectionTitle>
         <BarChart config={{
           data: `${API}api/join/?show=year,gender&geo=${profile.id}&required=poverty_level,hc,povgap,sevpov&sumlevel=latest_by_geo,all&poverty_level=${povertyLevel}`,
-          discrete: "y",
           groupBy: ["gender", "poverty_level"],
-          label: d => `${titleCase(d.gender)} ${DICTIONARY[d.measure]}`,
-          legend: false,
+          groupPadding: 100,
+          label: d => d.measure instanceof Array ? titleCase(d.gender) : `${titleCase(d.gender)} ${DICTIONARY[d.measure]}`,
           shapeConfig: {
-            fill: "rgb(61, 71, 55)"
+            fill: d => COLORS_GENDER[d.gender],
+            label: false
           },
-          x: "value",
+          x: "measure",
           xConfig: {
+            tickFormat: d => DICTIONARY[d],
+            title: "Poverty Measure"
+          },
+          y: "value",
+          yConfig: {
             domain: [0, 1],
             tickFormat: FORMATTERS.shareWhole,
             title: "Proportion of Poverty"
-          },
-          y: "measure",
-          yConfig: {
-            tickFormat: d => DICTIONARY[d],
-            title: "Poverty Level"
           }
         }}
         dataFormat={d => dataFold(d).reduce((arr, d) => {

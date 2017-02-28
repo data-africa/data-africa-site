@@ -20,9 +20,11 @@ class Poverty extends SectionColumns {
           data: `${API}api/join/?show=year&geo=${profile.id}&required=poverty_level,hc,povgap,sevpov&sumlevel=latest_by_geo`,
           discrete: "y",
           groupBy: "measure",
+          groupPadding: 64,
           label: d => `${DICTIONARY[d.measure]}`,
           shapeConfig: {
-            fill: d => COLORS_POVERTY[d.measure]
+            fill: d => COLORS_POVERTY[d.measure],
+            label: false
           },
           x: "value",
           xConfig: {
