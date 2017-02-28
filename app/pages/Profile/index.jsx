@@ -150,6 +150,8 @@ GeoProfile.need = [
   CropsByHarvest,
   CropsByProduction,
   CropsAreaVsValue,
+  Poverty,
+  PovertyByGender,
   RainfallBars
 ];
 

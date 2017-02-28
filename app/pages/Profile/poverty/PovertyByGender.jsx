@@ -8,15 +8,22 @@ import {SectionColumns, SectionTitle} from "datawheel-canon";
 import {API} from ".env";
 import {DICTIONARY} from "helpers/dictionary";
 import {FORMATTERS} from "helpers/formatters";
+import {fetchData} from "actions/profile";
+import {povertyByModeContent} from "pages/Profile/poverty/shared";
 
 class PovertyByGender extends SectionColumns {
 
   render() {
     const {profile} = this.props;
+    const {povertyByGender} = this.context.data;
     const povertyLevel = this.props.povertyLevel;
+
     return (
       <SectionColumns>
         <SectionTitle>{ `Poverty Measures by Gender ${ DICTIONARY[povertyLevel] }` }</SectionTitle>
+        <article>
+          {povertyByModeContent(profile, povertyByGender, povertyLevel, "gender")}
+        </article>
         <BarChart config={{
           data: `${API}api/join/?show=year,gender&geo=${profile.id}&required=poverty_level,hc,povgap,sevpov&sumlevel=latest_by_geo,all&poverty_level=${povertyLevel}`,
           discrete: "y",
@@ -72,5 +79,9 @@ class PovertyByGender extends SectionColumns {
     );
   }
 }
+
+PovertyByGender.need = [
+  fetchData("povertyByGender", "api/join/?show=year,gender&geo=<id>&required=poverty_geo_name,poverty_geo_parent_name,poverty_level,hc&sumlevel=latest_by_geo,all")
+];
 
 export default PovertyByGender;
