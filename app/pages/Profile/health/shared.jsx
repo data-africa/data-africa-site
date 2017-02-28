@@ -15,6 +15,15 @@ export function childHealth(profile, health) {
   }
 }
 
+function formatCategory(cat) {
+  if (["urban", "rural"].indexOf(cat) >= 0) {
+    return `children in ${cat} areas`;
+  }
+  else {
+    return cat;
+  }
+}
+
 export function childHealthByMode(profile, healthData, mode = "gender") {
   const [categoryA, categoryB] = mode === "gender" ? ["male", "female"] : ["urban", "rural"];
 
@@ -41,7 +50,11 @@ export function childHealthByMode(profile, healthData, mode = "gender") {
        affected and {FORMATTERS.shareWhole(sevBCond.proportion_of_children)} of {categoryB} children affected.</p>;
     }
     else {
-      return <p>TODO!</p>;
+      return <p>The health condition most severely afflicting {formatCategory(categoryA)} in {place} is
+       severely {sevACond.condition} children
+      with {FORMATTERS.shareWhole(sevACond.proportion_of_children)} of {categoryA} children
+       affected. The health condition most severely afflicting {formatCategory(categoryB)} in {place}
+       is severely {sevACond.condition} children with {FORMATTERS.shareWhole(sevBCond.proportion_of_children)} of {categoryB} children affected.</p>;
     }
   }
 }
