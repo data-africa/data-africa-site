@@ -102,13 +102,9 @@ class GeoProfile extends Profile {
             </a>
           </div>
 
-        </div>
+          <IntroParagraph profile={attr} />
 
-        <TopicTitle slug="introduction">
-          <div className="icon" style={{backgroundImage: "url('/images/topics/introduction.svg')"}}></div>
-          Introduction
-        </TopicTitle>
-        <IntroParagraph profile={attr} />
+        </div>
 
         <TopicTitle slug="agriculture">
           <div className="icon" style={{backgroundImage: "url('/images/topics/agriculture.svg')"}}></div>

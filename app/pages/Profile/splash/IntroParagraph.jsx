@@ -39,14 +39,12 @@ class IntroParagraph extends Section {
     const {profile} = this.props;
     const {popData, crops, dhsHealth, povertyData} = this.context.data;
     return (
-      <Section>
-        <article>
-          {this.population(profile, popData)}
-          {this.crops(profile, crops)}
-          {childHealth(profile, dhsHealth)}
-          {povertyContent(profile, povertyData)}
-        </article>
-      </Section>
+      <div id="introduction">
+        {this.population(profile, popData)}
+        {this.crops(profile, crops)}
+        {childHealth(profile, dhsHealth)}
+        {povertyContent(profile, povertyData)}
+      </div>
     );
   }
 }
