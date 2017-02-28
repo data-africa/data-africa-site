@@ -5,6 +5,7 @@ import {BarChart} from "d3plus-react";
 import {SectionColumns, SectionTitle} from "datawheel-canon";
 
 import {API} from ".env";
+import {COLORS_CONDITION} from "helpers/colors";
 import {FORMATTERS} from "helpers/formatters";
 
 class Conditions extends SectionColumns {
@@ -13,30 +14,31 @@ class Conditions extends SectionColumns {
     const {profile} = this.props;
     return (
       <SectionColumns>
-        <SectionTitle>Health Condition Severity</SectionTitle>
+        <SectionTitle>Severity</SectionTitle>
         <BarChart config={{
           data: `${API}api/join/?show=condition&geo=${ profile.id }&required=condition,severity,proportion_of_children`,
-          discrete: "y",
-          groupBy: "severity",
+          groupBy: ["condition", "severity"],
           label: d => d.condition instanceof Array ? titleCase(d.severity) : `${titleCase(d.severity)}ly ${titleCase(d.condition)}`,
           shapeConfig: {
-            fill: d => d.severity === "severe" ? "rgb(120, 0, 0)" : d.severity === "moderate" ? "#EDCB62" : "#ccc"
+            fill: d => COLORS_CONDITION[d.condition],
+            label: false,
+            opacity: d => d.severity === "severe" ? 1 : 0.4
           },
           stacked: true,
-          time: "year",
-          timelineConfig: {
-            brushing: false
+          stackOrder: series => {
+            const order = ["wasted_severe", "stunted_severe", "underweight_severe", "wasted_moderate", "stunted_moderate", "underweight_moderate"];
+            return series.map(s => order.indexOf(s.key));
           },
-          x: "proportion_of_children",
+          x: "year",
           xConfig: {
+            gridConfig: {"stroke-width": 0},
+            title: "Condition Over Time"
+          },
+          y: "proportion_of_children",
+          yConfig: {
             domain: [0, 1],
             tickFormat: FORMATTERS.shareWhole,
             title: "Proportion of Children"
-          },
-          y: "condition",
-          yConfig: {
-            tickFormat: d => titleCase(d),
-            title: "Condition"
           }
         }} />
     </SectionColumns>
