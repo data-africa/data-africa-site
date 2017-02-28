@@ -43,5 +43,7 @@ export default {
     fontWeight: 600
   },
   xConfig: axisConfig,
-  yConfig: axisConfig
+  x2Config: {barConfig: axisConfig.barConfig},
+  yConfig: axisConfig,
+  y2Config: {barConfig: axisConfig.barConfig}
 };
