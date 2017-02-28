@@ -8,14 +8,22 @@ import {API} from ".env";
 import {COLORS_POVERTY} from "helpers/colors";
 import {DICTIONARY} from "helpers/dictionary";
 import {FORMATTERS} from "helpers/formatters";
+import {fetchData} from "actions/profile";
+
+import {povertyContent} from "pages/Profile/poverty/shared";
 
 class Poverty extends SectionColumns {
 
   render() {
     const {profile} = this.props;
+    const {povertyData} = this.context.data;
+
     return (
       <SectionColumns>
         <SectionTitle>Poverty Level by Measure</SectionTitle>
+        <article>
+          {povertyContent(profile, povertyData)}
+        </article>
         <BarChart config={{
           data: `${API}api/join/?show=year&geo=${profile.id}&required=poverty_level,hc,povgap,sevpov&sumlevel=latest_by_geo`,
           discrete: "y",
@@ -68,5 +76,9 @@ class Poverty extends SectionColumns {
     );
   }
 }
+
+Poverty.need = [
+  fetchData("povertyData", "api/join/?geo=<id>&show=year,poverty_level&sumlevel=latest_by_geo,all&required=num,poverty_geo_name,poverty_geo_parent_name&limit=2")
+];
 
 export default Poverty;

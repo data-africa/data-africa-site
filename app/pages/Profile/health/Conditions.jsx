@@ -1,8 +1,10 @@
 import React from "react";
+import {fetchData} from "actions/profile";
 import {titleCase} from "d3plus-text";
 
 import {BarChart} from "d3plus-react";
 import {SectionColumns, SectionTitle} from "datawheel-canon";
+import {childHealth} from "pages/Profile/health/shared";
 
 import {API} from ".env";
 import {COLORS_CONDITION} from "helpers/colors";
@@ -12,9 +14,14 @@ class Conditions extends SectionColumns {
 
   render() {
     const {profile} = this.props;
+    const {dhsHealth} = this.context.data;
+
     return (
       <SectionColumns>
-        <SectionTitle>Severity</SectionTitle>
+        <SectionTitle>Health Conditions Among Children</SectionTitle>
+        <article>
+          {childHealth(profile, dhsHealth)}
+        </article>
         <BarChart config={{
           data: `${API}api/join/?show=condition&geo=${ profile.id }&required=condition,severity,proportion_of_children`,
           groupBy: ["condition", "severity"],
@@ -42,9 +49,13 @@ class Conditions extends SectionColumns {
             title: "Proportion of Children"
           }
         }} />
-    </SectionColumns>
+      </SectionColumns>
     );
   }
 }
+
+Conditions.need = [
+  fetchData("dhsHealth", "api/join/?geo=<id>&show=year,condition&required=dhs_geo_name,dhs_geo_parent_name,proportion_of_children&order=proportion_of_children&sort=desc&severity=severe&sumlevel=latest_by_geo,all")
+];
 
 export default Conditions;

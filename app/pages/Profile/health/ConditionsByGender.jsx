@@ -7,14 +7,21 @@ import {SectionColumns, SectionTitle} from "datawheel-canon";
 import {API} from ".env";
 import {COLORS_GENDER} from "helpers/colors";
 import {FORMATTERS} from "helpers/formatters";
+import {fetchData} from "actions/profile";
+import {childHealthByMode} from "pages/Profile/health/shared";
 
 class ConditionsByGender extends SectionColumns {
 
   render() {
     const {profile} = this.props;
+    const {healthByGender} = this.context.data;
+
     return (
       <SectionColumns>
-        <SectionTitle>Severity by Gender</SectionTitle>
+        <SectionTitle>Health Conditions Among Children by Gender</SectionTitle>
+        <article>
+          {childHealthByMode(profile, healthByGender, "gender")}
+        </article>
         <BarChart config={{
           data: `${API}api/join/?show=condition,gender&geo=${ profile.id }&required=condition,severity,proportion_of_children`,
           discrete: "y",
@@ -52,5 +59,9 @@ class ConditionsByGender extends SectionColumns {
     );
   }
 }
+
+ConditionsByGender.need = [
+  fetchData("healthByGender", "api/join/?geo=<id>&show=year,condition,gender&required=dhs_geo_name,dhs_geo_parent_name,proportion_of_children&severity=severe&sumlevel=latest_by_geo,all,all")
+];
 
 export default ConditionsByGender;
