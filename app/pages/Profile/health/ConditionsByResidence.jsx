@@ -19,6 +19,7 @@ class ConditionsByResidence extends SectionColumns {
           data: `${API}api/join/?show=condition,residence&geo=${ profile.id }&required=condition,severity,proportion_of_children`,
           discrete: "y",
           groupBy: ["residence", "severity"],
+          groupPadding: 32,
           label: d => d.condition instanceof Array ? titleCase(d.residence) : `${titleCase(d.severity)}ly ${titleCase(d.condition)} Children in ${titleCase(d.residence)} Areas`,
           shapeConfig: {
             fill: d => COLORS_RESIDENCE[d.residence],

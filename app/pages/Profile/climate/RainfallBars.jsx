@@ -24,10 +24,10 @@ class RainfallBars extends SectionColumns {
         average rainfall of of {VARIABLES.rainfall_awa_mm(res.rainfall_awa_mm)} across a total
         cropland area of {VARIABLES.harvested_area(res.cropland_total_ha)}.</article>
         <BarChart config={{
-          barPadding: 5,
           data: apiUrl,
           discrete: "y",
           groupBy: "geo_name",
+          groupPadding: 4,
           legend: false,
           shapeConfig: {
             fill: d => d.geo === profile.id ? "#0A86B7" : "rgba(10, 134, 183, 0.3)",

@@ -18,6 +18,7 @@ class Conditions extends SectionColumns {
         <BarChart config={{
           data: `${API}api/join/?show=condition&geo=${ profile.id }&required=condition,severity,proportion_of_children`,
           groupBy: ["condition", "severity"],
+          groupPadding: 64,
           label: d => d.condition instanceof Array ? titleCase(d.severity) : `${titleCase(d.severity)}ly ${titleCase(d.condition)}`,
           shapeConfig: {
             fill: d => COLORS_CONDITION[d.condition],

@@ -19,6 +19,7 @@ class ConditionsByGender extends SectionColumns {
           data: `${API}api/join/?show=condition,gender&geo=${ profile.id }&required=condition,severity,proportion_of_children`,
           discrete: "y",
           groupBy: ["gender", "severity"],
+          groupPadding: 32,
           label: d => d.condition instanceof Array ? titleCase(d.gender) : `${titleCase(d.severity)}ly ${titleCase(d.condition)} ${titleCase(d.gender)}s`,
           shapeConfig: {
             fill: d => COLORS_GENDER[d.gender],
