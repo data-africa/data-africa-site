@@ -7,14 +7,21 @@ import {SectionColumns, SectionTitle} from "datawheel-canon";
 import {API} from ".env";
 import {COLORS_RESIDENCE} from "helpers/colors";
 import {FORMATTERS} from "helpers/formatters";
+import {childHealthByMode} from "pages/Profile/health/shared";
+import {fetchData} from "actions/profile";
 
 class ConditionsByResidence extends SectionColumns {
 
   render() {
     const {profile} = this.props;
+    const {healthByResidence} = this.context.data;
+
     return (
       <SectionColumns>
-        <SectionTitle>Severity by Residence</SectionTitle>
+        <SectionTitle>Health Conditions Among Children by Residence</SectionTitle>
+        <article>
+          {childHealthByMode(profile, healthByResidence, "residence")}
+        </article>
         <BarChart config={{
           data: `${API}api/join/?show=condition,residence&geo=${ profile.id }&required=condition,severity,proportion_of_children`,
           discrete: "y",
@@ -47,5 +54,9 @@ class ConditionsByResidence extends SectionColumns {
     );
   }
 }
+
+ConditionsByResidence.need = [
+  fetchData("healthByResidence", "api/join/?geo=<id>&show=year,condition,residence&required=dhs_geo_name,dhs_geo_parent_name,proportion_of_children&severity=severe&sumlevel=latest_by_geo,all,all")
+];
 
 export default ConditionsByResidence;

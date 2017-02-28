@@ -146,6 +146,7 @@ GeoProfile.need = [
   IntroParagraph,
   Conditions,
   ConditionsByGender,
+  ConditionsByResidence,
   CropsByHarvest,
   CropsByProduction,
   CropsAreaVsValue,
