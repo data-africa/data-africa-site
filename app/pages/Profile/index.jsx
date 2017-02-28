@@ -24,6 +24,12 @@ import PovertyByGender from "./poverty/PovertyByGender";
 
 class GeoProfile extends Profile {
 
+  urlPath(attr) {
+    const adm0 = String("00000" + attr.adm0_id).slice(-5);
+    const targetId = `040AF${adm0}`;
+    return `url('/images/geo/${targetId}.jpg')`;
+  }
+
   render() {
 
     const {id} = this.props.params;
@@ -49,7 +55,7 @@ class GeoProfile extends Profile {
 
         <div className="intro">
 
-          <div className="splash" style={{backgroundImage: `url('/images/geo/${attr.id}.jpg')`}}>
+          <div className="splash" style={{backgroundImage: this.urlPath(attr)}}>
             <div className="gradient"></div>
           </div>
 
