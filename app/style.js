@@ -1,7 +1,8 @@
 module.exports = {
 
   "dark": "#3B4835",
-  "light": "#74E19A",
+  "light": "#757E6F",
+  "accent": "#74E19A",
 
   "font-family": "Work Sans",
 

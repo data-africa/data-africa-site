@@ -3,7 +3,7 @@
   text-align: center;
 
   & .icon {
-    background-color: var(--light);
+    background-color: var(--accent);
     background-position: center;
     background-repeat: no-repeat;
     box-sizing: border-box;

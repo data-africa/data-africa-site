@@ -22,7 +22,8 @@
 
   & .logo {
     display: inline-block;
-    font-weight: 600;
+    font-size: 18px;
+    font-weight: 800;
     margin: 25px 15px;
     text-decoration: none;
     text-transform: uppercase;
@@ -32,8 +33,7 @@
     }
 
     & .africa {
-      color: var(--light);
-      margin-left: 5px;
+      color: var(--accent);
     }
 
   }
@@ -41,8 +41,9 @@
   & .link {
     color: white;
     display: inline-block;
+    font-size: 16px;
     margin: 25px 15px;
-    opacity: 0.5;
+    opacity: 0.8;
     text-decoration: none;
     transition: opacity 0.2s;
 

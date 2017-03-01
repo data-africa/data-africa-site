@@ -11,8 +11,7 @@ class Nav extends Component {
       <nav className="nav">
         <img className="search-btn" src="/images/nav/search.svg" onClick={ this.props.activateSearch } alt="Search" />
         <Link className="logo" to="/">
-          <span className="data">Data</span>
-          <span className="africa">Africa</span>
+          <span className="data">Data</span> <span className="africa">Africa</span>
         </Link>
         <Link className="link" to="/profile">Locations</Link>
         <Link className="link" to="/">Map</Link>
