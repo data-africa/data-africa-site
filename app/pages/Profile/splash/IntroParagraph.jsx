@@ -23,7 +23,9 @@ class IntroParagraph extends Section {
     const country = "country located in Sub-Saharan Africa";
     const province = `province in ${profile.parent_name}`;
     const entity = profile.level === "adm0" ? country : province;
-
+    if (!recentPop) {
+      return <p></p>;
+    }
     return <p>{profile.name} is a {entity}.
     As of {recentPop.year} {profile.name} had a total population of approximately {VARIABLES.totpop(recentPop.totpop)} people.
     {growthSentence}

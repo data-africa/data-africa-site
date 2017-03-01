@@ -42,7 +42,10 @@ export const VARIABLES = {
 
 function formatPlaceName(datum, mode, level = "adm0") {
   let place = "N/A";
-  if (mode === "poverty") {
+  if (!datum) {
+    return place;
+  }
+  else if (mode === "poverty") {
     place = datum.poverty_geo_name;
     if (level === "adm1") place += `, ${datum.poverty_geo_parent_name}`;
   }
