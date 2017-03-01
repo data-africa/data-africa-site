@@ -1,22 +1,71 @@
 .home {
-
-  & .title {
-    color: white;
-    font-size: 46px;
-    font-weight: 400;
-    margin: 37vh 0;
-    opacity: 0.5;
-    text-align: center;
-  }
+  font-family: var(--font-family);
+  margin: 100px auto;
+  max-width: var(--width);
+  width: 100%;
 
   & .splash {
-    background-color: var(--dark);
-    height: 100vh;
+    height: 800px;
     left: 0;
     position: absolute;
     top: 0;
-    width: 100vw;
-    z-index: -1;
+    width: 100%;
+    z-index: var(--background);
+
+    & .image {
+      background-image: url("/images/geo/040AF00133.jpg");
+      background-position: 50%;
+      background-size: cover;
+      filter: saturate(140%) contrast(150%);
+      height: 800px;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+
+    & .gradient {
+      background: linear-gradient(0deg, var(--dark), rgba(0, 0, 0, 0.5));
+      background-blend-mode: multiply;
+      bottom: 0;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+
+  }
+
+  & .intro {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+    & .text {
+      flex-size: 1;
+
+      & .title {
+        color: white;
+        font-size: 46px;
+        font-weight: 600;
+      }
+
+      & .search-start {
+        border: 2px solid var(--accent);
+        border-radius: 100px;
+        color: white;
+        cursor: pointer;
+        display: inline-block;
+        margin-top: var(--gutter);
+        padding: 8px 20px;
+      }
+
+    }
+
+    & .viz {
+      flex: none;
+    }
+
   }
 
 }
