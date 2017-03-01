@@ -2,22 +2,34 @@
   font-family: var(--font-family);
 
   & .intro {
+    background-color: var(--dark);
     color: white;
     margin: 0 auto;
     position: relative;
     width: 100vw;
+    z-index: var(--background);
 
     & .splash {
-      background-size: cover;
-      bottom: 0;
+      height: 800px;
       left: 0;
       position: absolute;
       top: 0;
       width: 100%;
       z-index: var(--background);
 
+      & .image {
+        background-position: 50%;
+        background-size: cover;
+        filter: saturate(150%) contrast(130%);
+        height: 800px;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+      }
+
       & .gradient {
-        background: linear-gradient(0deg, var(--dark), color(var(--dark) alpha(-50%)));
+        background: linear-gradient(0deg, var(--dark), rgba(0, 0, 0, 0.6));
         bottom: 0;
         left: 0;
         position: absolute;

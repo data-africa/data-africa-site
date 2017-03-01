@@ -56,7 +56,8 @@ class GeoProfile extends Profile {
 
         <div className="intro">
 
-          <div className="splash" style={{backgroundImage: this.urlPath(attr)}}>
+          <div className="splash">
+            <div className="image" style={{backgroundImage: this.urlPath(attr)}}></div>
             <div className="gradient"></div>
           </div>
 
