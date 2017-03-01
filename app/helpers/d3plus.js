@@ -60,17 +60,19 @@ export default {
 };
 
 export function yearControls(data) {
+
   const years = Array.from(new Set(data.map(d => d.year))).sort();
   if (years.length < 2) return [];
+
+  function change(year) {
+    this.timeFilter(d => d.year === parseFloat(year)).render();
+  }
+
   return [{
     checked: Math.max(...years),
-    on: {
-      change: function(year) {
-        console.log(year, this);
-        this.timeFilter(d => d.year === parseFloat(year)).render();
-      }
-    },
+    on: {change},
     options: years.map(year => ({text: year, value: year})),
     type: "Radio"
   }];
+
 }

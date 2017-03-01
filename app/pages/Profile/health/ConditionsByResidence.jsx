@@ -4,8 +4,8 @@ import {titleCase} from "d3plus-text";
 import {BarChart} from "d3plus-react";
 import {SectionColumns, SectionTitle} from "datawheel-canon";
 
-import {API} from ".env";
 import {COLORS_RESIDENCE} from "helpers/colors";
+import {yearControls} from "helpers/d3plus";
 import {FORMATTERS} from "helpers/formatters";
 import {childHealthByMode} from "pages/Profile/health/shared";
 import {fetchData} from "actions/profile";
@@ -23,7 +23,8 @@ class ConditionsByResidence extends SectionColumns {
           {childHealthByMode(profile, healthByResidence, "residence")}
         </article>
         <BarChart config={{
-          data: `${API}api/join/?show=condition,residence&geo=${ profile.id }&required=condition,severity,proportion_of_children`,
+          controls: yearControls(healthByResidence),
+          data: healthByResidence,
           discrete: "y",
           groupBy: ["residence", "severity"],
           groupPadding: 32,
@@ -39,9 +40,6 @@ class ConditionsByResidence extends SectionColumns {
             return series.map(s => order.indexOf(s.key));
           },
           time: "year",
-          timelineConfig: {
-            brushing: false
-          },
           x: "proportion_of_children",
           xConfig: {
             domain: [0, 1],
@@ -61,7 +59,7 @@ class ConditionsByResidence extends SectionColumns {
 }
 
 ConditionsByResidence.need = [
-  fetchData("healthByResidence", "api/join/?geo=<id>&show=year,condition,residence&required=dhs_geo_name,dhs_geo_parent_name,proportion_of_children&severity=severe&sumlevel=latest_by_geo,all,all")
+  fetchData("healthByResidence", "api/join/?geo=<id>&show=year,condition,residence&required=dhs_geo_name,dhs_geo_parent_name,proportion_of_children&sumlevel=all,all,all")
 ];
 
 export default ConditionsByResidence;
