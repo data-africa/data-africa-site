@@ -1,17 +1,19 @@
 .nav {
   font-family: var(--font-family);
+  left: 0;
   margin: 0 auto;
+  max-width: var(--width);
   position: absolute;
-  left: 10%;
+  right: 0;
   top: 0;
-  width: 80%;
+  width: 100%;
   z-index: var(--cover);
 
   & .logo {
     display: inline-block;
     font-size: 18px;
     font-weight: 800;
-    margin: 25px 15px;
+    margin: 25px 25px 0 0;
     text-decoration: none;
     text-transform: uppercase;
 

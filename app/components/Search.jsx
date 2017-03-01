@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
+import {Link} from "react-router";
 import {activateSearch} from "actions/users";
 import "./Search.css";
 
@@ -75,22 +76,25 @@ class Search extends Component {
   }
 
   render() {
-    const {activateSearch} = this.props;
+
     const {results} = this.state;
-    console.log(results);
+
     return (
       <div className="search">
-        <div className="close" onClick={activateSearch}>X</div>
-        <input type="text" ref="input" onChange={ this.onChange.bind(this) } />
+        <div className="input">
+          <img className="icon" src="/images/nav/search.svg" />
+          <input type="text" ref="input" onChange={ this.onChange.bind(this) } placeholder="Enter a location" />
+        </div>
         <ul className="results">
           { results.map(result =>
             <li key={ result.id } className="result">
-              <a href={ `/profile/${result.id}` }>{ result.name }</a>
+              <Link to={ `/profile/${result.id}` }>{ result.name }</Link>
             </li>
           )}
         </ul>
       </div>
     );
+
   }
 }
 

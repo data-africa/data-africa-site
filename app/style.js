@@ -10,6 +10,7 @@ module.exports = {
   "foreground": "10",
   "cover": "20",
 
-  "gutter": "32px"
+  "gutter": "32px",
+  "width": "1120px"
 
 };
