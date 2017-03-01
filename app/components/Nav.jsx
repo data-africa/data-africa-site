@@ -7,12 +7,13 @@ import "./Nav.css";
 class Nav extends Component {
 
   render() {
+    const {searchActive} = this.props;
     return (
       <nav className="nav">
         <Link className="logo" to="/">
           <span className="data">Data</span> <span className="africa">Africa</span>
         </Link>
-        <span className="link" onClick={ this.props.activateSearch }>Locations</span>
+        <span className={searchActive ? "link active" : "link"} onClick={ this.props.activateSearch }>Locations</span>
         <Link className="link" to="/">Map</Link>
         <Link className="link" to="/">About</Link>
       </nav>
@@ -20,4 +21,6 @@ class Nav extends Component {
   }
 }
 
-export default connect(() => ({}), {activateSearch})(Nav);
+export default connect(state => ({
+  searchActive: state.search.searchActive
+}), {activateSearch})(Nav);

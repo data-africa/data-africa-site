@@ -5,7 +5,7 @@
   left: 10%;
   top: 0;
   width: 80%;
-  z-index: var(--foreground);
+  z-index: var(--cover);
 
   & .logo {
     display: inline-block;
@@ -33,6 +33,10 @@
     opacity: 0.8;
     text-decoration: none;
     transition: opacity 0.2s;
+
+    &.active {
+      color: var(--accent);
+    }
 
     &:hover {
       cursor: pointer;
