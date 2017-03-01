@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {Link} from "react-router";
 import {activateSearch} from "actions/users";
 import "./Search.css";
 
@@ -88,7 +87,7 @@ class Search extends Component {
         <ul className="results">
           { results.map(result =>
             <li key={ result.id } className="result">
-              <Link to={ `/profile/${result.id}` }>{ result.name }</Link>
+              <a href={ `/profile/${result.id}` }>{ result.name }</a>
             </li>
           )}
         </ul>
