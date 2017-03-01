@@ -1,5 +1,5 @@
 .topicTitle {
-  margin: 64px calc(var(--gutter) / 2);
+  margin: 128px calc(var(--gutter) / 2) 64px;
   text-align: center;
 
   & .icon {

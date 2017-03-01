@@ -5,6 +5,7 @@ import {Profile, Stat, TopicTitle} from "datawheel-canon";
 import d3plus from "helpers/d3plus";
 import "./intro.css";
 import "./topics.css";
+import "./sections.css";
 
 import {Geomap} from "d3plus-react";
 import IntroParagraph from "./splash/IntroParagraph";
