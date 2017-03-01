@@ -104,7 +104,9 @@ class GeoProfile extends Profile {
             </a>
           </div>
 
-          <IntroParagraph profile={attr} />
+          <div className="intro-wrapper">
+            <IntroParagraph profile={attr} />
+          </div>
 
         </div>
 
