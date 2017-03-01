@@ -9,11 +9,10 @@ class Nav extends Component {
   render() {
     return (
       <nav className="nav">
-        <img className="search-btn" src="/images/nav/search.svg" onClick={ this.props.activateSearch } alt="Search" />
         <Link className="logo" to="/">
           <span className="data">Data</span> <span className="africa">Africa</span>
         </Link>
-        <Link className="link" to="/profile">Locations</Link>
+        <span className="link" onClick={ this.props.activateSearch }>Locations</span>
         <Link className="link" to="/">Map</Link>
         <Link className="link" to="/">About</Link>
       </nav>
