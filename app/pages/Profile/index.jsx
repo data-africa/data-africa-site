@@ -26,7 +26,7 @@ import PovertyByGender from "./poverty/PovertyByGender";
 class GeoProfile extends Profile {
 
   urlPath(attr) {
-    const adm0 = String("00000" + attr.adm0_id).slice(-5);
+    const adm0 = String(`00000${attr.adm0_id}`).slice(-5);
     const targetId = `040AF${adm0}`;
     return `url('/images/geo/${targetId}.jpg')`;
   }
