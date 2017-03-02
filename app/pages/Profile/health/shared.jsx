@@ -41,6 +41,15 @@ export function childHealthByMode(profile, healthData, mode = "gender") {
     catBData.sort(mostSevereSort);
     const sevACond = catAData[0];
     const sevBCond = catBData[0];
+
+    if (sevACond && !sevBCond || sevBCond && !sevACond) {
+      const [category, cond] = sevACond ? [categoryA, sevACond] : [categoryB, sevBCond];
+      return <p>The health condition most severely afflicting {category} children
+         in {place} is severely {cond.condition} children
+        with {FORMATTERS.shareWhole(cond.proportion_of_children)} of {categoryA} children
+         affected.</p>;
+    }
+
     const sameCondition = sevBCond.condition === sevACond.condition;
     const place = formatPlaceName(first, "health", profile.level);
 
