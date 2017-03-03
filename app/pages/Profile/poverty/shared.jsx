@@ -36,7 +36,18 @@ export function povertyTextByMode(profile, povertyData, povLevel, mode = "gender
   modeB = modeB.length > 0 ? modeB[0] : null;
   const labelA = isGender ? pluralize.plural(categoryA) : `people living in ${categoryA} areas`;
   const labelB = isGender ? pluralize.plural(categoryB) : `people living in ${categoryB} areas`;
-  return <p>As of {first.year}, {FORMATTERS.shareWhole(modeA.hc)} of {labelA} and {FORMATTERS.shareWhole(modeB.hc)} of {labelB} in {place} live below {DICTIONARY[modeB.poverty_level]}.</p>;
+  if (modeA && modeB) {
+    return <p>As of {first.year}, {FORMATTERS.shareWhole(modeA.hc)} of {labelA} and {FORMATTERS.shareWhole(modeB.hc)} of {labelB} in {place} live below {DICTIONARY[modeB.poverty_level]}.</p>;
+  }
+  else if (modeA || modeB) {
+    const isA = modeA === null ? true : false;
+    const mode = isA ? modeA : modeB;
+    const label = isA ? labelA : labelB;
+    return <p>As of {first.year}, {FORMATTERS.shareWhole(mode.hc)} of {label}.</p>;
+  }
+  else {
+    return <p>No Data Available</p>;
+  }
 }
 
 export function povertyVizByMode(profile, povertyData, povertyLevel, mode) {
