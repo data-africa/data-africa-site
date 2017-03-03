@@ -6,8 +6,7 @@ import {fetchData} from "actions/profile";
 import {povertyVizByMode, povertyTextByMode} from "pages/Profile/poverty/shared";
 import Selector from "pages/Profile/ui/Selector";
 
-
-class PovertyByGender extends SectionColumns {
+class PovertyByResidence extends SectionColumns {
   constructor(props) {
     super(props);
     this.state = {povertyLevel: "ppp1"};
@@ -19,24 +18,24 @@ class PovertyByGender extends SectionColumns {
   }
 
   render() {
-    const {povertyByGender} = this.context.data;
+    const {povertyByResidence} = this.context.data;
     const {profile} = this.props;
     const povertyLevel = this.state.povertyLevel;
-    const viz = povertyVizByMode(profile, povertyByGender, povertyLevel, "gender");
+    const viz = povertyVizByMode(profile, povertyByResidence, povertyLevel, "residence");
     const opts = ["ppp1", "ppp2"];
     return <SectionColumns>
-            <SectionTitle>{ `Poverty Measures by Gender ${ DICTIONARY[povertyLevel] }` }</SectionTitle>
+            <SectionTitle>{ `Poverty Measures by Residence ${ DICTIONARY[povertyLevel] }` }</SectionTitle>
             <article>
               <Selector options={opts} callback={this.onChange}/>
-              {povertyTextByMode(profile, povertyByGender, povertyLevel, "gender")}
+              {povertyTextByMode(profile, povertyByResidence, povertyLevel, "residence")}
             </article>
             {viz}
         </SectionColumns>;
   }
 }
 
-PovertyByGender.need = [
-  fetchData("povertyByGender", "api/join/?show=year,gender&geo=<id>&required=poverty_geo_name,poverty_geo_parent_name,poverty_level,hc&sumlevel=latest_by_geo,all")
+PovertyByResidence.need = [
+  fetchData("povertyByResidence", "api/join/?show=year,residence&geo=<id>&required=poverty_geo_name,poverty_geo_parent_name,poverty_level,hc&sumlevel=latest_by_geo,all")
 ];
 
-export default PovertyByGender;
+export default PovertyByResidence;

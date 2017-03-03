@@ -22,6 +22,7 @@ import ConditionsByResidence from "./health/ConditionsByResidence";
 
 import Poverty from "./poverty/Poverty";
 import PovertyByGender from "./poverty/PovertyByGender";
+import PovertyByResidence from "./poverty/PovertyByResidence";
 
 class GeoProfile extends Profile {
 
@@ -137,8 +138,8 @@ class GeoProfile extends Profile {
           Poverty
         </TopicTitle>
         <Poverty profile={attr} />
-        <PovertyByGender profile={attr} povertyLevel="ppp1" />
-        <PovertyByGender profile={attr} povertyLevel="ppp2" />
+        <PovertyByGender profile={attr} />
+        <PovertyByResidence profile={attr} />
 
       </div>
     );
@@ -158,6 +159,7 @@ GeoProfile.need = [
   CropsAreaVsValue,
   Poverty,
   PovertyByGender,
+  PovertyByResidence,
   RainfallBars
 ];
 
