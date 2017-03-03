@@ -25,8 +25,8 @@ export function povertyTextByMode(profile, povertyData, povLevel, mode = "gender
   if (!povertyData || povertyData.length === 0) {
     return <p>No data available</p>;
   }
-
-  const [categoryA, categoryB] = mode === "gender" ? ["male", "female"] : ["urban", "rural"];
+  const isGender = mode === "gender";
+  const [categoryA, categoryB] = isGender ? ["male", "female"] : ["urban", "rural"];
 
   const first = povertyData[0];
   const place = formatPlaceName(first, "poverty", profile.level);
@@ -34,8 +34,9 @@ export function povertyTextByMode(profile, povertyData, povLevel, mode = "gender
   let modeB = povertyData.filter(x => x[mode] === categoryB && povLevel === x.poverty_level);
   modeA = modeA.length > 0 ? modeA[0] : null;
   modeB = modeB.length > 0 ? modeB[0] : null;
-
-  return <p>As of {first.year}, {FORMATTERS.shareWhole(modeA.hc)} of {pluralize.plural(categoryA)} and {FORMATTERS.shareWhole(modeB.hc)} of {pluralize.plural(categoryB)} in {place} live below {DICTIONARY[modeB.poverty_level]}.</p>;
+  const labelA = isGender ? pluralize.plural(categoryA) : `people living in ${categoryA} areas`;
+  const labelB = isGender ? pluralize.plural(categoryB) : `people living in ${categoryB} areas`;
+  return <p>As of {first.year}, {FORMATTERS.shareWhole(modeA.hc)} of {labelA} and {FORMATTERS.shareWhole(modeB.hc)} of {labelB} in {place} live below {DICTIONARY[modeB.poverty_level]}.</p>;
 }
 
 export function povertyVizByMode(profile, povertyData, povertyLevel, mode) {
