@@ -1,42 +1,42 @@
-import React, {Component} from "react";
-import {connect} from "react-redux";
+import React from "react";
 
 import {Treemap} from "d3plus-react";
-import {SectionColumns} from "datawheel-canon";
+import {SectionRows, SectionTitle} from "datawheel-canon";
 
+import {fetchData} from "actions/profile";
+import {COLORS_CROP} from "helpers/colors";
 import {VARIABLES} from "helpers/formatters";
 
-import {API} from ".env";
-
-class CropsByHarvest extends Component {
+class CropsByHarvest extends SectionRows {
 
   render() {
 
-    const {attrs, profile, vars} = this.props;
-
-    const crops = vars.harvested_area.slice();
-    crops.forEach(c => {
-      c.name = attrs[c.crop] ? attrs[c.crop].name : c.crop;
-    });
+    const {profile} = this.props;
+    const data = this.context.data.harvested_area;
 
     return (
-      <SectionColumns title="Crops by Harvested Area">
+      <SectionRows>
+        <SectionTitle>Crops by Harvested Area</SectionTitle>
         <article>
-          The most common crop in { profile.name }, by harvested area, is { crops[0].name } with a harvested area of { VARIABLES.harvested_area(crops[0].harvested_area) }.
+          The most common crop in { profile.name }, by harvested area, is { data[0].crop_name } with a harvested area of { VARIABLES.harvested_area(data[0].harvested_area) }.
         </article>
         <Treemap config={{
-          data: `${API}api/join/?show=crop&geo=${profile.id}&sumlevel=lowest&required=harvested_area`,
-          groupBy: "crop",
-          label: d => attrs[d.crop] ? attrs[d.crop].name : d.crop,
-          legend: false,
+          data,
+          groupBy: ["crop_parent", "crop_name"],
+          height: 552,
+          label: d => d.crop_name instanceof Array ? d.crop_parent : d.crop_name,
+          shapeConfig: {
+            fill: d => COLORS_CROP[d.crop_parent]
+          },
           sum: d => d.harvested_area
         }} />
-      </SectionColumns>
+    </SectionRows>
     );
   }
 }
 
-export default connect(state => ({
-  attrs: state.attrs.crop,
-  vars: state.profile.vars.crop
-}), {})(CropsByHarvest);
+CropsByHarvest.need = [
+  fetchData("harvested_area", "api/join/?geo=<id>&sumlevel=lowest&show=crop&required=harvested_area,value_of_production,crop_parent,crop_name&order=harvested_area&sort=desc")
+];
+
+export default CropsByHarvest;

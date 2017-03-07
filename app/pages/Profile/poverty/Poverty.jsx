@@ -1,28 +1,38 @@
-import React, {Component} from "react";
-import {connect} from "react-redux";
+import React from "react";
 import {dataFold} from "d3plus-viz";
 
 import {BarChart} from "d3plus-react";
-import {Section} from "datawheel-canon";
+import {SectionColumns, SectionTitle} from "datawheel-canon";
 
 import {API} from ".env";
+import {COLORS_POVERTY} from "helpers/colors";
 import {DICTIONARY} from "helpers/dictionary";
 import {FORMATTERS} from "helpers/formatters";
+import {fetchData} from "actions/profile";
 
-class Poverty extends Component {
+import {povertyContent} from "pages/Profile/poverty/shared";
+
+class Poverty extends SectionColumns {
 
   render() {
     const {profile} = this.props;
+    const {povertyData} = this.context.data;
+
     return (
-      <Section title="Poverty Level by Measure">
+      <SectionColumns>
+        <SectionTitle>Poverty Level by Measure</SectionTitle>
+        <article>
+          {povertyContent(profile, povertyData)}
+        </article>
         <BarChart config={{
           data: `${API}api/join/?show=year&geo=${profile.id}&required=poverty_level,hc,povgap,sevpov&sumlevel=latest_by_geo`,
           discrete: "y",
           groupBy: "measure",
+          groupPadding: 64,
           label: d => `${DICTIONARY[d.measure]}`,
-          legend: false,
           shapeConfig: {
-            fill: "rgb(61, 71, 55)"
+            fill: d => COLORS_POVERTY[d.measure],
+            label: false
           },
           x: "value",
           xConfig: {
@@ -62,9 +72,13 @@ class Poverty extends Component {
           });
           return arr;
         }, [])} />
-    </Section>
+    </SectionColumns>
     );
   }
 }
 
-export default connect(() => ({}), {})(Poverty);
+Poverty.need = [
+  fetchData("povertyData", "api/join/?geo=<id>&show=year,poverty_level&sumlevel=latest_by_geo,all&required=num,poverty_geo_name,poverty_geo_parent_name&limit=2")
+];
+
+export default Poverty;

@@ -1,11 +1,14 @@
-import React, {Component} from "react";
+import React from "react";
 import {connect} from "react-redux";
-import {fetchStats, fetchVars} from "actions/profile";
-import {Stat, Topics} from "datawheel-canon";
+import {fetchStats} from "actions/profile";
+import {Profile, Stat, TopicTitle} from "datawheel-canon";
+import d3plus from "helpers/d3plus";
 import "./intro.css";
+import "./topics.css";
+import "./sections.css";
 
-import {strip} from "d3plus-text";
 import {Geomap} from "d3plus-react";
+import IntroParagraph from "./splash/IntroParagraph";
 
 import CropsAreaVsValue from "./agriculture/CropsAreaVsValue";
 import CropsByHarvest from "./agriculture/CropsByHarvest";
@@ -19,46 +22,15 @@ import ConditionsByResidence from "./health/ConditionsByResidence";
 
 import Poverty from "./poverty/Poverty";
 import PovertyByGender from "./poverty/PovertyByGender";
+import PovertyByResidence from "./poverty/PovertyByResidence";
 
-const topics = [
-  {
-    title: "Agriculture",
-    sections: [
-      CropsByHarvest,
-      CropsByProduction,
-      CropsAreaVsValue
-    ]
-  },
-  {
-    title: "Climate",
-    sections: [
-      RainfallBars
-    ]
-  },
-  {
-    title: "Health",
-    sections: [
-      Conditions,
-      ConditionsByGender,
-      ConditionsByResidence
-    ]
-  },
-  {
-    title: "Poverty",
-    sections: [
-      Poverty,
-      [PovertyByGender, {povertyLevel: "ppp1"}],
-      [PovertyByGender, {povertyLevel: "ppp2"}]
-    ]
+class GeoProfile extends Profile {
+
+  urlPath(attr) {
+    const adm0 = String(`00000${attr.adm0_id}`).slice(-5);
+    const targetId = `040AF${adm0}`;
+    return `url('/images/geo/${targetId}.jpg')`;
   }
-];
-
-topics.forEach(s => {
-  s.slug = strip(s.title).toLowerCase();
-  s.image = `/images/topics/${s.slug}.svg`;
-});
-
-class Profile extends Component {
 
   render() {
 
@@ -66,13 +38,27 @@ class Profile extends Component {
     const {attrs, focus, stats} = this.props;
     const attr = attrs.geo[id];
     const focusISO = focus.map(f => attrs.geo[f].iso3);
+    const isAdm0 = attr.level === "adm0";
+    const adm0 = id.slice(5, 10);
+
+    let fill = d => d.properties.iso_a3 === attr.iso3 ? "white" : focusISO.includes(d.properties.iso_a3) ? "rgba(255, 255, 255, 0.35)" : "rgba(255, 255, 255, 0.1)";
+    let topoFilt = d => d;
+    let topoPath = "/topojson/continent.json";
+
+    if (!isAdm0) {
+      fill = d => d.properties.geo === id ? "white" : focusISO.includes(d.properties.iso_a3) ? "rgba(255, 255, 255, 0.35)" : "rgba(255, 255, 255, 0.1)";
+      topoFilt = d => adm0 === d.properties.geo.slice(5, 10);
+      topoPath = "/topojson/cell5m/adm1.json";
+    }
+
 
     return (
       <div className="profile">
 
         <div className="intro">
 
-          <div className="splash" style={{backgroundImage: `url('/images/geo/${attr.id}.jpg')`}}>
+          <div className="splash">
+            <div className="image" style={{backgroundImage: this.urlPath(attr)}}></div>
             <div className="gradient"></div>
           </div>
 
@@ -81,11 +67,12 @@ class Profile extends Component {
               ocean: "transparent",
               padding: 0,
               shapeConfig: {Path: {
-                fill: d => d.properties.iso_a3 === attr.iso3 ? "white" : focusISO.includes(d.properties.iso_a3) ? "rgba(255, 255, 255, 0.35)" : "rgba(255, 255, 255, 0.1)",
+                fill,
                 stroke: "rgba(255, 255, 255, 0.25)"
               }},
               tiles: false,
-              topojson: "/topojson/continent.json",
+              topojson: topoPath,
+              topojsonFilter: topoFilt,
               topojsonKey: "collection",
               zoom: false
             }} />
@@ -96,29 +83,89 @@ class Profile extends Component {
           </div>
 
           <div className="subnav">
-            { topics.map(s =>
-              <a className="sublink" href={ `#${s.slug}` } key={ s.slug }>
-                <img className="icon" src={ s.image } />
-                { s.title }
-              </a>) }
+            <a className="sublink" href="#introduction">
+              <img className="icon" src="/images/topics/introduction.svg" />
+              Introduction
+            </a>
+            <a className="sublink" href="#agriculture">
+              <img className="icon" src="/images/topics/agriculture.svg" />
+              Agriculture
+            </a>
+            <a className="sublink" href="#climate">
+              <img className="icon" src="/images/topics/climate.svg" />
+              Climate
+            </a>
+            <a className="sublink" href="#health">
+              <img className="icon" src="/images/topics/health.svg" />
+              Health
+            </a>
+            <a className="sublink" href="#poverty">
+              <img className="icon" src="/images/topics/poverty.svg" />
+              Poverty
+            </a>
+          </div>
+
+          <div className="intro-wrapper">
+            <IntroParagraph profile={attr} />
           </div>
 
         </div>
 
-        <Topics data={topics} profile={attr} />
+        <TopicTitle slug="agriculture">
+          <div className="icon" style={{backgroundImage: "url('/images/topics/agriculture.svg')"}}></div>
+          Agriculture
+        </TopicTitle>
+        <CropsByHarvest profile={attr} />
+        <CropsByProduction profile={attr} />
+        <CropsAreaVsValue profile={attr} />
+
+        <TopicTitle slug="climate">
+          <div className="icon" style={{backgroundImage: "url('/images/topics/climate.svg')"}}></div>
+          Climate
+        </TopicTitle>
+        <RainfallBars profile={attr} />
+
+        <TopicTitle slug="health">
+          <div className="icon" style={{backgroundImage: "url('/images/topics/health.svg')"}}></div>
+          Health
+        </TopicTitle>
+        <Conditions profile={attr} />
+        <ConditionsByGender profile={attr} />
+        <ConditionsByResidence profile={attr} />
+
+        <TopicTitle slug="poverty">
+          <div className="icon" style={{backgroundImage: "url('/images/topics/poverty.svg')"}}></div>
+          Poverty
+        </TopicTitle>
+        <Poverty profile={attr} />
+        <PovertyByGender profile={attr} />
+        <PovertyByResidence profile={attr} />
 
       </div>
     );
   }
 }
 
-Profile.need = [
+GeoProfile.defaultProps = {d3plus};
+
+GeoProfile.need = [
   fetchStats,
-  fetchVars
+  IntroParagraph,
+  Conditions,
+  ConditionsByGender,
+  ConditionsByResidence,
+  CropsByHarvest,
+  CropsByProduction,
+  CropsAreaVsValue,
+  Poverty,
+  PovertyByGender,
+  PovertyByResidence,
+  RainfallBars
 ];
 
 export default connect(state => ({
   attrs: state.attrs,
+  data: state.profile.data,
   focus: state.focus,
   stats: state.profile.stats
-}), {})(Profile);
+}), {})(GeoProfile);

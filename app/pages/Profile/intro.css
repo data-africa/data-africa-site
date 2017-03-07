@@ -8,16 +8,26 @@
     width: 100vw;
 
     & .splash {
-      background-size: cover;
-      bottom: 0;
+      height: 800px;
       left: 0;
       position: absolute;
       top: 0;
       width: 100%;
       z-index: var(--background);
 
+      & .image {
+        background-position: 50%;
+        background-size: cover;
+        filter: saturate(150%) contrast(130%);
+        height: 800px;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 100%;
+      }
+
       & .gradient {
-        background: linear-gradient(0deg, var(--dark), color(var(--dark) alpha(-50%)));
+        background: linear-gradient(0deg, var(--dark), rgba(0, 0, 0, 0.6));
         bottom: 0;
         left: 0;
         position: absolute;
@@ -32,40 +42,41 @@
       margin: 0 auto;
       justify-content: center;
       width: 80%;
-    }
 
-    & .viz {
-      box-sizing: border-box;
-      display: inline-block;
-      flex: 1;
-      margin: 100px 25px;
-      vertical-align: top;
-    }
-
-    & .meta {
-      box-sizing: border-box;
-      display: inline-block;
-      flex: 1;
-      margin: 100px 25px;
-      vertical-align: top;
-
-      & .title {
-        font-size: 56px;
+      & .viz {
+        box-sizing: border-box;
+        display: inline-block;
+        flex: 1;
+        margin: 100px 25px;
+        vertical-align: top;
       }
 
-      & .stat {
-        margin: 25px 0;
+      & .meta {
+        box-sizing: border-box;
+        display: inline-block;
+        flex: 1;
+        margin: 100px 25px;
+        vertical-align: top;
 
-        & .label {
-          font-size: 12px;
-          font-weight: 600;
-          margin-left: 2px;
-          text-transform: uppercase;
+        & .title {
+          font-size: 56px;
         }
 
-        & .value {
-          font-size: 32px;
-          font-weight: 300;
+        & .stat {
+          margin: 25px 0;
+
+          & .label {
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 2px;
+            text-transform: uppercase;
+          }
+
+          & .value {
+            font-size: 32px;
+            font-weight: 300;
+          }
+
         }
 
       }
@@ -99,6 +110,20 @@
 
       }
 
+    }
+
+    & .intro-wrapper {
+      background-color: var(--dark);
+      width: 100%;
+
+      & #introduction {
+        font-size: 24px;
+        line-height: 36px;
+        margin: 0 auto;
+        max-width: 928px;
+        padding: 0 var(--gutter) 100px;
+        width: 100%;
+      }
     }
 
   }

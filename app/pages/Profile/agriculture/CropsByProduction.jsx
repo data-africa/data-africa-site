@@ -1,42 +1,42 @@
-import React, {Component} from "react";
-import {connect} from "react-redux";
+import React from "react";
 
 import {Treemap} from "d3plus-react";
-import {SectionColumns} from "datawheel-canon";
+import {SectionRows, SectionTitle} from "datawheel-canon";
 
+import {fetchData} from "actions/profile";
+import {COLORS_CROP} from "helpers/colors";
 import {VARIABLES} from "helpers/formatters";
 
-import {API} from ".env";
-
-class CropsByProduction extends Component {
+class CropsByProduction extends SectionRows {
 
   render() {
 
-    const {attrs, profile, vars} = this.props;
-
-    const crops = vars.value_of_production.slice();
-    crops.forEach(c => {
-      c.name = attrs[c.crop] ? attrs[c.crop].name : c.crop;
-    });
+    const {profile} = this.props;
+    const data = this.context.data.value_of_production;
 
     return (
-      <SectionColumns title="Crops by Production Value">
+      <SectionRows>
+        <SectionTitle>Crops by Production Value</SectionTitle>
         <article>
-          The crop with the highest production value in { profile.name } is { crops[0].name }, with a value of { VARIABLES.value_of_production(crops[0].value_of_production) }.
+          The crop with the highest production value in { profile.name } is { data[0].crop_name }, with a value of { VARIABLES.value_of_production(data[0].value_of_production) }.
         </article>
         <Treemap config={{
-          data: `${API}api/join/?show=crop&geo=${profile.id}&sumlevel=lowest&required=value_of_production`,
-          groupBy: "crop",
-          label: d => attrs[d.crop] ? attrs[d.crop].name : d.crop,
-          legend: false,
+          data,
+          groupBy: ["crop_parent", "crop_name"],
+          height: 552,
+          label: d => d.crop_name instanceof Array ? d.crop_parent : d.crop_name,
+          shapeConfig: {
+            fill: d => COLORS_CROP[d.crop_parent]
+          },
           sum: d => d.value_of_production
         }} />
-      </SectionColumns>
+    </SectionRows>
     );
   }
 }
 
-export default connect(state => ({
-  attrs: state.attrs.crop,
-  vars: state.profile.vars.crop
-}), {})(CropsByProduction);
+CropsByProduction.need = [
+  fetchData("value_of_production", "api/join/?geo=<id>&show=crop&sumlevel=lowest&required=harvested_area,value_of_production,crop_parent,crop_name&order=value_of_production&sort=desc")
+];
+
+export default CropsByProduction;

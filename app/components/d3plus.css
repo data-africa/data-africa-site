@@ -1,0 +1,20 @@
+.d3plus-Form-Radio {
+  border: 1px solid #979797;
+  border-radius: 100px;
+  display: inline-block;
+  margin-top: 12px;
+
+  & .d3plus-Label {
+    transition: color 0.6s;
+
+    &.active {
+      color: #000 !important;
+    }
+
+  }
+
+  & input {
+    display: none;
+  }
+
+}

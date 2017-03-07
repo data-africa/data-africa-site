@@ -2,6 +2,7 @@ import {format, formatPrefix} from "d3-format";
 import {timeFormat} from "d3-time-format";
 
 function abbreviate(n) {
+  if (n === undefined || n === null) return "N/A";
 
   const length = n.toString().split(".")[0].length;
 
@@ -25,6 +26,7 @@ export const FORMATTERS = {
       default: return `${n}th`;
     }
   },
+  round: format(",.0f"),
   share: format(".2%"),
   shareWhole: format(".0%"),
   year: y => y < 0 ? `${Math.abs(y)} BC` : y
@@ -32,6 +34,26 @@ export const FORMATTERS = {
 
 export const VARIABLES = {
   harvested_area: d => `${abbreviate(d)} ha`,
-  rainfall_awa_mm: d => `${format(",.0f")(d)}mm`,
-  value_of_production: d => `Intl.$${abbreviate(d)}`
+  rainfall_awa_mm: d => `${FORMATTERS.round(d)}mm`,
+  value_of_production: d => `Intl.$${abbreviate(d)}`,
+  value_density: d => `Intl.$ ${abbreviate(d)} per ha`,
+  totpop: d => abbreviate(d)
 };
+
+function formatPlaceName(datum, mode, level = "adm0") {
+  let place = "N/A";
+  if (!datum) {
+    return place;
+  }
+  else if (mode === "poverty") {
+    place = datum.poverty_geo_name;
+    if (level === "adm1") place += `, ${datum.poverty_geo_parent_name}`;
+  }
+  else if (mode === "health") {
+    place = datum.dhs_geo_name;
+    if (level === "adm1") place += `, ${datum.dhs_geo_parent_name}`;
+  }
+  return place;
+}
+
+export {formatPlaceName};

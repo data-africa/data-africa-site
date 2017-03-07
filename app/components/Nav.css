@@ -1,29 +1,19 @@
 .nav {
   font-family: var(--font-family);
+  left: 0;
   margin: 0 auto;
+  max-width: var(--width);
   position: absolute;
-  left: 10%;
+  right: 0;
   top: 0;
-  width: 80%;
-  z-index: var(--foreground);
-
-  & .search-btn {
-    display: inline-block;
-    opacity: 0.5;
-    margin: 23px 5px;
-    transition: opacity 0.2s;
-    vertical-align: top;
-
-    &:hover {
-      cursor: pointer;
-      opacity: 1;
-    }
-  }
+  width: 100%;
+  z-index: var(--cover);
 
   & .logo {
     display: inline-block;
-    font-weight: 600;
-    margin: 25px 15px;
+    font-size: 18px;
+    font-weight: 800;
+    margin: 25px 25px 0 0;
     text-decoration: none;
     text-transform: uppercase;
 
@@ -32,8 +22,7 @@
     }
 
     & .africa {
-      color: var(--light);
-      margin-left: 5px;
+      color: var(--accent);
     }
 
   }
@@ -41,12 +30,18 @@
   & .link {
     color: white;
     display: inline-block;
+    font-size: 16px;
     margin: 25px 15px;
-    opacity: 0.5;
+    opacity: 0.8;
     text-decoration: none;
     transition: opacity 0.2s;
 
+    &.active {
+      color: var(--accent);
+    }
+
     &:hover {
+      cursor: pointer;
       opacity: 1;
     }
   }

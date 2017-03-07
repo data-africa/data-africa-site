@@ -1,0 +1,12 @@
+section {
+  margin-bottom: calc(var(--gutter) * 2);
+
+  &:after {
+    background-color: #bbb;
+    content: "";
+    display: block;
+    height: 2px;
+    margin: 0 calc(var(--gutter) / 2);
+  }
+
+}
