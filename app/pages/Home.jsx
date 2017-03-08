@@ -20,13 +20,13 @@ class Home extends Component {
         </div>
         <div className="intro">
           <div className="text">
-            <h2 className="title">Data Africa is an open source collection of resource data for a growing set of countries</h2>
+            <h2 className="title">Data Africa is an open source agriculture, climate, poverty, and health dataset</h2>
             <div className="search-start" onClick={ this.props.activateSearch }>Start A Search</div>
           </div>
           <Geomap config={{
-            height: 400,
+            height: 500,
             ocean: "transparent",
-            padding: 32,
+            padding: 24,
             shapeConfig: {Path: {
               fill: d => focusISO.includes(d.properties.iso_a3) ? "#74E19A" : "rgba(255, 255, 255, 0.35)",
               stroke: "rgba(255, 255, 255, 0.75)"
