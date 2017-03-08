@@ -1,5 +1,4 @@
 import React from "react";
-import pluralize from "pluralize";
 
 import {DICTIONARY} from "helpers/dictionary";
 import {VARIABLES, FORMATTERS, formatPlaceName} from "helpers/formatters";
@@ -20,6 +19,11 @@ export function povertyContent(profile, poverty) {
   return <p>As of {first.year}, in {place} there were {items.join(" and ")}.</p>;
 }
 
+function formatGender(gender, isTitle = false) {
+  const inSentence = `households headed by ${gender}s`;
+  const inTitle = `${titleCase(gender)} Head of Household`;
+  return isTitle ? inTitle : inSentence;
+}
 
 export function povertyTextByMode(profile, povertyData, povLevel, mode = "gender") {
   if (!povertyData || povertyData.length === 0) {
@@ -34,8 +38,8 @@ export function povertyTextByMode(profile, povertyData, povLevel, mode = "gender
   let modeB = povertyData.filter(x => x[mode] === categoryB && povLevel === x.poverty_level);
   modeA = modeA.length > 0 ? modeA[0] : null;
   modeB = modeB.length > 0 ? modeB[0] : null;
-  const labelA = isGender ? pluralize.plural(categoryA) : `people living in ${categoryA} areas`;
-  const labelB = isGender ? pluralize.plural(categoryB) : `people living in ${categoryB} areas`;
+  const labelA = isGender ? formatGender(categoryA) : `people living in ${categoryA} areas`;
+  const labelB = isGender ? formatGender(categoryB) : `people living in ${categoryB} areas`;
   if (modeA && modeB) {
     return <p>As of {first.year}, {FORMATTERS.shareWhole(modeA.hc)} of {labelA} and {FORMATTERS.shareWhole(modeB.hc)} of {labelB} in {place} live below {DICTIONARY[modeB.poverty_level]}.</p>;
   }
@@ -56,7 +60,7 @@ export function povertyVizByMode(profile, povertyData, povertyLevel, mode) {
     data: `${API}api/join/?show=year,${mode}&geo=${profile.id}&required=poverty_level,hc,povgap,sevpov&sumlevel=latest_by_geo,all&poverty_level=${povertyLevel}`,
     groupBy: [mode, "poverty_level"],
     groupPadding: 100,
-    label: d => d.measure instanceof Array ? titleCase(d[mode]) : `${titleCase(d[mode])} ${DICTIONARY[d.measure]}`,
+    label: d => mode === "gender" ? formatGender(d[mode], true) : titleCase(d[mode]),
     shapeConfig: {
       fill: d => colorMap[d[mode]],
       label: false

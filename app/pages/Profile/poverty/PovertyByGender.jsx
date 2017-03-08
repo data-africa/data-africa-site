@@ -25,7 +25,7 @@ class PovertyByGender extends SectionColumns {
     const viz = povertyVizByMode(profile, povertyByGender, povertyLevel, "gender");
     const opts = ["ppp1", "ppp2"];
     return <SectionColumns>
-            <SectionTitle>{ `Poverty Measures by Gender ${ DICTIONARY[povertyLevel] }` }</SectionTitle>
+            <SectionTitle>{ `Poverty Measures by Head of Household Gender ${ DICTIONARY[povertyLevel] }` }</SectionTitle>
             <article>
               <Selector options={opts} callback={this.onChange}/>
               {povertyTextByMode(profile, povertyByGender, povertyLevel, "gender")}
