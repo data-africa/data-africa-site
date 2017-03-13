@@ -2,11 +2,16 @@ section {
   margin-bottom: calc(var(--gutter) * 2);
 
   &:after {
-    background-color: #bbb;
+    background-color: #ddd;
     content: "";
     display: block;
-    height: 2px;
+    height: 1px;
     margin: 0 calc(var(--gutter) / 2);
+  }
+
+  & article {
+  	font-size:16px;
+  	line-height: 140%;
   }
 
 }
