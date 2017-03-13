@@ -21,7 +21,8 @@ class IntroParagraph extends Section {
       was approximately ${VARIABLES.totpop(oldPop.totpop)}.` : "";
 
     const country = "country located in Sub-Saharan Africa";
-    const province = `province in ${profile.parent_name}`;
+    const parentId = `040${profile.id.slice(3, 10)}`;
+    const province = <span>province in <a className="link" href={`/profile/${parentId}`}>{profile.parent_name}</a></span>;
     const entity = profile.level === "adm0" ? country : province;
     if (!recentPop) {
       return <p></p>;
