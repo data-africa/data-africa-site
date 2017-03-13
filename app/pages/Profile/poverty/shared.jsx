@@ -8,6 +8,7 @@ import {titleCase} from "d3plus-text";
 import {BarChart} from "d3plus-react";
 import {API} from ".env";
 import {COLORS_RESIDENCE, COLORS_GENDER} from "helpers/colors";
+import Selector from "pages/Profile/ui/Selector";
 
 export function povertyContent(profile, poverty) {
   const first = poverty && poverty.length > 0 ? poverty[0] : null;
@@ -84,4 +85,32 @@ export function povertyVizByMode(profile, povertyData, povertyLevel, mode) {
       return arr;
     }, [])} />;
 
+}
+
+export function geoSelector(profile, povertyData, targetGeo, onChange) {
+  // Get a list of the unique places in the dataset
+  const places = [... new Set(povertyData.map(x => x.poverty_geo))];
+  const opts = places.map(p => {
+    const row = povertyData.filter(x => x.poverty_geo === p)[0];
+    return {value: p, label: formatPlaceName(row, "poverty", profile.level)};
+  });
+
+  // If there is more than one place, insert a place dropdown
+  const selector = places && places.length > 1 ? <Selector options={opts} callback={onChange}/> : "";
+  // By default, select the first place
+  const target = targetGeo !== null ? targetGeo : places[0];
+  // Filter the raw data to include only the target geo
+  const filteredData = povertyData.filter(x => x.poverty_geo === target);
+  // Format the data for viz display
+  const vizData = filteredData.reduce((arr, d) => {
+    arr.push({...d, measure: "hc", value: d.hc});
+    arr.push({...d, measure: "povgap", value: d.povgap});
+    arr.push({...d, measure: "sevpov", value: d.sevpov});
+    return arr;
+  }, []);
+  return {
+    vizData,
+    selector,
+    filteredData
+  };
 }

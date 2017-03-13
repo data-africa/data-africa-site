@@ -1,31 +1,43 @@
 import React from "react";
-import {dataFold} from "d3plus-viz";
 
 import {BarChart} from "d3plus-react";
 import {SectionColumns, SectionTitle} from "datawheel-canon";
 
-import {API} from ".env";
+import {fetchData} from "actions/profile";
 import {COLORS_POVERTY} from "helpers/colors";
 import {DICTIONARY} from "helpers/dictionary";
 import {FORMATTERS} from "helpers/formatters";
-import {fetchData} from "actions/profile";
-
-import {povertyContent} from "pages/Profile/poverty/shared";
+import {povertyContent, geoSelector} from "pages/Profile/poverty/shared";
 
 class Poverty extends SectionColumns {
+  constructor(props) {
+    super(props);
+    this.state = {targetGeo: null};
+    this.onChangeGeo = this.onChangeGeo.bind(this);
+  }
+
+  onChangeGeo(event) {
+    this.setState({targetGeo: event.target.value});
+  }
 
   render() {
     const {profile} = this.props;
     const {povertyData} = this.context.data;
+    const targetGeo = this.state.targetGeo;
+    // Get a list of the unique places in the dataset
+    const {filteredData, vizData, selector} = geoSelector(profile, povertyData,
+                                                          targetGeo, this.onChangeGeo);
 
     return (
       <SectionColumns>
         <SectionTitle>Poverty Level by Measure</SectionTitle>
         <article>
-          {povertyContent(profile, povertyData)}
+          {selector}
+
+          {povertyContent(profile, filteredData)}
         </article>
         <BarChart config={{
-          data: `${API}api/join/?show=year&geo=${profile.id}&required=poverty_level,hc,povgap,sevpov&sumlevel=latest_by_geo`,
+          data: vizData,
           discrete: "y",
           groupBy: "measure",
           groupPadding: 64,
@@ -45,40 +57,14 @@ class Poverty extends SectionColumns {
             tickFormat: d => DICTIONARY[d],
             title: "Poverty Level"
           }
-        }} dataFormat={d => dataFold(d).reduce((arr, d) => {
-          arr.push({
-            geo: d.geo,
-            measure: "hc",
-            poverty_geo: d.poverty_geo,
-            poverty_level: d.poverty_level,
-            value: d.hc,
-            year: d.year
-          });
-          arr.push({
-            geo: d.geo,
-            measure: "povgap",
-            poverty_geo: d.poverty_geo,
-            poverty_level: d.poverty_level,
-            value: d.povgap,
-            year: d.year
-          });
-          arr.push({
-            geo: d.geo,
-            measure: "sevpov",
-            poverty_geo: d.poverty_geo,
-            poverty_level: d.poverty_level,
-            value: d.sevpov,
-            year: d.year
-          });
-          return arr;
-        }, [])} />
+        }} />
     </SectionColumns>
     );
   }
 }
 
 Poverty.need = [
-  fetchData("povertyData", "api/join/?geo=<id>&show=year,poverty_level&sumlevel=latest_by_geo,all&required=num,poverty_geo_name,poverty_geo_parent_name&limit=2")
+  fetchData("povertyData", "api/join/?geo=<id>&show=year,poverty_level&sumlevel=latest_by_geo,all&required=hc,povgap,sevpov,num,poverty_geo_name,poverty_geo_parent_name")
 ];
 
 export default Poverty;
