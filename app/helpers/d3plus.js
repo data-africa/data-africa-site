@@ -4,7 +4,7 @@ const axisConfig = {
     "stroke-width": 1
   },
   gridConfig: {
-    "stroke": "#979797",
+    "stroke": "#cccccc",
     "stroke-width": 1
   },
   shapeConfig: {
@@ -12,7 +12,8 @@ const axisConfig = {
     fontColor: "rgba(0, 0, 0, 0.8)",
     fontFamily: () => "Work Sans",
     fontSize: () => 12,
-    stroke: "#979797"
+    stroke: "#979797",
+    textTransform: "uppercase"
   },
   tickSize: 0,
   titleConfig: {
@@ -27,7 +28,7 @@ export default {
   barPadding: 4,
   controlConfig: {
     labelStyle: {
-      "color": "rgba(0, 0, 0, 0.4)",
+      "color": "rgba(0, 0, 0, 0.2)",
       "display": "inline-block",
       "font-family": "Work Sans",
       "font-size": "12px",

@@ -44,10 +44,12 @@
       width: 80%;
 
       & .viz {
+        background-image: radial-gradient(ellipse closest-side, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.0));
+        flex: none;
         box-sizing: border-box;
         display: inline-block;
         flex: 1;
-        margin: 100px 25px;
+        margin: 100px 24px 24px;
         vertical-align: top;
       }
 
@@ -55,11 +57,12 @@
         box-sizing: border-box;
         display: inline-block;
         flex: 1;
-        margin: 100px 25px;
+        margin: 100px 24px 24px;
         vertical-align: top;
 
         & .title {
           font-size: 56px;
+          font-weight:600;
         }
 
         & .stat {
@@ -67,14 +70,14 @@
 
           & .label {
             font-size: 12px;
-            font-weight: 600;
+            font-weight: 400;
             margin-left: 2px;
             text-transform: uppercase;
           }
 
           & .value {
             font-size: 32px;
-            font-weight: 300;
+            font-weight: 600;
           }
 
         }
@@ -98,6 +101,7 @@
         text-decoration: none;
         text-transform: uppercase;
         transition: opacity 0.2s;
+        width:120px;
 
         &:hover {
           opacity: 1;
@@ -118,7 +122,9 @@
 
       & #introduction {
         font-size: 24px;
-        line-height: 36px;
+        font-weight: 300;
+        letter-spacing: 1px;
+        line-height: 160%;
         margin: 0 auto;
         max-width: 928px;
         padding: 0 var(--gutter) 100px;
