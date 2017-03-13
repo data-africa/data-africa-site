@@ -6,9 +6,9 @@ import pluralize from "pluralize";
 import {fetchData} from "actions/profile";
 import {VARIABLES, FORMATTERS} from "helpers/formatters";
 import {COLORS_CROP} from "helpers/colors";
-import {SectionColumns, SectionTitle} from "datawheel-canon";
+import {SectionRows, SectionTitle} from "datawheel-canon";
 
-class CropsAreaVsValue extends SectionColumns {
+class CropsAreaVsValue extends SectionRows {
 
   render() {
 
@@ -25,9 +25,9 @@ class CropsAreaVsValue extends SectionColumns {
     const bottomCrop = crops[crops.length - 1];
 
     return (
-      <SectionColumns>
-        <SectionTitle>Harvested Area Versus Value of Production</SectionTitle>
-        <article>
+      <SectionRows>
+        <SectionTitle className="sectionTitle">Harvested Area Versus Value of Production</SectionTitle>
+        <article className="sectionText">
           <p><strong>{ topCrop.name }</strong> are the crop with the highest production value per area in { profile.name }, with a harvested area of { VARIABLES.value_density(topCrop.density) }.</p>
           <p><strong>{ bottomCrop.name }</strong> are the crop with the lowest production value per area in { profile.name }, with a harvested area of { VARIABLES.value_density(bottomCrop.density) }.</p>
           <p>This means that growers of {topCrop.name} will earn approximately <strong>{FORMATTERS.round(topCrop.density / bottomCrop.density)} times</strong> more per hectacre of {topCrop.name} that they grow versus {bottomCrop.name}.</p>
@@ -53,7 +53,7 @@ class CropsAreaVsValue extends SectionColumns {
             title: "Value of Production"
           }
         }} />
-      </SectionColumns>
+      </SectionRows>
     );
   }
 }

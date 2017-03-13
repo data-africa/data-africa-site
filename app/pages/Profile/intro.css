@@ -121,8 +121,9 @@
       width: 100%;
 
       & #introduction {
-        font-size: 24px;
-        font-weight: 300;
+        font-family: georgia;
+        font-size: 21px;
+        font-weight: normal;
         letter-spacing: 1px;
         line-height: 160%;
         margin: 0 auto;
