@@ -2,11 +2,9 @@ import React from "react";
 
 import {DICTIONARY} from "helpers/dictionary";
 import {VARIABLES, FORMATTERS, formatPlaceName} from "helpers/formatters";
-import {dataFold} from "d3plus-viz";
 import {titleCase} from "d3plus-text";
 
 import {BarChart} from "d3plus-react";
-import {API} from ".env";
 import {COLORS_RESIDENCE, COLORS_GENDER} from "helpers/colors";
 import Selector from "pages/Profile/ui/Selector";
 
@@ -55,10 +53,10 @@ export function povertyTextByMode(profile, povertyData, povLevel, mode = "gender
   }
 }
 
-export function povertyVizByMode(profile, povertyData, povertyLevel, mode) {
+export function povertyVizByMode(profile, vizData, povertyLevel, mode) {
   const colorMap = mode === "residence" ? COLORS_RESIDENCE : COLORS_GENDER;
   return <BarChart config={{
-    data: `${API}api/join/?show=year,${mode}&geo=${profile.id}&required=poverty_level,hc,povgap,sevpov&sumlevel=latest_by_geo,all&poverty_level=${povertyLevel}`,
+    data: vizData,
     groupBy: [mode, "poverty_level"],
     groupPadding: 100,
     label: d => mode === "gender" ? formatGender(d[mode], true) : titleCase(d[mode]),
@@ -77,24 +75,17 @@ export function povertyVizByMode(profile, povertyData, povertyLevel, mode) {
       tickFormat: FORMATTERS.shareWhole,
       title: "Proportion of Poverty"
     }
-  }}
-    dataFormat={d => dataFold(d).reduce((arr, d) => {
-      arr.push({...d, measure: "hc", value: d.hc});
-      arr.push({...d, measure: "povgap", value: d.povgap});
-      arr.push({...d, measure: "sevpov", value: d.sevpov});
-      return arr;
-    }, [])} />;
+  }}/>;
 
 }
 
-export function geoSelector(profile, povertyData, targetGeo, onChange) {
+export function makeGeoSelector(profile, povertyData, targetGeo, onChange) {
   // Get a list of the unique places in the dataset
   const places = [... new Set(povertyData.map(x => x.poverty_geo))];
   const opts = places.map(p => {
     const row = povertyData.filter(x => x.poverty_geo === p)[0];
     return {value: p, label: formatPlaceName(row, "poverty", profile.level)};
   });
-
   // If there is more than one place, insert a place dropdown
   const selector = places && places.length > 1 ? <Selector options={opts} callback={onChange}/> : "";
   // By default, select the first place

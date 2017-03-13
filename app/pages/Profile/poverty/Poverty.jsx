@@ -7,7 +7,7 @@ import {fetchData} from "actions/profile";
 import {COLORS_POVERTY} from "helpers/colors";
 import {DICTIONARY} from "helpers/dictionary";
 import {FORMATTERS} from "helpers/formatters";
-import {povertyContent, geoSelector} from "pages/Profile/poverty/shared";
+import {povertyContent, makeGeoSelector} from "pages/Profile/poverty/shared";
 
 class Poverty extends SectionColumns {
   constructor(props) {
@@ -24,9 +24,8 @@ class Poverty extends SectionColumns {
     const {profile} = this.props;
     const {povertyData} = this.context.data;
     const targetGeo = this.state.targetGeo;
-    // Get a list of the unique places in the dataset
-    const {filteredData, vizData, selector} = geoSelector(profile, povertyData,
-                                                          targetGeo, this.onChangeGeo);
+    const {filteredData, vizData, selector} = makeGeoSelector(profile, povertyData,
+                                                              targetGeo, this.onChangeGeo);
 
     return (
       <SectionColumns>
