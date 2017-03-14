@@ -28,7 +28,7 @@ class RainfallBars extends SectionRows {
       <SectionRows>
         <SectionTitle>Rainfall by Location</SectionTitle>
         <article>From {res.start_year} to {res.year} {res.geo_name} had an annual
-        average rainfall of of {VARIABLES.rainfall_awa_mm(res.rainfall_awa_mm)} across a total
+        average rainfall of {VARIABLES.rainfall_awa_mm(res.rainfall_awa_mm)} across a total
         cropland area of {VARIABLES.harvested_area(res.cropland_total_ha)}.</article>
         <SectionColumns>
           <Geomap config={{
