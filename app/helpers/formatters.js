@@ -43,7 +43,7 @@ export const VARIABLES = {
   value_of_production: d => `Intl.$${abbreviate(d)}`,
   value_density: d => `Intl.$ ${abbreviate(d)} per ha`,
   totpop: d => round2(d),
-  cropland_rainfallCVgt20pct_pct: d => `${round2(d)}%`
+  cropland_cv: d => `${round2(d)}%`
 };
 
 function formatPlaceName(datum, mode, level = "adm0") {
