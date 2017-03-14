@@ -27,6 +27,14 @@ export default combineReducers({
     }
     return lookup;
   },
+  breadcrumb: (state = false, action) => {
+    switch (action.type) {
+      case "UPDATE_BREADCRUMB":
+        return action.data;
+      default:
+        return state;
+    }
+  },
   focus: (state = {}) => state,
   profile,
   routing,

@@ -27,6 +27,15 @@ import PovertyByResidence from "./poverty/PovertyByResidence";
 
 class GeoProfile extends Profile {
 
+  componentDidMount() {
+    const {id} = this.props.params;
+    const {attrs} = this.props;
+    const attr = attrs.geo[id];
+    const data = [attr];
+    if (attr.level !== "adm0") data.unshift(attrs.geo[`040${id.slice(3, 10)}`]);
+    this.props.dispatch({type: "UPDATE_BREADCRUMB", data});
+  }
+
   urlPath(attr) {
     const adm0 = String(`00000${attr.adm0_id}`).slice(-5);
     const targetId = `040AF${adm0}`;
@@ -168,4 +177,4 @@ export default connect(state => ({
   data: state.profile.data,
   focus: state.focus,
   stats: state.profile.stats
-}), {})(GeoProfile);
+}))(GeoProfile);

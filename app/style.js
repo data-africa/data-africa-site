@@ -4,6 +4,8 @@ module.exports = {
   "light": "#757E6F",
   "accent": "#74E19A",
 
+  "nav-height": "80px",
+
   "font-family": "Work Sans",
 
   "background": "-10",
