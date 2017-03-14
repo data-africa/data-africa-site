@@ -1,6 +1,11 @@
 import {format, formatPrefix} from "d3-format";
 import {timeFormat} from "d3-time-format";
 
+function round2(d) {
+  if (d === undefined || d === null) return "N/A";
+  return formatPrefix(",.2", d)(d).replace("G", "B");
+}
+
 function abbreviate(n) {
   if (n === undefined || n === null) return "N/A";
 
@@ -37,7 +42,8 @@ export const VARIABLES = {
   rainfall_awa_mm: d => `${FORMATTERS.round(d)}mm`,
   value_of_production: d => `Intl.$${abbreviate(d)}`,
   value_density: d => `Intl.$ ${abbreviate(d)} per ha`,
-  totpop: d => formatPrefix(",.2", d)(d).replace("G", "B")
+  totpop: d => round2(d),
+  cropland_rainfallCVgt20pct_pct: d => round2(d)
 };
 
 function formatPlaceName(datum, mode, level = "adm0") {
