@@ -15,12 +15,13 @@ class RainfallBars extends SectionRows {
     const {attrs, focus, profile} = this.props;
     const data = this.context.data.rainfall;
     const sumlevel = profile.id.slice(0, 3);
-    const param = sumlevel === "040" ? `geo=${ focus.join(",") }` : `neighbors=${ profile.id }`;
+    const adm0 = profile.id.slice(5, 10);
+    const param = sumlevel === "040" ? `geo=${ focus.join(",") }` : `inside=geo:040AF${adm0}`;
+
     const apiUrl = `${API}api/join/?show=geo&${param}&sumlevel=all&required=rainfall_awa_mm&display_names=1&order=rainfall_awa_mm&sort=desc`;
     const res = data.length > 0 ? data[0] : {};
 
     const isAdm0 = profile.level === "adm0";
-    const adm0 = profile.id.slice(5, 10);
     const topoFilt = isAdm0 ? d => d : d => adm0 === d.properties.geo.slice(5, 10);
     const topoPath = isAdm0 ? "/topojson/continent.json" : "/topojson/cell5m/adm1.json";
 
