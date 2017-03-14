@@ -26,7 +26,7 @@ class RainfallBars extends SectionRows {
     const topoFilt = isAdm0 ? d => d : d => adm0 === d.properties.geo.slice(5, 10);
     const topoPath = isAdm0 ? "/topojson/continent.json" : "/topojson/cell5m/adm1.json";
     const statValue = hasData ?  data[0].cropland_rainfallCVgt20pct_pct : null;
-    const sentence = hasData ? <article>From {res.start_year} to {res.year}, {VARIABLES.cropland_rainfallCVgt20pct_pct(statValue)}% of cropland area
+    const sentence = hasData ? <article>From {res.start_year} to {res.year}, {VARIABLES.cropland_rainfallCVgt20pct_pct(statValue)} of cropland area
             in {res.geo_name} had rainfall variability greater than 20%.</article> : "";
 
     return (
@@ -39,7 +39,7 @@ class RainfallBars extends SectionRows {
             colorScaleConfig: {
               color: COLORS_RAINFALL,
               axisConfig: {
-                tickFormat: d => d
+                tickFormat: d => VARIABLES.cropland_rainfallCVgt20pct_pct(d)
               }
             },
             colorScalePosition: "left",
