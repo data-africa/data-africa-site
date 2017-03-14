@@ -1,5 +1,5 @@
-section {
-  margin-bottom: 0;
+.section {
+  margin-bottom: 32px;
   padding:48px;
 
   &:after {
