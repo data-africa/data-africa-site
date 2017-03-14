@@ -41,13 +41,13 @@ class GeoProfile extends Profile {
     const isAdm0 = attr.level === "adm0";
     const adm0 = id.slice(5, 10);
 
-    let fill = d => d.properties.iso_a3 === attr.iso3 ? "white" : focusISO.includes(d.properties.iso_a3) ? "rgba(255, 255, 255, 0.35)" : "rgba(255, 255, 255, 0.1)";
+    let fill = d => d.feature.properties.iso_a3 === attr.iso3 ? "white" : focusISO.includes(d.feature.properties.iso_a3) ? "rgba(255, 255, 255, 0.35)" : "rgba(255, 255, 255, 0.1)";
     let topoFilt = d => d;
     let topoPath = "/topojson/continent.json";
 
     if (!isAdm0) {
-      fill = d => d.properties.geo === id ? "white" : focusISO.includes(d.properties.iso_a3) ? "rgba(255, 255, 255, 0.35)" : "rgba(255, 255, 255, 0.1)";
-      topoFilt = d => adm0 === d.properties.geo.slice(5, 10);
+      fill = d => d.feature.properties.geo === id ? "white" : focusISO.includes(d.feature.properties.iso_a3) ? "rgba(255, 255, 255, 0.35)" : "rgba(255, 255, 255, 0.1)";
+      topoFilt = d => adm0 === d.feature.properties.geo.slice(5, 10);
       topoPath = "/topojson/cell5m/adm1.json";
     }
 
