@@ -54,12 +54,9 @@ class RainfallBars extends SectionRows {
           <BarChart config={{
             colorScale: "rainfall_awa_mm",
             colorScaleConfig: {
-              color: COLORS_RAINFALL,
-              axisConfig: {
-                tickFormat: d => VARIABLES.rainfall_awa_mm(d)
-              }
+              color: COLORS_RAINFALL
             },
-            colorScalePosition: "right",
+            colorScalePosition: false,
             data: apiUrl,
             discrete: "y",
             groupBy: "geo_name",
