@@ -3,7 +3,7 @@ import {fetchData} from "actions/profile";
 import {titleCase} from "d3plus-text";
 
 import {BarChart} from "d3plus-react";
-import {SectionColumns, SectionTitle} from "datawheel-canon";
+import {SectionRows, SectionTitle} from "datawheel-canon";
 import {childHealth} from "pages/Profile/health/shared";
 
 import {API} from ".env";
@@ -11,16 +11,16 @@ import {COLORS_CONDITION} from "helpers/colors";
 import {FORMATTERS} from "helpers/formatters";
 import {formatPlaceName} from "helpers/formatters";
 
-class Conditions extends SectionColumns {
+class Conditions extends SectionRows {
 
   render() {
     const {profile} = this.props;
     const {dhsHealth} = this.context.data;
 
     return (
-      <SectionColumns>
+      <SectionRows>
         <SectionTitle>Health Conditions Among Children</SectionTitle>
-        <article>
+        <article className="section-text">
           {childHealth(profile, dhsHealth)}
         </article>
         <BarChart config={{
@@ -53,7 +53,7 @@ class Conditions extends SectionColumns {
             title: "Proportion of Children"
           }
         }} />
-      </SectionColumns>
+      </SectionRows>
     );
   }
 }

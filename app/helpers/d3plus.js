@@ -37,6 +37,7 @@ export default {
     }
   },
   legendConfig: {
+    marginLeft: 50,
     padding: 8,
     shapeConfig: {
       fontColor: "rgba(0, 0, 0, 0.8)",
@@ -54,6 +55,17 @@ export default {
     fontWeight: 600
   },
   timeline: false,
+  tooltipConfig: {
+    background: "#fff",
+    fontSize: "24px!important",
+    padding: "16px",
+    footer: "click to highlight",
+    footerStyle: {
+      "color": "#ccc",
+      "font-size": "12px",
+      "margin-top": "10px"
+    }
+  },
   xConfig: axisConfig,
   x2Config: {barConfig: axisConfig.barConfig},
   yConfig: axisConfig,

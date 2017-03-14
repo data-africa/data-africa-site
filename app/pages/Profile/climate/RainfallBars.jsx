@@ -2,13 +2,13 @@ import React from "react";
 import {connect} from "react-redux";
 
 import {BarChart} from "d3plus-react";
-import {SectionColumns, SectionTitle} from "datawheel-canon";
+import {SectionRows, SectionTitle} from "datawheel-canon";
 import {fetchData} from "actions/profile";
 import {VARIABLES} from "helpers/formatters";
 
 import {API} from ".env";
 
-class RainfallBars extends SectionColumns {
+class RainfallBars extends SectionRows {
 
   render() {
     const {focus, profile} = this.props;
@@ -18,9 +18,9 @@ class RainfallBars extends SectionColumns {
     const apiUrl = `${API}api/join/?show=geo&${param}&sumlevel=all&required=rainfall_awa_mm&display_names=1`;
     const res = data.length > 0 ? data[0] : {};
     return (
-      <SectionColumns>
+      <SectionRows>
         <SectionTitle>Rainfall by Location</SectionTitle>
-        <article>From {res.start_year} to {res.year} {res.geo_name} had an annual
+        <article className="section-text">From {res.start_year} to {res.year} {res.geo_name} had an annual
         average rainfall of of {VARIABLES.rainfall_awa_mm(res.rainfall_awa_mm)} across a total
         cropland area of {VARIABLES.harvested_area(res.cropland_total_ha)}.</article>
         <BarChart config={{
@@ -44,7 +44,7 @@ class RainfallBars extends SectionColumns {
             title: "Locations"
           }
         }} />
-    </SectionColumns>
+    </SectionRows>
     );
   }
 }

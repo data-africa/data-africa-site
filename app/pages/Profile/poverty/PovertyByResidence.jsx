@@ -34,7 +34,7 @@ class PovertyByResidence extends SectionColumns {
     const opts = ["ppp1", "ppp2"];
     return <SectionColumns>
             <SectionTitle>{ `Poverty Measures by Residence ${ DICTIONARY[povertyLevel] }` }</SectionTitle>
-            <article>
+            <article className="section-text">
               {selector}
               <Selector options={opts} callback={this.onChange}/>
               {povertyTextByMode(profile, filteredData, povertyLevel, "residence")}

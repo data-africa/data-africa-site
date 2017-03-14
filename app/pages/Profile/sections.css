@@ -1,5 +1,6 @@
 section {
-  margin-bottom: calc(var(--gutter) * 2);
+  margin-bottom: 0;
+  padding:48px;
 
   &:after {
     background-color: #ddd;
@@ -7,5 +8,59 @@ section {
     display: block;
     height: 1px;
     margin: 0 calc(var(--gutter) / 2);
+  }
+
+  & h4 {
+	display: block !important;
+	font-size: 32px !important;
+	margin: 16px !important;
+	width: 100% !important;
+  }
+
+  & .columns {
+
+  	& .section-text {
+	  font-size: 16px;
+	  font-weight: 300;
+	  line-height: 1.4;
+	  margin: 16px;
+
+	  & p {
+	  	margin:0px 0px 16px;
+	  }
+
+	  & strong {
+	  	color:var(--accent);
+	  	font-weight: 600;
+	  }
+	}
+  }
+
+  & .section-text {
+	font-size: 20px;
+	font-weight: 300;
+	line-height: 1.4;
+	margin: 0px 16px 10px;
+
+	& p {
+		margin:0px;
+	}
+
+	& strong {
+	  color:var(--accent);	
+	  font-weight: 600;
+	}
+  }
+
+  & .d3plus-Axis-title {
+  	
+  	& .d3plus-textBox {
+  		margin-top: 20px;
+  		text-transform: uppercase;
+  	}
+  }
+
+  & .d3plus-viz-legend {
+  	margin-left:100px;
   }
 }

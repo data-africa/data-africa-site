@@ -17,13 +17,13 @@ class CropsByProduction extends SectionRows {
     return (
       <SectionRows>
         <SectionTitle>Crops by Production Value</SectionTitle>
-        <article>
-          The crop with the highest production value in { profile.name } is { data[0].crop_name }, with a value of { VARIABLES.value_of_production(data[0].value_of_production) }.
+        <article className="section-text">
+          The crop with the highest production value in { profile.name } is { data[0].crop_name }, with a value of <strong>{ VARIABLES.value_of_production (data[0].value_of_production) }</strong>.
         </article>
         <Treemap config={{
           data,
           groupBy: ["crop_parent", "crop_name"],
-          height: 552,
+          height: 500,
           label: d => d.crop_name instanceof Array ? d.crop_parent : d.crop_name,
           shapeConfig: {
             fill: d => COLORS_CROP[d.crop_parent]

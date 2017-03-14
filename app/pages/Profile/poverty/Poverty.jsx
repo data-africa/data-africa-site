@@ -30,7 +30,7 @@ class Poverty extends SectionColumns {
     return (
       <SectionColumns>
         <SectionTitle>Poverty Level by Measure</SectionTitle>
-        <article>
+        <article className="section-text">
           {selector}
 
           {povertyContent(profile, filteredData)}
