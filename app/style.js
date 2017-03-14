@@ -4,8 +4,10 @@ module.exports = {
   "light": "#757E6F",
   "accent": "#74E19A",
 
-  "section-article-large": "600px",
-  "section-article-small": "300px",
+
+
+
+  "nav-height": "80px",
 
   "font-family": "Work Sans",
 

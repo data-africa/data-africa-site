@@ -1,5 +1,9 @@
 .nav {
+  align-items: center;
+  display: flex;
   font-family: var(--font-family);
+  justify-content: space-between;
+  height: var(--nav-height);
   left: 0;
   margin: 0 auto;
   max-width: var(--width);
@@ -13,7 +17,7 @@
     display: inline-block;
     font-size: 24px;
     font-weight: 800;
-    margin: 25px 25px 0 0;
+    margin-right: 25px;
     text-decoration: none;
     text-transform: uppercase;
 
@@ -31,10 +35,12 @@
     color: white;
     display: inline-block;
     font-size: 16px;
-    margin: 25px 15px;
+    margin: 0 15px;
     opacity: 0.8;
+    padding: 5px 0;
     text-decoration: none;
     transition: opacity 0.2s;
+    vertical-align: top;
 
     &.active {
       color: var(--accent);
@@ -44,6 +50,23 @@
       cursor: pointer;
       opacity: 1;
     }
+
+    &.profile {
+      border-bottom: 1px solid white;
+    }
+
+  }
+
+  & .divider {
+    color: white;
+    display: inline-block;
+    font-size: 16px;
+    margin: 0;
+    opacity: 0.8;
+    padding: 5px 0;
+    text-decoration: none;
+    transition: opacity 0.2s;
+    vertical-align: top;
   }
 
 }

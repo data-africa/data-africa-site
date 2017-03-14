@@ -15,6 +15,7 @@ import CropsByHarvest from "./agriculture/CropsByHarvest";
 import CropsByProduction from "./agriculture/CropsByProduction";
 
 import RainfallBars from "./climate/RainfallBars";
+import RainfallCV from "./climate/RainfallCV";
 
 import Conditions from "./health/Conditions";
 import ConditionsByGender from "./health/ConditionsByGender";
@@ -25,6 +26,15 @@ import PovertyByGender from "./poverty/PovertyByGender";
 import PovertyByResidence from "./poverty/PovertyByResidence";
 
 class GeoProfile extends Profile {
+
+  componentDidMount() {
+    const {id} = this.props.params;
+    const {attrs} = this.props;
+    const attr = attrs.geo[id];
+    const data = [attr];
+    if (attr.level !== "adm0") data.unshift(attrs.geo[`040${id.slice(3, 10)}`]);
+    this.props.dispatch({type: "UPDATE_BREADCRUMB", data});
+  }
 
   urlPath(attr) {
     const adm0 = String(`00000${attr.adm0_id}`).slice(-5);
@@ -121,6 +131,7 @@ class GeoProfile extends Profile {
           Climate
         </TopicTitle>
         <RainfallBars profile={attr} />
+        <RainfallCV profile={attr} />
 
         <TopicTitle slug="health">
           <div className="icon" style={{backgroundImage: "url('/images/topics/health.svg')"}}></div>
@@ -157,7 +168,8 @@ GeoProfile.need = [
   Poverty,
   PovertyByGender,
   PovertyByResidence,
-  RainfallBars
+  RainfallBars,
+  RainfallCV
 ];
 
 export default connect(state => ({
@@ -165,4 +177,4 @@ export default connect(state => ({
   data: state.profile.data,
   focus: state.focus,
   stats: state.profile.stats
-}), {})(GeoProfile);
+}))(GeoProfile);
