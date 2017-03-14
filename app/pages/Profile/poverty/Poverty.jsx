@@ -22,9 +22,9 @@ class Poverty extends SectionColumns {
 
   render() {
     const {profile} = this.props;
-    const {povertyData} = this.context.data;
+    const {povertyLevelData} = this.context.data;
     const targetGeo = this.state.targetGeo;
-    const {filteredData, vizData, selector} = makeGeoSelector(profile, povertyData,
+    const {filteredData, vizData, selector} = makeGeoSelector(profile, povertyLevelData,
                                                               targetGeo, this.onChangeGeo);
 
     return (
@@ -63,7 +63,7 @@ class Poverty extends SectionColumns {
 }
 
 Poverty.need = [
-  fetchData("povertyData", "api/join/?geo=<id>&show=year,poverty_level&sumlevel=latest_by_geo,all&required=hc,povgap,sevpov,num,poverty_geo_name,poverty_geo_parent_name")
+  fetchData("povertyLevelData", "api/join/?geo=<id>&show=year,poverty_level&sumlevel=latest_by_geo,all&required=hc,povgap,sevpov,num,poverty_geo_name,poverty_geo_parent_name")
 ];
 
 export default Poverty;

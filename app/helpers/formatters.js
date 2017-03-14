@@ -37,7 +37,7 @@ export const VARIABLES = {
   rainfall_awa_mm: d => `${FORMATTERS.round(d)}mm`,
   value_of_production: d => `Intl.$${abbreviate(d)}`,
   value_density: d => `Intl.$ ${abbreviate(d)} per ha`,
-  totpop: d => abbreviate(d)
+  totpop: d => formatPrefix(",.2", d)(d).replace("G", "B")
 };
 
 function formatPlaceName(datum, mode, level = "adm0") {

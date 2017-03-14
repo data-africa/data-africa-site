@@ -31,3 +31,15 @@ export const COLORS_CONDITION = {
   stunted: "#D69F7A",
   underweight: "#DB968E"
 };
+
+export const COLORS_RAINFALL = [
+  "rgba(10, 134, 183, 0.2)",
+  "rgba(10, 134, 183, 0.3)",
+  "rgba(10, 134, 183, 0.4)",
+  "rgba(10, 134, 183, 0.5)",
+  "rgba(10, 134, 183, 0.6)",
+  "rgba(10, 134, 183, 0.7)",
+  "rgba(10, 134, 183, 0.8)",
+  "rgba(10, 134, 183, 0.9)",
+  "rgb(10, 134, 183)"
+];
