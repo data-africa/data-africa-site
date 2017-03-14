@@ -26,6 +26,24 @@ const axisConfig = {
 
 export default {
   barPadding: 4,
+  colorScaleConfig: {
+    scale: "jenks",
+    shapeConfig: {
+      fill: "#979797",
+      fontColor: "rgba(0, 0, 0, 0.8)",
+      fontFamily: () => "Work Sans",
+      fontSize: () => 12,
+      stroke: "#979797",
+      textTransform: "uppercase"
+    },
+    tickSize: 0,
+    titleConfig: {
+      fontFamily: "Work Sans",
+      fontSize: "14px",
+      fontWeight: 600,
+      textTransform: "uppercase"
+    }
+  },
   controlConfig: {
     labelStyle: {
       "color": "rgba(0, 0, 0, 0.2)",
