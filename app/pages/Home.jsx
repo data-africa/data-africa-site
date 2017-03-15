@@ -10,7 +10,7 @@ class Home extends Component {
   render() {
 
     const {attrs, focus, message} = this.props;
-    const focusISO = focus.map(f => attrs.geo[f].iso3);
+    const focusISO = focus.map(f => attrs[f].iso3);
 
     return (
       <div className="home">
@@ -38,6 +38,19 @@ class Home extends Component {
             zoom: false
           }} />
         </div>
+        <div className="tiles">
+          <h3 className="title">Explore Countries</h3>
+          {
+            focus.map(f =>
+              <a key={f} className="tile" href={ `/profile/${f}` } style={{backgroundImage: `url('/images/geo/${f}.jpg')`}}>
+                <span className="name">{ attrs[f].name }</span>
+              </a>
+            )
+          }
+          <div className="spacer"></div>
+          <div className="spacer"></div>
+          <div className="spacer"></div>
+        </div>
       </div>
     );
   }
@@ -48,6 +61,6 @@ Home.defaultProps = {
 }
 
 export default connect(state => ({
-  attrs: state.attrs,
+  attrs: state.attrs.geo,
   focus: state.focus
 }), {activateSearch})(Home);
