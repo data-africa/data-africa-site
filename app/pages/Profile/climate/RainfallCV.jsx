@@ -28,7 +28,8 @@ class RainfallCV extends SectionRows {
     const topoPath = isAdm0 ? "/topojson/continent.json" : "/topojson/cell5m/adm1.json";
     const statValue = hasData ? data[0][cvLevel] : null;
     const sentence = hasData ? <article>From {res.start_year} to {res.year}, {VARIABLES.cropland_cv(statValue)} of cropland area
-            in {res.geo_name} had rainfall variability greater than 20%.</article> : "";
+            in {res.geo_name} had rainfall variability greater than 20%.</article>
+            : <article className="warning">There is no data on rainfall variability for {profile.name}, showing available data across {profile.parent_name}.</article>;
 
     return (
       <SectionRows>
