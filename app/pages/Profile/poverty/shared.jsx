@@ -11,7 +11,7 @@ import Selector from "pages/Profile/ui/Selector";
 export function povertyContent(profile, poverty) {
   const first = poverty && poverty.length > 0 ? poverty[0] : null;
   if (!first) {
-    return <p></p>;
+    return <span></span>;
   }
   const items = poverty.map(row => `${VARIABLES.totpop(row.num)} people living below ${DICTIONARY[row.poverty_level]}`);
   const place = formatPlaceName(first, "poverty", profile.level);

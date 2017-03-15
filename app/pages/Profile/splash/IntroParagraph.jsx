@@ -45,7 +45,7 @@ class IntroParagraph extends Section {
       <div id="introduction">
         {this.population(profile, popData)}
         {this.crops(profile, crops)}
-        {childHealth(profile, dhsHealth)}
+        {childHealth(profile, dhsHealth, true)}
         {povertyContent(profile, povertyData)}
       </div>
     );
