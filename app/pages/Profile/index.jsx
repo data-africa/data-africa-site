@@ -16,7 +16,6 @@ import CropsByHarvest from "./agriculture/CropsByHarvest";
 import CropsByProduction from "./agriculture/CropsByProduction";
 
 import RainfallBars from "./climate/RainfallBars";
-import RainfallCV from "./climate/RainfallCV";
 
 import Conditions from "./health/Conditions";
 import ConditionsByGender from "./health/ConditionsByGender";
@@ -177,7 +176,6 @@ class GeoProfile extends Profile {
           Climate
         </TopicTitle>
         <RainfallBars profile={attr} />
-        <RainfallCV profile={attr} />
 
         <TopicTitle slug="health">
           <div className="icon" style={{backgroundImage: "url('/images/topics/health.svg')"}}></div>
@@ -214,8 +212,7 @@ GeoProfile.need = [
   Poverty,
   PovertyByGender,
   PovertyByResidence,
-  RainfallBars,
-  RainfallCV
+  RainfallBars
 ];
 
 export default connect(state => ({
