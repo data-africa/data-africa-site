@@ -6,6 +6,7 @@ import store from "store";
 import App from "components/App";
 import Home from "pages/Home";
 import Profile from "pages/Profile";
+import Map from "pages/Map";
 import About from "pages/About";
 import NotFound from "pages/NotFound";
 
@@ -33,6 +34,7 @@ export default function RouteCreate() {
     <Route path="/" component={App}>
       <IndexRoute component={Home} />
       <Route path="profile(/:id)" component={Profile} onEnter={checkForId} />
+      <Route path="map" component={Map} />
       <Route path="about" component={About} />
       <Route path="*" component={NotFound} status={404} />
     </Route>
