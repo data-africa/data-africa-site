@@ -73,6 +73,10 @@
             font-weight: 400;
             margin-left: 2px;
             text-transform: uppercase;
+
+            & .time {
+              color: var(--accent);
+            }
           }
 
           & .value {
@@ -116,22 +120,17 @@
 
     }
 
-    & .intro-wrapper {
-      background-color: var(--dark);
+    & #introduction {
+      display: block;
+      font-family: georgia;
+      font-size: 21px;
+      font-weight: normal;
+      letter-spacing: 1px;
+      line-height: 160%;
+      margin: calc(var(--nav-height) * -1 + var(--gutter)) auto 0;
+      max-width: 928px;
+      padding: calc(var(--nav-height) + var(--gutter)) var(--gutter) 100px;
       width: 100%;
-
-      & #introduction {
-        display: block;
-        font-family: georgia;
-        font-size: 21px;
-        font-weight: normal;
-        letter-spacing: 1px;
-        line-height: 160%;
-        margin: calc(var(--nav-height) * -1 + var(--gutter)) auto 0;
-        max-width: 928px;
-        padding: calc(var(--nav-height) + var(--gutter)) var(--gutter) 100px;
-        width: 100%;
-      }
     }
 
   }

@@ -1,11 +1,19 @@
-section {
-  margin-bottom: calc(var(--gutter) * 2);
+.profile > .section {
+  background-color: white;
+  padding-bottom: calc(var(--gutter) * 2);
 
   &:after {
     background-color: #ddd;
     content: "";
     display: block;
     height: 1px;
-    margin: 0 calc(var(--gutter) / 2);
+    margin: 0 auto;
+    max-width: var(--width);
+    width: 100%;
   }
+
+  &:last-child:after {
+    content: none;
+  }
+
 }
