@@ -9,7 +9,7 @@ import {VARIABLES} from "helpers/formatters";
 
 import {API} from ".env";
 
-<<<<<<< HEAD
+
 class RainfallCV extends SectionColumns {
   constructor(props) {
     super(props);
@@ -20,9 +20,7 @@ class RainfallCV extends SectionColumns {
   onChange(event) {
     this.setState({cvLevel: event.target.value});
   }
-=======
-class RainfallCV extends SectionRows {
->>>>>>> master
+
 
   render() {
     const {attrs, focus, profile} = this.props;
