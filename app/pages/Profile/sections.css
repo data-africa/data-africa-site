@@ -1,6 +1,6 @@
 .section {
   margin-bottom: 32px;
-  padding:48px;
+  padding: 48px;
 
   &:after {
     background-color: #ddd;
@@ -24,9 +24,10 @@
 	  font-weight: 300;
 	  line-height: 1.4;
 	  margin: 16px;
+	  width: 300px;
 
 	  & p {
-	  	margin:0px 0px 16px;
+	  	margin: 0px 0px 16px;
 	  }
 
 	  & strong {
@@ -34,24 +35,33 @@
 	  	font-weight: 600;
 	  }
 	}
+	& .section {
+		border-bottom: none;
+		padding: 0;
+	}
   }
+  & .rows {
+	& .section-text {
+	  font-size: 20px;
+	  font-weight: 300;
+	  line-height: 1.4;
+	  margin: 0px 16px 10px;
+	  width: 600px;
 
-  & .section-text {
-	font-size: 20px;
-	font-weight: 300;
-	line-height: 1.4;
-	margin: 0px 16px 10px;
-
-	& p {
+	  & p {
 		margin:0px;
-	}
+	  }
 
-	& strong {
-	  color:var(--accent);	
-	  font-weight: 600;
+	  & strong {
+ 	    color:var(--accent);	
+		font-weight: 600;
+	  }
+	}
+	& .section {
+		border-bottom: none;
+		padding: 0;
 	}
   }
-
   & .d3plus-Axis-title {
   	
   	& .d3plus-textBox {
@@ -61,6 +71,6 @@
   }
 
   & .d3plus-viz-legend {
-  	margin-left:100px;
+  	margin-left: 100px;
   }
 }

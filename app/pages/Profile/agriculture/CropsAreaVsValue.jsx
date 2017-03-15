@@ -34,12 +34,12 @@ class CropsAreaVsValue extends SectionColumns {
         </article>
         <Plot config={{
           data: crops,
+          height: 500,
           label: d => d.crop_name instanceof Array ? d.crop_parent : d.crop_name,
           legend: false,
           groupBy: ["crop_parent", "crop_name"],
           shapeConfig: {
             fill: d => COLORS_CROP[d.crop_parent],
-            height: 500,
             stroke: "#979797",
             strokeWidth: 1
           },

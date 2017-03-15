@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 
 
 import {BarChart, Geomap} from "d3plus-react";
-import {SectionColumns, SectionRows, SectionTitle} from "datawheel-canon";
+import {SectionRows, SectionColumns, SectionTitle} from "datawheel-canon";
 
 import {fetchData} from "actions/profile";
 import {COLORS_RAINFALL} from "helpers/colors";
@@ -11,7 +11,7 @@ import {VARIABLES} from "helpers/formatters";
 
 import {API} from ".env";
 
-class RainfallBars extends SectionColumns {
+class RainfallBars extends SectionRows {
 
   render() {
     const {attrs, focus, profile} = this.props;
@@ -28,12 +28,14 @@ class RainfallBars extends SectionColumns {
     const topoPath = isAdm0 ? "/topojson/continent.json" : "/topojson/cell5m/adm1.json";
 
     return (
-      <SectionColumns>
+      <SectionRows>
         <SectionTitle>Rainfall by Location</SectionTitle>
 
-        <article>From {res.start_year} to {res.year} {res.geo_name} had an annual
+        <article className="section-text">From {res.start_year} to {res.year} {res.geo_name} had an annual
         average rainfall of {VARIABLES.rainfall_awa_mm(res.rainfall_awa_mm)} across a total
         cropland area of {VARIABLES.harvested_area(res.cropland_total_ha)}.</article>
+
+        <SectionColumns>
           <Geomap config={{
             colorScale: "rainfall_awa_mm",
             colorScaleConfig: {
@@ -78,7 +80,8 @@ class RainfallBars extends SectionColumns {
               title: "Locations"
             }
           }} />
-        </SectionColumns>
+          </SectionColumns>
+        </SectionRows>
     );
   }
 }

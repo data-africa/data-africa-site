@@ -2,7 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 
 import {Geomap} from "d3plus-react";
-import {SectionColumns, SectionRows, SectionTitle} from "datawheel-canon";
+import {SectionColumns, SectionTitle} from "datawheel-canon";
 import {fetchData} from "actions/profile";
 import {COLORS_RAINFALL} from "helpers/colors";
 import {VARIABLES} from "helpers/formatters";
@@ -10,7 +10,7 @@ import {VARIABLES} from "helpers/formatters";
 import {API} from ".env";
 import Selector from "pages/Profile/ui/Selector";
 
-class RainfallCV extends SectionRows {
+class RainfallCV extends SectionColumns {
   constructor(props) {
     super(props);
     this.state = {cvLevel: "cropland_rainfallCVgt20pct_pct"};
@@ -44,33 +44,33 @@ class RainfallCV extends SectionRows {
     const opts = [{label: "20% Rainfall Variability Threshold", value: "cropland_rainfallCVgt20pct_pct"},
                   {label: "30% Rainfall Variability Threshold", value: "cropland_rainfallCVgt30pct_pct"}];
     return (
-      <SectionRows>
+      <SectionColumns>
         <SectionTitle>Rainfall Variability</SectionTitle>
-        <Selector options={opts} callback={this.onChange}/>
-        {sentence}
-        <SectionColumns>
-          <Geomap config={{
-            colorScale: cvLevel,
-            colorScaleConfig: {
-              color: COLORS_RAINFALL,
-              axisConfig: {
-                tickFormat: d => VARIABLES.cropland_cv(d)
-              }
-            },
-            colorScalePosition: "left",
-            data: apiUrl,
-            groupBy: d => d.data ? d.id : isAdm0 ? attrs[d.geo] ? attrs[d.geo].iso3 : d.geo : d.geo,
-            label: d => d.data ? d.data.geo_name : d.geo_name,
-            ocean: "transparent",
-            padding: 0,
-            tiles: false,
-            topojson: topoPath,
-            topojsonFilter: topoFilt,
-            topojsonId: d => isAdm0 ? d.properties.iso_a3 : d.properties.geo,
-            zoom: false
-          }} />
+        <article className="section-text">
+          <Selector options={opts} callback={this.onChange}/>
+          {sentence}
+        </article>
+        <Geomap config={{
+          colorScale: cvLevel,
+          colorScaleConfig: {
+            color: COLORS_RAINFALL,
+            axisConfig: {
+              tickFormat: d => VARIABLES.cropland_cv(d)
+            }
+          },
+          colorScalePosition: "left",
+          data: apiUrl,
+          groupBy: d => d.data ? d.id : isAdm0 ? attrs[d.geo] ? attrs[d.geo].iso3 : d.geo : d.geo,
+          label: d => d.data ? d.data.geo_name : d.geo_name,
+          ocean: "transparent",
+          padding: 0,
+          tiles: false,
+          topojson: topoPath,
+          topojsonFilter: topoFilt,
+          topojsonId: d => isAdm0 ? d.properties.iso_a3 : d.properties.geo,
+          zoom: false
+        }} />
         </SectionColumns>
-    </SectionRows>
     );
   }
 }
