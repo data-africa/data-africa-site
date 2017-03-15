@@ -20,7 +20,7 @@ class App extends Component {
         { searchActive ? <Search /> : null }
         <Nav />
         { children }
-        <Footer />
+        <Footer dark={ this.props.params.id === undefined } />
       </div>
     );
   }
