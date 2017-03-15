@@ -2,7 +2,7 @@
   font-family: var(--font-family);
   margin: 0 auto;
   max-width: var(--width);
-  padding: 0 var(--gutter);
+  padding: var(--nav-height) var(--gutter) 0;
   width: 100%;
 
   & .splash {
