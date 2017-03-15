@@ -28,7 +28,8 @@ export function fetchStats(store) {
         value: d.crop
       };
 
-    });
+    })
+    .catch(() => false);
 
   const rainfall = axios.get(`${prefix}&show=geo&required=rainfall_awa_mm,year,start_year`)
     .then(res => {
@@ -44,7 +45,8 @@ export function fetchStats(store) {
         value: VARIABLES.rainfall_awa_mm(d.rainfall_awa_mm)
       };
 
-    });
+    })
+    .catch(() => false);
 
   const condition = axios.get(`${prefix}&show=geo&required=condition,proportion_of_children&severity=severe&order=year&sort=desc`)
     .then(res => {
@@ -63,7 +65,8 @@ export function fetchStats(store) {
         value: `${FORMATTERS.shareWhole(d.proportion_of_children)} Severely ${DICTIONARY[d.condition]}`
       };
 
-    });
+    })
+    .catch(() => false);
 
   const poverty = axios.get(`${prefix}&show=geo&required=hc&poverty_level=ppp1&order=year&sort=desc`)
     .then(res => {
@@ -79,7 +82,8 @@ export function fetchStats(store) {
         value: FORMATTERS.shareWhole(d.hc)
       };
 
-    });
+    })
+    .catch(() => false);
 
   return {
     type: "GET_STATS",

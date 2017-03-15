@@ -105,7 +105,6 @@ class GeoProfile extends Profile {
     const topoFilt = isAdm0 ? d => d : d => adm0 === d.properties.geo.slice(5, 10);
     const topoPath = isAdm0 ? "/topojson/continent.json" : "/topojson/cell5m/adm1.json";
 
-
     return (
       <div className="profile">
 
@@ -133,7 +132,7 @@ class GeoProfile extends Profile {
             <div className="meta">
               <div className="title">{ attr.name }</div>
               {
-                stats.map(stat => {
+                stats.filter(stat => stat).map(stat => {
                   const label = stat.label;
                   // const word = label.includes("from") ? "from" : "in";
                   // const re = new RegExp(`${word}[A-z0-9\\s]*`, "g");
