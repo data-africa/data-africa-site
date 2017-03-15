@@ -66,10 +66,10 @@
   & .d3plus-viz-legend {
   	margin-left: 100px;
   }
-=======
+
   &:last-child:after {
     content: none;
   }
 
->>>>>>> master
+
 }
