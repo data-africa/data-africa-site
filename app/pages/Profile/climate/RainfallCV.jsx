@@ -8,8 +8,8 @@ import {COLORS_RAINFALL} from "helpers/colors";
 import {VARIABLES} from "helpers/formatters";
 
 import {API} from ".env";
-import Selector from "pages/Profile/ui/Selector";
 
+<<<<<<< HEAD
 class RainfallCV extends SectionColumns {
   constructor(props) {
     super(props);
@@ -20,12 +20,15 @@ class RainfallCV extends SectionColumns {
   onChange(event) {
     this.setState({cvLevel: event.target.value});
   }
+=======
+class RainfallCV extends SectionRows {
+>>>>>>> master
 
   render() {
     const {attrs, focus, profile} = this.props;
-    const {cvLevel} = this.state;
+    const cvLevel = "cropland_rainfallCVgt20pct_pct";
     const data = this.context.data.rainfallCv;
-    const hasData = data && data.length > 0 && data[0][cvLevel] !== undefined;
+    const hasData = data && data.length > 0 && (data[0][cvLevel] !== null && data[0][cvLevel] !== undefined);
 
     const sumlevel = profile.id.slice(0, 3);
     const adm0 = profile.id.slice(5, 10);
@@ -36,13 +39,10 @@ class RainfallCV extends SectionColumns {
     const isAdm0 = profile.level === "adm0";
     const topoFilt = isAdm0 ? d => d : d => adm0 === d.properties.geo.slice(5, 10);
     const topoPath = isAdm0 ? "/topojson/continent.json" : "/topojson/cell5m/adm1.json";
-    const statValue = hasData ?  data[0][cvLevel] : null;
-    const pct = cvLevel === "cropland_rainfallCVgt20pct_pct" ? "20" : "30";
+    const statValue = hasData ? data[0][cvLevel] : null;
     const sentence = hasData ? <article>From {res.start_year} to {res.year}, {VARIABLES.cropland_cv(statValue)} of cropland area
-            in {res.geo_name} had rainfall variability greater than {pct}%.</article> : "";
+            in {res.geo_name} had rainfall variability greater than 20%.</article> : "";
 
-    const opts = [{label: "20% Rainfall Variability Threshold", value: "cropland_rainfallCVgt20pct_pct"},
-                  {label: "30% Rainfall Variability Threshold", value: "cropland_rainfallCVgt30pct_pct"}];
     return (
       <SectionColumns>
         <SectionTitle>Rainfall Variability</SectionTitle>

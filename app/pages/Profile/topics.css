@@ -15,4 +15,13 @@
     width: 65px;
   }
 
+  /* TODO: remove this when it is part of canon */
+  & .anchor {
+    display: inline-block;
+    margin-top: calc(var(--nav-height) * -1 + var(--gutter));
+    outline: 0;
+    padding-top: calc(var(--nav-height) + var(--gutter));
+    position: relative;
+  }
+
 }

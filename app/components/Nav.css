@@ -1,72 +1,112 @@
-.nav {
-  align-items: center;
-  display: flex;
+.nav-container {
   font-family: var(--font-family);
-  justify-content: space-between;
-  height: var(--nav-height);
   left: 0;
-  margin: 0 auto;
-  max-width: var(--width);
   position: absolute;
   right: 0;
   top: 0;
   width: 100%;
   z-index: var(--cover);
 
-  & .logo {
-    display: inline-block;
-    font-size: 24px;
-    font-weight: 800;
-    margin-right: 25px;
-    text-decoration: none;
-    text-transform: uppercase;
+  &.subnav {
+    background-color: var(--light);
+    position: fixed;
+    transition: top 1s;
+    top: 0;
 
-    & .data {
+    &.hidden {
+      top: calc(var(--nav-height) * -1);
+    }
+  }
+
+
+  & .nav {
+    align-items: center;
+    display: flex;
+    height: var(--nav-height);
+    justify-content: space-between;
+    margin: 0 auto;
+    max-width: var(--width);
+    width: 100%;
+
+    & .logo {
+      display: inline-block;
+      font-size: 24px;
+      font-weight: 800;
+      margin-right: 25px;
+      text-decoration: none;
+      text-transform: uppercase;
+
+      & .data {
+        color: white;
+      }
+
+      & .africa {
+        color: var(--accent);
+      }
+
+    }
+
+    & .link {
       color: white;
+      display: inline-block;
+      font-size: 16px;
+      margin: 0 15px;
+      opacity: 0.8;
+      padding: 5px 0;
+      text-decoration: none;
+      transition: color 0.2s, opacity 0.2s;
+      vertical-align: top;
+
+      &.active {
+        color: var(--accent);
+      }
+
+      &:hover {
+        cursor: pointer;
+        opacity: 1;
+      }
+
+      &.profile {
+        border-bottom: 1px solid white;
+      }
+
     }
 
-    & .africa {
-      color: var(--accent);
+    & .divider {
+      color: white;
+      display: inline-block;
+      font-size: 16px;
+      margin: 0;
+      opacity: 0.8;
+      padding: 5px 0;
+      text-decoration: none;
+      transition: opacity 0.2s;
+      vertical-align: top;
     }
 
-  }
+    & .subnav-link {
+      color: white;
+      display: inline-block;
+      font-size: 12px;
+      margin: 0 15px;
+      opacity: 0.8;
+      padding: 8px 0;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.2s, opacity 0.2s;
+      vertical-align: top;
 
-  & .link {
-    color: white;
-    display: inline-block;
-    font-size: 16px;
-    margin: 0 15px;
-    opacity: 0.8;
-    padding: 5px 0;
-    text-decoration: none;
-    transition: opacity 0.2s;
-    vertical-align: top;
+      &.active {
+        color: var(--accent);
+      }
 
-    &.active {
-      color: var(--accent);
+      &:hover {
+        cursor: pointer;
+        opacity: 1;
+      }
+
     }
 
-    &:hover {
-      cursor: pointer;
-      opacity: 1;
-    }
-
-    &.profile {
-      border-bottom: 1px solid white;
-    }
-
-  }
-
-  & .divider {
-    color: white;
-    display: inline-block;
-    font-size: 16px;
-    margin: 0;
-    opacity: 0.8;
-    padding: 5px 0;
-    text-decoration: none;
-    transition: opacity 0.2s;
-    vertical-align: top;
   }
 
 }

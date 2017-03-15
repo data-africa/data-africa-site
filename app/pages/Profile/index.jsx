@@ -6,6 +6,7 @@ import d3plus from "helpers/d3plus";
 import "./intro.css";
 import "./topics.css";
 import "./sections.css";
+import Nav from "components/Nav";
 
 import {Geomap} from "d3plus-react";
 import IntroParagraph from "./splash/IntroParagraph";
@@ -25,7 +26,38 @@ import Poverty from "./poverty/Poverty";
 import PovertyByGender from "./poverty/PovertyByGender";
 import PovertyByResidence from "./poverty/PovertyByResidence";
 
+const topics = [
+  {
+    slug: "introduction",
+    title: "Introduction"
+  },
+  {
+    slug: "agriculture",
+    title: "Agriculture"
+  },
+  {
+    slug: "climate",
+    title: "Climate"
+  },
+  {
+    slug: "health",
+    title: "Health"
+  },
+  {
+    slug: "poverty",
+    title: "Poverty"
+  }
+];
+
 class GeoProfile extends Profile {
+
+  constructor() {
+    super();
+    this.state = {
+      activeSub: false,
+      subnav: false
+    };
+  }
 
   componentDidMount() {
     const {id} = this.props.params;
@@ -34,6 +66,20 @@ class GeoProfile extends Profile {
     const data = [attr];
     if (attr.level !== "adm0") data.unshift(attrs.geo[`040${id.slice(3, 10)}`]);
     this.props.dispatch({type: "UPDATE_BREADCRUMB", data});
+    window.addEventListener("scroll", this.handleScroll.bind(this));
+  }
+
+  handleScroll() {
+    const {activeSub, subnav} = this.state;
+    const newSub = this.refs.sublinks.getBoundingClientRect().top <= 0;
+    let newActive = false;
+    for (let i = 0; i < topics.length; i++) {
+      const top = document.getElementById(topics[i].slug).getBoundingClientRect().top;
+      if (top <= 0) newActive = topics[i].slug;
+    }
+    if (subnav !== newSub || newActive !== activeSub) {
+      this.setState({activeSub: newActive, subnav: newSub});
+    }
   }
 
   urlPath(attr) {
@@ -46,6 +92,8 @@ class GeoProfile extends Profile {
 
     const {id} = this.props.params;
     const {attrs, focus, stats} = this.props;
+    const {activeSub, subnav} = this.state;
+
     const attr = attrs.geo[id];
 
     const focusISO = focus.map(f => attrs.geo[f].iso3);
@@ -89,27 +137,15 @@ class GeoProfile extends Profile {
             </div>
           </div>
 
-          <div className="subnav">
-            <a className="sublink" href="#introduction">
-              <img className="icon" src="/images/topics/introduction.svg" />
-              Introduction
-            </a>
-            <a className="sublink" href="#agriculture">
-              <img className="icon" src="/images/topics/agriculture.svg" />
-              Agriculture
-            </a>
-            <a className="sublink" href="#climate">
-              <img className="icon" src="/images/topics/climate.svg" />
-              Climate
-            </a>
-            <a className="sublink" href="#health">
-              <img className="icon" src="/images/topics/health.svg" />
-              Health
-            </a>
-            <a className="sublink" href="#poverty">
-              <img className="icon" src="/images/topics/poverty.svg" />
-              Poverty
-            </a>
+          <div ref="sublinks" className="sublinks">
+            {
+              topics.map(topic =>
+                <a key={ topic.slug } className="sublink" href={ `#${topic.slug}` }>
+                  <img className="icon" src={ `/images/topics/${topic.slug}.svg` } />
+                  { topic.title }
+                </a>
+              )
+            }
           </div>
 
           <div className="intro-wrapper">
@@ -117,6 +153,16 @@ class GeoProfile extends Profile {
           </div>
 
         </div>
+
+        <Nav visible={ subnav }>
+          {
+            topics.map(topic =>
+              <a key={ topic.slug } className={activeSub === topic.slug ? "subnav-link active" : "subnav-link"} href={ `#${topic.slug}` }>
+                { topic.title }
+              </a>
+            )
+          }
+        </Nav>
 
         <TopicTitle slug="agriculture">
           <div className="icon" style={{backgroundImage: "url('/images/topics/agriculture.svg')"}}></div>

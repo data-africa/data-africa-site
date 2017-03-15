@@ -86,7 +86,7 @@
 
     }
 
-    & .subnav {
+    & .sublinks {
       margin: 0 auto;
       padding: 25px;
       text-align: center;
@@ -121,14 +121,19 @@
       width: 100%;
 
       & #introduction {
-        font-size: 24px;
-        font-weight: 300;
-        letter-spacing: 0px;
+
+        display: block;
+        font-family: georgia;
+        font-size: 21px;
+        font-weight: normal;
+        letter-spacing: 1px;
+
         line-height: 160%;
-        margin: 0 auto;
+        margin: calc(var(--nav-height) * -1 + var(--gutter)) auto 0;
         max-width: 928px;
-        opacity: 0.8;
-        padding: 0 var(--gutter) 100px;
+
+        padding: calc(var(--nav-height) + var(--gutter)) var(--gutter) 100px;
+
         width: 100%;
       }
     }
