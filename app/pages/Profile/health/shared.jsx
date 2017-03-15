@@ -2,9 +2,9 @@ import React from "react";
 
 import {FORMATTERS, formatPlaceName} from "helpers/formatters";
 
-export function childHealth(profile, health) {
+export function childHealth(profile, health, blankFallback = false) {
   if (!health) {
-    return <p>No data available</p>;
+    return blankFallback ? <span></span> : <p>No data available</p>;
   }
   // filter data to the most recent year
   const maxYear = Math.max(...health.map(x => x.year));
@@ -17,7 +17,7 @@ export function childHealth(profile, health) {
     return <p>Among children in {place}, {items.join(", ")}.</p>;
   }
   else {
-    return <p>No data available</p>;
+    return blankFallback ? <span></span> : <p>No data available</p>;
   }
 }
 
