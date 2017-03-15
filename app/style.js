@@ -1,6 +1,6 @@
 module.exports = {
 
-  "dark": "#3B4835",
+  "dark": "#232B20",
   "light": "#757E6F",
   "accent": "#74E19A",
 
