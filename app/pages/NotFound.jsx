@@ -1,15 +1,11 @@
 import React, {Component} from "react";
-import {connect} from "react-redux";
+import Home from "./Home";
 
-class Search extends Component {
+class NotFound extends Component {
 
   render() {
-    return (
-      <div>
-        404 Not Found
-      </div>
-    );
+    return <Home message="Page Not Found" />;
   }
 }
 
-export default connect(() => ({}), {})(Search);
+export default NotFound;

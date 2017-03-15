@@ -25,7 +25,7 @@ class Nav extends Component {
           </div>
           <div>
             <span className={searchActive ? "link active" : "link"} onClick={ this.props.activateSearch }>Search</span>
-            <a className="link" href="/">Map</a>
+            <a className="link" href="/map">Map</a>
           </div>
         </div>
       </nav>

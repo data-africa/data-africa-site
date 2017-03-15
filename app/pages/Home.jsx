@@ -9,8 +9,8 @@ class Home extends Component {
 
   render() {
 
-    const {attrs, focus} = this.props;
-    const focusISO = focus.map(f => attrs.geo[f].iso3);
+    const {attrs, focus, message} = this.props;
+    const focusISO = focus.map(f => attrs[f].iso3);
 
     return (
       <div className="home">
@@ -20,7 +20,7 @@ class Home extends Component {
         </div>
         <div className="intro">
           <div className="text">
-            <h2 className="title">Data Africa is an open source agriculture, climate, poverty, and health dataset</h2>
+            <h2 className="title">{ message }</h2>
             <div className="search-start" onClick={ this.props.activateSearch }>Start A Search</div>
           </div>
           <Geomap config={{
@@ -38,12 +38,29 @@ class Home extends Component {
             zoom: false
           }} />
         </div>
+        <div className="tiles">
+          <h3 className="title">Explore Countries</h3>
+          {
+            focus.map(f =>
+              <a key={f} className="tile" href={ `/profile/${f}` } style={{backgroundImage: `url('/images/geo/${f}.jpg')`}}>
+                <span className="name">{ attrs[f].name }</span>
+              </a>
+            )
+          }
+          <div className="spacer"></div>
+          <div className="spacer"></div>
+          <div className="spacer"></div>
+        </div>
       </div>
     );
   }
 }
 
+Home.defaultProps = {
+  message: "Data Africa is an open source agriculture, climate, poverty, and health dataset"
+}
+
 export default connect(state => ({
-  attrs: state.attrs,
+  attrs: state.attrs.geo,
   focus: state.focus
 }), {activateSearch})(Home);

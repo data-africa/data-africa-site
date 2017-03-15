@@ -1,14 +1,7 @@
-.section {
-  margin-bottom: 32px;
-  padding: 48px;
 
-  &:after {
-    background-color: #ddd;
-    content: "";
-    display: block;
-    height: 1px;
-    margin: 0 calc(var(--gutter) / 2);
-  }
+.profile > .section {
+  background-color: white;
+  padding-bottom: calc(var(--gutter) * 2);
 
   & h4 {
 	display: block !important;
@@ -73,4 +66,10 @@
   & .d3plus-viz-legend {
   	margin-left: 100px;
   }
+=======
+  &:last-child:after {
+    content: none;
+  }
+
+>>>>>>> master
 }

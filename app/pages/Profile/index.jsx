@@ -16,7 +16,6 @@ import CropsByHarvest from "./agriculture/CropsByHarvest";
 import CropsByProduction from "./agriculture/CropsByProduction";
 
 import RainfallBars from "./climate/RainfallBars";
-import RainfallCV from "./climate/RainfallCV";
 
 import Conditions from "./health/Conditions";
 import ConditionsByGender from "./health/ConditionsByGender";
@@ -106,7 +105,6 @@ class GeoProfile extends Profile {
     const topoFilt = isAdm0 ? d => d : d => adm0 === d.properties.geo.slice(5, 10);
     const topoPath = isAdm0 ? "/topojson/continent.json" : "/topojson/cell5m/adm1.json";
 
-
     return (
       <div className="profile">
 
@@ -133,7 +131,16 @@ class GeoProfile extends Profile {
             }} />
             <div className="meta">
               <div className="title">{ attr.name }</div>
-              { stats.map(stat => <Stat key={ stat.key } label={ stat.label } value={ stat.attr ? attrs[stat.attr][stat.value].name : stat.value } />) }
+              {
+                stats.filter(stat => stat).map(stat => {
+                  const label = stat.label;
+                  // const word = label.includes("from") ? "from" : "in";
+                  // const re = new RegExp(`${word}[A-z0-9\\s]*`, "g");
+                  // const phrase = label.match(re)[0];
+                  // label = label.replace(phrase, `<span className="time">${phrase}</span>`);
+                  return <Stat key={ stat.key } label={ label } value={ stat.attr ? attrs[stat.attr][stat.value].name : stat.value } />;
+                })
+              }
             </div>
           </div>
 
@@ -148,9 +155,7 @@ class GeoProfile extends Profile {
             }
           </div>
 
-          <div className="intro-wrapper">
-            <IntroParagraph profile={attr} />
-          </div>
+          <IntroParagraph profile={attr} />
 
         </div>
 
@@ -177,7 +182,6 @@ class GeoProfile extends Profile {
           Climate
         </TopicTitle>
         <RainfallBars profile={attr} />
-        <RainfallCV profile={attr} />
 
         <TopicTitle slug="health">
           <div className="icon" style={{backgroundImage: "url('/images/topics/health.svg')"}}></div>
@@ -214,8 +218,7 @@ GeoProfile.need = [
   Poverty,
   PovertyByGender,
   PovertyByResidence,
-  RainfallBars,
-  RainfallCV
+  RainfallBars
 ];
 
 export default connect(state => ({
