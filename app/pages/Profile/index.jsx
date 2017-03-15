@@ -132,7 +132,16 @@ class GeoProfile extends Profile {
             }} />
             <div className="meta">
               <div className="title">{ attr.name }</div>
-              { stats.map(stat => <Stat key={ stat.key } label={ stat.label } value={ stat.attr ? attrs[stat.attr][stat.value].name : stat.value } />) }
+              {
+                stats.map(stat => {
+                  const label = stat.label;
+                  // const word = label.includes("from") ? "from" : "in";
+                  // const re = new RegExp(`${word}[A-z0-9\\s]*`, "g");
+                  // const phrase = label.match(re)[0];
+                  // label = label.replace(phrase, `<span className="time">${phrase}</span>`);
+                  return <Stat key={ stat.key } label={ label } value={ stat.attr ? attrs[stat.attr][stat.value].name : stat.value } />;
+                })
+              }
             </div>
           </div>
 
