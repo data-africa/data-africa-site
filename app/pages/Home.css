@@ -40,7 +40,7 @@
     width: 100%;
 
     & .text {
-      flex-size: 1;
+      flex: 1;
 
       & .title {
         color: white;
