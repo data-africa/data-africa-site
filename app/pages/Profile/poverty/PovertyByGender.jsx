@@ -35,6 +35,7 @@ class PovertyByGender extends SectionColumns {
     return <SectionColumns>
             <SectionTitle>{ `Poverty Measures by Head of Household Gender ${ DICTIONARY[povertyLevel] }` }</SectionTitle>
             <article className="section-text">
+              <span>Wages</span>
               {selector}
               <Selector options={opts} callback={this.onChange}/>
               {povertyTextByMode(profile, filteredData, povertyLevel, "gender")}

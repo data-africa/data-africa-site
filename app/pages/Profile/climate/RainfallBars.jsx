@@ -102,7 +102,7 @@ class RainfallBars extends SectionRows {
 
         <SectionTitle>{title} by Location</SectionTitle>
         <Selector options={opts} callback={this.onChange}/>
-        <article>{sentence}.</article>
+        <article className="section-text">{sentence}.</article>
 
           {this.renderViz()}
     </SectionRows>
