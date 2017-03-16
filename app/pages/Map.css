@@ -1,0 +1,50 @@
+.map {
+  align-items: flex-start;
+  background-color: #29769A;
+  box-sizing: border-box;
+  display: flex;
+  height: 100vh;
+  padding-top: var(--nav-height);
+  position: relative;
+
+  &:before {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.0) 40%, rgba(0, 0, 0, 0.0) 70%, rgba(0, 0, 0, 0.3));
+    bottom: 0;
+    content: "";
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  & .controls {
+    background-color: white;
+    box-sizing: border-box;
+    box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.2);
+    font-family: var(--font-family);
+    margin: var(--gutter);
+    padding: 24px;
+    width: 420px;
+    z-index: var(--foreground);
+
+    & .dropdown-title {
+      color: var(--accent);
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    & .dropdown {
+      display: block;
+    }
+  }
+
+  & .viz {
+    box-sizing: border-box;
+    flex: 1;
+    height: 100%;
+    z-index: var(--foreground);
+  }
+
+}
