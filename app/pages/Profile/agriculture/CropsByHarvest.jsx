@@ -17,13 +17,13 @@ class CropsByHarvest extends SectionRows {
     return (
       <SectionRows>
         <SectionTitle>Crops by Harvested Area</SectionTitle>
-        <article>
-          The most common crop in { profile.name }, by harvested area, is { data[0].crop_name } with a harvested area of { VARIABLES.harvested_area(data[0].harvested_area) }.
+        <article className="section-text">
+          The most common crop in { profile.name }, by harvested area, is { data[0].crop_name } with a harvested area of <strong>{ VARIABLES.harvested_area(data[0].harvested_area) }</strong>.
         </article>
         <Treemap config={{
           data,
           groupBy: ["crop_parent", "crop_name"],
-          height: 552,
+          height: 500,
           label: d => d.crop_name instanceof Array ? d.crop_parent : d.crop_name,
           shapeConfig: {
             fill: d => COLORS_CROP[d.crop_parent]

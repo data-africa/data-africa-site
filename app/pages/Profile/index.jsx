@@ -168,37 +168,37 @@ class GeoProfile extends Profile {
             )
           }
         </Nav>
+        <div className="section-container">
+          <TopicTitle slug="agriculture">
+            <div className="icon" style={{backgroundImage: "url('/images/topics/agriculture.svg')"}}></div>
+            Agriculture
+          </TopicTitle>
+          <CropsByHarvest profile={attr} />
+          <CropsByProduction profile={attr} />
+          <CropsAreaVsValue profile={attr} />
 
-        <TopicTitle slug="agriculture">
-          <div className="icon" style={{backgroundImage: "url('/images/topics/agriculture.svg')"}}></div>
-          Agriculture
-        </TopicTitle>
-        <CropsByHarvest profile={attr} />
-        <CropsByProduction profile={attr} />
-        <CropsAreaVsValue profile={attr} />
+          <TopicTitle slug="climate">
+            <div className="icon" style={{backgroundImage: "url('/images/topics/climate.svg')"}}></div>
+            Climate
+          </TopicTitle>
+          <RainfallBars profile={attr} />
 
-        <TopicTitle slug="climate">
-          <div className="icon" style={{backgroundImage: "url('/images/topics/climate.svg')"}}></div>
-          Climate
-        </TopicTitle>
-        <RainfallBars profile={attr} />
+          <TopicTitle slug="health">
+            <div className="icon" style={{backgroundImage: "url('/images/topics/health.svg')"}}></div>
+            Health
+          </TopicTitle>
+          <Conditions profile={attr} />
+          <ConditionsByGender profile={attr} />
+          <ConditionsByResidence profile={attr} />
 
-        <TopicTitle slug="health">
-          <div className="icon" style={{backgroundImage: "url('/images/topics/health.svg')"}}></div>
-          Health
-        </TopicTitle>
-        <Conditions profile={attr} />
-        <ConditionsByGender profile={attr} />
-        <ConditionsByResidence profile={attr} />
-
-        <TopicTitle slug="poverty">
-          <div className="icon" style={{backgroundImage: "url('/images/topics/poverty.svg')"}}></div>
-          Poverty
-        </TopicTitle>
-        <Poverty profile={attr} />
-        <PovertyByGender profile={attr} />
-        <PovertyByResidence profile={attr} />
-
+          <TopicTitle slug="poverty">
+            <div className="icon" style={{backgroundImage: "url('/images/topics/poverty.svg')"}}></div>
+            Poverty
+          </TopicTitle>
+          <Poverty profile={attr} />
+          <PovertyByGender profile={attr} />
+          <PovertyByResidence profile={attr} />
+        </div>
       </div>
     );
   }

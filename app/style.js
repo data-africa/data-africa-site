@@ -4,7 +4,11 @@ module.exports = {
   "light": "#757E6F",
   "accent": "#74E19A",
 
-  "nav-height": "80px",
+
+  "section-article-large": "600px",
+  "section-article-small": "300px",
+
+  "nav-height": "60px",
 
   "font-family": "Work Sans",
 
@@ -13,6 +17,6 @@ module.exports = {
   "cover": "20",
 
   "gutter": "32px",
-  "width": "1120px"
+  "width": "1148px"
 
 };

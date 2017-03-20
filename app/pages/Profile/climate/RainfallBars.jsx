@@ -1,8 +1,10 @@
 import React from "react";
 import {connect} from "react-redux";
 
+
 import {BarChart, Geomap} from "d3plus-react";
-import {SectionColumns, SectionRows, SectionTitle} from "datawheel-canon";
+import {SectionRows, SectionColumns, SectionTitle} from "datawheel-canon";
+
 import {fetchData} from "actions/profile";
 import {COLORS_RAINFALL} from "helpers/colors";
 import {VARIABLES} from "helpers/formatters";
@@ -97,12 +99,14 @@ class RainfallBars extends SectionRows {
     const sentence = !hasData ? `Showing ${title.toLowerCase()} data across ${profile.parent_name}` : `From ${res.start_year} to ${res.year} ${desc} across a total cropland area of ${VARIABLES.harvested_area(res.cropland_total_ha)}`;
     return (
       <SectionRows>
+
         <SectionTitle>{title} by Location</SectionTitle>
         <Selector options={opts} callback={this.onChange}/>
-        <article>{sentence}.</article>
+        <article className="section-text">{sentence}.</article>
 
           {this.renderViz()}
     </SectionRows>
+
     );
   }
 }
