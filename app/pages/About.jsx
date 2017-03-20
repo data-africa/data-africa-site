@@ -58,6 +58,11 @@ class About extends Component {
             <div className="image"></div>
             <div className="gradient"></div>
           </div>
+          <div className="header">
+            <div className="meta">
+                <div className="title">About</div>
+            </div>
+          </div>
           <div ref="sublinks" className="sublinks">
             {
               topics.map(topic =>
@@ -68,7 +73,6 @@ class About extends Component {
             }
           </div>
         </div>
-
         <Nav visible={ subnav }>
           {
             topics.map(topic =>

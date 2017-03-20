@@ -1,123 +1,131 @@
 
-.profile > .section {
-  background-color: white;
-  padding-bottom: calc(var(--gutter) * 2);
+.profile > .section-container {
+	background-color: white;
 
-  & h4 {
-	display: block !important;
-	font-size: 32px !important;
-	margin: 16px !important;
-	width: 100% !important;
-  }
-  & .dropdown {
-	appearance: none;
-	background: white;
-	background-image: url('/images/sections/dropdown-arrow.svg');
-	background-repeat: no-repeat;
-	background-position: right center;
-	border: none;
-	border-bottom: 2px solid var(--accent);
-	border-radius: 0;
-	font-family: "Work Sans";
-	font-size:18px;
-	margin: 8px 0px 12px 16px;
-	padding: 0 32px 6px 0;
-	width: 250px;
-
-  	&:focus {
-  		outline:0;
-  	}
-  }
-  & .columns {
-
-  	& .section-text {
-	  font-size: 16px;
-	  font-weight: 300;
-	  line-height: 1.4;
-	  margin: 16px;
-	  width: 300px;
-
-	  & p {
-	  	margin: 0px 0px 16px;
-	  }
-
-	  & strong {
-	  	color:var(--accent);
-	  	font-weight: 600;
-	  }
-	}
 	& .section {
-		border-bottom: none;
-		padding: 0;
-	}
-  }
-  & .rows {
-	& .section-text {
-	  font-size: 20px;
-	  font-weight: 300;
-	  line-height: 1.4;
-	  margin: 0px 16px 10px;
-	  width: 600px;
+	  background-color: white;
+	  padding-left: 56px;
+	  padding-right: 56px;
+	  padding-bottom: 48px;
 
-	  & p {
-		margin:0px;
+	  & h4 {
+	  	border-top: 1px solid #ddd;
+		display: block !important;
+		font-size: 28px !important;
+		margin: 16px !important;
+		padding-top:40px;
+		width: 100% !important;
 	  }
-
-	  & strong {
- 	    color:var(--accent);	
-		font-weight: 600;
-	  }
-	}
-	& .section {
-		border-bottom: none;
-		padding: 0;
-	}
-  }
-  & article {
-
-  	& span {
-  		clear:both;
-  		color: var(--accent);
-  		display: block;
-  		font-size:12px;
-  		font-weight: 600;
-  		margin-bottom:8px;
-  		text-transform: uppercase;
-  	}
-  	& .dropdown {
-  		appearance: none;
-  		background: white;
-  		background-image: url('/images/sections/dropdown-arrow.svg');
-  		background-repeat: no-repeat;
-  		background-position: right center;
-  		border: none;
-  		border-bottom: 2px solid var(--accent);
-  		border-radius: 0;
-  		font-family: "Work Sans";
-  		font-size:18px;
-  		margin: 0 0 16px 0;
-  		padding: 0 32px 6px 0;
+	  & .dropdown {
+		appearance: none;
+		background: white;
+		background-image: url('/images/sections/dropdown-arrow.svg');
+		background-repeat: no-repeat;
+		background-position: right center;
+		border: none;
+		border-bottom: 2px solid var(--accent);
+		border-radius: 0;
+		font-family: "Work Sans";
+		font-size:18px;
+		margin: 8px 0px 12px 16px;
+		padding: 0 32px 6px 0;
+		width: 250px;
 
 	  	&:focus {
 	  		outline:0;
 	  	}
 	  }
-  }
-  & .d3plus-Axis-title {
-  	
-  	& .d3plus-textBox {
-  		margin-top: 20px;
-  		text-transform: uppercase;
-  	}
-  }
+	  & .columns {
 
-  & .d3plus-viz-legend {
-  	margin-left: 100px;
-  }
+	  	& .section-text {
+		  font-size: 16px;
+		  font-weight: 300;
+		  line-height: 1.4;
+		  margin: 16px;
+		  width: 300px;
 
-  &:last-child:after {
-    content: none;
-  }
+		  & p {
+		  	margin: 0px 0px 16px;
+		  }
+
+		  & strong {
+		  	color:var(--accent);
+		  	font-weight: 600;
+		  }
+		}
+		& .section {
+			margin: 0;
+			padding: 0;
+		}
+	  }
+	  & .rows {
+		& .section-text {
+		  font-size: 20px;
+		  font-weight: 300;
+		  line-height: 1.4;
+		  margin: 0px 16px 10px;
+		  width: 600px;
+
+		  & p {
+			margin:0px;
+		  }
+
+		  & strong {
+	 	    color:var(--accent);	
+			font-weight: 600;
+		  }
+		}
+		& .section {
+			margin: 0;
+			padding: 0;
+		}
+	  }
+	  & article {
+
+	  	& span {
+	  		clear:both;
+	  		color: var(--accent);
+	  		display: block;
+	  		font-size:12px;
+	  		font-weight: 600;
+	  		margin-bottom:8px;
+	  		text-transform: uppercase;
+	  	}
+	  	& .dropdown {
+	  		appearance: none;
+	  		background: white;
+	  		background-image: url('/images/sections/dropdown-arrow.svg');
+	  		background-repeat: no-repeat;
+	  		background-position: right center;
+	  		border: none;
+	  		border-bottom: 2px solid var(--accent);
+	  		border-radius: 0;
+	  		font-family: "Work Sans";
+	  		font-size:18px;
+	  		margin: 0 0 16px 0;
+	  		padding: 0 32px 6px 0;
+
+		  	&:focus {
+		  		outline:0;
+		  	}
+		  }
+	  }
+	  & .d3plus-Axis-title {
+	  	
+	  	& .d3plus-textBox {
+	  		margin-top: 20px;
+	  		text-transform: uppercase;
+	  	}
+	  }
+
+	  & .d3plus-viz-legend {
+	  	margin-left: 100px;
+	  }
+
+	  &:last-child:after {
+	    content: none;
+	  }
 
 
+	}
 }
