@@ -39,31 +39,36 @@ class CropsBySupply extends SectionRows {
     return (
       <SectionRows>
         <SectionTitle>Water Supply for Crops</SectionTitle>
-        <Selector options={opts} callback={this.onChange}/>
-        <article className="section-text">
-          {FORMATTERS.shareWhole(pctRainfall)} percent of crops by {metricLabel} in {profile.name} are
-          fed by rainfall whereas {FORMATTERS.shareWhole(1 - pctRainfall)} percent as fed by irrigation.
-        </article>
-        <BarChart config={{
-          data: waterData,
-          discrete: "y",
-          groupBy: ["water_supply"],
-          height: 200,
-          label: d => titleCase(d.water_supply),
-          legend: false,
-          stacked: true,
-          x: metric,
-          xConfig: {
-            tickFormat: VARIABLES[metric],
-            title: titleCase(metricLabel)
-          },
-          y: "water_supply",
-          yConfig: {
-            gridSize: 0,
-            tickFormat: d => titleCase(d),
-            title: ""
-          }
-        }} />
+        <SectionColumns>
+          <SectionRows>
+          <Selector options={opts} callback={this.onChange}/>
+          <article className="section-text">
+            {FORMATTERS.shareWhole(pctRainfall)} percent of crops by {metricLabel} in {profile.name} are
+            fed by rainfall whereas {FORMATTERS.shareWhole(1 - pctRainfall)} percent as fed by irrigation.
+          </article>
+          </SectionRows>
+          <BarChart config={{
+            data: waterData,
+            discrete: "y",
+            groupBy: ["water_supply"],
+            height: 120,
+            label: d => titleCase(d.water_supply),
+            legend: false,
+            stacked: true,
+            x: metric,
+            xConfig: {
+              tickFormat: VARIABLES[metric],
+              title: titleCase(metricLabel)
+            },
+            y: "water_supply",
+            yConfig: {
+              gridSize: 0,
+              tickFormat: d => titleCase(d),
+              title: ""
+            }
+          }} />
+        </SectionColumns>
+
         <SectionColumns>
           <Treemap config={{
             data: rainData,
