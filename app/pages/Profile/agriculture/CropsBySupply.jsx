@@ -1,0 +1,103 @@
+import React from "react";
+
+import {BarChart, Treemap} from "d3plus-react";
+import {SectionRows, SectionColumns, SectionTitle} from "datawheel-canon";
+import {titleCase} from "d3plus-text";
+
+import {fetchData} from "actions/profile";
+import {VARIABLES, FORMATTERS} from "helpers/formatters";
+import Selector from "pages/Profile/ui/Selector";
+import {COLORS_CROP} from "helpers/colors";
+
+class CropsBySupply extends SectionRows {
+  constructor(props) {
+    super(props);
+    this.state = {metric: "harvested_area"};
+    this.onChange = this.onChange.bind(this);
+  }
+
+  onChange(event) {
+    this.setState({metric: event.target.value});
+  }
+
+  render() {
+
+    const {profile} = this.props;
+    const {metric} = this.state;
+    const {waterData} = this.context.data;
+    const irrData = waterData.filter(x => x.water_supply === "irrigated");
+    const rainData = waterData.filter(x => x.water_supply === "rainfed");
+    const metricLabel = metric === "harvested_area" ? "harvested area" : "value of production";
+    const irrVals = irrData.map(x => x[metric]);
+    const rainVals = rainData.map(y => y[metric]);
+
+    const totalIrr = irrVals.reduce((a, b) => a + b, 0);
+    const totalRain = rainVals.reduce((a, b) => a + b, 0);
+    const pctRainfall = totalRain / (totalRain + totalIrr);
+    const opts = [{value: "harvested_area", label: "Harvested Area"},
+                  {value: "value_of_production", label: "Value of Production"}];
+    return (
+      <SectionRows>
+        <SectionTitle>Water Supply for Crops</SectionTitle>
+        <Selector options={opts} callback={this.onChange}/>
+        <article className="section-text">
+          {FORMATTERS.shareWhole(pctRainfall)} percent of crops by {metricLabel} in {profile.name} are
+          fed by rainfall whereas {FORMATTERS.shareWhole(1 - pctRainfall)} percent as fed by irrigation.
+        </article>
+
+        <BarChart config={{
+          data: waterData,
+          discrete: "y",
+          groupBy: ["water_supply"],
+          label: d => titleCase(d.water_supply),
+          legend: false,
+          stacked: true,
+          x: metric,
+          xConfig: {
+            tickFormat: VARIABLES[metric],
+            title: titleCase(metricLabel)
+          },
+          y: "water_supply",
+          yConfig: {
+            gridSize: 0,
+            tickFormat: d => titleCase(d),
+            title: "Water Supply"
+          }
+        }} />
+
+        <SectionColumns>
+          <Treemap config={{
+            data: rainData,
+            groupBy: ["crop_parent", "crop_name"],
+            label: d => d.crop_name instanceof Array ? d.crop_parent : d.crop_name,
+            legend: false,
+            shapeConfig: {
+              fill: d => COLORS_CROP[d.crop_parent]
+            },
+            sum: d => d[metric],
+            title: "Rainfed Crops"
+          }} />
+
+          <Treemap config={{
+            data: irrData,
+            groupBy: ["crop_parent", "crop_name"],
+            label: d => d.crop_name instanceof Array ? d.crop_parent : d.crop_name,
+            legend: false,
+            shapeConfig: {
+              fill: d => COLORS_CROP[d.crop_parent]
+            },
+            sum: d => d[metric],
+            title: "Irrigated Crops"
+          }} />
+        </SectionColumns>
+
+      </SectionRows>
+    );
+  }
+}
+
+CropsBySupply.need = [
+  fetchData("waterData", "api/join/?geo=<id>&sumlevel=lowest,lowest&show=crop,water_supply&required=crop_parent,harvested_area,value_of_production,crop_name")
+];
+
+export default CropsBySupply;

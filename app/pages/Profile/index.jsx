@@ -14,6 +14,7 @@ import IntroParagraph from "./splash/IntroParagraph";
 import CropsAreaVsValue from "./agriculture/CropsAreaVsValue";
 import CropsByHarvest from "./agriculture/CropsByHarvest";
 import CropsByProduction from "./agriculture/CropsByProduction";
+import CropsBySupply from "./agriculture/CropsBySupply";
 
 import RainfallBars from "./climate/RainfallBars";
 
@@ -177,6 +178,7 @@ class GeoProfile extends Profile {
           <CropsByHarvest profile={attr} />
           <CropsByProduction profile={attr} />
           <CropsAreaVsValue profile={attr} />
+          <CropsBySupply profile={attr} />
 
           <TopicTitle slug="climate">
             <div className="icon" style={{backgroundImage: "url('/images/topics/climate.svg')"}}></div>
@@ -215,6 +217,7 @@ GeoProfile.need = [
   ConditionsByResidence,
   CropsByHarvest,
   CropsByProduction,
+  CropsBySupply,
   CropsAreaVsValue,
   Poverty,
   PovertyByGender,
