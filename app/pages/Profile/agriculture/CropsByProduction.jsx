@@ -23,7 +23,7 @@ class CropsByProduction extends SectionRows {
         <Treemap config={{
           data,
           groupBy: ["crop_parent", "crop_name"],
-          height: 500,
+          height: 450,
           label: d => d.crop_name instanceof Array ? d.crop_parent : d.crop_name,
           shapeConfig: {
             fill: d => COLORS_CROP[d.crop_parent]
