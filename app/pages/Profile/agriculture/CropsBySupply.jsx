@@ -1,12 +1,13 @@
 import React from "react";
 
-import {BarChart} from "d3plus-react";
-import {SectionRows, SectionTitle} from "datawheel-canon";
+import {BarChart, Treemap} from "d3plus-react";
+import {SectionRows, SectionColumns, SectionTitle} from "datawheel-canon";
 import {titleCase} from "d3plus-text";
 
 import {fetchData} from "actions/profile";
 import {VARIABLES, FORMATTERS} from "helpers/formatters";
 import Selector from "pages/Profile/ui/Selector";
+import {COLORS_CROP} from "helpers/colors";
 
 class CropsBySupply extends SectionRows {
   constructor(props) {
@@ -39,11 +40,11 @@ class CropsBySupply extends SectionRows {
       <SectionRows>
         <SectionTitle>Water Supply for Crops</SectionTitle>
         <Selector options={opts} callback={this.onChange}/>
-
         <article className="section-text">
           {FORMATTERS.shareWhole(pctRainfall)} percent of crops by {metricLabel} in {profile.name} are
           fed by rainfall whereas {FORMATTERS.shareWhole(1 - pctRainfall)} percent as fed by irrigation.
         </article>
+
         <BarChart config={{
           data: waterData,
           discrete: "y",
@@ -63,13 +64,40 @@ class CropsBySupply extends SectionRows {
             title: "Water Supply"
           }
         }} />
-    </SectionRows>
+
+        <SectionColumns>
+          <Treemap config={{
+            data: rainData,
+            groupBy: ["crop_parent", "crop_name"],
+            label: d => d.crop_name instanceof Array ? d.crop_parent : d.crop_name,
+            legend: false,
+            shapeConfig: {
+              fill: d => COLORS_CROP[d.crop_parent]
+            },
+            sum: d => d[metric],
+            title: "Rainfed Crops"
+          }} />
+
+          <Treemap config={{
+            data: irrData,
+            groupBy: ["crop_parent", "crop_name"],
+            label: d => d.crop_name instanceof Array ? d.crop_parent : d.crop_name,
+            legend: false,
+            shapeConfig: {
+              fill: d => COLORS_CROP[d.crop_parent]
+            },
+            sum: d => d[metric],
+            title: "Irrigated Crops"
+          }} />
+        </SectionColumns>
+
+      </SectionRows>
     );
   }
 }
 
 CropsBySupply.need = [
-  fetchData("waterData", "api/join/?geo=<id>&sumlevel=lowest,lowest&show=crop,water_supply&required=harvested_area,value_of_production,crop_name")
+  fetchData("waterData", "api/join/?geo=<id>&sumlevel=lowest,lowest&show=crop,water_supply&required=crop_parent,harvested_area,value_of_production,crop_name")
 ];
 
 export default CropsBySupply;
