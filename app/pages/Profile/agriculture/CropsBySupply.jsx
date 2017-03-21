@@ -44,11 +44,11 @@ class CropsBySupply extends SectionRows {
           {FORMATTERS.shareWhole(pctRainfall)} percent of crops by {metricLabel} in {profile.name} are
           fed by rainfall whereas {FORMATTERS.shareWhole(1 - pctRainfall)} percent as fed by irrigation.
         </article>
-
         <BarChart config={{
           data: waterData,
           discrete: "y",
           groupBy: ["water_supply"],
+          height: 200,
           label: d => titleCase(d.water_supply),
           legend: false,
           stacked: true,
@@ -61,10 +61,9 @@ class CropsBySupply extends SectionRows {
           yConfig: {
             gridSize: 0,
             tickFormat: d => titleCase(d),
-            title: "Water Supply"
+            title: ""
           }
         }} />
-
         <SectionColumns>
           <Treemap config={{
             data: rainData,
@@ -75,7 +74,7 @@ class CropsBySupply extends SectionRows {
               fill: d => COLORS_CROP[d.crop_parent]
             },
             sum: d => d[metric],
-            title: "Rainfed Crops"
+            title: `Rainfed Crops (${FORMATTERS.shareWhole(pctRainfall)} of crops)`
           }} />
 
           <Treemap config={{
@@ -87,7 +86,7 @@ class CropsBySupply extends SectionRows {
               fill: d => COLORS_CROP[d.crop_parent]
             },
             sum: d => d[metric],
-            title: "Irrigated Crops"
+            title: `Irrigated Crops (${FORMATTERS.shareWhole(1 - pctRainfall)} of crops)`
           }} />
         </SectionColumns>
 
