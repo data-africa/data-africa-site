@@ -1,20 +1,20 @@
 
 .profile > .section-container {
 	background-color: white;
+	padding-top:8px;
 
 	& .section {
 	  background-color: white;
-	  padding-left: 56px;
-	  padding-right: 56px;
+	  margin:0px 24px;
+
 	  padding-bottom: 48px;
 
 	  & h4 {
-	  	border-top: 1px solid #ddd;
 		display: block !important;
 		font-size: 28px !important;
 		margin: 16px !important;
 		padding-top:40px;
-		width: 100% !important;
+		width: auto !important;
 	  }
 	  & .dropdown {
 		appearance: none;
@@ -54,6 +54,7 @@
 		  }
 		}
 		& .section {
+			box-shadow: none;
 			margin: 0;
 			padding: 0;
 		}
@@ -76,6 +77,7 @@
 		  }
 		}
 		& .section {
+			box-shadow: none;
 			margin: 0;
 			padding: 0;
 		}

@@ -153,6 +153,7 @@ class GeoProfile extends Profile {
                 </a>
               )
             }
+            <span className="more-link"><img className="icon" src={ `/images/sections/dropdown-arrow.svg` } /></span>
           </div>
 
           <IntroParagraph profile={attr} />

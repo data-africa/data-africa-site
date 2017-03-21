@@ -12,7 +12,8 @@ body {
   z-index: var(--cover);
 
   &.subnav {
-    background-color: var(--light);
+    background-color: var(--dark);
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.4);
     position: fixed;
     transition: top 1s;
     top: 0;
@@ -31,6 +32,7 @@ body {
     margin: 0 auto;
     max-width: var(--width);
     width: 100%;
+    z-index: 1;
 
     & .logo {
       display: inline-block;
@@ -55,7 +57,7 @@ body {
       color: white;
       display: inline-block;
       font-size: 16px;
-      margin: 0 32px 0 16px;
+      margin: 0 16px 0 16px;
       opacity: 0.8;
       padding: 5px 0;
       text-decoration: none;
@@ -64,6 +66,10 @@ body {
 
       &.active {
         color: var(--accent);
+
+        & .icon {
+          fill: var(--accent);
+        }
       }
 
       &:hover {
@@ -73,6 +79,10 @@ body {
 
       &.profile {
         border-bottom: 1px solid white;
+      }
+      & .icon {
+        display: inline-block;
+        margin:0 4px -6px 0;
       }
 
     }
