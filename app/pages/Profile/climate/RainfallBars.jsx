@@ -33,7 +33,7 @@ class RainfallBars extends SectionRows {
     const topoPath = isAdm0 ? "/topojson/continent.json" : "/topojson/cell5m/adm1.json";
 
     const apiUrl = `${API}api/join/?show=geo&${param}&sumlevel=all&required=${variable}&display_names=1&order${variable}&sort=desc`;
-
+    const myId = isAdm0 ? profile.iso3 : profile.id;
     return <SectionColumns>
             <Geomap config={{
               colorScale: variable,
@@ -49,6 +49,10 @@ class RainfallBars extends SectionRows {
               label: d => d.data ? d.data.geo_name : d.geo_name,
               ocean: "transparent",
               padding: 0,
+              shapeConfig: {Path: {
+                stroke: d =>  d.id === myId ? "rgba(0, 0, 0, 0.6)" : "rgba(7, 94, 128, 0.5)",
+                strokeWidth: d => d.id === myId ? "2px" : "1px"
+              }},
               tiles: false,
               topojson: topoPath,
               topojsonFilter: topoFilt,
