@@ -1,20 +1,22 @@
 
 .profile > .section-container {
 	background-color: white;
-	padding-top:8px;
+	display: block;
+	float: left;
+	width:100%;
 
 	& .section {
 	  background-color: white;
 	  margin:0px 40px;
-
 	  padding-bottom: 48px;
 
 	  & h4 {
 		display: block !important;
-		font-size: 28px !important;
+		font-size: 24px !important;
 		margin: 16px !important;
-		padding-top:40px;
-		width: auto !important;
+		padding-top: 0px;
+		width: 300px !important;
+
 	  }
 	  & .dropdown {
 		appearance: none;
@@ -58,14 +60,15 @@
 			margin: 0;
 			padding: 0;
 		}
+
 	  }
 	  & .rows {
 		& .section-text {
-		  font-size: 20px;
+		  font-size: 16px;
 		  font-weight: 300;
 		  line-height: 1.4;
 		  margin: 0px 16px 10px;
-		  width: 600px;
+		  width: 500px;
 
 		  & p {
 			margin:0px;
@@ -80,6 +83,13 @@
 			box-shadow: none;
 			margin: 0;
 			padding: 0;
+		}
+		& .bar-chart-water {
+			width:100%;
+			min-height: 100px;
+			& .viz {
+				min-height: 100px;
+			}
 		}
 	  }
 	  & article {
@@ -112,22 +122,31 @@
 		  	}
 		  }
 	  }
-	  & .d3plus-Axis-title {
-	  	
-	  	& .d3plus-textBox {
-	  		margin-top: 20px;
-	  		text-transform: uppercase;
+	  & .viz-container {
+	  	border: 1px solid #ddd;
+	  	display: block;
+	  	float: left;
+	  	margin: 16px;
+	  	padding: 16px;
+	  	width: auto;
+
+	  	& .section {
+
+	  		& .viz {
+	  			min-height: auto;
+	  		}
 	  	}
-	  }
+	  	
+		  &.columns {
+		  	width: 100%;
+		  }
+		  &.treemap {
+		  	padding:0px;
 
-	  & .d3plus-viz-legend {
-	  	margin-left: 100px;
-	  }
-
-	  &:last-child:after {
-	    content: none;
-	  }
-
-
+		  	& .viz {
+		  		margin: 0px;
+		  	}
+		  }
+		}
 	}
 }

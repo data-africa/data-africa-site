@@ -47,54 +47,63 @@ class CropsBySupply extends SectionRows {
             fed by rainfall whereas {FORMATTERS.shareWhole(1 - pctRainfall)} percent as fed by irrigation.
           </article>
           </SectionRows>
-          <BarChart config={{
-            data: waterData,
-            discrete: "y",
-            groupBy: ["water_supply"],
-            height: 120,
-            label: d => titleCase(d.water_supply),
-            legend: false,
-            stacked: true,
-            x: metric,
-            xConfig: {
-              tickFormat: VARIABLES[metric],
-              title: titleCase(metricLabel)
-            },
-            y: "water_supply",
-            yConfig: {
-              gridSize: 0,
-              tickFormat: d => titleCase(d),
-              title: ""
-            }
-          }} />
         </SectionColumns>
+        <div className="viz-container">
+          <SectionRows>
+            <div className="bar-chart-water">
+              <BarChart config={{
+                data: waterData,
+                discrete: "y",
+                groupBy: ["water_supply"],
+                height: 120,
+                label: d => titleCase(d.water_supply),
+                legend: true,
+                shapeConfig: {
+                  fill: d => d.water_supply === 'rainfed' ? '#C2DFF0' : '#ADD89F'
+                },
+                stacked: true,
+                x: metric,
+                xConfig: {
+                  tickFormat: VARIABLES[metric],
+                  title: titleCase(metricLabel)
+                },
+                y: () => '',
+                yConfig: {
+                  gridSize: 0,
+                  tickFormat: d => titleCase(d),
+                  title: ""
+                }
+              }} />
+            </div>
+            <SectionColumns>
+              <Treemap config={{
+                data: rainData,
+                groupBy: ["crop_parent", "crop_name"],
+                height: 250,
+                label: d => d.crop_name instanceof Array ? d.crop_parent : d.crop_name,
+                legend: false,
+                shapeConfig: {
+                  fill: d => COLORS_CROP[d.crop_parent]
+                },
+                sum: d => d[metric],
+                title: `Rainfed Crops (${FORMATTERS.shareWhole(pctRainfall)} of crops)`
+              }} />
 
-        <SectionColumns>
-          <Treemap config={{
-            data: rainData,
-            groupBy: ["crop_parent", "crop_name"],
-            label: d => d.crop_name instanceof Array ? d.crop_parent : d.crop_name,
-            legend: false,
-            shapeConfig: {
-              fill: d => COLORS_CROP[d.crop_parent]
-            },
-            sum: d => d[metric],
-            title: `Rainfed Crops (${FORMATTERS.shareWhole(pctRainfall)} of crops)`
-          }} />
-
-          <Treemap config={{
-            data: irrData,
-            groupBy: ["crop_parent", "crop_name"],
-            label: d => d.crop_name instanceof Array ? d.crop_parent : d.crop_name,
-            legend: false,
-            shapeConfig: {
-              fill: d => COLORS_CROP[d.crop_parent]
-            },
-            sum: d => d[metric],
-            title: `Irrigated Crops (${FORMATTERS.shareWhole(1 - pctRainfall)} of crops)`
-          }} />
-        </SectionColumns>
-
+              <Treemap config={{
+                data: irrData,
+                groupBy: ["crop_parent", "crop_name"],
+                height: 250,
+                label: d => d.crop_name instanceof Array ? d.crop_parent : d.crop_name,
+                legend: false,
+                shapeConfig: {
+                  fill: d => COLORS_CROP[d.crop_parent]
+                },
+                sum: d => d[metric],
+                title: `Irrigated Crops (${FORMATTERS.shareWhole(1 - pctRainfall)} of crops)`
+              }} />
+            </SectionColumns>
+          </SectionRows>
+        </div>
       </SectionRows>
     );
   }

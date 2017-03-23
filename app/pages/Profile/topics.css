@@ -1,21 +1,33 @@
 .topic-title {
-  background-color: #f2f2f2;
-  margin: 70px;
-  padding: 8px 0px 64px;
+  background-color:#f2f4f2;
+  border-bottom: 1px solid #ddd;
+  margin: 0px 0px 32px;
+  padding: 16px 70px 16px;
   text-align: center;
   width:auto;
 
-  & .icon {
+  & .topic-icon {
     background-color: var(--accent);
     background-position: center;
     background-repeat: no-repeat;
     box-sizing: border-box;
+    border:1px solid #ddd;
     border-radius: 35px;
+    clear: both;
     display: block;
     height: 65px;
-    margin: 0 auto 16px;
+    margin: 0px auto -60px;
     padding: 5px;
     width: 65px;
+  }
+  & .topic-name {
+    clear:both;
+    display: block;
+    float:left;
+    font-size:48px;
+    font-weight:600;
+    padding-bottom:24px;
+    padding-top:0px;
   }
 
   /* TODO: remove this when it is part of canon */
@@ -23,7 +35,7 @@
     display: inline-block;
     margin-top: calc(var(--nav-height) * -1 + var(--gutter));
     outline: 0;
-    padding-top: calc(var(--nav-height) + var(--gutter));
+    padding-top: 64px;
     position: relative;
   }
 

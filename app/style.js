@@ -5,7 +5,7 @@ module.exports = {
   "accent": "#74E19A",
 
 
-  "section-article-large": "600px",
+  "section-article-large": "550px",
   "section-article-small": "300px",
 
   "nav-height": "60px",

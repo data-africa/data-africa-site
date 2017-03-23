@@ -20,6 +20,7 @@ class CropsByHarvest extends SectionRows {
         <article className="section-text">
           The most common crop in { profile.name }, by harvested area, is { data[0].crop_name } with a harvested area of <strong>{ VARIABLES.harvested_area(data[0].harvested_area) }</strong>.
         </article>
+        <div className="viz-container treemap">
         <Treemap config={{
           data,
           groupBy: ["crop_parent", "crop_name"],
@@ -30,6 +31,7 @@ class CropsByHarvest extends SectionRows {
           },
           sum: d => d.harvested_area
         }} />
+        </div>
     </SectionRows>
     );
   }

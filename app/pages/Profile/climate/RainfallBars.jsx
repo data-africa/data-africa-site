@@ -34,53 +34,57 @@ class RainfallBars extends SectionRows {
 
     const apiUrl = `${API}api/join/?show=geo&${param}&sumlevel=all&required=${variable}&display_names=1&order${variable}&sort=desc`;
 
-    return <SectionColumns>
-            <Geomap config={{
-              colorScale: variable,
-              colorScaleConfig: {
-                color: COLORS_RAINFALL,
-                axisConfig: {
-                  tickFormat: d => VARIABLES[variable](d)
+    return  <SectionColumns> 
+              <Geomap config={{
+                colorScale: variable,
+                colorScaleConfig: {
+                  color: COLORS_RAINFALL,
+                  axisConfig: {
+                    tickFormat: d => VARIABLES[variable](d)
+                  }
+                },
+                colorScalePosition: "left",
+                data: apiUrl,
+                groupBy: d => d.data ? d.id : isAdm0 ? attrs[d.geo] ? attrs[d.geo].iso3 : d.geo : d.geo,
+                height: 350,
+                label: d => d.data ? d.data.geo_name : d.geo_name,
+                ocean: "transparent",
+                padding: 0,
+                tiles: false,
+                topojson: topoPath,
+                topojsonFilter: topoFilt,
+                topojsonId: d => isAdm0 ? d.properties.iso_a3 : d.properties.geo,
+                zoom: false
+              }} />
+              <BarChart config={{
+                colorScale: variable,
+                colorScaleConfig: {
+                  color: COLORS_RAINFALL
+                },
+                colorScalePosition: false,
+                data: apiUrl,
+                discrete: "y",
+                groupBy: "geo_name",
+                groupPadding: 4,
+                height: 350,
+                legend: false,
+                shapeConfig: {label: false},
+                x: variable,
+                xConfig: {
+                  tickFormat: d => VARIABLES[variable](d),
+                  title: "Rainfall"
+                },
+                y: "geo_name",
+                yConfig: {
+                  gridSize: 0,
+                  tickFormat: d => d === "United Republic of Tanzania" ? "United Republic\nof Tanzania" : d,
+                  title: "Locations"
                 }
-              },
-              colorScalePosition: "left",
-              data: apiUrl,
-              groupBy: d => d.data ? d.id : isAdm0 ? attrs[d.geo] ? attrs[d.geo].iso3 : d.geo : d.geo,
-              label: d => d.data ? d.data.geo_name : d.geo_name,
-              ocean: "transparent",
-              padding: 0,
-              tiles: false,
-              topojson: topoPath,
-              topojsonFilter: topoFilt,
-              topojsonId: d => isAdm0 ? d.properties.iso_a3 : d.properties.geo,
-              zoom: false
-            }} />
-            <BarChart config={{
-              colorScale: variable,
-              colorScaleConfig: {
-                color: COLORS_RAINFALL
-              },
-              colorScalePosition: false,
-              data: apiUrl,
-              discrete: "y",
-              groupBy: "geo_name",
-              groupPadding: 4,
-              legend: false,
-              shapeConfig: {label: false},
-              x: variable,
-              xConfig: {
-                tickFormat: d => VARIABLES[variable](d),
-                title: "Rainfall"
-              },
-              y: "geo_name",
-              yConfig: {
-                gridSize: 0,
-                tickFormat: d => d === "United Republic of Tanzania" ? "United Republic\nof Tanzania" : d,
-                title: "Locations"
-              }
-            }} />
-          </SectionColumns>;
-  }
+              }} />
+            
+            </SectionColumns>
+          
+  }   
 
   render() {
     const {profile} = this.props;
