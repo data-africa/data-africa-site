@@ -1,6 +1,7 @@
 .topic-title {
   background-color:#f2f4f2;
   border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd;
   margin: 0px 0px 32px;
   padding: 16px 70px 16px;
   text-align: center;

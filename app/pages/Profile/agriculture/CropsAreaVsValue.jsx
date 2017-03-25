@@ -27,12 +27,13 @@ class CropsAreaVsValue extends SectionColumns {
     return (
       <SectionColumns>
         <SectionTitle>Harvested Area Versus Value of Production</SectionTitle>
+
+
         <article className="section-text">
           <p><strong>{ topCrop.name }</strong> are the crop with the highest production value per area in { profile.name }, with a harvested area of { VARIABLES.value_density(topCrop.density) }.</p>
           <p><strong>{ bottomCrop.name }</strong> are the crop with the lowest production value per area in { profile.name }, with a harvested area of { VARIABLES.value_density(bottomCrop.density) }.</p>
           <p>This means that growers of {topCrop.name} will earn approximately <strong>{FORMATTERS.round(topCrop.density / bottomCrop.density)} times</strong> more per hectacre of {topCrop.name} that they grow versus {bottomCrop.name}.</p>
         </article>
-        <div className="viz-container columns">
         <Plot config={{
           data: crops,
           height: 450,
@@ -55,7 +56,6 @@ class CropsAreaVsValue extends SectionColumns {
             title: "Value of Production"
           }
         }} />
-        </div>
       </SectionColumns>
     );
   }
