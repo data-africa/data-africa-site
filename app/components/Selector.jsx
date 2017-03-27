@@ -5,10 +5,13 @@ import "./Selector.css";
 class Selector extends Component {
 
   render() {
+    const {callback, options, selected} = this.props;
     return (
-      <select className="dropdown" onChange={this.props.callback}>
-        {this.props.options.map(opt =>
-          <option className="option" key={opt.value || opt} value={opt.value || opt}>{DICTIONARY[opt.label || opt] || opt.label}</option>
+      <select className="dropdown" onChange={ callback } defaultValue={ selected }>
+        {options.map(opt =>
+          <option className="option" key={opt.value || opt} value={opt.value || opt}>
+            {DICTIONARY[opt.label || opt] || opt.label}
+          </option>
         )}
       </select>
     );
