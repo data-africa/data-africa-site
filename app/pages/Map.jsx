@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import d3plus from "helpers/d3plus";
-import Selector from "pages/Profile/ui/Selector";
+import Selector from "components/Selector";
 import {API} from ".env";
 import axios from "axios";
 import "./Map.css";
@@ -38,9 +38,9 @@ class Map extends Profile {
         <Geomap config={{
           colorScale: column,
           colorScalePosition: "left",
-          data: `${API}/api/join/?show=geo&sumlevel=adm0&required=${column}&order=${column}&sort=desc&display_names=true`,
-          groupBy: d => d.data ? d.id : isAdm0 ? attrs[d.geo] ? attrs[d.geo].iso3 : d.geo : d.geo,
-          label: d => d.data ? d.data.geo_name : d.geo_name,
+          data: `${API}api/join/?show=geo&sumlevel=adm0&required=${column}&order=${column}&sort=desc&display_names=true`,
+          groupBy: d => isAdm0 ? attrs[d.geo] ? attrs[d.geo].iso3 : d.geo : d.geo,
+          label: d => d.geo_name,
           ocean: "transparent",
           padding: 24,
           tiles: false,
@@ -56,7 +56,7 @@ class Map extends Profile {
 Map.defaultProps = {d3plus};
 
 Map.need = [
-  () => ({type: "GET_VARS", promise: axios.get(`${API}/api/geo/variables/`)})
+  () => ({type: "GET_VARS", promise: axios.get(`${API}api/geo/variables/`)})
 ];
 
 export default connect(state => ({
