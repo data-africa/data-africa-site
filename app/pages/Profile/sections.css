@@ -16,25 +16,7 @@
 		padding-top:40px;
 		width: 100% !important;
 	  }
-	  & .dropdown {
-		appearance: none;
-		background: white;
-		background-image: url('/images/sections/dropdown-arrow.svg');
-		background-repeat: no-repeat;
-		background-position: right center;
-		border: none;
-		border-bottom: 2px solid var(--accent);
-		border-radius: 0;
-		font-family: "Work Sans";
-		font-size:18px;
-		margin: 8px 0px 12px 16px;
-		padding: 0 32px 6px 0;
-		width: 250px;
 
-	  	&:focus {
-	  		outline:0;
-	  	}
-	  }
 	  & .columns {
 
 	  	& .section-text {
@@ -59,59 +41,29 @@
 		}
 	  }
 	  & .rows {
-		& .section-text {
-		  font-size: 20px;
-		  font-weight: 300;
-		  line-height: 1.4;
-		  margin: 0px 16px 10px;
-		  width: 600px;
+			& .section-text {
+			  font-size: 20px;
+			  font-weight: 300;
+			  line-height: 1.4;
+			  margin: 0px 16px 10px;
+			  width: 600px;
 
-		  & p {
-			margin:0px;
-		  }
+			  & p {
+				margin:0px;
+			  }
 
-		  & strong {
-	 	    color:var(--accent);	
-			font-weight: 600;
-		  }
-		}
-		& .section {
-			margin: 0;
-			padding: 0;
-		}
-	  }
-	  & article {
-
-	  	& span {
-	  		clear:both;
-	  		color: var(--accent);
-	  		display: block;
-	  		font-size:12px;
-	  		font-weight: 600;
-	  		margin-bottom:8px;
-	  		text-transform: uppercase;
-	  	}
-	  	& .dropdown {
-	  		appearance: none;
-	  		background: white;
-	  		background-image: url('/images/sections/dropdown-arrow.svg');
-	  		background-repeat: no-repeat;
-	  		background-position: right center;
-	  		border: none;
-	  		border-bottom: 2px solid var(--accent);
-	  		border-radius: 0;
-	  		font-family: "Work Sans";
-	  		font-size:18px;
-	  		margin: 0 0 16px 0;
-	  		padding: 0 32px 6px 0;
-
-		  	&:focus {
-		  		outline:0;
-		  	}
-		  }
+			  & strong {
+		 	    color:var(--accent);
+				font-weight: 600;
+			  }
+			}
+			& .section {
+				margin: 0;
+				padding: 0;
+			}
 	  }
 	  & .d3plus-Axis-title {
-	  	
+
 	  	& .d3plus-textBox {
 	  		margin-top: 20px;
 	  		text-transform: uppercase;

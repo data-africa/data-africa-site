@@ -1,0 +1,30 @@
+.dropdown {
+  appearance: none;
+  background: white;
+  background-image: url('/images/sections/dropdown-arrow.svg');
+  background-repeat: no-repeat;
+  background-position: right center;
+  border: none;
+  border-bottom: 2px solid var(--accent);
+  border-radius: 0;
+  font-family: "Work Sans";
+  font-size:18px;
+  margin: 0 0 16px 0;
+  padding: 0 32px 6px 0;
+  width: 100%;
+
+  &:focus {
+    outline:0;
+  }
+
+}
+
+.dropdown-title {
+  clear:both;
+  color: var(--accent);
+  display: block;
+  font-size:12px;
+  font-weight: 600;
+  margin-bottom:8px;
+  text-transform: uppercase;
+}

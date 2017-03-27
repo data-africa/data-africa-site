@@ -6,7 +6,7 @@ import {titleCase} from "d3plus-text";
 
 import {BarChart} from "d3plus-react";
 import {COLORS_RESIDENCE, COLORS_GENDER} from "helpers/colors";
-import Selector from "pages/Profile/ui/Selector";
+import Selector from "components/Selector";
 
 export function povertyContent(profile, poverty) {
   const first = poverty && poverty.length > 0 ? poverty[0] : null;

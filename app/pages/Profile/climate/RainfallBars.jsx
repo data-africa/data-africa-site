@@ -8,7 +8,7 @@ import {SectionRows, SectionColumns, SectionTitle} from "datawheel-canon";
 import {fetchData} from "actions/profile";
 import {COLORS_RAINFALL} from "helpers/colors";
 import {VARIABLES} from "helpers/formatters";
-import Selector from "pages/Profile/ui/Selector";
+import Selector from "components/Selector";
 import {API} from ".env";
 
 class RainfallBars extends SectionRows {

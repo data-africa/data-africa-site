@@ -6,7 +6,7 @@ import {titleCase} from "d3plus-text";
 
 import {fetchData} from "actions/profile";
 import {VARIABLES, FORMATTERS} from "helpers/formatters";
-import Selector from "pages/Profile/ui/Selector";
+import Selector from "components/Selector";
 import {COLORS_CROP} from "helpers/colors";
 
 class CropsBySupply extends SectionRows {

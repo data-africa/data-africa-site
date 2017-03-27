@@ -4,7 +4,7 @@ import {DICTIONARY} from "helpers/dictionary";
 
 import {fetchData} from "actions/profile";
 import {povertyVizByMode, povertyTextByMode, makeGeoSelector} from "pages/Profile/poverty/shared";
-import Selector from "pages/Profile/ui/Selector";
+import Selector from "components/Selector";
 
 class PovertyByResidence extends SectionColumns {
   constructor(props) {
@@ -35,7 +35,7 @@ class PovertyByResidence extends SectionColumns {
     return <SectionColumns>
             <SectionTitle>{ `Poverty Measures by Residence ${ DICTIONARY[povertyLevel] }` }</SectionTitle>
             <article className="section-text">
-              <span>Wages</span>
+              <span className="dropdown-title">Wages</span>
               {selector}
               <Selector options={opts} callback={this.onChange}/>
               {povertyTextByMode(profile, filteredData, povertyLevel, "residence")}
