@@ -1,4 +1,6 @@
 export const DICTIONARY = {
+  adm0: "Country",
+  adm1: "State/Province",
   cropland_rainfallCVgt20pct_ha: "Cropland Area w/ Rainfall Variability > 20% by Hectacres",
   cropland_rainfallCVgt30pct_ha: "Cropland Area w/ Rainfall Variability > 30% by Hectacres",
   cropland_rainfallCVgt20pct_pct: "Cropland Area w/ Rainfall Variability > 20% by Percentage",

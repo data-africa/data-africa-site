@@ -31,6 +31,7 @@ export const FORMATTERS = {
       default: return `${n}th`;
     }
   },
+  ratio: d => format(".2%")(d / 100),
   round: format(",.0f"),
   share: format(".2%"),
   shareWhole: format(".0%"),
@@ -38,12 +39,22 @@ export const FORMATTERS = {
 };
 
 export const VARIABLES = {
+  cropland_rainfallCVgt20pct_ha: d => `${abbreviate(d)} ha`,
+  cropland_rainfallCVgt30pct_ha: d => `${abbreviate(d)} ha`,
+  cropland_rainfallCVgt20pct_pct: d => `${round2(d)}%`,
+  cropland_rainfallCVgt30pct_pct: d => `${round2(d)}%`,
+  cropland_total_ha: d => `${abbreviate(d)} ha`,
+  gini: format(".3"),
   harvested_area: d => `${abbreviate(d)} ha`,
+  hc: FORMATTERS.ratio,
+  num: abbreviate,
+  povgap: FORMATTERS.ratio,
+  proportion_of_children: FORMATTERS.ratio,
   rainfall_awa_mm: d => `${FORMATTERS.round(d)}mm`,
-  value_of_production: d => `Intl.$${abbreviate(d)}`,
-  value_density: d => `Intl.$ ${abbreviate(d)} per ha`,
+  sevpov: FORMATTERS.ratio,
   totpop: d => round2(d),
-  cropland_rainfallCVgt20pct_pct: d => `${round2(d)}%`
+  value_of_production: d => `Intl.$${abbreviate(d)}`,
+  value_density: d => `Intl.$ ${abbreviate(d)} per ha`
 };
 
 function formatPlaceName(datum, mode, level = "adm0") {
