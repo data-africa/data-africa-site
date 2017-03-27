@@ -1,5 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
+import {browserHistory} from "react-router";
 import d3plus from "helpers/d3plus";
 import {VARIABLES} from "helpers/formatters";
 import Radio from "components/Radio";
@@ -11,6 +12,11 @@ import "./Map.css";
 import {Profile} from "datawheel-canon";
 import {Geomap} from "d3plus-react";
 
+const queryDefaults = {
+  column: "rainfall_awa_mm",
+  geo: "adm0"
+};
+
 class Map extends Profile {
 
   constructor() {
@@ -21,30 +27,31 @@ class Map extends Profile {
   }
 
   handleColumn(event) {
-    this.setState({column: event.target.value});
+    this.handleUrl({column: event.target.value});
   }
 
   handleGeo(event) {
-    this.setState({geo: event.target.value});
+    this.handleUrl({geo: event.target.value});
+  }
+
+  handleUrl(params) {
+    const obj = {...queryDefaults, ...this.props.location.query, ...params};
+    browserHistory.push(`/map?${Object.keys(obj).map(k => `${k}=${obj[k]}`).join("&")}`);
   }
 
   render() {
 
     const {attrs, vars} = this.props;
-    let {column, geo} = this.state;
-    if (!column) column = vars[0].column;
+    const {column, geo} = {geo: "adm0", column: "rainfall_awa_mm", ...this.props.location.query};
 
     const levels = vars.filter(v => v.column === column)[0].levels[0];
-
     const geoLevels = levels.geo ? levels.geo.filter(g => g !== "all") : [];
-    if (geoLevels.length && !geo) geo = geoLevels[0];
-    const isAdm0 = geo === "adm0";
 
     return (
       <div className="map">
         <div className="controls">
           <span className="dropdown-title">Metric</span>
-          <Selector options={ vars.map(v => v.column) } callback={ this.handleColumn.bind(this) } />
+          <Selector options={ vars.map(v => v.column) } callback={ this.handleColumn.bind(this) } selected={ column } />
           {
             geoLevels.length > 1 ? <Radio options={ geoLevels } checked={ geo } callback={ this.handleGeo.bind(this) } /> : null
           }
@@ -59,13 +66,14 @@ class Map extends Profile {
           },
           colorScalePosition: "right",
           data: `${API}api/join/?show=geo&sumlevel=${geo}&required=${column}&order=${column}&sort=desc&display_names=true`,
-          groupBy: d => isAdm0 ? attrs[d.geo] ? attrs[d.geo].iso3 : d.geo : d.geo,
+          fitObject: "/topojson/continent.json",
+          groupBy: d => geo === "adm0" ? attrs[d.geo] ? attrs[d.geo].iso3 : d.geo : d.geo,
           label: d => d.geo_name,
           ocean: "transparent",
           padding: 24,
           tiles: false,
-          topojson: isAdm0 ? "/topojson/continent.json" : "/topojson/cell5m/adm1.json",
-          topojsonId: d => isAdm0 ? d.properties.iso_a3 : d.properties.geo,
+          topojson: geo === "adm0" ? "/topojson/continent.json" : "/topojson/cell5m/adm1.json",
+          topojsonId: d => geo === "adm0" ? d.properties.iso_a3 : d.properties.geo,
           topojsonKey: "collection"
         }} />
       </div>
