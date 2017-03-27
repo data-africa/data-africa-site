@@ -6,7 +6,7 @@ class Radio extends Component {
 
   render() {
     const {callback, checked, options} = this.props;
-    console.log(options, checked);
+
     return (
       <div className="radio-group">
         {options.map(opt =>
@@ -17,6 +17,7 @@ class Radio extends Component {
         )}
       </div>
     );
+
   }
 
 }
