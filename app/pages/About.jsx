@@ -145,7 +145,47 @@ class About extends Component {
         <TopicTitle slug="terms">Terms of Use</TopicTitle>
         <section className="section">
           <p className="paragraph">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla hendrerit, lorem id mollis congue, nisl neque sollicitudin orci, at condimentum diam sem vitae purus. Curabitur ipsum urna, volutpat vitae lorem et, sagittis posuere tortor. Nulla semper tempor tellus, in convallis tellus euismod vitae. Integer molestie ultricies massa vitae facilisis. Praesent vitae sem vitae massa luctus iaculis. Nulla aliquet, urna sed condimentum ornare, lectus lacus rhoncus massa, eu scelerisque augue velit eu purus. Nam eget imperdiet mi. Praesent varius sapien purus, eu tempus nulla tincidunt ac. Nulla urna nisl, dapibus vel tincidunt non, ullamcorper eu diam.
+          Information on this site is provided on an "as is" and "as available" basis.
+          Data Africa makes every effort to ensure, but does not guarantee,
+          the accuracy or completeness of the information on the Data Africa website.
+          Our goal is to keep this information timely and accurate.
+          If errors are brought to our attention, we will try to correct them.
+          Data Africa may add, change, improve, or update the information of the website without notice.
+          </p>
+
+          <p className="paragraph">
+          Data Africa reserves its exclusive right in its sole discretion to
+          alter, limit or discontinue part of this site. Under no circumstances
+          shall Data Africa be liable for any loss, damage, liability or expense
+          suffered which is claimed to result from use of this site, including
+          without limitation, any fault, error, omission, interruption or delay.
+          Use of this site is at User's sole risk. We make every effort to minimize
+          disruption caused by technical errors. However some data or information
+          on the Data Africa website may have been created or structured in files
+          or formats which are not error-free and we cannot guarantee that our service
+          will not be interrupted or otherwise affected by such problems.
+          Data Africa accepts no responsibility with regards to such problems (failure
+          of performance, computer virus, communication line failure, alteration of content, etc.)
+          incurred as a result of using the Data Africa website or any link to external sites.
+          </p>
+
+          <p className="paragraph">
+          The User specifically acknowledges and agrees that Data Africa is not liable
+          for any conduct of any other User, including, but not limited to, the
+          types of conduct listed above.
+          </p>
+
+          <p className="paragraph">
+          Data Africa reserves the right to deny at its sole discretion any User
+          access to the Data Africa website or any portion thereof without notice.
+          </p>
+
+          <p className="paragraph">
+          For site security purpose and to ensure that the Data Africa website
+          remains available to all users, it employs software
+          programs to monitor network traffic to identify unauthorised attempts
+          to upload or change information, or otherwise cause damage and to detect
+          other possible security breaches.
           </p>
         </section>
 
