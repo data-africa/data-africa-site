@@ -116,11 +116,15 @@ class About extends Component {
         <TopicTitle slug="data">Data Sources</TopicTitle>
         <section className="section">
           <p className="paragraph">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla hendrerit, lorem id mollis congue, nisl neque sollicitudin orci, at condimentum diam sem vitae purus. Curabitur ipsum urna, volutpat vitae lorem et, sagittis posuere tortor. Nulla semper tempor tellus, in convallis tellus euismod vitae. Integer molestie ultricies massa vitae facilisis. Praesent vitae sem vitae massa luctus iaculis. Nulla aliquet, urna sed condimentum ornare, lectus lacus rhoncus massa, eu scelerisque augue velit eu purus. Nam eget imperdiet mi. Praesent varius sapien purus, eu tempus nulla tincidunt ac. Nulla urna nisl, dapibus vel tincidunt non, ullamcorper eu diam.
+            The data contained in this site draws from a variety of sources,
+            including:
           </p>
-          <p className="paragraph">
-            Praesent tempor diam sit amet felis viverra tempus. Integer rhoncus ligula hendrerit, vehicula nibh et, lacinia leo. Morbi posuere nisi at ultricies auctor. Proin vitae tincidunt tortor. Vivamus elementum dictum ex vel tempor. Suspendisse ut facilisis eros, nec egestas orci. Mauris luctus elit justo, sit amet sollicitudin ante tincidunt quis. Ut iaculis facilisis magna, at scelerisque ipsum commodo id. Ut sed dui eu tellus fermentum mollis vitae a dolor. Phasellus sed nibh lacus. Fusce auctor magna vitae quam iaculis, vel condimentum dui vehicula. Integer cursus sapien vel imperdiet vestibulum. Nunc id felis vel eros fringilla bibendum ac sit amet elit. Sed viverra ac lorem non dapibus. Nullam dignissim arcu non est interdum hendrerit. Morbi a urna id ligula aliquet posuere.
-          </p>
+          <ul className="paragraph">
+            <li>Poverty data from the <a href="http://iresearch.worldbank.org/PovcalNet/povOnDemand.aspx" target="_blank">World Bank's PovcalNet</a></li>
+            <li>Health data from the <a href="http://dhsprogram.com/" target="_blank">DHS Program</a></li>
+            <li>Agricultural data from <a href="http://www.ifpri.org/publication/cell5m-geospatial-data-and-analytics-platform-harmonized-multi-disciplinary-data-layers" target="_blank">IFPRI's Cell5M repository</a></li>
+            <li>Climate data from <a href="http://www.cru.uea.ac.uk/data/" target="_blank">University of East Anglia's Climatic Research Unit</a></li>
+          </ul>
         </section>
 
         <TopicTitle slug="glossary">Glossary</TopicTitle>
