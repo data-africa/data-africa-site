@@ -7,7 +7,7 @@ export const DICTIONARY = {
   gini: "GINI",
   harvested_area: "Harvested Area in Hectacres",
   hc: "Headcount Ratio",
-  num: "Number of Poverty Living in Poverty",
+  num: "Number of People Living in Poverty",
   povgap: "Poverty Gap Ratio",
   proportion_of_children: "Proportion of Children",
   ppp1: "$1.90/day (2011 PPP)",
