@@ -3,6 +3,9 @@ import {TopicTitle} from "datawheel-canon";
 import Nav from "components/Nav";
 import "./About.css";
 
+import {GLOSSARY} from "helpers/glossary";
+import {titleCase} from "d3plus-text";
+
 const topics = [
   {
     slug: "background",
@@ -128,22 +131,21 @@ class About extends Component {
         </section>
 
         <TopicTitle slug="glossary">Glossary</TopicTitle>
-        <section className="section">
-          <p className="paragraph">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla hendrerit, lorem id mollis congue, nisl neque sollicitudin orci, at condimentum diam sem vitae purus. Curabitur ipsum urna, volutpat vitae lorem et, sagittis posuere tortor. Nulla semper tempor tellus, in convallis tellus euismod vitae. Integer molestie ultricies massa vitae facilisis. Praesent vitae sem vitae massa luctus iaculis. Nulla aliquet, urna sed condimentum ornare, lectus lacus rhoncus massa, eu scelerisque augue velit eu purus. Nam eget imperdiet mi. Praesent varius sapien purus, eu tempus nulla tincidunt ac. Nulla urna nisl, dapibus vel tincidunt non, ullamcorper eu diam.
-          </p>
-          <p className="paragraph">
-            Praesent tempor diam sit amet felis viverra tempus. Integer rhoncus ligula hendrerit, vehicula nibh et, lacinia leo. Morbi posuere nisi at ultricies auctor. Proin vitae tincidunt tortor. Vivamus elementum dictum ex vel tempor. Suspendisse ut facilisis eros, nec egestas orci. Mauris luctus elit justo, sit amet sollicitudin ante tincidunt quis. Ut iaculis facilisis magna, at scelerisque ipsum commodo id. Ut sed dui eu tellus fermentum mollis vitae a dolor. Phasellus sed nibh lacus. Fusce auctor magna vitae quam iaculis, vel condimentum dui vehicula. Integer cursus sapien vel imperdiet vestibulum. Nunc id felis vel eros fringilla bibendum ac sit amet elit. Sed viverra ac lorem non dapibus. Nullam dignissim arcu non est interdum hendrerit. Morbi a urna id ligula aliquet posuere.
-          </p>
+        <section className="section glossary">
+          {GLOSSARY.map(entry =>
+            <div className="paragraph" key={entry.term} id={entry.term}>
+              <p className="term">{entry.term === entry.term.toUpperCase() ? entry.term : titleCase(entry.term)}</p>
+              <p className="definition">
+              {entry.definition}
+              </p>
+            </div>
+          )}
         </section>
 
         <TopicTitle slug="terms">Terms of Use</TopicTitle>
         <section className="section">
           <p className="paragraph">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla hendrerit, lorem id mollis congue, nisl neque sollicitudin orci, at condimentum diam sem vitae purus. Curabitur ipsum urna, volutpat vitae lorem et, sagittis posuere tortor. Nulla semper tempor tellus, in convallis tellus euismod vitae. Integer molestie ultricies massa vitae facilisis. Praesent vitae sem vitae massa luctus iaculis. Nulla aliquet, urna sed condimentum ornare, lectus lacus rhoncus massa, eu scelerisque augue velit eu purus. Nam eget imperdiet mi. Praesent varius sapien purus, eu tempus nulla tincidunt ac. Nulla urna nisl, dapibus vel tincidunt non, ullamcorper eu diam.
-          </p>
-          <p className="paragraph">
-            Praesent tempor diam sit amet felis viverra tempus. Integer rhoncus ligula hendrerit, vehicula nibh et, lacinia leo. Morbi posuere nisi at ultricies auctor. Proin vitae tincidunt tortor. Vivamus elementum dictum ex vel tempor. Suspendisse ut facilisis eros, nec egestas orci. Mauris luctus elit justo, sit amet sollicitudin ante tincidunt quis. Ut iaculis facilisis magna, at scelerisque ipsum commodo id. Ut sed dui eu tellus fermentum mollis vitae a dolor. Phasellus sed nibh lacus. Fusce auctor magna vitae quam iaculis, vel condimentum dui vehicula. Integer cursus sapien vel imperdiet vestibulum. Nunc id felis vel eros fringilla bibendum ac sit amet elit. Sed viverra ac lorem non dapibus. Nullam dignissim arcu non est interdum hendrerit. Morbi a urna id ligula aliquet posuere.
           </p>
         </section>
 
