@@ -92,22 +92,22 @@ class About extends Component {
           </p>
           <p className="paragraph">
             The platform is initially focused around state and province level data for 13 countries, including:
-            <ol className="paragraph">
-              <li>Burkina Faso</li>
-              <li>Ethiopia</li>
-              <li>Ghana</li>
-              <li>Kenya</li>
-              <li>Malawi</li>
-              <li>Mali</li>
-              <li>Mozambique</li>
-              <li>Nigeria</li>
-              <li>Rwanda</li>
-              <li>Senegal</li>
-              <li>Tanzania</li>
-              <li>Uganda</li>
-              <li>Zambia</li>
-            </ol>
           </p>
+          <ol className="paragraph">
+            <li>Burkina Faso</li>
+            <li>Ethiopia</li>
+            <li>Ghana</li>
+            <li>Kenya</li>
+            <li>Malawi</li>
+            <li>Mali</li>
+            <li>Mozambique</li>
+            <li>Nigeria</li>
+            <li>Rwanda</li>
+            <li>Senegal</li>
+            <li>Tanzania</li>
+            <li>Uganda</li>
+            <li>Zambia</li>
+          </ol>
           <p className="paragraph">
           Over time, we anticipate expanding the coverage of the platform in terms of the number of countries covered as well as increasing the amount of data available through the platform. For any questions, comments, or more information on the site please contact <a href="mailto:hello@dataafrica.io" className="email">hello@dataafrica.io</a>.
           </p>
