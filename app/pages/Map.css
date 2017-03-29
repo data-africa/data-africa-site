@@ -1,8 +1,6 @@
 .map {
-  align-items: flex-start;
   background-color: #29769A;
   box-sizing: border-box;
-  display: flex;
   height: 100vh;
   padding-top: var(--nav-height);
   position: relative;
@@ -17,50 +15,58 @@
     top: 0;
   }
 
-  & .controls {
+  & .floater {
     background-color: white;
-    box-sizing: border-box;
     box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.2);
+    display: inline-block;
     font-family: var(--font-family);
     margin: var(--gutter);
-    padding: 24px;
-    width: 420px;
+    position: relative;
     z-index: var(--foreground);
 
-    & .dropdown-title {
-      color: var(--accent);
-      display: block;
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
+    & .controls {
+      box-sizing: border-box;
+      display: inline-block;
+      padding: 24px;
+      width: 300px;
     }
 
     & .dropdown {
-    appearance: none;
-    background: white;
-    background-image: url('/images/sections/dropdown-arrow.svg');
-    background-repeat: no-repeat;
-    background-position: right center;
-    border: none;
-    border-bottom: 2px solid var(--accent);
-    border-radius: 0;
-    font-family: "Work Sans";
-    font-size:18px;
-    margin: 8px 0px 12px 0px;
-    padding: 0 32px 6px 0;
-    width: 250px;
+      appearance: none;
+      background: white;
+      background-image: url('/images/sections/dropdown-arrow.svg');
+      background-repeat: no-repeat;
+      background-position: right center;
+      border: none;
+      border-bottom: 2px solid var(--accent);
+      border-radius: 0;
+      font-family: "Work Sans";
+      font-size:18px;
+      margin: 8px 0px 12px 0px;
+      padding: 0 32px 6px 0;
+      width: 250px;
 
       &:focus {
         outline:0;
       }
+
+      & #legend {
+        background-color: #F2F2F2;
+        display: inline-block;
+        height: 544px;
+        float: right;
+        width: 120px;
+
+      }
+
     }
-  }
 
-  & .viz {
-    box-sizing: border-box;
-    flex: 1;
-    height: 100%;
-    z-index: var(--foreground);
-  }
-
+    & .viz {
+      height: 100vh;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+  }  
 }

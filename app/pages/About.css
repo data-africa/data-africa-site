@@ -1,4 +1,15 @@
 .about {
+    & .glossary {
+      & .definition {
+        margin-top: 0px;
+      }
+
+      & .term {
+        font-weight: bold;
+        margin: 0px;
+        padding: 0px;
+      }
+  }
 
   & .intro {
     font-family: var(--font-family);

@@ -1,4 +1,6 @@
 export const DICTIONARY = {
+  adm0: "Country",
+  adm1: "State/Province",
   cropland_rainfallCVgt20pct_ha: "Cropland Area w/ Rainfall Variability > 20% by Hectacres",
   cropland_rainfallCVgt30pct_ha: "Cropland Area w/ Rainfall Variability > 30% by Hectacres",
   cropland_rainfallCVgt20pct_pct: "Cropland Area w/ Rainfall Variability > 20% by Percentage",
@@ -7,7 +9,7 @@ export const DICTIONARY = {
   gini: "GINI",
   harvested_area: "Harvested Area in Hectacres",
   hc: "Headcount Ratio",
-  num: "Number of Poverty Living in Poverty",
+  num: "Number of People Living in Poverty",
   povgap: "Poverty Gap Ratio",
   proportion_of_children: "Proportion of Children",
   ppp1: "$1.90/day (2011 PPP)",

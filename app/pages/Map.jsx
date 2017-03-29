@@ -1,13 +1,21 @@
 import React from "react";
 import {connect} from "react-redux";
+import {browserHistory} from "react-router";
 import d3plus from "helpers/d3plus";
-import Selector from "pages/Profile/ui/Selector";
+import {VARIABLES} from "helpers/formatters";
+import Radio from "components/Radio";
+import Selector from "components/Selector";
 import {API} from ".env";
 import axios from "axios";
 import "./Map.css";
 
 import {Profile} from "datawheel-canon";
 import {Geomap} from "d3plus-react";
+
+const queryDefaults = {
+  column: "rainfall_awa_mm",
+  geo: "adm0"
+};
 
 class Map extends Profile {
 
@@ -18,34 +26,74 @@ class Map extends Profile {
     };
   }
 
-  onChange(event) {
-    this.setState({column: event.target.value});
+  handleColumn(event) {
+    this.handleUrl({column: event.target.value});
+  }
+
+  handleGeo(event) {
+    this.handleUrl({geo: event.target.value});
+  }
+
+  handleUrl(params) {
+    const obj = {...queryDefaults, ...this.props.location.query, ...params};
+    browserHistory.push(`/map?${Object.keys(obj).map(k => `${k}=${obj[k]}`).join("&")}`);
   }
 
   render() {
 
     const {attrs, vars} = this.props;
-    let {column} = this.state;
-    if (!column) column = vars[0].column;
-    const isAdm0 = true;
+    const {column, geo} = {...queryDefaults, ...this.props.location.query};
+
+    const levels = vars.filter(v => v.column === column)[0].levels[0];
+    const geoLevels = levels.geo ? levels.geo.filter(g => g !== "all") : [];
 
     return (
       <div className="map">
-        <div className="controls">
-          <span className="dropdown-title">Metric</span>
-          <Selector options={ vars.map(v => v.column) } callback={ this.onChange.bind(this) } />
+        <div className="floater">
+          <div className="controls">
+            <span className="dropdown-title">Metric</span>
+            <Selector options={ vars.map(v => v.column) } callback={ this.handleColumn.bind(this) } selected={ column } />
+            {
+              geoLevels.length > 1 ? <Radio options={ geoLevels } checked={ geo } callback={ this.handleGeo.bind(this) } /> : null
+            }
+          </div>
+          <svg id="legend"></svg>
         </div>
         <Geomap config={{
           colorScale: column,
-          colorScalePosition: "left",
-          data: `${API}/api/join/?show=geo&sumlevel=adm0&required=${column}&order=${column}&sort=desc&display_names=true`,
-          groupBy: d => d.data ? d.id : isAdm0 ? attrs[d.geo] ? attrs[d.geo].iso3 : d.geo : d.geo,
-          label: d => d.data ? d.data.geo_name : d.geo_name,
+          colorScaleConfig: {
+            align: "start",
+            axisConfig: {
+              shapeConfig: {
+                labelConfig: {
+                  fontColor: "#999999",
+                  fontFamily: () => "Work Sans",
+                  fontSize: () => 12
+                }
+              },
+              tickFormat: d => VARIABLES[column] ? VARIABLES[column](d) : d,
+              tickSize: 0
+            },
+            color: "#74E19A",
+            height: 544,
+            padding: 12,
+            select: "#legend",
+            size: 20,
+            rectConfig: {
+              stroke: "#BBBBBB"
+            },
+            width: 120
+          },
+          colorScalePosition: "right",
+          data: `${API}api/join/?show=geo&sumlevel=${geo}&required=${column}&order=${column}&sort=desc&display_names=true`,
+          fitObject: "/topojson/continent.json",
+          groupBy: d => geo === "adm0" ? attrs[d.geo] ? attrs[d.geo].iso3 : d.geo : d.geo,
+          label: d => d.geo_name,
           ocean: "transparent",
-          padding: 24,
+          padding: "92 32 32 484",
           tiles: false,
-          topojson: "/topojson/continent.json",
-          topojsonId: d => isAdm0 ? d.properties.iso_a3 : d.properties.geo,
+          topojson: geo === "adm0" ? "/topojson/continent.json" : "/topojson/cell5m/adm1.json",
+          topojsonId: d => geo === "adm0" ? d.properties.iso_a3 : d.properties.geo,
           topojsonKey: "collection"
         }} />
       </div>
@@ -56,7 +104,7 @@ class Map extends Profile {
 Map.defaultProps = {d3plus};
 
 Map.need = [
-  () => ({type: "GET_VARS", promise: axios.get(`${API}/api/geo/variables/`)})
+  () => ({type: "GET_VARS", promise: axios.get(`${API}api/geo/variables/`)})
 ];
 
 export default connect(state => ({

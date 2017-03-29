@@ -9,15 +9,16 @@ const axisConfig = {
   },
   shapeConfig: {
     fill: "#979797",
-    fontColor: "rgba(0, 0, 0, 0.8)",
-    fontFamily: () => "Work Sans",
-    fontSize: () => 12,
-    stroke: "#979797",
-    textTransform: "uppercase"
+    labelConfig: {
+      fontColor: "rgba(0, 0, 0, 0.8)",
+      fontFamily: () => "Work Sans",
+      fontSize: () => 12
+    },
+    stroke: "#979797"
   },
   tickSize: 0,
   titleConfig: {
-    fontFamily: "Work Sans",
+    fontFamily: () => "Work Sans",
     fontSize: "14px",
     fontWeight: 600,
     textTransform: "uppercase"
@@ -26,19 +27,21 @@ const axisConfig = {
 
 export default {
   barPadding: 4,
+  cache: true,
   colorScaleConfig: {
     scale: "jenks",
     shapeConfig: {
       fill: "#979797",
-      fontColor: "rgba(0, 0, 0, 0.8)",
-      fontFamily: () => "Work Sans",
-      fontSize: () => 12,
-      stroke: "#979797",
-      textTransform: "uppercase"
+      labelConfig: {
+        fontColor: "rgba(0, 0, 0, 0.8)",
+        fontFamily: () => "Work Sans",
+        fontSize: () => 12
+      },
+      stroke: "#979797"
     },
     tickSize: 0,
     titleConfig: {
-      fontFamily: "Work Sans",
+      fontFamily: () => "Work Sans",
       fontSize: "14px",
       fontWeight: 600,
       textTransform: "uppercase"
@@ -58,19 +61,23 @@ export default {
     marginLeft: 50,
     padding: 8,
     shapeConfig: {
-      fontColor: "rgba(0, 0, 0, 0.8)",
-      fontFamily: "Work Sans",
-      fontResize: false,
-      fontSize: 12,
-      fontWeight: 400,
+      labelConfig: {
+        fontColor: "rgba(0, 0, 0, 0.8)",
+        fontFamily: () => "Work Sans",
+        fontResize: false,
+        fontSize: 12,
+        fontWeight: 400
+      },
       height: () => 20,
       width: () => 20
     }
   },
   shapeConfig: {
-    fontColor: "rgba(0, 0, 0, 0.4)",
-    fontFamily: "Work Sans",
-    fontWeight: 600
+    labelConfig: {
+      fontColor: "rgba(0, 0, 0, 0.4)",
+      fontFamily: () => "Work Sans",
+      fontWeight: 600
+    }
   },
   timeline: false,
   tooltipConfig: {

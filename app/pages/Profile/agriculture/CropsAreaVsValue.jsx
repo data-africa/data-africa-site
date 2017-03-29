@@ -9,11 +9,33 @@ import {COLORS_CROP} from "helpers/colors";
 import {SectionColumns, SectionTitle} from "datawheel-canon";
 
 class CropsAreaVsValue extends SectionColumns {
+  constructor(props) {
+    super(props);
+    this.state = {cropsData: null, scaleMode: "Linear"};
+  }
+
+  onChangeScale(scaleMode) {
+    this.setState({logScale: scaleMode === "log"});
+  }
+
+  logControls() {
+    return [{
+      on: {change: this.onChangeScale.bind(this)},
+      options: [{text: "Linear", value: "linear"}, {text: "Log", value: "log"}],
+      type: "Radio"
+    }];
+  }
 
   render() {
 
     const {profile} = this.props;
-    const data = this.context.data.harvested_area;
+    const {logScale} = this.state;
+
+    const data = this.context.data.harvested_area.map(x => ({...x,
+      value_of_production_log: Math.log10(x.value_of_production),
+      harvested_area_log: Math.log10(x.harvested_area)
+    }));
+
     let crops = data.slice();
     crops = crops.filter(c => c.harvested_area && c.harvested_area > 0);
     crops.forEach(c => {
@@ -24,6 +46,8 @@ class CropsAreaVsValue extends SectionColumns {
     const topCrop = crops[0];
     const bottomCrop = crops[crops.length - 1];
 
+    const logFormatter = varName => logScale ? val => VARIABLES[varName](Math.pow(10, val)) : VARIABLES[varName];
+
     return (
       <SectionColumns>
         <article className="section-text">
@@ -33,6 +57,7 @@ class CropsAreaVsValue extends SectionColumns {
           <p>This means that growers of {topCrop.name} will earn approximately <strong>{FORMATTERS.round(topCrop.density / bottomCrop.density)} times</strong> more per hectacre of {topCrop.name} that they grow versus {bottomCrop.name}.</p>
         </article>
         <Plot config={{
+          controls: this.logControls(),
           data: crops,
           height: 450,
           label: d => d.crop_name instanceof Array ? d.crop_parent : d.crop_name,
@@ -43,14 +68,14 @@ class CropsAreaVsValue extends SectionColumns {
             stroke: "#979797",
             strokeWidth: 1
           },
-          x: "harvested_area",
+          x: logScale ? "harvested_area_log" : "harvested_area",
           xConfig: {
-            tickFormat: VARIABLES.harvested_area,
+            tickFormat: logFormatter("harvested_area"),
             title: "Harvested Area"
           },
-          y: "value_of_production",
+          y: logScale ? "value_of_production_log" : "value_of_production",
           yConfig: {
-            tickFormat: VARIABLES.value_of_production,
+            tickFormat: logFormatter("value_of_production"),
             title: "Value of Production"
           }
         }} />
