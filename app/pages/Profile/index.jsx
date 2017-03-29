@@ -140,7 +140,7 @@ class GeoProfile extends Profile {
                   const phrase = label.match(re)[0];
                   label = label.replace(phrase, "");
                   return (
-                    <div className="stat">
+                    <div key={ stat.key } className="stat">
                       <div className="label">
                         { label }
                         <span className="time">{ phrase }</span>
@@ -180,7 +180,7 @@ class GeoProfile extends Profile {
           }
         </Nav>
         <div className="section-container">
-          
+
           <div className="agriculture profile-section">
             <TopicTitle slug="agriculture">
               <div className="topic-name">Agriculture</div>
