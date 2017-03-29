@@ -1,13 +1,13 @@
 import React from "react";
 
 import {Treemap} from "d3plus-react";
-import {SectionRows, SectionTitle} from "datawheel-canon";
+import {SectionColumns, SectionTitle} from "datawheel-canon";
 
 import {fetchData} from "actions/profile";
 import {COLORS_CROP} from "helpers/colors";
 import {VARIABLES} from "helpers/formatters";
 
-class CropsByProduction extends SectionRows {
+class CropsByProduction extends SectionColumns {
 
   render() {
 
@@ -15,12 +15,12 @@ class CropsByProduction extends SectionRows {
     const data = this.context.data.value_of_production;
 
     return (
-      <SectionRows>
-        <SectionTitle>Crops by Production Value</SectionTitle>
+      <SectionColumns>
+       
         <article className="section-text">
+         <SectionTitle>Crops by Production Value</SectionTitle>
           The crop with the highest production value in { profile.name } is { data[0].crop_name }, with a value of <strong>{ VARIABLES.value_of_production (data[0].value_of_production) }</strong>.
         </article>
-        <div className="viz-container treemap">
         <Treemap config={{
           data,
           groupBy: ["crop_parent", "crop_name"],
@@ -31,8 +31,7 @@ class CropsByProduction extends SectionRows {
           },
           sum: d => d.value_of_production
         }} />
-        </div>
-    </SectionRows>
+    </SectionColumns>
     );
   }
 }

@@ -36,57 +36,60 @@ class RainfallBars extends SectionRows {
 
     const myId = isAdm0 ? profile.iso3 : profile.id;
 
-    return <SectionColumns>
-            <Geomap config={{
-              colorScale: variable,
-              colorScaleConfig: {
-                color: COLORS_RAINFALL,
-                axisConfig: {
-                  tickFormat: d => VARIABLES[variable](d)
+    return <div className="small-height">
+            <SectionColumns>
+              <Geomap config={{
+                colorScale: variable,
+                colorScaleConfig: {
+                  color: COLORS_RAINFALL,
+                  axisConfig: {
+                    tickFormat: d => VARIABLES[variable](d)
+                  }
+                },
+                colorScalePosition: "left",
+                data: apiUrl,
+                groupBy: d => d.data ? d.id : isAdm0 ? attrs[d.geo] ? attrs[d.geo].iso3 : d.geo : d.geo,
+                height: 320,
+                label: d => d.data ? d.data.geo_name : d.geo_name,
+                ocean: "transparent",
+                padding: 0,
+                shapeConfig: {Path: {
+                  stroke: d =>  d.id === myId ? "rgba(0, 0, 0, 0.6)" : "rgba(7, 94, 128, 0.5)",
+                  strokeWidth: d => d.id === myId ? "2px" : "1px"
+                }},
+                tiles: false,
+                topojson: topoPath,
+                topojsonFilter: topoFilt,
+                topojsonId: d => isAdm0 ? d.properties.iso_a3 : d.properties.geo,
+                zoom: false
+              }} />
+              <BarChart config={{
+                colorScale: variable,
+                colorScaleConfig: {
+                  color: COLORS_RAINFALL
+                },
+                colorScalePosition: false,
+                data: apiUrl,
+                discrete: "y",
+                groupBy: "geo_name",
+                groupPadding: 4,
+                height: 350, 
+                legend: false,
+                shapeConfig: {label: false},
+                x: variable,
+                xConfig: {
+                  tickFormat: d => VARIABLES[variable](d),
+                  title: "Rainfall"
+                },
+                y: "geo_name",
+                yConfig: {
+                  gridSize: 0,
+                  tickFormat: d => d === "United Republic of Tanzania" ? "United Republic\nof Tanzania" : d,
+                  title: "Locations"
                 }
-              },
-              colorScalePosition: "left",
-              data: apiUrl,
-              groupBy: d => d.data ? d.id : isAdm0 ? attrs[d.geo] ? attrs[d.geo].iso3 : d.geo : d.geo,
-              label: d => d.data ? d.data.geo_name : d.geo_name,
-              ocean: "transparent",
-              padding: 0,
-              shapeConfig: {Path: {
-                stroke: d =>  d.id === myId ? "rgba(0, 0, 0, 0.6)" : "rgba(7, 94, 128, 0.5)",
-                strokeWidth: d => d.id === myId ? "2px" : "1px"
-              }},
-              tiles: false,
-              topojson: topoPath,
-              topojsonFilter: topoFilt,
-              topojsonId: d => isAdm0 ? d.properties.iso_a3 : d.properties.geo,
-              zoom: false
-            }} />
-            <BarChart config={{
-              colorScale: variable,
-              colorScaleConfig: {
-                color: COLORS_RAINFALL
-              },
-              colorScalePosition: false,
-              data: apiUrl,
-              discrete: "y",
-              groupBy: "geo_name",
-              groupPadding: 4,
-              height: 350, 
-              legend: false,
-              shapeConfig: {label: false},
-              x: variable,
-              xConfig: {
-                tickFormat: d => VARIABLES[variable](d),
-                title: "Rainfall"
-              },
-              y: "geo_name",
-              yConfig: {
-                gridSize: 0,
-                tickFormat: d => d === "United Republic of Tanzania" ? "United Republic\nof Tanzania" : d,
-                title: "Locations"
-              }
-            }} />
-          </SectionColumns>;
+              }} />
+            </SectionColumns>
+          </div>;
   }
 
 
@@ -106,14 +109,17 @@ class RainfallBars extends SectionRows {
                      rainfall variability greater than 20%`;
     const sentence = !hasData ? `Showing ${title.toLowerCase()} data across ${profile.parent_name}` : `From ${res.start_year} to ${res.year} ${desc} across a total cropland area of ${VARIABLES.harvested_area(res.cropland_total_ha)}`;
     return (
-      <SectionRows>
+      <SectionColumns>
 
-        <Selector options={opts} callback={this.onChange}/>
-        <SectionTitle>{title} by Location</SectionTitle>
-        <article className="section-text">{sentence}.</article>
+
+        <article className="section-text">
+          <SectionTitle>{title} by Location</SectionTitle>
+          <Selector options={opts} callback={this.onChange}/>
+          {sentence}.
+        </article>
 
           {this.renderViz()}
-    </SectionRows>
+    </SectionColumns>
 
     );
   }

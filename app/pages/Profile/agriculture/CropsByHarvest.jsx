@@ -1,13 +1,13 @@
 import React from "react";
 
 import {Treemap} from "d3plus-react";
-import {SectionRows, SectionTitle} from "datawheel-canon";
+import {SectionColumns, SectionTitle} from "datawheel-canon";
 
 import {fetchData} from "actions/profile";
 import {COLORS_CROP} from "helpers/colors";
 import {VARIABLES} from "helpers/formatters";
 
-class CropsByHarvest extends SectionRows {
+class CropsByHarvest extends SectionColumns {
 
   render() {
 
@@ -15,12 +15,12 @@ class CropsByHarvest extends SectionRows {
     const data = this.context.data.harvested_area;
 
     return (
-      <SectionRows>
-        <SectionTitle>Crops by Harvested Area</SectionTitle>
+      <SectionColumns>
+        
         <article className="section-text">
+          <SectionTitle>Crops by Harvested Area</SectionTitle>
           The most common crop in { profile.name }, by harvested area, is { data[0].crop_name } with a harvested area of <strong>{ VARIABLES.harvested_area(data[0].harvested_area) }</strong>.
         </article>
-        <div className="viz-container treemap">
         <Treemap config={{
           data,
           groupBy: ["crop_parent", "crop_name"],
@@ -31,8 +31,7 @@ class CropsByHarvest extends SectionRows {
           },
           sum: d => d.harvested_area
         }} />
-        </div>
-    </SectionRows>
+    </SectionColumns>
     );
   }
 }

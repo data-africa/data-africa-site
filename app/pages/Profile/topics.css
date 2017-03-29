@@ -1,43 +1,102 @@
 .topic-title {
   background-color:#f2f4f2;
   border-bottom: 1px solid #ddd;
-  border-top: 1px solid #ddd;
-  margin: 0px 0px 32px;
-  padding: 16px 70px 16px;
+  margin: 0px 0px 72px;
+  padding: 0px 70px 0px;
+  position: relative;
   text-align: center;
   width:auto;
+  z-index: 0;
+
+  &::after {
+    background:linear-gradient(0deg, var(--dark), rgba(0, 0, 0, 1));
+    content:"";
+    display: block;
+    float: left;
+    bottom: 0;
+    left: 0;
+    opacity: 0.4;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width:100%;
+    z-index: 1;
+  }
 
   & .topic-icon {
     background-color: var(--accent);
     background-position: center;
     background-repeat: no-repeat;
     box-sizing: border-box;
-    border:1px solid #ddd;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
     border-radius: 35px;
     clear: both;
     display: block;
     height: 65px;
-    margin: 0px auto -60px;
-    padding: 5px;
+    margin: 0px auto -40px;
+    padding: 0px;
     width: 65px;
   }
   & .topic-name {
-    clear:both;
+    clear: both;
+    color: white;
     display: block;
     float:left;
     font-size:48px;
     font-weight:600;
-    padding-bottom:24px;
+    padding-bottom:72px;
     padding-top:0px;
+    text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.6);
+  }
+  & img {
+    display: block;
+    bottom: 0;
+    float:left;
+    left: 0;
+    right: 0;
+    top: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: 0;
   }
 
   /* TODO: remove this when it is part of canon */
   & .anchor {
     display: inline-block;
-    margin-top: calc(var(--nav-height) * -1 + var(--gutter));
+    margin-top:0;
     outline: 0;
-    padding-top: 64px;
+    padding-top: 120px;
     position: relative;
   }
 
 }
+.agriculture {
+  & .topic-title {
+    background-image: url(/images/topics/agriculture-bg.jpg);
+    background-size: cover;
+
+  }
+}
+.climate {
+  & .topic-title {
+    background-image: url(/images/topics/climate-bg.jpg);
+    background-size: cover;
+    background-position: center center;
+  }
+}
+.health {
+  & .topic-title {
+    background-image: url(/images/topics/health-bg.jpg);
+    background-size: cover;
+  }
+}
+.poverty {
+  & .topic-title {
+    background-image: url(/images/topics/poverty-bg.jpg);
+    background-size: cover;
+  }
+}
+
+
+
+

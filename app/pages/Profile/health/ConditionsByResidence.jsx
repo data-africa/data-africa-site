@@ -18,8 +18,8 @@ class ConditionsByResidence extends SectionColumns {
 
     return (
       <SectionColumns>
-        <SectionTitle>Health Conditions Among Children by Residence</SectionTitle>
         <article className="section-text">
+        <SectionTitle>Health Conditions Among Children by Residence</SectionTitle>
           {childHealthByMode(profile, healthByResidence, "residence")}
         </article>
         <BarChart config={{
