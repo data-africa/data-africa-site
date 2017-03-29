@@ -42,27 +42,47 @@ class Map extends Profile {
   render() {
 
     const {attrs, vars} = this.props;
-    const {column, geo} = {geo: "adm0", column: "rainfall_awa_mm", ...this.props.location.query};
+    const {column, geo} = {...queryDefaults, ...this.props.location.query};
 
     const levels = vars.filter(v => v.column === column)[0].levels[0];
     const geoLevels = levels.geo ? levels.geo.filter(g => g !== "all") : [];
 
     return (
       <div className="map">
-        <div className="controls">
-          <span className="dropdown-title">Metric</span>
-          <Selector options={ vars.map(v => v.column) } callback={ this.handleColumn.bind(this) } selected={ column } />
-          {
-            geoLevels.length > 1 ? <Radio options={ geoLevels } checked={ geo } callback={ this.handleGeo.bind(this) } /> : null
-          }
+        <div className="floater">
+          <div className="controls">
+            <span className="dropdown-title">Metric</span>
+            <Selector options={ vars.map(v => v.column) } callback={ this.handleColumn.bind(this) } selected={ column } />
+            {
+              geoLevels.length > 1 ? <Radio options={ geoLevels } checked={ geo } callback={ this.handleGeo.bind(this) } /> : null
+            }
+          </div>
+          <svg id="legend"></svg>
         </div>
         <Geomap config={{
           colorScale: column,
           colorScaleConfig: {
-            // color: "#74E19A",
+            align: "start",
             axisConfig: {
-              tickFormat: d => VARIABLES[column] ? VARIABLES[column](d) : d
-            }
+              shapeConfig: {
+                labelConfig: {
+                  fontColor: "#999999",
+                  fontFamily: () => "Work Sans",
+                  fontSize: () => 12
+                }
+              },
+              tickFormat: d => VARIABLES[column] ? VARIABLES[column](d) : d,
+              tickSize: 0
+            },
+            color: "#74E19A",
+            height: 544,
+            padding: 12,
+            select: "#legend",
+            size: 20,
+            rectConfig: {
+              stroke: "#BBBBBB"
+            },
+            width: 120
           },
           colorScalePosition: "right",
           data: `${API}api/join/?show=geo&sumlevel=${geo}&required=${column}&order=${column}&sort=desc&display_names=true`,
@@ -70,7 +90,7 @@ class Map extends Profile {
           groupBy: d => geo === "adm0" ? attrs[d.geo] ? attrs[d.geo].iso3 : d.geo : d.geo,
           label: d => d.geo_name,
           ocean: "transparent",
-          padding: 24,
+          padding: "92 32 32 484",
           tiles: false,
           topojson: geo === "adm0" ? "/topojson/continent.json" : "/topojson/cell5m/adm1.json",
           topojsonId: d => geo === "adm0" ? d.properties.iso_a3 : d.properties.geo,

@@ -1,8 +1,6 @@
 .map {
-  align-items: flex-start;
   background-color: #29769A;
   box-sizing: border-box;
-  display: flex;
   height: 100vh;
   padding-top: var(--nav-height);
   position: relative;
@@ -17,34 +15,38 @@
     top: 0;
   }
 
-  & .controls {
+  & .floater {
     background-color: white;
-    box-sizing: border-box;
     box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.2);
+    display: inline-block;
     font-family: var(--font-family);
     margin: var(--gutter);
-    padding: 24px;
-    width: 420px;
+    position: relative;
     z-index: var(--foreground);
 
-    & .dropdown-title {
-      color: var(--accent);
-      display: block;
-      font-size: 12px;
-      font-weight: 600;
-      text-transform: uppercase;
+    & .controls {
+      box-sizing: border-box;
+      display: inline-block;
+      padding: 24px;
+      width: 300px;
     }
 
-    & .dropdown {
-      display: block;
+    & #legend {
+      background-color: #F2F2F2;
+      display: inline-block;
+      height: 544px;
+      float: right;
+      width: 120px;
     }
+
   }
 
   & .viz {
-    box-sizing: border-box;
-    flex: 1;
-    height: 100%;
-    z-index: var(--foreground);
+    height: 100vh;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
   }
 
 }
