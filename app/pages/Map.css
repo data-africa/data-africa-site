@@ -31,42 +31,22 @@
       width: 300px;
     }
 
-    & .dropdown {
-      appearance: none;
-      background: white;
-      background-image: url('/images/sections/dropdown-arrow.svg');
-      background-repeat: no-repeat;
-      background-position: right center;
-      border: none;
-      border-bottom: 2px solid var(--accent);
-      border-radius: 0;
-      font-family: "Work Sans";
-      font-size:18px;
-      margin: 8px 0px 12px 0px;
-      padding: 0 32px 6px 0;
-      width: 250px;
-
-      &:focus {
-        outline:0;
-      }
-
-      & #legend {
-        background-color: #F2F2F2;
-        display: inline-block;
-        height: 544px;
-        float: right;
-        width: 120px;
-
-      }
+    & #legend {
+      background-color: #F2F2F2;
+      display: inline-block;
+      height: 544px;
+      float: right;
+      width: 120px;
 
     }
 
-    & .viz {
-      height: 100vh;
-      left: 0;
-      position: absolute;
-      top: 0;
-      width: 100%;
-    }
-  }  
+  }
+
+  & .viz {
+    height: 100vh;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
 }
