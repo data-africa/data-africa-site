@@ -24,8 +24,6 @@ class Nav extends Component {
             { children }
           </div>
           <div>
-            <span className={searchActive ? "link hidden active" : "link"} onClick={ this.props.toggleSearch }>Search</span>
-            <a className="link" href="/map">Map</a>
             <span className={searchActive ? "link hidden active" : "link"} onClick={ this.props.toggleSearch }><img className="icon" src="/images/nav/icon-search.svg"/>Search</span>
             <a className="link" href="/map"><img className="icon" src="/images/nav/icon-map.svg" />Map</a>
           </div>
