@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import {fetchStats} from "actions/profile";
-import {Profile, Stat, TopicTitle} from "datawheel-canon";
+import {Profile, TopicTitle} from "datawheel-canon";
 import d3plus from "helpers/d3plus";
 import "./intro.css";
 import "./topics.css";
@@ -134,12 +134,20 @@ class GeoProfile extends Profile {
               <div className="title">{ attr.name }</div>
               {
                 stats.filter(stat => stat).map(stat => {
-                  const label = stat.label;
-                  // const word = label.includes("from") ? "from" : "in";
-                  // const re = new RegExp(`${word}[A-z0-9\\s]*`, "g");
-                  // const phrase = label.match(re)[0];
-                  // label = label.replace(phrase, `<span className="time">${phrase}</span>`);
-                  return <Stat key={ stat.key } label={ label } value={ stat.attr ? attrs[stat.attr][stat.value].name : stat.value } />;
+                  let label = stat.label;
+                  const word = label.includes("from") ? "from" : "in";
+                  const re = new RegExp(`${word}[A-z0-9\\s]*`, "g");
+                  const phrase = label.match(re)[0];
+                  label = label.replace(phrase, "");
+                  return (
+                    <div key={ stat.key } className="stat">
+                      <div className="label">
+                        { label }
+                        <span className="time">{ phrase }</span>
+                      </div>
+                      <div className="value">{ stat.attr ? attrs[stat.attr][stat.value].name : stat.value }</div>
+                    </div>
+                  );
                 })
               }
             </div>
@@ -172,7 +180,7 @@ class GeoProfile extends Profile {
           }
         </Nav>
         <div className="section-container">
-          
+
           <div className="agriculture profile-section">
             <TopicTitle slug="agriculture">
               <div className="topic-name">Agriculture</div>

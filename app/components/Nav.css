@@ -86,6 +86,10 @@ body {
         margin:0 4px -6px 0;
       }
 
+      &.hidden {
+        opacity: 0;
+      }
+
     }
 
     & .divider {
