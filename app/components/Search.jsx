@@ -14,6 +14,7 @@ class Search extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      active: false,
       results: []
     };
   }
@@ -21,12 +22,17 @@ class Search extends Component {
   onChange(e) {
 
     const userQuery = e.target.value;
+    const {limit}  = this.props;
 
-    if (userQuery.length === 0) this.setState({results: []});
+    if (userQuery.length === 0) this.setState({active: true, results: []});
     // else if (userQuery.length < 3) return;
     else {
       axios.get(`${API}attrs/search/?q=${strip(userQuery)}`)
-        .then(res => this.setState({results: dataFold(res.data)}));
+        .then(res => {
+          let results = dataFold(res.data);
+          if (limit) results = results.slice(0, limit);
+          this.setState({active: true, results});
+        });
     }
 
   }
@@ -35,7 +41,8 @@ class Search extends Component {
 
     document.addEventListener("keydown", () => {
 
-      const {active, toggleSearch} = this.props;
+      const {local, searchActive, toggleSearch} = this.props;
+      const {active} = this.state;
       const key = event.keyCode;
       const DOWN = 40,
             ENTER = 13,
@@ -43,21 +50,24 @@ class Search extends Component {
             S = 83,
             UP = 38;
 
-      if (!active && key === S) {
+      const enabled = local ? active : searchActive;
+      const toggle = local ? () => this.setState({active: !active}) : toggleSearch;
+
+      if (!local && !enabled && key === S && event.target.tagName.toLowerCase() !== "input") {
         event.preventDefault();
-        toggleSearch();
+        toggle();
       }
-      else if (active && key === ESC) {
+      else if (enabled && key === ESC && event.target === this.refs.input) {
         event.preventDefault();
-        toggleSearch();
+        toggle();
       }
-      else if (active) {
+      else if (enabled && event.target === this.refs.input) {
 
         const highlighted = document.querySelector(".highlighted");
 
         if (key === ENTER && highlighted) {
           this.refs.input.value = highlighted.querySelector("a").innerHTML;
-          toggleSearch();
+          toggle();
           setTimeout(() => {
             window.location = highlighted.querySelector("a").href;
           }, 500);
@@ -92,13 +102,17 @@ class Search extends Component {
 
   render() {
 
-    const {active, className} = this.props;
-    const {results} = this.state;
+    const {className, searchActive, local} = this.props;
+    const {active, results} = this.state;
+    const enabled = local ? active : searchActive;
 
-    if (active) this.refs.input.focus();
+    if (this.refs.input) {
+      if (enabled) this.refs.input.focus();
+      else this.refs.input.blur();
+    }
 
     return (
-      <div className={ `${className} ${ active ? "active" : "" }` }>
+      <div className={ `${className} ${ enabled ? "active" : "" }` }>
         <div className="input">
           <img className="icon" src="/images/nav/search.svg" />
           <input type="text" ref="input" onChange={ this.onChange.bind(this) } placeholder="Enter a location" />
@@ -121,5 +135,5 @@ Search.defaultProps = {
 };
 
 export default connect(state => ({
-  active: state.search.searchActive
+  searchActive: state.search.searchActive
 }), {toggleSearch})(Search);

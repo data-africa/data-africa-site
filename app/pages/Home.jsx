@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {toggleSearch} from "actions/index";
+import Search from "components/Search";
 import "./Home.css";
 
 import {Geomap} from "d3plus-react";
@@ -21,7 +22,7 @@ class Home extends Component {
         <div className="intro">
           <div className="text">
             <h2 className="title">{ message }</h2>
-            <div className="search-start" onClick={ this.props.toggleSearch }>Start A Search</div>
+            <Search className="search-home" local={ true } limit={ 5 } />
           </div>
           <Geomap config={{
             height: 500,
