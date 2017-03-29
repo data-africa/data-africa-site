@@ -8,7 +8,7 @@ import map from "./map";
 
 const searchActive = (state = false, action) => {
   switch (action.type) {
-    case "ACTIVATE_SEARCH":
+    case "TOGGLE_SEARCH":
       return !state;
     default:
       return state;

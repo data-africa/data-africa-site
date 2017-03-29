@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {activateSearch} from "actions/users";
+import {toggleSearch} from "actions/index";
 import "./Search.css";
 
 import {API} from ".env";
@@ -31,55 +31,74 @@ class Search extends Component {
 
   }
 
-  handleKeyDown(e) {
-
-    const DOWN_ARROW = 40;
-    const UP_ARROW = 38;
-    const ENTER = 13;
-
-    const highlighted = document.querySelector(".highlighted");
-
-    if (e.keyCode === ENTER && highlighted) {
-      window.location = highlighted.querySelector("a").href;
-    }
-    else if (e.keyCode === DOWN_ARROW || e.keyCode === UP_ARROW) {
-
-      if (!highlighted) {
-        if (e.keyCode === DOWN_ARROW) document.querySelector(".results > li:first-child").classList.add("highlighted");
-      }
-      else {
-
-        const results = document.querySelectorAll(".results > li");
-
-        const currentIndex = [].indexOf.call(results, highlighted);
-
-        if (e.keyCode === DOWN_ARROW && currentIndex < results.length - 1) {
-          results[currentIndex + 1].classList.add("highlighted");
-          highlighted.classList.remove("highlighted");
-        }
-        else if (e.keyCode === UP_ARROW) {
-          if (currentIndex > 0) results[currentIndex - 1].classList.add("highlighted");
-          highlighted.classList.remove("highlighted");
-        }
-      }
-    }
-  }
-
   componentDidMount() {
-    this.refs.input.focus();
-    window.addEventListener("keydown", this.handleKeyDown);
-  }
 
-  componentWillUnmount() {
-    window.removeEventListener("keydown", this.handleKeyDown);
+    document.addEventListener("keydown", () => {
+
+      const {active, toggleSearch} = this.props;
+      const key = event.keyCode;
+      const DOWN = 40,
+            ENTER = 13,
+            ESC = 27,
+            S = 83,
+            UP = 38;
+
+      if (!active && key === S) {
+        event.preventDefault();
+        toggleSearch();
+      }
+      else if (active && key === ESC) {
+        event.preventDefault();
+        toggleSearch();
+      }
+      else if (active) {
+
+        const highlighted = document.querySelector(".highlighted");
+
+        if (key === ENTER && highlighted) {
+          this.refs.input.value = highlighted.querySelector("a").innerHTML;
+          toggleSearch();
+          setTimeout(() => {
+            window.location = highlighted.querySelector("a").href;
+          }, 500);
+        }
+        else if (key === DOWN || key === UP) {
+
+          if (!highlighted) {
+            if (key === DOWN) document.querySelector(".results > li:first-child").classList.add("highlighted");
+          }
+          else {
+
+            const results = document.querySelectorAll(".results > li");
+
+            const currentIndex = [].indexOf.call(results, highlighted);
+
+            if (key === DOWN && currentIndex < results.length - 1) {
+              results[currentIndex + 1].classList.add("highlighted");
+              highlighted.classList.remove("highlighted");
+            }
+            else if (key === UP) {
+              if (currentIndex > 0) results[currentIndex - 1].classList.add("highlighted");
+              highlighted.classList.remove("highlighted");
+            }
+          }
+        }
+
+      }
+
+    }, false);
+
   }
 
   render() {
 
+    const {active, className} = this.props;
     const {results} = this.state;
 
+    if (active) this.refs.input.focus();
+
     return (
-      <div className="search">
+      <div className={ `${className} ${ active ? "active" : "" }` }>
         <div className="input">
           <img className="icon" src="/images/nav/search.svg" />
           <input type="text" ref="input" onChange={ this.onChange.bind(this) } placeholder="Enter a location" />
@@ -97,6 +116,10 @@ class Search extends Component {
   }
 }
 
+Search.defaultProps = {
+  className: "search-nav"
+};
+
 export default connect(state => ({
-  focus: state.focus
-}), {activateSearch})(Search);
+  active: state.search.searchActive
+}), {toggleSearch})(Search);
