@@ -26,6 +26,52 @@ class Map extends Profile {
     };
   }
 
+  dataset(column) {
+    const povCols = ["povgap", "hc", "sevpov", "num"];
+    if (column === "proportion_of_children") {
+      return "dhs";
+    }
+    else if (povCols.includes(column)) {
+      return "poverty";
+    }
+    else {
+      return "cell5m";
+    }
+  }
+
+  datasetPrep(geoLevel, column) {
+    const {attrs} = this.props;
+    let topojsonPath = "/topojson/continent.json";
+    let variable = "geo";
+    let variableName = "geo_name";
+    // let parentName = "geo_parent_name";
+
+    if (geoLevel === "adm1") {
+      const dataset = this.dataset(column);
+      if (dataset === "dhs") {
+        topojsonPath = "/topojson/health/adm1.json";
+        variable = topojsonId = "dhs_geo";
+        variableName = "dhs_geo_name";
+        // parentName = "dhs_geo_parent_name";
+      }
+      else if (dataset === "poverty") {
+        topojsonPath = "/topojson/poverty/adm1.json";
+        variable = topojsonId = "poverty_geo";
+        variableName = "poverty_geo_name";
+
+      }
+      else {
+        topojsonId = "geo";
+        topojsonPath = "/topojson/cell5m/adm1.json";
+      }
+    }
+    const isAdm0 = geoLevel === "adm0";
+    let topojsonId = d => isAdm0 ? d.properties.iso_a3 : d.properties[variable];
+    const groupBy = d => isAdm0 ? attrs[d[variable]].iso3 : d[variable];
+    const labelFunc = d => d[variableName];
+    return {topojsonPath, variable, variableName, topojsonId, groupBy, labelFunc};
+  }
+
   handleColumn(event) {
     this.handleUrl({column: event.target.value});
   }
@@ -41,11 +87,14 @@ class Map extends Profile {
 
   render() {
 
-    const {attrs, vars} = this.props;
+    const {vars} = this.props;
     const {column, geo} = {...queryDefaults, ...this.props.location.query};
 
     const levels = vars.filter(v => v.column === column)[0].levels[0];
     const geoLevels = levels.geo ? levels.geo.filter(g => g !== "all") : [];
+    const mapParams = this.datasetPrep(geo, column);
+
+    const required = mapParams.variable === "geo" ? column : `${[mapParams.variable, mapParams.variableName].join(",")},${column}`;
 
     return (
       <div className="map">
@@ -85,15 +134,15 @@ class Map extends Profile {
             width: 120
           },
           colorScalePosition: "right",
-          data: `${API}api/join/?show=geo&sumlevel=${geo}&required=${column}&order=${column}&sort=desc&display_names=true`,
+          data: `${API}api/join/?show=year,geo&sumlevel=latest_by_geo,${geo}&required=${required}&order=${column}&sort=desc&display_names=true`,
           fitObject: "/topojson/continent.json",
-          groupBy: d => geo === "adm0" ? attrs[d.geo] ? attrs[d.geo].iso3 : d.geo : d.geo,
-          label: d => d.geo_name,
+          groupBy: mapParams.groupBy,
+          label: mapParams.labelFunc,
           ocean: "transparent",
           padding: "92 32 32 484",
           tiles: false,
-          topojson: geo === "adm0" ? "/topojson/continent.json" : "/topojson/cell5m/adm1.json",
-          topojsonId: d => geo === "adm0" ? d.properties.iso_a3 : d.properties.geo,
+          topojson: mapParams.topojsonPath,
+          topojsonId: mapParams.topojsonId,
           topojsonKey: "collection"
         }} />
       </div>
