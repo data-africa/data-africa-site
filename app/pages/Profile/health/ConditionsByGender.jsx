@@ -18,8 +18,8 @@ class ConditionsByGender extends SectionColumns {
 
     return (
       <SectionColumns>
-        <SectionTitle>Health Conditions Among Children by Gender</SectionTitle>
         <article className="section-text">
+        <SectionTitle>Health Conditions Among Children by Gender</SectionTitle>
           {childHealthByMode(profile, healthByGender, "gender")}
         </article>
         <BarChart config={{

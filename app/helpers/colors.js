@@ -1,13 +1,13 @@
 export const COLORS_CROP = {
-  "Fibres": "#A599D0",
-  "Cereals": "#C993A8",
-  "Fruits": "#DB968E",
-  "Oil Crops": "#D69F7A",
-  "Pulses": "#DBC678",
-  "Roots & Tubers": "#E7E79D",
-  "Stimulants": "#C9DB78",
-  "Sugar Crops": "#AED7A1",
-  "Vegetables": "#809FC2"
+  "Fibres": "#F69F8F",
+  "Cereals": "#FFB98B",
+  "Fruits": "#FCDAB5",
+  "Oil Crops": "#FFEAB6",
+  "Pulses": "#FFF39C",
+  "Roots & Tubers": "#F9DA8E",
+  "Stimulants": "#D0EFB3",
+  "Sugar Crops": "#CBDE8A",
+  "Vegetables": "#AFD7A1"
 };
 
 export const COLORS_GENDER = {
