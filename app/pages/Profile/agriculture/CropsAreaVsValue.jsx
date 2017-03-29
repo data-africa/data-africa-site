@@ -50,8 +50,8 @@ class CropsAreaVsValue extends SectionColumns {
 
     return (
       <SectionColumns>
-        <SectionTitle>Harvested Area Versus Value of Production</SectionTitle>
         <article className="section-text">
+        <SectionTitle>Harvested Area Versus Value of Production</SectionTitle>
           <p><strong>{ topCrop.name }</strong> are the crop with the highest production value per area in { profile.name }, with a harvested area of { VARIABLES.value_density(topCrop.density) }.</p>
           <p><strong>{ bottomCrop.name }</strong> are the crop with the lowest production value per area in { profile.name }, with a harvested area of { VARIABLES.value_density(bottomCrop.density) }.</p>
           <p>This means that growers of {topCrop.name} will earn approximately <strong>{FORMATTERS.round(topCrop.density / bottomCrop.density)} times</strong> more per hectacre of {topCrop.name} that they grow versus {bottomCrop.name}.</p>
@@ -59,7 +59,7 @@ class CropsAreaVsValue extends SectionColumns {
         <Plot config={{
           controls: this.logControls(),
           data: crops,
-          height: 500,
+          height: 450,
           label: d => d.crop_name instanceof Array ? d.crop_parent : d.crop_name,
           legend: false,
           groupBy: ["crop_parent", "crop_name"],

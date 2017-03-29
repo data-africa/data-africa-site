@@ -1,11 +1,11 @@
 module.exports = {
 
-  "dark": "#232B20",
+  "dark": "#3B4835",
   "light": "#757E6F",
   "accent": "#74E19A",
 
 
-  "section-article-large": "600px",
+  "section-article-large": "550px",
   "section-article-small": "300px",
 
   "nav-height": "60px",
@@ -17,6 +17,6 @@ module.exports = {
   "cover": "20",
 
   "gutter": "32px",
-  "width": "1148px"
+  "width": "1140px"
 
 };

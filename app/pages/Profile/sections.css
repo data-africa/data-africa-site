@@ -1,83 +1,128 @@
 
 .profile > .section-container {
-	background-color: white;
+  background-color: white;
+  display: block;
+  float: left;
+  width:100%;
 
-	& .section {
-	  background-color: white;
-	  padding-left: 56px;
-	  padding-right: 56px;
-	  padding-bottom: 48px;
+  & .section {
+	  border-bottom: 1px solid #ddd;
+		background-color: white;
+		margin: 0px 72px 64px;
+		padding: 0 0 16px;
 
-	  & h4 {
-	  	border-top: 1px solid #ddd;
-		display: block !important;
-		font-size: 28px !important;
-		margin: 16px !important;
-		padding-top:40px;
-		width: 100% !important;
+		&:last-child {
+			border-bottom: none;
+		}
+
+		& .section {
+			border: none;
+			margin: 0px;
+			padding: 0px;
+		}
+
+		& h4 {
+			display: block;
+			font-size: 28px;
+			margin: 16px;
+			padding-top: 40px;
+			width: 100%;
 	  }
 
-	  & .columns {
+		& .columns {
+			width: auto;
 
-	  	& .section-text {
-		  font-size: 16px;
+			& .section-title {
+				margin: 0 0 16px 0;
+				width: 300px;
+			}
+
+			& .viz {
+				width: auto;
+
+				&:first-child {
+					margin-right: 16px;
+				}
+			}
+		}
+
+		& .rows {
+
+			& .viz {
+
+				&:first-child {
+					margin-right: 0px;
+				}
+			}
+		}
+
+		& .margin-right {
+
+			& .viz {
+
+				&:first-child {
+					margin-right: 16px;
+				}
+			}
+		}
+
+		& .section-title {
+		  display: block;
+		  font-size: 24px;
+		  margin: 16px 16px 16px 0px;
+		  padding-top: 0px;
+		  width: 500px;
+		}		
+	
+		& .dropdown {
+		  appearance: none;
+		  background: white;
+		  background-image: url('/images/sections/dropdown-arrow.svg');
+		  background-repeat: no-repeat;
+		  background-position: right center;
+		  border: none;
+		  border-bottom: 2px solid var(--accent);
+		  border-radius: 0;
+		  clear: both;
+		  display: block;
+		  font-family: "Work Sans";
+		  font-size:18px;
+		  margin: 8px 0px 12px 0px;
+		  padding: 0 32px 6px 0;
+		  width: 250px;
+
+		  &:focus {
+		  	outline:0;
+		  }
+		}	
+
+	  & .section-text {
+		  font-size: 18px;
 		  font-weight: 300;
 		  line-height: 1.4;
-		  margin: 16px;
+		  margin: 16px 32px 16px 0px;
 		  width: 300px;
 
 		  & p {
-		  	margin: 0px 0px 16px;
-		  }
+				margin: 0px 0px 16px;
 
-		  & strong {
-		  	color:var(--accent);
-		  	font-weight: 600;
+				& strong {
+			  	color:var(--accent);
+			  	font-weight: 600;
+				}
 		  }
 		}
-		& .section {
-			margin: 0;
-			padding: 0;
+		& .viz {
+			margin:16px 0px;
 		}
-	  }
-	  & .rows {
-			& .section-text {
-			  font-size: 20px;
-			  font-weight: 300;
-			  line-height: 1.4;
-			  margin: 0px 16px 10px;
-			  width: 600px;
+	  	
+	  & .small-height {
+	  	width: 100%;
 
-			  & p {
-				margin:0px;
-			  }
-
-			  & strong {
-		 	    color:var(--accent);
-				font-weight: 600;
-			  }
-			}
-			& .section {
-				margin: 0;
-				padding: 0;
-			}
-	  }
-	  & .d3plus-Axis-title {
-
-	  	& .d3plus-textBox {
-	  		margin-top: 20px;
-	  		text-transform: uppercase;
+	  	& .viz {
+	  		min-height: auto;
+	  		width: 100%;
 	  	}
 	  }
-
-	  & .d3plus-viz-legend {
-	  	margin-left: 100px;
-	  }
-
-	  &:last-child:after {
-	    content: none;
-	  }
-
-
 	}
 }

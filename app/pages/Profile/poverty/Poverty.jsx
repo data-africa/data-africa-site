@@ -29,8 +29,9 @@ class Poverty extends SectionColumns {
 
     return (
       <SectionColumns>
-        <SectionTitle>Poverty Level by Measure</SectionTitle>
+        
         <article className="section-text">
+        <SectionTitle>Poverty Level by Measure</SectionTitle>
           {selector}
 
           {povertyContent(profile, filteredData)}

@@ -1,10 +1,10 @@
 const axisConfig = {
   barConfig: {
-    "stroke": "#cccccc",
+    "stroke": "#dddddd",
     "stroke-width": 1
   },
   gridConfig: {
-    "stroke": "#cccccc",
+    "stroke": "#dddddd",
     "stroke-width": 1
   },
   shapeConfig: {
