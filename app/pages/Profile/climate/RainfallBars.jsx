@@ -46,23 +46,23 @@ class RainfallBars extends SectionRows {
                     tickFormat: d => VARIABLES[variable](d)
                   }
                 },
-              colorScalePosition: "left",
-              data: apiUrl,
-              groupBy: d => d.data ? d.id : isAdm0 ? attrs[d.geo] ? attrs[d.geo].iso3 : d.geo : d.geo,
-              height: 275,
-              label: d => d.data ? d.data.geo_name : d.geo_name,
-              ocean: "transparent",
-              padding: 0,
-              shapeConfig: {Path: {
-                stroke: d =>  d.id === myId ? "rgba(0, 0, 0, 0.6)" : "rgba(7, 94, 128, 0.5)",
-                strokeWidth: d => d.id === myId ? "2px" : "1px"
-              }},
-              tiles: false,
-              topojson: topoPath,
-              topojsonFilter: topoFilt,
-              topojsonId: d => isAdm0 ? d.properties.iso_a3 : d.properties.geo,
-              zoom: false
-            }} />
+                colorScalePosition: "left",
+                data: apiUrl,
+                groupBy: d => d.data ? d.id : isAdm0 ? attrs[d.geo] ? attrs[d.geo].iso3 : d.geo : d.geo,
+                height: 275,
+                label: d => d.data ? d.data.geo_name : d.geo_name,
+                ocean: "transparent",
+                padding: 0,
+                shapeConfig: {Path: {
+                  stroke: d =>  d.id === myId ? "rgba(0, 0, 0, 0.6)" : "rgba(7, 94, 128, 0.5)",
+                  strokeWidth: d => d.id === myId ? "2px" : "1px"
+                }},
+                tiles: false,
+                topojson: topoPath,
+                topojsonFilter: topoFilt,
+                topojsonId: d => isAdm0 ? d.properties.iso_a3 : d.properties.geo,
+                zoom: false
+              }} />
             <BarChart config={{
               colorScale: variable,
               colorScaleConfig: {
