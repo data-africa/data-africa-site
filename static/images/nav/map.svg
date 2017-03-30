@@ -1,14 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
-    <title>icon-map</title>
+    <title>map</title>
     <desc>Created with Sketch.</desc>
-    <defs></defs>
-    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" font-size="16" font-family="Material-Design-Iconic-Font" font-weight="500">
-        <g id="icon-map" fill="#FFFFFF">
-            <text id="Search-Icon-Copy">
-                <tspan x="5.828125" y="18"></tspan>
-            </text>
+    <defs>
+        <circle id="path-1" cx="10" cy="10" r="10"></circle>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="20" height="20" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <ellipse id="path-3" cx="10" cy="10" rx="4" ry="10"></ellipse>
+        <mask id="mask-4" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="8" height="20" fill="white">
+            <use xlink:href="#path-3"></use>
+        </mask>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="map" stroke="#FFFFFF">
+            <g id="Group-2" transform="translate(2.000000, 2.000000)">
+                <use id="Oval-20" mask="url(#mask-2)" stroke-width="4" xlink:href="#path-1"></use>
+                <use id="Oval" mask="url(#mask-4)" stroke-width="4" xlink:href="#path-3"></use>
+                <path d="M2,7 L18,7" id="Line" stroke-width="2" stroke-linecap="round"></path>
+                <path d="M2,13 L18,13" id="Line-Copy" stroke-width="2" stroke-linecap="round"></path>
+            </g>
         </g>
     </g>
 </svg>
