@@ -34,10 +34,7 @@ class Conditions extends SectionColumns {
             opacity: d => d.severity === "severe" ? 1 : 0.4
           },
           stacked: true,
-          stackOrder: series => {
-            const order = ["wasted_severe", "stunted_severe", "underweight_severe", "wasted_moderate", "stunted_moderate", "underweight_moderate"];
-            return series.map(s => order.indexOf(s.key)).reverse();
-          },
+          stackOrder: ["wasted_severe", "wasted_moderate", "stunted_severe", "stunted_moderate", "underweight_severe", "underweight_moderate"],
           tooltipConfig: {
             body: d => `Based on data from ${formatPlaceName(d, "health", profile.level)} in ${d.year}`
           },

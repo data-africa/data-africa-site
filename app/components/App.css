@@ -1,0 +1,5 @@
+.container {
+  background-color: var(--dark);
+  position: relative;
+  z-index: 0;
+}

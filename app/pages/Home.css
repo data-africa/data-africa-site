@@ -64,8 +64,8 @@
           & .icon {
             display: inline-block;
             position: absolute;
-            margin: 15px 7px;
-            width: 25px;
+            margin: 9px 2px;
+            width: 36px;
           }
 
           & input {
@@ -183,6 +183,7 @@
 
       & .name {
         flex: 1;
+        padding: var(--gutter);
         z-index: var(--foreground);
       }
 

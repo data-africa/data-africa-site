@@ -6,9 +6,9 @@ import "./Nav.css";
 class Nav extends Component {
 
   render() {
-    const {breadcrumb, children, searchActive, visible} = this.props;
+    const {breadcrumb, dark, children, searchActive, visible} = this.props;
     return (
-      <nav className={ children ? visible ? "nav-container subnav" : "nav-container subnav hidden" : "nav-container" }>
+      <nav className={ `nav-container${ children ? " subnav" : "" }${ visible ? "" : " hidden" }${ dark ? " dark" : "" }` }>
         <div className="nav">
           <div>
             <a className="logo" href="/">
@@ -18,14 +18,14 @@ class Nav extends Component {
               breadcrumb && breadcrumb.length ? breadcrumb.map((crumb, i) =>
                 i < breadcrumb.length - 1
                 ? <span key={ crumb.id }><a className="link" href={`/profile/${crumb.id}`}>{ crumb.name }</a><span className="divider">/</span></span>
-                : <span key={ crumb.id } className={searchActive ? "profile link active" : "profile link"} onClick={ this.props.toggleSearch }>{ crumb.name }</span>
+                : <span key={ crumb.id } className="profile link" onClick={ this.props.toggleSearch }>{ crumb.name }</span>
               ) : null
             }
             { children }
           </div>
           <div>
-            <span className={searchActive ? "link hidden active" : "link"} onClick={ this.props.toggleSearch }><img className="icon" src="/images/nav/icon-search.svg"/>Search</span>
-            <a className="link" href="/map"><img className="icon" src="/images/nav/icon-map.svg" />Map</a>
+            <span className={searchActive ? "link hidden active" : "link"} onClick={ this.props.toggleSearch }><img className="icon" src="/images/nav/search.svg"/>Search</span>
+            <a className="link" href="/map"><img className="icon" src="/images/nav/map.svg" />Map</a>
           </div>
         </div>
       </nav>

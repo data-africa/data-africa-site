@@ -1,14 +1,139 @@
 .about {
-    & .glossary {
-      & .definition {
-        margin-top: 0px;
+  margin-bottom: 40px;
+
+  & .topic-title {
+    background: transparent;
+    border-bottom: none;
+    border-top: 1px solid #ddd;
+    font-size: 32px;
+    font-weight: 600;
+    margin: 0px auto 0px;
+    padding: 0px;
+    text-align: left;
+    width: 60%;
+
+    &:after {
+      content: "";
+      display: none;
+    }
+    & .anchor {
+      color: black;
+      font-weight: 600;
+      padding-top: 100px;
+    
+      &:hover {
+        color: black;
+      }
+    }
+
+  }
+
+  & .section {
+    background-color: white;
+
+    & .paragraph {
+      font-family: var(--font-family);
+      font-size: 20px;
+      font-weight: 300;
+      letter-spacing: 1;
+      line-height: 1.5;
+      margin: var(--gutter) auto;
+      max-width: var(--width);
+      width: 60%;
+    }
+    & a {
+      color: var(--light);
+      font-weight: 400;
+      
+      &:hover {
+        color: var(--accent);
+      }
+    }
+
+  }
+  & .no-border {
+
+    & .topic-title {
+      border: none;
+    }
+
+  }
+
+  & .section-background {
+
+    & .country-list {
+      column-count: 3;
+      list-style: none;
+      margin: 0 auto;
+      padding-left: 0px;
+      width: 60%;
+
+      & li {
+        font-weight: 600;
       }
 
-      & .term {
-        font-weight: bold;
-        margin: 0px;
-        padding: 0px;
+    }
+  }
+
+  & .section-glossary {
+    & .definition {
+      margin-top: 0px;
+    }
+
+    & .term {
+      font-weight: bold;
+      margin: 0px;
+      padding: 0px;
+    }
+  }
+
+  & .section-data {
+
+    & .source-list {
+      margin: 0 auto;
+      padding-left: 0;
+      width: 60%;
+
+      & li {
+        display: inline-block;
+        list-style: none;
+        text-align: left;
+        width: 25%;
+        vertical-align: top;
+
+        & span {
+          clear: both;
+          display: block;
+          font-size: 16px;
+          font-weight: 600;
+        }
+
+        & a {
+          display: block;
+        }
       }
+
+    }
+
+  }
+
+  & .section-toc {
+
+    & .toc-text {
+      column-count: 2;
+      column-gap: 32px;
+      width: 60%;
+      margin: 32px auto 72px;
+
+      & .paragraph {
+        font-size: 14px;
+        margin:0px 0px 16px 0px;
+        width: 100%;
+
+      }
+
+    }
+
   }
 
   & .intro {
@@ -48,6 +173,7 @@
       }
 
     }
+
     & .header {
       display: flex;
       margin: 0 auto;
@@ -104,28 +230,5 @@
     }
 
   }
-  & .topic-title {
-    padding-bottom:16px;
-  }
-  & .section {
-    background-color: white;
 
-    & .paragraph {
-      font-family: var(--font-family);
-      font-size: 20px;
-      font-weight: 400;
-      line-height: 1.5;
-      margin: var(--gutter) auto;
-      max-width: var(--width);
-      width: 60%;
-
-      & a {
-        color: var(--accent);
-        text-decoration: underline;
-      }
-
-    }
-
-  }
-  
 }

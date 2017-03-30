@@ -48,6 +48,9 @@ export default {
     }
   },
   controlConfig: {
+    buttonStyle: {
+      margin: "12px"
+    },
     labelStyle: {
       "color": "rgba(0, 0, 0, 0.2)",
       "display": "inline-block",
@@ -57,6 +60,7 @@ export default {
       "padding": "12px 16px"
     }
   },
+  downloadButton: true,
   legendConfig: {
     marginLeft: 50,
     padding: 8,
@@ -73,6 +77,7 @@ export default {
     }
   },
   shapeConfig: {
+    hoverOpacity: 0.1,
     labelConfig: {
       fontColor: "rgba(0, 0, 0, 0.4)",
       fontFamily: () => "Work Sans",
@@ -80,15 +85,24 @@ export default {
     }
   },
   timeline: false,
+  titleConfig: {
+    fontColor: "#4A4A4A",
+    fontFamily: () => "Work Sans"
+  },
   tooltipConfig: {
     background: "#fff",
-    fontSize: "24px!important",
+    borderRadius: "4px",
     padding: "16px",
     footer: "click to highlight",
     footerStyle: {
       "color": "#ccc",
       "font-size": "12px",
       "margin-top": "10px"
+    },
+    titleStyle: {
+      "color": "#4A4A4A",
+      "font-size": "16px",
+      "font-weight": 600
     }
   },
   xConfig: axisConfig,

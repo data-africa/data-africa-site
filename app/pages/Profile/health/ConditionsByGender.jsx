@@ -35,10 +35,7 @@ class ConditionsByGender extends SectionColumns {
             opacity: d => d.severity === "severe" ? 1 : 0.4
           },
           stacked: true,
-          stackOrder: series => {
-            const order = ["male_severe", "male_moderate", "female_severe", "female_moderate"];
-            return series.map(s => order.indexOf(s.key));
-          },
+          stackOrder: ["male_severe", "male_moderate", "female_severe", "female_moderate"],
           time: "year",
           x: "proportion_of_children",
           xConfig: {
