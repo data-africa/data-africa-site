@@ -3,7 +3,7 @@ import Nav from "components/Nav";
 import Footer from "components/Footer";
 import Search from "components/Search";
 import "normalize.css/normalize.css";
-import "components/d3plus.css";
+import "helpers/d3plus.css";
 import "./App.css";
 
 export default class App extends Component {

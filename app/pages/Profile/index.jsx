@@ -129,6 +129,7 @@ class GeoProfile extends Profile {
           <div className="header">
             <Geomap config={{
               data: splashData,
+              downloadButton: false,
               groupBy: isAdm0 ? "iso3" : "id",
               label: d => d.name,
               legend: false,

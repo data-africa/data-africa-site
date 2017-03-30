@@ -48,6 +48,9 @@ export default {
     }
   },
   controlConfig: {
+    buttonStyle: {
+      margin: "12px"
+    },
     labelStyle: {
       "color": "rgba(0, 0, 0, 0.2)",
       "display": "inline-block",
@@ -57,6 +60,7 @@ export default {
       "padding": "12px 16px"
     }
   },
+  downloadButton: true,
   legendConfig: {
     marginLeft: 50,
     padding: 8,

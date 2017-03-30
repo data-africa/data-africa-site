@@ -28,6 +28,7 @@ class Home extends Profile {
           </div>
           <Geomap config={{
             data: focus.reduce((arr, f) => (arr.push(attrs[f]), arr), []),
+            downloadButton: false,
             groupBy: "iso3",
             height: 500,
             label: d => d.name,
