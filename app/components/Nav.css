@@ -1,7 +1,3 @@
-body {
-  background-color: var(--dark);
-}
-
 .nav-container {
   font-family: var(--font-family);
   left: 0;
