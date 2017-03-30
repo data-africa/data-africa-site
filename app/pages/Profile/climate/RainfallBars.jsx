@@ -85,7 +85,7 @@ class RainfallBars extends SectionRows {
               yConfig: {
                 gridSize: 0,
                 tickFormat: d => d === "United Republic of Tanzania" ? "United Republic\nof Tanzania" : d,
-                title: "Locations"
+                title: false
               },
               ySort: (a, b) => a[variable] - b[variable]
             }} />
