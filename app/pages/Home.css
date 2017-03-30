@@ -183,6 +183,7 @@
 
       & .name {
         flex: 1;
+        padding: var(--gutter);
         z-index: var(--foreground);
       }
 
