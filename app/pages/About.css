@@ -118,8 +118,14 @@
       margin: var(--gutter) auto;
       max-width: var(--width);
       width: 60%;
+
+      & a {
+        color: var(--accent);
+        text-decoration: underline;
+      }
+
     }
 
   }
-
+  
 }
