@@ -7,7 +7,7 @@ class Footer extends Component {
     const {dark} = this.props;
     return (
       <footer id="footer" className={ dark ? "dark" : "light" }>
-        <div className="container">
+        <div className="inner">
           <div className="links">
             <ul className="list">
               <h5 className="title">Explore</h5>
