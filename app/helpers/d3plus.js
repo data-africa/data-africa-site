@@ -85,6 +85,10 @@ export default {
     }
   },
   timeline: false,
+  titleConfig: {
+    fontColor: "#4A4A4A",
+    fontFamily: () => "Work Sans"
+  },
   tooltipConfig: {
     background: "#fff",
     borderRadius: "4px",
