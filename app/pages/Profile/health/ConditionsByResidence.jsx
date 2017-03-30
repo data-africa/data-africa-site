@@ -35,10 +35,7 @@ class ConditionsByResidence extends SectionColumns {
             opacity: d => d.severity === "severe" ? 1 : 0.4
           },
           stacked: true,
-          stackOrder: series => {
-            const order = ["urban_severe", "urban_moderate", "rural_severe", "rural_moderate"];
-            return series.map(s => order.indexOf(s.key));
-          },
+          stackOrder: ["urban_severe", "urban_moderate", "rural_severe", "rural_moderate"],
           time: "year",
           x: "proportion_of_children",
           xConfig: {
