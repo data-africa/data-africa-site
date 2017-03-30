@@ -47,14 +47,19 @@ class CropsBySupply extends SectionRows {
         <div className="small-height">
         <SectionRows>
             <BarChart config={{
-              data: waterData,
+              data: waterData.sort(a => a.water_supply === "rainfed" ? -1 : 1),
               discrete: "y",
               groupBy: ["water_supply"],
-              height: 120,
+              groupPadding: 0,
+              height: 150,
               label: d => titleCase(d.water_supply),
-              legend: true,
               shapeConfig: {
-                fill: d => d.water_supply === 'rainfed' ? '#C2DFF0' : '#ADD89F'
+                fill: d => d.water_supply === "rainfed" ? "#C2DFF0" : "#ADD89F",
+                Bar: {
+                  labelConfig: {
+                    textAnchor: "center"
+                  }
+                }
               },
               stacked: true,
               x: metric,
@@ -62,7 +67,7 @@ class CropsBySupply extends SectionRows {
                 tickFormat: VARIABLES[metric],
                 title: titleCase(metricLabel)
               },
-              y: () => '',
+              y: () => "",
               yConfig: {
                 gridSize: 0,
                 tickFormat: d => titleCase(d),
@@ -83,7 +88,7 @@ class CropsBySupply extends SectionRows {
                   sum: d => d[metric],
                   title: `Rainfed Crops (${FORMATTERS.shareWhole(pctRainfall)} of crops)`
                 }} />
-                
+
                 <Treemap config={{
                   data: irrData,
                   groupBy: ["crop_parent", "crop_name"],
@@ -96,7 +101,7 @@ class CropsBySupply extends SectionRows {
                   sum: d => d[metric],
                   title: `Irrigated Crops (${FORMATTERS.shareWhole(1 - pctRainfall)} of crops)`
                 }} />
-                
+
             </SectionColumns>
             </div>
           </SectionRows>
