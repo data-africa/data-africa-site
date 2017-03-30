@@ -40,10 +40,13 @@ class Home extends Profile {
               }
             },
             padding: 24,
-            shapeConfig: {Path: {
-              fill: d => focusISO.includes(d.feature.properties.iso_a3) ? "#74E19A" : "rgba(255, 255, 255, 0.35)",
-              stroke: "rgba(255, 255, 255, 0.75)"
-            }},
+            shapeConfig: {
+              hoverOpacity: 1,
+              Path: {
+                fill: d => focusISO.includes(d.feature.properties.iso_a3) ? "#74E19A" : "rgba(255, 255, 255, 0.35)",
+                stroke: "rgba(255, 255, 255, 0.75)"
+              }
+            },
             tiles: false,
             tooltipConfig: {
               background: "white",

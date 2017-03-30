@@ -140,10 +140,13 @@ class GeoProfile extends Profile {
                 }
               },
               padding: 0,
-              shapeConfig: {Path: {
-                fill,
-                stroke: "rgba(255, 255, 255, 0.25)"
-              }},
+              shapeConfig: {
+                hoverOpacity: 1,
+                Path: {
+                  fill,
+                  stroke: "rgba(255, 255, 255, 0.25)"
+                }
+              },
               tiles: false,
               tooltipConfig: {
                 body: "",

@@ -77,6 +77,7 @@ export default {
     }
   },
   shapeConfig: {
+    hoverOpacity: 0.1,
     labelConfig: {
       fontColor: "rgba(0, 0, 0, 0.4)",
       fontFamily: () => "Work Sans",
