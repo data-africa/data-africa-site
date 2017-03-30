@@ -10,10 +10,12 @@ import axios from "axios";
 import "./Map.css";
 
 import {Profile} from "datawheel-canon";
-import {Geomap} from "d3plus-react";
-import {dataFold as fold} from "d3plus-viz";
-import {titleCase} from "d3plus-text";
+import {mean} from "d3-array";
 import {nest} from "d3-collection";
+import {merge} from "d3plus-common";
+import {Geomap} from "d3plus-react";
+import {titleCase} from "d3plus-text";
+import {dataFold as fold} from "d3plus-viz";
 
 const queryDefaults = {
   column: "rainfall_awa_mm",
@@ -113,7 +115,7 @@ class Map extends Profile {
 
   handleUrl() {
     const {geo, column} = this.state;
-    const obj = {geo, column, ...this.props.location.query};
+    const obj = {...this.props.location.query, geo, column};
     browserHistory.push(`/map?${Object.keys(obj).map(k => `${k}=${obj[k]}`).join("&")}`);
   }
 
@@ -121,18 +123,24 @@ class Map extends Profile {
     const {geo, column, data} = this.state;
     const mapParams = this.datasetPrep(geo, column);
 
-    return <div className="top-ten">
-      <table className="data-table">
+    const averages = ["gini", "hc", "povgap", "sevpov"];
+
+    const dataNest = nest()
+      .key(d => d[mapParams.variable])
+      .entries(data)
+      .map(d => merge(d.values, averages.reduce((obj, d) => (obj[d] = mean, obj), {})))
+      .sort((a, b) => b[column] - a[column]);
+
+    return <table className="data-table">
         <tbody>
-        {data.slice(0, 10).map((x, i) =>
+        {dataNest.map((x, i) =>
           <tr className="row" key={i}>
-            <td className="cell">{i + 1}.</td>
-            <td className="cell">{mapParams.labelFunc(x)}</td>
-            <td className="cell">{column in VARIABLES ? VARIABLES[column](x[column]) : x[column]}</td>
+            <td className="col rank">{i + 1}.</td>
+            <td className="col name">{mapParams.labelFunc(x)}</td>
+            <td className="col value">{column in VARIABLES ? VARIABLES[column](x[column]) : x[column]}</td>
           </tr>)}
         </tbody>
-      </table>
-    </div>;
+      </table>;
   }
 
   render() {
@@ -181,7 +189,7 @@ class Map extends Profile {
       topojsonKey: "collection"
     }}/>;
 
-    const loading = loaded ? <div className="loading">Loading...</div> : null;
+    const loading = loaded ? null : <div className="loading"><div className="text">Loading...</div></div>;
 
     return (
       <div className="map">
@@ -193,14 +201,12 @@ class Map extends Profile {
             {
               geoLevels.length > 1 ? <Radio options={ geoLevels } checked={ geo } callback={ this.handleGeo } /> : null
             }
+            { this.renderTopTen() }
           </div>
           <svg id="legend"></svg>
-          <hr/>
-          {this.renderTopTen()}
         </div>
-
-        {loading}
         {map}
+        {loading}
       </div>
     );
   }

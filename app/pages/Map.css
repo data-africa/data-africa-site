@@ -10,6 +10,7 @@
     box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.2);
     display: inline-block;
     font-family: var(--font-family);
+    height: 544px;
     margin: var(--gutter);
     position: relative;
     z-index: var(--foreground);
@@ -17,8 +18,44 @@
     & .controls {
       box-sizing: border-box;
       display: inline-block;
+      height: 544px;
+      overflow: scroll;
       padding: 24px;
       width: 300px;
+
+      & .data-table {
+        font-size: 12px;
+        margin-top: 16px;
+        width: 100%;
+
+        & .row {
+
+          & .col {
+            padding: 4px 0;
+
+            &.rank {
+              color: #999999;
+              font-weight: 600;
+            }
+
+            &.name {
+              color: #999999;
+              font-weight: 600;
+              padding: 4px;
+            }
+
+            &.value {
+              color: #4A4A4A;
+              font-weight: 400;
+              text-align: right;
+              white-space: nowrap;
+            }
+
+          }
+
+        }
+
+      }
     }
 
     & #legend {
@@ -39,4 +76,25 @@
     top: 0;
     width: 100%;
   }
+
+  & .loading {
+    background: rgba(0, 0, 0, 0.5);
+    height: 100vh;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+
+    & .text {
+      box-sizing: border-box;
+      color: white;
+      font-family: "Work Sans";
+      font-size: 24px;
+      padding: 400px 32px 32px 484px;
+      text-align: center;
+      width: 100%;
+    }
+
+  }
+
 }
