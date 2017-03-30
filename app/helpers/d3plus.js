@@ -82,13 +82,15 @@ export default {
   timeline: false,
   tooltipConfig: {
     background: "#fff",
-    fontSize: "24px!important",
     padding: "16px",
     footer: "click to highlight",
     footerStyle: {
       "color": "#ccc",
       "font-size": "12px",
       "margin-top": "10px"
+    },
+    titleStyle: {
+      "font-size": "24px"
     }
   },
   xConfig: axisConfig,
