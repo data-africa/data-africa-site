@@ -13,7 +13,7 @@
   }
 
   &.subnav {
-    background-color: var(--dark);
+    background-color: var(--light);
     box-shadow: 0px 2px 16px rgba(0, 0, 0, 0.6);
     position: fixed;
     transition: top 1s;

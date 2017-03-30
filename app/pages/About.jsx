@@ -86,8 +86,9 @@ class About extends Component {
           }
         </Nav>
 
-        <TopicTitle slug="background">Background</TopicTitle>
-        <section className="section">
+        
+        <section className="section section-background no-border">
+          <TopicTitle slug="background">Background</TopicTitle>
           <p className="paragraph">
             Data Africa is an open-source platform designed to provide information
             on key themes such as: health, agriculture, climate, and poverty across Africa. The goal of the site
@@ -96,7 +97,7 @@ class About extends Component {
           <p className="paragraph">
             The platform is initially focused around state and province level data for 13 countries, including:
           </p>
-          <ol className="paragraph">
+          <ul className="paragraph country-list">
             <li>Burkina Faso</li>
             <li>Ethiopia</li>
             <li>Ghana</li>
@@ -110,28 +111,28 @@ class About extends Component {
             <li>Tanzania</li>
             <li>Uganda</li>
             <li>Zambia</li>
-          </ol>
+          </ul>
           <p className="paragraph">
           Over time, we anticipate expanding the coverage of the platform in terms of the number of countries covered as well as increasing the amount of data available through the platform. For any questions, comments, or more information on the site please contact <a href="mailto:hello@dataafrica.io" className="email">hello@dataafrica.io</a>.
           </p>
         </section>
 
-        <TopicTitle slug="data">Data Sources</TopicTitle>
-        <section className="section">
+        <section className="section section-data">
+          <TopicTitle slug="data">Data Sources</TopicTitle>
           <p className="paragraph">
             The data contained in this site draws from a variety of sources,
             including:
           </p>
-          <ul className="paragraph">
-            <li>Poverty data from the <a href="http://iresearch.worldbank.org/PovcalNet/povOnDemand.aspx" target="_blank">World Bank's PovcalNet</a></li>
-            <li>Health data from the <a href="http://dhsprogram.com/" target="_blank">DHS Program</a></li>
-            <li>Agricultural data from <a href="http://www.ifpri.org/publication/cell5m-geospatial-data-and-analytics-platform-harmonized-multi-disciplinary-data-layers" target="_blank">IFPRI's Cell5M repository</a></li>
-            <li>Climate data from <a href="http://www.cru.uea.ac.uk/data/" target="_blank">University of East Anglia's Climatic Research Unit</a></li>
+          <ul className="paragraph source-list">
+            <li><span>Poverty Data</span><a href="http://iresearch.worldbank.org/PovcalNet/povOnDemand.aspx" target="_blank">World Bank's PovcalNet</a></li>
+            <li><span>Health Data</span><a href="http://dhsprogram.com/" target="_blank">DHS Program</a></li>
+            <li><span>Agricultural Data</span><a href="http://www.ifpri.org/publication/cell5m-geospatial-data-and-analytics-platform-harmonized-multi-disciplinary-data-layers" target="_blank">IFPRI's Cell5M repository</a></li>
+            <li><span>Climate Data</span><a href="http://www.cru.uea.ac.uk/data/" target="_blank">University of East Anglia's Climatic Research Unit</a></li>
           </ul>
         </section>
 
-        <TopicTitle slug="glossary">Glossary</TopicTitle>
-        <section className="section glossary">
+        <section className="section section-glossary">
+          <TopicTitle slug="glossary">Glossary</TopicTitle>
           {GLOSSARY.map(entry =>
             <div className="paragraph" key={entry.term} id={entry.term}>
               <p className="term">{entry.term === entry.term.toUpperCase() ? entry.term : titleCase(entry.term)}</p>
@@ -142,51 +143,53 @@ class About extends Component {
           )}
         </section>
 
-        <TopicTitle slug="terms">Terms of Use</TopicTitle>
-        <section className="section">
-          <p className="paragraph">
-          Information on this site is provided on an "as is" and "as available" basis.
-          Data Africa makes every effort to ensure, but does not guarantee,
-          the accuracy or completeness of the information on the Data Africa website.
-          Our goal is to keep this information timely and accurate.
-          If errors are brought to our attention, we will try to correct them.
-          Data Africa may add, change, improve, or update the information of the website without notice.
-          </p>
+        <section className="section section-toc">
+          <TopicTitle slug="terms">Terms of Use</TopicTitle>
+          <div className="toc-text">
+            <p className="paragraph">
+            Information on this site is provided on an "as is" and "as available" basis.
+            Data Africa makes every effort to ensure, but does not guarantee,
+            the accuracy or completeness of the information on the Data Africa website.
+            Our goal is to keep this information timely and accurate.
+            If errors are brought to our attention, we will try to correct them.
+            Data Africa may add, change, improve, or update the information of the website without notice.
+            </p>
 
-          <p className="paragraph">
-          Data Africa reserves its exclusive right in its sole discretion to
-          alter, limit or discontinue part of this site. Under no circumstances
-          shall Data Africa be liable for any loss, damage, liability or expense
-          suffered which is claimed to result from use of this site, including
-          without limitation, any fault, error, omission, interruption or delay.
-          Use of this site is at User's sole risk. We make every effort to minimize
-          disruption caused by technical errors. However some data or information
-          on the Data Africa website may have been created or structured in files
-          or formats which are not error-free and we cannot guarantee that our service
-          will not be interrupted or otherwise affected by such problems.
-          Data Africa accepts no responsibility with regards to such problems (failure
-          of performance, computer virus, communication line failure, alteration of content, etc.)
-          incurred as a result of using the Data Africa website or any link to external sites.
-          </p>
+            <p className="paragraph">
+            Data Africa reserves its exclusive right in its sole discretion to
+            alter, limit or discontinue part of this site. Under no circumstances
+            shall Data Africa be liable for any loss, damage, liability or expense
+            suffered which is claimed to result from use of this site, including
+            without limitation, any fault, error, omission, interruption or delay.
+            Use of this site is at User's sole risk. We make every effort to minimize
+            disruption caused by technical errors. However some data or information
+            on the Data Africa website may have been created or structured in files
+            or formats which are not error-free and we cannot guarantee that our service
+            will not be interrupted or otherwise affected by such problems.
+            Data Africa accepts no responsibility with regards to such problems (failure
+            of performance, computer virus, communication line failure, alteration of content, etc.)
+            incurred as a result of using the Data Africa website or any link to external sites.
+            </p>
 
-          <p className="paragraph">
-          The User specifically acknowledges and agrees that Data Africa is not liable
-          for any conduct of any other User, including, but not limited to, the
-          types of conduct listed above.
-          </p>
+            <p className="paragraph">
+            The User specifically acknowledges and agrees that Data Africa is not liable
+            for any conduct of any other User, including, but not limited to, the
+            types of conduct listed above.
+            </p>
 
-          <p className="paragraph">
-          Data Africa reserves the right to deny at its sole discretion any User
-          access to the Data Africa website or any portion thereof without notice.
-          </p>
+            <p className="paragraph">
+            Data Africa reserves the right to deny at its sole discretion any User
+            access to the Data Africa website or any portion thereof without notice.
+            </p>
 
-          <p className="paragraph">
-          For site security purpose and to ensure that the Data Africa website
-          remains available to all users, it employs software
-          programs to monitor network traffic to identify unauthorised attempts
-          to upload or change information, or otherwise cause damage and to detect
-          other possible security breaches.
-          </p>
+            <p className="paragraph">
+            For site security purpose and to ensure that the Data Africa website
+            remains available to all users, it employs software
+            programs to monitor network traffic to identify unauthorised attempts
+            to upload or change information, or otherwise cause damage and to detect
+            other possible security breaches.
+            </p>
+          </div>
         </section>
 
       </div>
