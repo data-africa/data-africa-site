@@ -28,7 +28,7 @@ class ConditionsByResidence extends SectionColumns {
           discrete: "y",
           groupBy: ["residence", "severity"],
           groupPadding: 32,
-          label: d => d.condition instanceof Array ? titleCase(d.residence) : `${titleCase(d.severity)}ly ${titleCase(d.condition)} Children in ${titleCase(d.residence)} Areas`,
+          label: d => d.condition instanceof Array ? `${titleCase(d.severity)} ${titleCase(d.residence)}` : `${titleCase(d.severity)}ly ${titleCase(d.condition)} Children in ${titleCase(d.residence)} Areas`,
           shapeConfig: {
             fill: d => COLORS_RESIDENCE[d.residence],
             label: false,
