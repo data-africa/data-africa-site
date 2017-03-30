@@ -216,8 +216,8 @@ class GeoProfile extends Profile {
 
           <div className="agriculture profile-section">
             <TopicTitle slug="agriculture">
-              <div className="topic-name">Agriculture</div>
               <div className="topic-icon" style={{backgroundImage: "url('/images/topics/agriculture.svg')"}}></div>
+              <div className="topic-name">Agriculture</div>
             </TopicTitle>
             <CropsByHarvest profile={attr} />
             <CropsByProduction profile={attr} />
@@ -227,16 +227,16 @@ class GeoProfile extends Profile {
 
           <div className="climate profile-section">
             <TopicTitle slug="climate">
-              <div className="topic-name">Climate</div>
               <div className="topic-icon" style={{backgroundImage: "url('/images/topics/climate.svg')"}}></div>
+              <div className="topic-name">Climate</div>
             </TopicTitle>
             <RainfallBars profile={attr} />
           </div>
 
           <div className="health profile-section">
             <TopicTitle slug="health">
-              <div className="topic-name">Health</div>
               <div className="topic-icon" style={{backgroundImage: "url('/images/topics/health.svg')"}}></div>
+              <div className="topic-name">Health</div>
             </TopicTitle>
             <Conditions profile={attr} />
             <ConditionsByGender profile={attr} />
@@ -245,8 +245,8 @@ class GeoProfile extends Profile {
 
           <div className="poverty profile-section">
             <TopicTitle slug="poverty">
+              <div className="topic-icon" style={{backgroundImage: "url('/images/topics/poverty.svg')"}}></div>            
               <div className="topic-name">Poverty</div>
-              <div className="topic-icon" style={{backgroundImage: "url('/images/topics/poverty.svg')"}}></div>
             </TopicTitle>
             <Poverty profile={attr} />
             <PovertyByGender profile={attr} />
