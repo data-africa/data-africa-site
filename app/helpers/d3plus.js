@@ -82,6 +82,7 @@ export default {
   timeline: false,
   tooltipConfig: {
     background: "#fff",
+    borderRadius: "4px",
     padding: "16px",
     footer: "click to highlight",
     footerStyle: {
@@ -90,7 +91,9 @@ export default {
       "margin-top": "10px"
     },
     titleStyle: {
-      "font-size": "24px"
+      "color": "#4A4A4A",
+      "font-size": "16px",
+      "font-weight": 600
     }
   },
   xConfig: axisConfig,

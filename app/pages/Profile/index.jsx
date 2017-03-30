@@ -103,8 +103,18 @@ class GeoProfile extends Profile {
     const fill = isAdm0
                ? d => d.feature.properties.iso_a3 === attr.iso3 ? "white" : focusISO.includes(d.feature.properties.iso_a3) ? "rgba(255, 255, 255, 0.35)" : "rgba(255, 255, 255, 0.1)"
                : d => d.feature.properties.geo === id ? "white" : focusISO.includes(d.feature.properties.iso_a3) ? "rgba(255, 255, 255, 0.35)" : "rgba(255, 255, 255, 0.1)";
-    const topoFilt = isAdm0 ? d => d : d => adm0 === d.properties.geo.slice(5, 10);
-    const topoPath = isAdm0 ? "/topojson/continent.json" : "/topojson/cell5m/adm1.json";
+
+    let splashData = [];
+    if (isAdm0) {
+      splashData = focus.reduce((arr, f) => (arr.push(attrs.geo[f]), arr), []);
+    }
+    else {
+      for (const key in attrs.geo) {
+        if (key.slice(5, 10) === adm0) {
+          splashData.push(attrs.geo[key]);
+        }
+      }
+    }
 
     return (
       <div className="profile">
@@ -118,15 +128,34 @@ class GeoProfile extends Profile {
 
           <div className="header">
             <Geomap config={{
+              data: splashData,
+              groupBy: isAdm0 ? "iso3" : "id",
+              label: d => d.name,
+              legend: false,
               ocean: "transparent",
+              on: {
+                "click.shape": d => {
+                  if (d && d.id !== id) window.location = `/profile/${d.id}`;
+                }
+              },
               padding: 0,
               shapeConfig: {Path: {
                 fill,
                 stroke: "rgba(255, 255, 255, 0.25)"
               }},
               tiles: false,
-              topojson: topoPath,
-              topojsonFilter: topoFilt,
+              tooltipConfig: {
+                body: "",
+                footer: "",
+                footerStyle: {
+                  "margin-top": 0
+                },
+                padding: "12px",
+                title: d => `${d.name}${ d.id === id ? "" : "<img class='link-arrow' src='/images/nav/link-arrow.svg' />" }`
+              },
+              topojson: isAdm0 ? "/topojson/continent.json" : "/topojson/cell5m/adm1.json",
+              topojsonFilter: isAdm0 ? d => d : d => adm0 === d.properties.geo.slice(5, 10),
+              topojsonId: d => isAdm0 ? d.properties.iso_a3 : d.properties.geo,
               topojsonKey: "collection",
               zoom: false
             }} />

@@ -18,3 +18,16 @@
   }
 
 }
+
+.d3plus-tooltip {
+  z-index: calc(var(--foreground) + 1);
+
+  & .link-arrow {
+    float: right;
+    display: inline-block;
+    margin-left: 12px;
+    margin-top: 3px;
+    width: 8px;
+    vertical-align: bottom;
+  }
+}
