@@ -8,6 +8,6 @@ defaultExport.API = "https://api.dataafrica.io/";
 // defaultExport.API = process.env.API || defaultExport.NODE_ENV === "development"
                   // ? "http://localhost:5000/" : "https://api.dataafrica.io/";
 defaultExport.ATTRS = process.env.ATTRS || `${defaultExport.API}attrs/list`;
-// defaultExport.GOOGLE_ANALYTICS = "UA-########-#";
+defaultExport.GOOGLE_ANALYTICS = "UA-96555710-1";
 
 module.exports = defaultExport;
