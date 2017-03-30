@@ -1,19 +1,9 @@
 .map {
-  background-color: #29769A;
+  background-color: #cdd1d3;
   box-sizing: border-box;
   height: 100vh;
   padding-top: var(--nav-height);
   position: relative;
-
-  &:before {
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.0) 40%, rgba(0, 0, 0, 0.0) 70%, rgba(0, 0, 0, 0.3));
-    bottom: 0;
-    content: "";
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
 
   & .floater {
     background-color: white;

@@ -6,9 +6,9 @@ import "./Nav.css";
 class Nav extends Component {
 
   render() {
-    const {breadcrumb, children, searchActive, visible} = this.props;
+    const {breadcrumb, dark, children, searchActive, visible} = this.props;
     return (
-      <nav className={ children ? visible ? "nav-container subnav" : "nav-container subnav hidden" : "nav-container" }>
+      <nav className={ `nav-container${ children ? " subnav" : "" }${ visible ? "" : " hidden" }${ dark ? " dark" : "" }` }>
         <div className="nav">
           <div>
             <a className="logo" href="/">

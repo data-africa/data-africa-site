@@ -12,11 +12,13 @@ export default class App extends Component {
 
     const {slug} = this.props.params;
 
+    const dark = ["/map"].includes(this.props.location.pathname);
+
     return (
       <div className={ slug ? "container embed" : "container" }>
-        { slug ? null : <Nav /> }
+        { slug ? null : <Nav dark={ dark } /> }
         { this.props.children }
-        { slug ? null : <Footer dark={ this.props.params.id === undefined } /> }
+        { slug || dark ? null : <Footer dark={ this.props.params.id === undefined } /> }
         <Search />
       </div>
     );
