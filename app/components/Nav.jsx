@@ -18,7 +18,7 @@ class Nav extends Component {
               breadcrumb && breadcrumb.length ? breadcrumb.map((crumb, i) =>
                 i < breadcrumb.length - 1
                 ? <span key={ crumb.id }><a className="link" href={`/profile/${crumb.id}`}>{ crumb.name }</a><span className="divider">/</span></span>
-                : <span key={ crumb.id } className={searchActive ? "profile link active" : "profile link"} onClick={ this.props.toggleSearch }>{ crumb.name }</span>
+                : <span key={ crumb.id } className="profile link" onClick={ this.props.toggleSearch }>{ crumb.name }</span>
               ) : null
             }
             { children }
