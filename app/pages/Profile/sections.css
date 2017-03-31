@@ -117,8 +117,44 @@
 			  	color:var(--accent);
 			  	font-weight: 600;
 				}
+
 		  }
+
 		}
+
+		& .rainfall-chart {
+
+			& .section-text {
+				margin-top:16px;
+				width: 100%;
+
+			  & .section-head {
+			  	display: block;
+			  	float: left;
+			  	width: 300px;
+
+			  	& .section-title {
+			  		width: auto;
+			  	}
+
+			  }
+			  & .section-stat {
+			  	display: block;
+			  	float: right;
+			  	margin: 20px 16px 16px;
+			  	width: 500px;
+
+			  	& p {
+			  		display: block;
+			  		float: left;
+			  		width: auto;
+			  	}
+			  }
+
+			}
+
+		}
+
 		& .viz {
 			margin:16px 0px;
 

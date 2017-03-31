@@ -2,7 +2,7 @@
   font-family: var(--font-family);
 
   & .intro {
-    box-shadow: 0px 2px 40px 4px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.4);
     color: white;
     margin: 0 auto;
     position: relative;

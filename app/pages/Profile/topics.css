@@ -1,6 +1,5 @@
 .topic-title {
   background-color:#f2f4f2;
-  border-bottom: 1px solid #ddd;
   margin: 0px 0px -160px;
   padding: 0px 70px 0px;
   position: relative;
@@ -33,7 +32,7 @@
     clear: both;
     display: block;
     height: 96px;
-    margin: 16px auto 0px;
+    margin: 0px auto 0px;
     padding: 0px;
     width: 96px;
   }
