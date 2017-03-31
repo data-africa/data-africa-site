@@ -1,7 +1,6 @@
 .topic-title {
   background-color:#f2f4f2;
-  border-bottom: 1px solid #ddd;
-  margin: 0px 0px 72px;
+  margin: 0px 0px -160px;
   padding: 0px 70px 0px;
   position: relative;
   text-align: center;
@@ -9,13 +8,12 @@
   z-index: 0;
 
   &::after {
-    background:linear-gradient(0deg, var(--dark), rgba(0, 0, 0, 1));
+    background:linear-gradient(0deg, #f2f2f2, 10%, rgba(0, 0, 0, 0.0), 50%, rgba(0, 0, 0, 0.6) );
     content:"";
     display: block;
     float: left;
-    bottom: 0;
+    bottom: -1px;
     left: 0;
-    opacity: 0.4;
     position: absolute;
     right: 0;
     top: 0;
@@ -24,29 +22,32 @@
   }
 
   & .topic-icon {
-    background-color: var(--accent);
+    background-color: transparent;
     background-position: center;
     background-repeat: no-repeat;
+    background-size: cover;
     box-sizing: border-box;
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
-    border-radius: 35px;
+    /*border-radius: 35px;*/
+    /*border: 2px solid white;*/
     clear: both;
     display: block;
-    height: 65px;
-    margin: 0px auto -40px;
+    height: 96px;
+    margin: 0px auto 0px;
     padding: 0px;
-    width: 65px;
+    width: 96px;
   }
   & .topic-name {
     clear: both;
     color: white;
     display: block;
     float:left;
-    font-size:48px;
-    font-weight:600;
-    padding-bottom:72px;
+    font-size: 40px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    padding-bottom:260px;
     padding-top:0px;
-    text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.6);
+    text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
   }
   & img {
     display: block;
@@ -63,7 +64,7 @@
   /* TODO: remove this when it is part of canon */
   & .anchor {
     display: inline-block;
-    margin-top:0;
+    margin-top: -20px;
     outline: 0;
     padding-top: 120px;
     position: relative;
@@ -74,7 +75,7 @@
   & .topic-title {
     background-image: url(/images/topics/agriculture-bg.jpg);
     background-size: cover;
-
+    opacity: 0.8;
   }
 }
 .climate {
@@ -82,18 +83,21 @@
     background-image: url(/images/topics/climate-bg.jpg);
     background-size: cover;
     background-position: center center;
+    opacity: 0.8;
   }
 }
 .health {
   & .topic-title {
     background-image: url(/images/topics/health-bg.jpg);
     background-size: cover;
+    opacity: 0.8;
   }
 }
 .poverty {
   & .topic-title {
     background-image: url(/images/topics/poverty-bg.jpg);
     background-size: cover;
+    opacity: 0.7;
   }
 }
 

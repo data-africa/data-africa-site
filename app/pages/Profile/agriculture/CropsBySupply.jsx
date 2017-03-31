@@ -54,7 +54,7 @@ class CropsBySupply extends SectionRows {
               height: 150,
               label: d => titleCase(d.water_supply),
               shapeConfig: {
-                fill: d => d.water_supply === "rainfed" ? "#C2DFF0" : "#ADD89F",
+                fill: d => d.water_supply === "rainfed" ? "#C2DFF0" : "#0A86B7",
                 Bar: {
                   labelConfig: {
                     textAnchor: "center"

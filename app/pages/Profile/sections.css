@@ -1,29 +1,34 @@
 
 .profile > .section-container {
-  background-color: white;
+  background-color: #f2f2f2;
   display: block;
   float: left;
   width:100%;
 
   & .section {
-	  border-bottom: 1px solid #ddd;
 		background-color: white;
-		margin: 0px 72px 64px;
-		padding: 0 0 16px;
+		border-bottom: 1px solid #ddd;
+		box-shadow: 0px 2px 16px rgba(0, 0, 0, 0.1);
+		margin: 0px 72px 72px;
+		padding: 0px 32px 16px;
+		position: relative;
+		z-index: 1;
 
 		&:last-child {
 			border-bottom: none;
+			margin-bottom: 96px;
 		}
 
 		& .section {
 			border: none;
+			box-shadow: none;
 			margin: 0px;
 			padding: 0px;
 		}
 
 		& h4 {
 			display: block;
-			font-size: 28px;
+			font-size: 32px;
 			margin: 16px;
 			padding-top: 40px;
 			width: 100%;
@@ -69,6 +74,8 @@
 		& .section-title {
 		  display: block;
 		  font-size: 24px;
+		  font-weight: 600;
+		  line-height: 1.3;
 		  margin: 16px 16px 16px 0px;
 		  padding-top: 0px;
 		  width: 500px;
@@ -100,7 +107,7 @@
 		  font-size: 18px;
 		  font-weight: 300;
 		  line-height: 1.4;
-		  margin: 16px 32px 16px 0px;
+		  margin: 32px 32px 16px 0px;
 		  width: 300px;
 
 		  & p {
@@ -110,10 +117,51 @@
 			  	color:var(--accent);
 			  	font-weight: 600;
 				}
+
 		  }
+
 		}
+
+		& .rainfall-chart {
+
+			& .section-text {
+				margin-top:16px;
+				width: 100%;
+
+			  & .section-head {
+			  	display: block;
+			  	float: left;
+			  	width: 300px;
+
+			  	& .section-title {
+			  		width: auto;
+			  	}
+
+			  }
+			  & .section-stat {
+			  	display: block;
+			  	float: right;
+			  	margin: 20px 16px 16px;
+			  	width: 500px;
+
+			  	& p {
+			  		display: block;
+			  		float: left;
+			  		width: auto;
+			  	}
+			  }
+
+			}
+
+		}
+
 		& .viz {
 			margin:16px 0px;
+
+			& .d3plus-Button {
+				margin: 0px 0px 4px !important;
+				padding-top: 0px !important;
+			}
 		}
 	  	
 	  & .small-height {

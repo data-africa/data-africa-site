@@ -2,10 +2,12 @@
   font-family: var(--font-family);
 
   & .intro {
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.4);
     color: white;
     margin: 0 auto;
     position: relative;
     width: 100vw;
+    z-index: 1;
 
     & .link {
       color: var(--accent);
@@ -138,8 +140,10 @@
       display: block;
       font-size: 28px;
       font-weight: 600;
-      margin:0px 70px;
-      width:auto;
+      margin: 0px auto 0px;
+      max-width: 1140px;
+      padding: 0px 56px 16px;
+      width: 60%;
 
     }
     & #introduction {
@@ -148,12 +152,13 @@
       font-weight: 300;
       letter-spacing: 0px;
       line-height: 160%;
-      margin: 0px auto 64px;
+      margin: 0px auto 0px;
       max-width: 1140px;
-      padding: 0px 56px 24px;
-      width: 100%;
+      padding: 0px 56px 56px;
+      width: 60%;
       & p {
-        max-width: 70%;
+        max-width: 100%;
+        opacity: 0.9;
       }
 
     }
