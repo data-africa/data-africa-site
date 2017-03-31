@@ -12,7 +12,7 @@ function abbreviate(n, forceRounding = false) {
   const length = n.toString().split(".")[0].length;
 
   if (n === 0) return "0";
-  else if (length > 3) return formatPrefix(",.0", n)(n).replace("G", "B");
+  else if (length > 3) return formatPrefix(",.2", n)(n).replace("G", "B");
   else if (length === 3) return format(`,${forceRounding ? ".0" : ""}f`)(n);
   else if (n === parseInt(n, 10)) return format(".2")(n);
   else return format(".3g")(n);
@@ -53,8 +53,8 @@ export const VARIABLES = {
   rainfall_awa_mm: d => `${FORMATTERS.round(d)}mm`,
   sevpov: FORMATTERS.ratio,
   totpop: d => round2(d),
-  value_of_production: d => `Intl.$${abbreviate(d, true)}`,
-  value_density: d => `Intl.$ ${abbreviate(d)} per ha`
+  value_of_production: d => `Intl $${abbreviate(d, true)}`,
+  value_density: d => `Intl $ ${abbreviate(d)} per ha`
 };
 
 function formatPlaceName(datum, mode, level = "adm0") {

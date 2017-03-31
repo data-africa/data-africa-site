@@ -10,9 +10,12 @@ import axios from "axios";
 import "./Map.css";
 
 import {Profile} from "datawheel-canon";
+import {mean} from "d3-array";
+import {nest} from "d3-collection";
+import {merge} from "d3plus-common";
 import {Geomap} from "d3plus-react";
-import {dataFold as fold} from "d3plus-viz";
 import {titleCase} from "d3plus-text";
+import {dataFold as fold} from "d3plus-viz";
 
 const queryDefaults = {
   column: "rainfall_awa_mm",
@@ -28,7 +31,8 @@ class Map extends Profile {
       loaded: false,
       column,
       geo,
-      data: []
+      data: [],
+      levels: {}
     };
 
     this.handleColumn = this.handleColumn.bind(this);
@@ -45,12 +49,12 @@ class Map extends Profile {
     column = newVars.column ? newVars.column : column;
     const mapParams = this.datasetPrep(geo, column);
     const required = mapParams.variable === "geo" ? column : `${[mapParams.variable, mapParams.variableName].join(",")},${column}`;
-
-    const url = `${API}api/join/?show=year,geo&sumlevel=latest_by_geo,${geo}&required=${required}&order=${column}&sort=desc&display_names=true`;
+    const show = mapParams.variable;
+    const url = `${API}api/join/?show=year,${show}&sumlevel=latest_by_geo,${geo}&required=${required}&order=${column}&sort=desc&display_names=true`;
 
     axios.get(url).then(result => {
       const data = fold(result.data);
-      this.setState({geo, column, data, loaded: true});
+      this.setState({geo, column, data, loaded: true}, () => this.handleUrl());
     });
   }
 
@@ -109,9 +113,34 @@ class Map extends Profile {
     this.setState({loaded: false}, () => this.fetchData({geo}));
   }
 
-  handleUrl(params) {
-    const obj = {...queryDefaults, ...this.props.location.query, ...params};
+  handleUrl() {
+    const {geo, column} = this.state;
+    const obj = {...this.props.location.query, geo, column};
     browserHistory.push(`/map?${Object.keys(obj).map(k => `${k}=${obj[k]}`).join("&")}`);
+  }
+
+  renderTopTen() {
+    const {geo, column, data} = this.state;
+    const mapParams = this.datasetPrep(geo, column);
+
+    const averages = ["gini", "hc", "povgap", "sevpov"];
+
+    const dataNest = nest()
+      .key(d => d[mapParams.variable])
+      .entries(data)
+      .map(d => merge(d.values, averages.reduce((obj, d) => (obj[d] = mean, obj), {})))
+      .sort((a, b) => b[column] - a[column]);
+
+    return <table className="data-table">
+        <tbody>
+        {dataNest.map((x, i) =>
+          <tr className="row" key={i}>
+            <td className="col rank">{i + 1}.</td>
+            <td className="col name">{mapParams.labelFunc(x)}</td>
+            <td className="col value">{column in VARIABLES ? VARIABLES[column](x[column]) : x[column]}</td>
+          </tr>)}
+        </tbody>
+      </table>;
   }
 
   render() {
@@ -160,23 +189,24 @@ class Map extends Profile {
       topojsonKey: "collection"
     }}/>;
 
-    const loading = loaded ? <div className="loading">Loading...</div> : null;
-
+    const loading = loaded ? null : <div className="loading"><div className="text">Loading...</div></div>;
 
     return (
       <div className="map">
         <div className="floater">
+
           <div className="controls">
             <span className="dropdown-title">Metric</span>
             <Selector options={ vars.map(v => v.column) } callback={ this.handleColumn } selected={ column } />
             {
               geoLevels.length > 1 ? <Radio options={ geoLevels } checked={ geo } callback={ this.handleGeo } /> : null
             }
+            { this.renderTopTen() }
           </div>
           <svg id="legend"></svg>
         </div>
-        {loading}
         {map}
+        {loading}
       </div>
     );
   }
