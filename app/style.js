@@ -1,7 +1,7 @@
 module.exports = {
 
   "dark": "#3B4835",
-  "light": "#51B975",
+  "light": "#467962",
   "accent": "#74E19A",
 
 
