@@ -67,6 +67,7 @@ class Home extends Profile {
         </div>
         <div className="tiles">
           <h3 className="title">Explore Countries</h3>
+          <span className="more-link"><img className="icon" src={ `/images/sections/dropdown-arrow.svg` } /></span>
           {
             focus.map(f =>
               <a key={f} className="tile" href={ `/profile/${f}` } style={{backgroundImage: `url('/images/geo/${f}.jpg')`}}>
@@ -74,9 +75,7 @@ class Home extends Profile {
               </a>
             )
           }
-          <div className="spacer"></div>
-          <div className="spacer"></div>
-          <div className="spacer"></div>
+          
         </div>
       </div>
     );
@@ -85,7 +84,7 @@ class Home extends Profile {
 
 Home.defaultProps = {
   d3plus,
-  message: "Data Africa is an open source agriculture, climate, poverty, and health dataset"
+  message: "Data Africa is an open source agriculture, climate, poverty, and health visualization engine."
 };
 
 export default connect(state => ({
