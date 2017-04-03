@@ -47,7 +47,9 @@ class CropsAreaVsValue extends SectionColumns {
     const bottomCrop = crops[crops.length - 1];
 
     const logFormatter = varName => logScale ? val => VARIABLES[varName](Math.pow(10, val)) : VARIABLES[varName];
-
+    if (!crops || crops.length === 0) {
+      return null;
+    }
     return (
       <SectionColumns>
         <article className="section-text">
