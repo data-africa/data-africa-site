@@ -30,6 +30,7 @@ class Conditions extends SectionColumns {
           label: d => d.condition instanceof Array ? titleCase(d.severity) : `${titleCase(d.severity)}ly ${titleCase(d.condition)}`,
           shapeConfig: {
             fill: d => COLORS_CONDITION[d.condition],
+            hoverOpacity: 0.1,
             label: false,
             opacity: d => d.severity === "severe" ? 1 : 0.4
           },

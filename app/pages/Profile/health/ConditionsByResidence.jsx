@@ -31,6 +31,7 @@ class ConditionsByResidence extends SectionColumns {
           label: d => d.condition instanceof Array ? `${titleCase(d.severity)} ${titleCase(d.residence)}` : `${titleCase(d.severity)}ly ${titleCase(d.condition)} Children in ${titleCase(d.residence)} Areas`,
           shapeConfig: {
             fill: d => COLORS_RESIDENCE[d.residence],
+            hoverOpacity: 0.1,
             label: false,
             opacity: d => d.severity === "severe" ? 1 : 0.4
           },
