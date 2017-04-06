@@ -2,6 +2,7 @@ import React from "react";
 import {connect} from "react-redux";
 import {browserHistory} from "react-router";
 import d3plus from "helpers/d3plus";
+import {DICTIONARY} from "helpers/dictionary";
 import {VARIABLES} from "helpers/formatters";
 import Radio from "components/Radio";
 import Selector from "components/Selector";
@@ -181,8 +182,22 @@ class Map extends Profile {
       groupBy: mapParams.groupBy,
       label: mapParams.labelFunc,
       legend: null,
+      on: {
+        "click.shape": d => {
+          if (d) window.location = `/profile/${d.geo}`;
+        }
+      },
       padding: "92 32 32 484",
       tiles: true,
+      tooltipConfig: {
+        body: d => `${DICTIONARY[column]}: ${ column in VARIABLES ? VARIABLES[column](d[column]) : d[column] }`,
+        footer: "",
+        footerStyle: {
+          "margin-top": 0
+        },
+        padding: "12px",
+        title: d => `${mapParams.labelFunc(d)}<img class='link-arrow' src='/images/nav/link-arrow.svg' />`
+      },
       topojson: mapParams.topojsonPath,
       topojsonId: mapParams.topojsonId,
       topojsonKey: "collection"

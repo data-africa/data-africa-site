@@ -94,6 +94,12 @@ export default {
   },
   tooltipConfig: {
     background: "#fff",
+    bodyStyle: {
+      "color": "#4A4A4A",
+      "font-size": "12px",
+      "font-weight": 400,
+      "margin-top": "12px"
+    },
     borderRadius: "4px",
     padding: "16px",
     footer: "click to highlight",
