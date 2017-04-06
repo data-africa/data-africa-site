@@ -6,7 +6,6 @@ import {BarChart, Geomap} from "d3plus-react";
 import {SectionRows, SectionColumns, SectionTitle} from "datawheel-canon";
 
 import {fetchData} from "actions/profile";
-import {COLORS_RAINFALL} from "helpers/colors";
 import {VARIABLES} from "helpers/formatters";
 import Selector from "components/Selector";
 import {API} from ".env";
@@ -38,11 +37,10 @@ class RainfallBars extends SectionRows {
 
     return <div className="small-height">
             <SectionColumns>
-              
+
               <Geomap config={{
                 colorScale: variable,
                 colorScaleConfig: {
-                  color: COLORS_RAINFALL,
                   axisConfig: {
                     tickFormat: d => VARIABLES[variable](d)
                   }
@@ -67,9 +65,6 @@ class RainfallBars extends SectionRows {
 
             <BarChart config={{
               colorScale: variable,
-              colorScaleConfig: {
-                color: COLORS_RAINFALL
-              },
               colorScalePosition: false,
               data: apiUrl,
               discrete: "y",
@@ -113,7 +108,7 @@ class RainfallBars extends SectionRows {
                      rainfall variability greater than 20%`;
     const sentence = !hasData ? `Showing ${title.toLowerCase()} data across ${profile.parent_name}` : `From ${res.start_year} to ${res.year} ${desc} across a total cropland area of ${VARIABLES.harvested_area(res.cropland_total_ha)}`;
     return (
-      
+
 
       <SectionRows>
         <div className="rainfall-chart">

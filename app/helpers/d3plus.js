@@ -1,3 +1,5 @@
+import {COLORS_RAINFALL} from "helpers/colors";
+
 const axisConfig = {
   barConfig: {
     "stroke": "#dddddd",
@@ -29,6 +31,7 @@ export default {
   barPadding: 4,
   cache: true,
   colorScaleConfig: {
+    color: COLORS_RAINFALL,
     scale: "jenks",
     shapeConfig: {
       fill: "#979797",

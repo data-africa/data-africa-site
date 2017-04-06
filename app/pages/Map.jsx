@@ -165,7 +165,6 @@ class Map extends Profile {
           tickFormat: d => VARIABLES[column] ? VARIABLES[column](d) : d,
           tickSize: 0
         },
-        color: "#74E19A",
         height: 544,
         padding: 12,
         select: "#legend",
