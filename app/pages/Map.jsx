@@ -19,7 +19,7 @@ import {dataFold as fold} from "d3plus-viz";
 
 const queryDefaults = {
   column: "rainfall_awa_mm",
-  geo: "adm0"
+  geo: "adm1"
 };
 
 class Map extends Profile {
