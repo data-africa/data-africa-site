@@ -36,7 +36,7 @@ class IntroParagraph extends Section {
 
   crops(profile, crops) {
     const top = crops[0];
-    return <p>The most widely harvested crop in {profile.name} by area was {top.crop_name} with {VARIABLES.harvested_area(top.harvested_area)} harvested for a total production value of {VARIABLES.value_of_production(top.value_of_production)}.</p>;
+    return <p>The most widely harvested crop in {profile.name} by area was {top.crop_name} with {VARIABLES.harvested_area(top.harvested_area)} harvested with a total production value of {VARIABLES.value_of_production(top.value_of_production)}.</p>;
   }
 
   render() {
