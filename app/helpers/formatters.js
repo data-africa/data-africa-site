@@ -54,7 +54,7 @@ export const VARIABLES = {
   sevpov: FORMATTERS.ratio,
   totpop: d => round2(d),
   value_of_production: d => `Intl $${abbreviate(d, true)}`,
-  value_density: d => `Intl $ ${abbreviate(d)} per ha`
+  value_density: d => `Intl $${abbreviate(d)} per ha`
 };
 
 function formatPlaceName(datum, mode, level = "adm0") {

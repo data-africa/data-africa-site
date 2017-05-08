@@ -16,10 +16,10 @@ class CropsByHarvest extends SectionColumns {
 
     return (
       <SectionColumns>
-        
+
         <article className="section-text">
           <SectionTitle>Crops by Harvested Area</SectionTitle>
-          The most common crop in { profile.name }, by harvested area, is { data[0].crop_name } with a harvested area of <strong>{ VARIABLES.harvested_area(data[0].harvested_area) }</strong>.
+          The most common crop in { profile.name }, by harvested area, is { data[0].crop_name } with <strong>{ VARIABLES.harvested_area(data[0].harvested_area) }</strong>.
         </article>
         <Treemap config={{
           data,

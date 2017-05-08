@@ -19,7 +19,7 @@ export function povertyContent(profile, poverty) {
 }
 
 function formatGender(gender, isTitle = false) {
-  const inSentence = `households headed by ${gender}s`;
+  const inSentence = `${gender} headed households`;
   const inTitle = `${titleCase(gender)} Head of Household`;
   return isTitle ? inTitle : inSentence;
 }

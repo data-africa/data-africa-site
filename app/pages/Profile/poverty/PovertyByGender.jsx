@@ -32,13 +32,13 @@ class PovertyByGender extends SectionColumns {
                                                           targetGeo, this.onChangeGeo);
     const viz = povertyVizByMode(profile, vizData, povertyLevel, "gender");
     const opts = ["ppp1", "ppp2"];
-    return <SectionColumns>   
+    return <SectionColumns>
             <article className="section-text">
 
-            <SectionTitle>{ `Poverty Measures by Head of Household Gender ${ DICTIONARY[povertyLevel] }` }</SectionTitle>
-             
+            <SectionTitle>Poverty Measures by Gender of Head of Household</SectionTitle>
 
-              <span className="dropdown-title">Wages</span>
+
+              <span className="dropdown-title">Disposable Income</span>
 
               {selector}
               <Selector options={opts} callback={this.onChange}/>

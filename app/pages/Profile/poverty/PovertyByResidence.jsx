@@ -35,8 +35,8 @@ class PovertyByResidence extends SectionColumns {
     return <SectionColumns>
             <article className="section-text">
 
-            <SectionTitle>{ `Poverty Measures by Residence ${ DICTIONARY[povertyLevel] }` }</SectionTitle>
-     
+            <SectionTitle>Poverty Measures by Residence</SectionTitle>
+
 
               <span className="dropdown-title">Wages</span>
 

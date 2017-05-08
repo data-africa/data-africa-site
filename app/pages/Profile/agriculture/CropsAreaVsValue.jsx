@@ -54,9 +54,9 @@ class CropsAreaVsValue extends SectionColumns {
       <SectionColumns>
         <article className="section-text">
         <SectionTitle>Harvested Area Versus Value of Production</SectionTitle>
-          <p><strong>{ topCrop.name }</strong> are the crop with the highest production value per area in { profile.name }, with a harvested area of { VARIABLES.value_density(topCrop.density) }.</p>
-          <p><strong>{ bottomCrop.name }</strong> are the crop with the lowest production value per area in { profile.name }, with a harvested area of { VARIABLES.value_density(bottomCrop.density) }.</p>
-          <p>This means that growers of {topCrop.name} will earn approximately <strong>{FORMATTERS.round(topCrop.density / bottomCrop.density)} times</strong> more per hectacre of {topCrop.name} that they grow versus {bottomCrop.name}.</p>
+          <p><strong>{ topCrop.name }</strong> are the crop with the highest production value per area in { profile.name }, with { VARIABLES.value_density(topCrop.density) }.</p>
+          <p><strong>{ bottomCrop.name }</strong> are the crop with the lowest production value per area in { profile.name }, with { VARIABLES.value_density(bottomCrop.density) }.</p>
+          <p>This means that growers of {topCrop.name} will earn approximately <strong>{FORMATTERS.round(topCrop.density / bottomCrop.density)} times</strong> more per hectare than if they grow {bottomCrop.name}.</p>
         </article>
         <Plot config={{
           controls: this.logControls(),

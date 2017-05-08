@@ -51,7 +51,7 @@ export function childHealthByMode(profile, healthData, mode = "gender") {
     if (sevACond && !sevBCond || sevBCond && !sevACond) {
       const [category, cond] = sevACond ? [categoryA, sevACond] : [categoryB, sevBCond];
       return <p>The health condition most severely afflicting {category} children
-         in {place} is severely {cond.condition} children
+         in {latestYear} in {place} is severely {cond.condition} children
         with {FORMATTERS.shareWhole(cond.proportion_of_children)} of {categoryA} children
          affected.</p>;
     }
@@ -61,12 +61,12 @@ export function childHealthByMode(profile, healthData, mode = "gender") {
 
     if (sameCondition) {
       return <p>The health condition most severely afflicting {categoryA} and {categoryB} children
-       in {place} is severely {sevACond.condition} children
+       in {latestYear} in {place} is severely {sevACond.condition} children
       with {FORMATTERS.shareWhole(sevACond.proportion_of_children)} of {categoryA} children
        affected and {FORMATTERS.shareWhole(sevBCond.proportion_of_children)} of {categoryB} children affected.</p>;
     }
     else {
-      return <p>The health condition most severely afflicting {formatCategory(categoryA)} in {place} is
+      return <p>The health condition most severely afflicting {formatCategory(categoryA)} in {latestYear} in {place} is
        severely {sevACond.condition} children
       with {FORMATTERS.shareWhole(sevACond.proportion_of_children)} of {categoryA} children
        affected. The health condition most severely afflicting {formatCategory(categoryB)} in {place}
