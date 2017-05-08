@@ -153,7 +153,7 @@ class Map extends Component {
     const {vars} = this.props;
     const {geo, column, data, loaded} = this.state;
     const mapParams = this.datasetPrep(geo, column);
-    const levels = vars.filter(v => v.column === column)[0].levels[0];
+    const levels = vars ? vars.filter(v => v.column === column)[0].levels[0] : {};
     const geoLevels = levels.geo ? levels.geo.filter(g => g !== "all") : [];
 
     const map = <Geomap config={{
