@@ -23,7 +23,7 @@ class IntroParagraph extends Section {
 
     const country = "country located in Africa south of the Sahara";
     const parentId = `040${profile.id.slice(3, 10)}`;
-    const province = <span>province in <Link className="link" to={`/profile/${parentId}`}>{profile.parent_name}</Link></span>;
+    const province = <span>province of <Link className="link" to={`/profile/${parentId}`}>{profile.parent_name}</Link></span>;
     const entity = profile.level === "adm0" ? country : province;
     if (!recentPop) {
       return <p></p>;
