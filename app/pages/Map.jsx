@@ -30,6 +30,7 @@ class Map extends Component {
     const {column, geo} = {...queryDefaults, ...props.location.query};
 
     this.state = {
+      first: true,
       loaded: false,
       column,
       geo,
@@ -116,9 +117,12 @@ class Map extends Component {
   }
 
   handleUrl() {
-    const {geo, column} = this.state;
-    const obj = {...this.props.location.query, geo, column};
-    browserHistory.push(`/map?${Object.keys(obj).map(k => `${k}=${obj[k]}`).join("&")}`);
+    const {geo, column, first} = this.state;
+    if (first) this.setState({first: false});
+    else {
+      const obj = {...this.props.location.query, geo, column};
+      browserHistory.push(`/map?${Object.keys(obj).map(k => `${k}=${obj[k]}`).join("&")}`);
+    }
   }
 
   renderTopTen() {
