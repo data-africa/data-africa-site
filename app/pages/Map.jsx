@@ -211,6 +211,9 @@ class Map extends Component {
       topojsonKey: "collection"
     }}/>;
 
+    const dropdownOptions = vars.map(v => v.column)
+      .sort((a, b) => DICTIONARY[a].localeCompare(DICTIONARY[b]));
+
     const loading = loaded ? null : <div className="loading"><div className="text">Loading...</div></div>;
 
     return (
@@ -220,7 +223,7 @@ class Map extends Component {
 
             <div className="controls">
               <span className="dropdown-title">Metric</span>
-              <Selector options={ vars.map(v => v.column) } callback={ this.handleColumn } selected={ column } />
+              <Selector options={ dropdownOptions } callback={ this.handleColumn } selected={ column } />
               {
                 geoLevels.length > 1 ? <Radio options={ geoLevels } checked={ geo } callback={ this.handleGeo } /> : null
               }
