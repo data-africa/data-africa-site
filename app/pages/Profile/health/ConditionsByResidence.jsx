@@ -8,7 +8,7 @@ import {COLORS_RESIDENCE} from "helpers/colors";
 import {yearControls} from "helpers/d3plus";
 import {FORMATTERS} from "helpers/formatters";
 import {childHealthByMode} from "pages/Profile/health/shared";
-import {fetchData} from "actions/profile";
+import {fetchData} from "datawheel-canon";
 
 class ConditionsByResidence extends SectionColumns {
 

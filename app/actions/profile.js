@@ -1,5 +1,5 @@
 /* eslint consistent-return: 0, no-else-return: 0*/
-import {API} from ".env";
+import {API} from "helpers/consts.js";
 import {polyfill} from "es6-promise";
 import axios from "axios";
 
@@ -89,21 +89,5 @@ export function fetchStats(store) {
     type: "GET_STATS",
     promise: Promise.all([crop, poverty, condition, rainfall])
   };
-
-}
-
-export function fetchData(key, url) {
-
-  function retFunc(store) {
-    const u = `${API}${url.replace("<id>", store.id)}`;
-    return {
-      type: "GET_DATA",
-      promise: axios.get(u).then(res => ({key, data: fold(res.data)}))
-    };
-  }
-  retFunc.key = key;
-  retFunc.url = url;
-
-  return retFunc;
 
 }

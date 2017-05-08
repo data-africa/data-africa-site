@@ -5,10 +5,10 @@ import {connect} from "react-redux";
 import {BarChart, Geomap} from "d3plus-react";
 import {SectionRows, SectionColumns, SectionTitle} from "datawheel-canon";
 
-import {fetchData} from "actions/profile";
+import {fetchData} from "datawheel-canon";
 import {VARIABLES} from "helpers/formatters";
 import Selector from "components/Selector";
-import {API} from ".env";
+import {API} from "helpers/consts.js";
 
 class RainfallBars extends SectionRows {
   constructor(props) {

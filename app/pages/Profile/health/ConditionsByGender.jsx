@@ -7,7 +7,7 @@ import {SectionColumns, SectionTitle} from "datawheel-canon";
 import {COLORS_GENDER} from "helpers/colors";
 import {yearControls} from "helpers/d3plus";
 import {FORMATTERS} from "helpers/formatters";
-import {fetchData} from "actions/profile";
+import {fetchData} from "datawheel-canon";
 import {childHealthByMode} from "pages/Profile/health/shared";
 
 class ConditionsByGender extends SectionColumns {

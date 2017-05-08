@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {TopicTitle} from "datawheel-canon";
+import {AnchorLink, TopicTitle} from "datawheel-canon";
 import Nav from "components/Nav";
 import "./About.css";
 
@@ -69,9 +69,9 @@ class About extends Component {
           <div ref="sublinks" className="sublinks">
             {
               topics.map(topic =>
-                <a key={ topic.slug } className="sublink" href={ `#${topic.slug}` }>
+                <AnchorLink key={ topic.slug } className="sublink" to={ topic.slug }>
                   { topic.title }
-                </a>
+                </AnchorLink>
               )
             }
           </div>
@@ -79,14 +79,14 @@ class About extends Component {
         <Nav visible={ subnav }>
           {
             topics.map(topic =>
-              <a key={ topic.slug } className={activeSub === topic.slug ? "subnav-link active" : "subnav-link"} href={ `#${topic.slug}` }>
+              <AnchorLink key={ topic.slug } className={activeSub === topic.slug ? "subnav-link active" : "subnav-link"} to={ topic.slug }>
                 { topic.title }
-              </a>
+              </AnchorLink>
             )
           }
         </Nav>
 
-        
+
         <section className="section section-background no-border">
           <TopicTitle slug="background">Background</TopicTitle>
           <p className="paragraph">

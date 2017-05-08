@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Component} from "react";
 import {connect} from "react-redux";
 import {browserHistory} from "react-router";
 import d3plus from "helpers/d3plus";
@@ -6,13 +6,14 @@ import {DICTIONARY} from "helpers/dictionary";
 import {VARIABLES} from "helpers/formatters";
 import Radio from "components/Radio";
 import Selector from "components/Selector";
-import {API} from ".env";
+import {API} from "helpers/consts.js";
 import axios from "axios";
 import "./Map.css";
 
-import {Profile} from "datawheel-canon";
+import {CanonComponent} from "datawheel-canon";
 import {mean} from "d3-array";
 import {nest} from "d3-collection";
+import {selectAll} from "d3-selection";
 import {merge} from "d3plus-common";
 import {Geomap} from "d3plus-react";
 import {titleCase} from "d3plus-text";
@@ -23,7 +24,7 @@ const queryDefaults = {
   geo: "adm1"
 };
 
-class Map extends Profile {
+class Map extends Component {
   constructor(props) {
     super(props);
     const {column, geo} = {...queryDefaults, ...props.location.query};
@@ -184,7 +185,10 @@ class Map extends Profile {
       legend: null,
       on: {
         "click.shape": d => {
-          if (d) window.location = `/profile/${d.geo}`;
+          if (d && d.geo) {
+            selectAll(".d3plus-tooltip").remove();
+            browserHistory.push(`/profile/${d.geo}`);
+          }
         }
       },
       padding: "92 32 32 484",
@@ -196,7 +200,7 @@ class Map extends Profile {
           "margin-top": 0
         },
         padding: "12px",
-        title: d => `${mapParams.labelFunc(d)}<img class='link-arrow' src='/images/nav/link-arrow.svg' />`
+        title: d => `${mapParams.labelFunc(d)}${ d.geo ? "<img class='link-arrow' src='/images/nav/link-arrow.svg' />" : "" }`
       },
       topojson: mapParams.topojsonPath,
       topojsonId: mapParams.topojsonId,
@@ -206,27 +210,27 @@ class Map extends Profile {
     const loading = loaded ? null : <div className="loading"><div className="text">Loading...</div></div>;
 
     return (
-      <div className="map">
-        <div className="floater">
+      <CanonComponent d3plus={d3plus}>
+        <div className="map">
+          <div className="floater">
 
-          <div className="controls">
-            <span className="dropdown-title">Metric</span>
-            <Selector options={ vars.map(v => v.column) } callback={ this.handleColumn } selected={ column } />
-            {
-              geoLevels.length > 1 ? <Radio options={ geoLevels } checked={ geo } callback={ this.handleGeo } /> : null
-            }
-            { this.renderTopTen() }
+            <div className="controls">
+              <span className="dropdown-title">Metric</span>
+              <Selector options={ vars.map(v => v.column) } callback={ this.handleColumn } selected={ column } />
+              {
+                geoLevels.length > 1 ? <Radio options={ geoLevels } checked={ geo } callback={ this.handleGeo } /> : null
+              }
+              { this.renderTopTen() }
+            </div>
+            <svg id="legend"></svg>
           </div>
-          <svg id="legend"></svg>
+          { data.length ? map : null }
+          {loading}
         </div>
-        {map}
-        {loading}
-      </div>
+      </CanonComponent>
     );
   }
 }
-
-Map.defaultProps = {d3plus};
 
 Map.need = [
   () => ({type: "GET_VARS", promise: axios.get(`${API}api/geo/variables/`)})

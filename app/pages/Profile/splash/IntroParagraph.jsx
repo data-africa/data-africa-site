@@ -1,8 +1,9 @@
 import React from "react";
+import {Link} from "react-router";
 
 import {Section} from "datawheel-canon";
 
-import {fetchData} from "actions/profile";
+import {fetchData} from "datawheel-canon";
 import {childHealth} from "pages/Profile/health/shared";
 import {povertyContent} from "pages/Profile/poverty/shared";
 
@@ -22,7 +23,7 @@ class IntroParagraph extends Section {
 
     const country = "country located in Sub-Saharan Africa";
     const parentId = `040${profile.id.slice(3, 10)}`;
-    const province = <span>province in <a className="link" href={`/profile/${parentId}`}>{profile.parent_name}</a></span>;
+    const province = <span>province in <Link className="link" to={`/profile/${parentId}`}>{profile.parent_name}</Link></span>;
     const entity = profile.level === "adm0" ? country : province;
     if (!recentPop) {
       return <p></p>;

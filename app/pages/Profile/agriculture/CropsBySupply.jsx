@@ -4,7 +4,7 @@ import {BarChart, Treemap} from "d3plus-react";
 import {SectionRows, SectionColumns, SectionTitle} from "datawheel-canon";
 import {titleCase} from "d3plus-text";
 
-import {fetchData} from "actions/profile";
+import {fetchData} from "datawheel-canon";
 import {VARIABLES, FORMATTERS} from "helpers/formatters";
 import Selector from "components/Selector";
 import {COLORS_CROP} from "helpers/colors";

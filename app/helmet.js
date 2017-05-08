@@ -1,4 +1,4 @@
-const config = {
+module.exports = {
   link: [
     {rel: "icon", href: "/images/favicon.ico?v=2"},
     {rel: "stylesheet", href: "https://fonts.googleapis.com/css?family=Work+Sans:300,400,600"}
@@ -15,5 +15,3 @@ const config = {
   ],
   title: "Data Africa"
 };
-
-export default config;

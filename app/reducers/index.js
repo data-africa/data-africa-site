@@ -1,5 +1,4 @@
 import {combineReducers} from "redux";
-import {routerReducer as routing} from "react-router-redux";
 import {titleCase} from "d3plus-text";
 import {dataFold} from "d3plus-viz";
 
@@ -15,7 +14,7 @@ const searchActive = (state = false, action) => {
   }
 };
 
-export default combineReducers({
+export default {
   attrs: (state = {}) => {
     const lookup = {};
     for (const key in state) {
@@ -39,6 +38,5 @@ export default combineReducers({
   focus: (state = {}) => state,
   map,
   profile,
-  routing,
   search: combineReducers({searchActive})
-});
+};

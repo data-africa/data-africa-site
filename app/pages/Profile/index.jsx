@@ -1,7 +1,8 @@
-import React from "react";
+import React, {Component} from "react";
 import {connect} from "react-redux";
+import {browserHistory} from "react-router";
 import {fetchStats} from "actions/profile";
-import {Profile, TopicTitle} from "datawheel-canon";
+import {AnchorLink, CanonComponent, TopicTitle} from "datawheel-canon";
 import d3plus from "helpers/d3plus";
 import "./intro.css";
 import "./topics.css";
@@ -9,6 +10,7 @@ import "./sections.css";
 import Nav from "components/Nav";
 
 import {Geomap} from "d3plus-react";
+import {selectAll} from "d3-selection";
 import IntroParagraph from "./splash/IntroParagraph";
 
 import CropsAreaVsValue from "./agriculture/CropsAreaVsValue";
@@ -49,7 +51,7 @@ const topics = [
   }
 ];
 
-class GeoProfile extends Profile {
+class GeoProfile extends Component {
 
   constructor() {
     super();
@@ -57,6 +59,7 @@ class GeoProfile extends Profile {
       activeSub: false,
       subnav: false
     };
+    this.scrollBind = this.handleScroll.bind(this);
   }
 
   componentDidMount() {
@@ -66,7 +69,12 @@ class GeoProfile extends Profile {
     const data = [attr];
     if (attr.level !== "adm0") data.unshift(attrs.geo[`040${id.slice(3, 10)}`]);
     this.props.dispatch({type: "UPDATE_BREADCRUMB", data});
-    window.addEventListener("scroll", this.handleScroll.bind(this));
+    window.addEventListener("scroll", this.scrollBind);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.scrollBind);
+    this.props.dispatch({type: "UPDATE_BREADCRUMB", data: false});
   }
 
   handleScroll() {
@@ -91,7 +99,7 @@ class GeoProfile extends Profile {
   render() {
 
     const {id} = this.props.params;
-    const {attrs, focus, stats} = this.props;
+    const {attrs, data, focus, stats} = this.props;
     const {activeSub, subnav} = this.state;
 
     const attr = attrs.geo[id];
@@ -117,149 +125,152 @@ class GeoProfile extends Profile {
     }
 
     return (
-      <div className="profile">
+      <CanonComponent data={data} d3plus={d3plus}>
+        <div className="profile">
 
-        <div className="intro">
+          <div className="intro">
 
-          <div className="splash">
-            <div className="image" style={{backgroundImage: this.urlPath(attr)}}></div>
-            <div className="gradient"></div>
-          </div>
-
-          <div className="header">
-            <Geomap config={{
-              data: splashData,
-              downloadButton: false,
-              groupBy: isAdm0 ? "iso3" : "id",
-              label: d => d.name,
-              legend: false,
-              ocean: "transparent",
-              on: {
-                "click.shape": d => {
-                  if (d && d.id !== id) window.location = `/profile/${d.id}`;
-                }
-              },
-              padding: 0,
-              shapeConfig: {
-                hoverOpacity: 1,
-                Path: {
-                  fill,
-                  stroke: "rgba(255, 255, 255, 0.25)"
-                }
-              },
-              tiles: false,
-              tooltipConfig: {
-                body: "",
-                footer: "",
-                footerStyle: {
-                  "margin-top": 0
-                },
-                padding: "12px",
-                title: d => `${d.name}${ d.id === id ? "" : "<img class='link-arrow' src='/images/nav/link-arrow.svg' />" }`
-              },
-              topojson: isAdm0 ? "/topojson/continent.json" : "/topojson/cell5m/adm1.json",
-              topojsonFilter: isAdm0 ? d => d : d => adm0 === d.properties.geo.slice(5, 10),
-              topojsonId: d => isAdm0 ? d.properties.iso_a3 : d.properties.geo,
-              topojsonKey: "collection",
-              zoom: false
-            }} />
-            <div className="meta">
-              <div className="title">{ attr.name }</div>
-              {
-                stats.filter(stat => stat).map(stat => {
-                  let label = stat.label;
-                  const word = label.includes("from") ? "from" : "in";
-                  const re = new RegExp(`${word}[A-z0-9\\s]*`, "g");
-                  const phrase = label.match(re)[0];
-                  label = label.replace(phrase, "");
-                  return (
-                    <div key={ stat.key } className="stat">
-                      <div className="label">
-                        { label }
-                        <span className="time">{ phrase }</span>
-                      </div>
-                      <div className="value">{ stat.attr ? attrs[stat.attr][stat.value].name : stat.value }</div>
-                    </div>
-                  );
-                })
-              }
+            <div className="splash">
+              <div className="image" style={{backgroundImage: this.urlPath(attr)}}></div>
+              <div className="gradient"></div>
             </div>
+
+            <div className="header">
+              <Geomap config={{
+                data: splashData,
+                downloadButton: false,
+                groupBy: isAdm0 ? "iso3" : "id",
+                label: d => d.name,
+                legend: false,
+                ocean: "transparent",
+                on: {
+                  "click.shape": d => {
+                    if (d && d.id !== id) {
+                      selectAll(".d3plus-tooltip").remove();
+                      browserHistory.push(`/profile/${d.id}`);
+                    }
+                  }
+                },
+                padding: 0,
+                shapeConfig: {
+                  hoverOpacity: 1,
+                  Path: {
+                    fill,
+                    stroke: "rgba(255, 255, 255, 0.25)"
+                  }
+                },
+                tiles: false,
+                tooltipConfig: {
+                  body: "",
+                  footer: "",
+                  footerStyle: {
+                    "margin-top": 0
+                  },
+                  padding: "12px",
+                  title: d => `${d.name}${ d.id === id ? "" : "<img class='link-arrow' src='/images/nav/link-arrow.svg' />" }`
+                },
+                topojson: isAdm0 ? "/topojson/continent.json" : "/topojson/cell5m/adm1.json",
+                topojsonFilter: isAdm0 ? d => d : d => adm0 === d.properties.geo.slice(5, 10),
+                topojsonId: d => isAdm0 ? d.properties.iso_a3 : d.properties.geo,
+                topojsonKey: "collection",
+                zoom: false
+              }} />
+              <div className="meta">
+                <div className="title">{ attr.name }</div>
+                {
+                  stats.filter(stat => stat).map(stat => {
+                    let label = stat.label;
+                    const word = label.includes("from") ? "from" : "in";
+                    const re = new RegExp(`${word}[A-z0-9\\s]*`, "g");
+                    const phrase = label.match(re)[0];
+                    label = label.replace(phrase, "");
+                    return (
+                      <div key={ stat.key } className="stat">
+                        <div className="label">
+                          { label }
+                          <span className="time">{ phrase }</span>
+                        </div>
+                        <div className="value">{ stat.attr ? attrs[stat.attr][stat.value].name : stat.value }</div>
+                      </div>
+                    );
+                  })
+                }
+              </div>
+            </div>
+
+            <div ref="sublinks" className="sublinks">
+              {
+                topics.map(topic =>
+                  <AnchorLink key={ topic.slug } className="sublink" to={ topic.slug }>
+                    <img className="icon" src={ `/images/topics/${topic.slug}.svg` } />
+                    { topic.title }
+                  </AnchorLink>
+                )
+              }
+              <span className="more-link"><img className="icon" src="/images/sections/dropdown-arrow.svg" /></span>
+            </div>
+
+            <div className="topic-name topic-intro">About</div>
+            <IntroParagraph profile={attr} />
+
           </div>
 
-          <div ref="sublinks" className="sublinks">
+          <Nav visible={ subnav }>
             {
               topics.map(topic =>
-                <a key={ topic.slug } className="sublink" href={ `#${topic.slug}` }>
-                  <img className="icon" src={ `/images/topics/${topic.slug}.svg` } />
+                <AnchorLink key={ topic.slug } className={activeSub === topic.slug ? "subnav-link active" : "subnav-link"} to={ topic.slug }>
                   { topic.title }
-                </a>
+                </AnchorLink>
               )
             }
-            <span className="more-link"><img className="icon" src={ `/images/sections/dropdown-arrow.svg` } /></span>
+          </Nav>
+          <div className="section-container">
+
+            <div className="agriculture profile-section">
+              <TopicTitle slug="agriculture">
+                <div className="topic-icon" style={{backgroundImage: "url('/images/topics/agriculture.svg')"}}></div>
+                <div className="topic-name">Agriculture</div>
+              </TopicTitle>
+              <CropsByHarvest profile={attr} />
+              <CropsByProduction profile={attr} />
+              <CropsAreaVsValue profile={attr} />
+              <CropsBySupply profile={attr} />
+            </div>
+
+            <div className="climate profile-section">
+              <TopicTitle slug="climate">
+                <div className="topic-icon" style={{backgroundImage: "url('/images/topics/climate.svg')"}}></div>
+                <div className="topic-name">Climate</div>
+              </TopicTitle>
+              <RainfallBars profile={attr} />
+            </div>
+
+            <div className="health profile-section">
+              <TopicTitle slug="health">
+                <div className="topic-icon" style={{backgroundImage: "url('/images/topics/health.svg')"}}></div>
+                <div className="topic-name">Health</div>
+              </TopicTitle>
+              <Conditions profile={attr} />
+              <ConditionsByGender profile={attr} />
+              <ConditionsByResidence profile={attr} />
+            </div>
+
+            <div className="poverty profile-section">
+              <TopicTitle slug="poverty">
+                <div className="topic-icon" style={{backgroundImage: "url('/images/topics/poverty.svg')"}}></div>
+                <div className="topic-name">Poverty</div>
+              </TopicTitle>
+              <Poverty profile={attr} />
+              <PovertyByGender profile={attr} />
+              <PovertyByResidence profile={attr} />
+            </div>
+
           </div>
-
-          <div className="topic-name topic-intro">About</div>
-          <IntroParagraph profile={attr} />
-
         </div>
-
-        <Nav visible={ subnav }>
-          {
-            topics.map(topic =>
-              <a key={ topic.slug } className={activeSub === topic.slug ? "subnav-link active" : "subnav-link"} href={ `#${topic.slug}` }>
-                { topic.title }
-              </a>
-            )
-          }
-        </Nav>
-        <div className="section-container">
-
-          <div className="agriculture profile-section">
-            <TopicTitle slug="agriculture">
-              <div className="topic-icon" style={{backgroundImage: "url('/images/topics/agriculture.svg')"}}></div>
-              <div className="topic-name">Agriculture</div>
-            </TopicTitle>
-            <CropsByHarvest profile={attr} />
-            <CropsByProduction profile={attr} />
-            <CropsAreaVsValue profile={attr} />
-            <CropsBySupply profile={attr} />
-          </div>
-
-          <div className="climate profile-section">
-            <TopicTitle slug="climate">
-              <div className="topic-icon" style={{backgroundImage: "url('/images/topics/climate.svg')"}}></div>
-              <div className="topic-name">Climate</div>
-            </TopicTitle>
-            <RainfallBars profile={attr} />
-          </div>
-
-          <div className="health profile-section">
-            <TopicTitle slug="health">
-              <div className="topic-icon" style={{backgroundImage: "url('/images/topics/health.svg')"}}></div>
-              <div className="topic-name">Health</div>
-            </TopicTitle>
-            <Conditions profile={attr} />
-            <ConditionsByGender profile={attr} />
-            <ConditionsByResidence profile={attr} />
-          </div>
-
-          <div className="poverty profile-section">
-            <TopicTitle slug="poverty">
-              <div className="topic-icon" style={{backgroundImage: "url('/images/topics/poverty.svg')"}}></div>            
-              <div className="topic-name">Poverty</div>
-            </TopicTitle>
-            <Poverty profile={attr} />
-            <PovertyByGender profile={attr} />
-            <PovertyByResidence profile={attr} />
-          </div>
-
-        </div>
-      </div>
+      </CanonComponent>
     );
   }
 }
-
-GeoProfile.defaultProps = {d3plus};
 
 GeoProfile.need = [
   fetchStats,

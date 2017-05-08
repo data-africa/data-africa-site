@@ -3,7 +3,7 @@ import React from "react";
 import {Plot} from "d3plus-react";
 import pluralize from "pluralize";
 
-import {fetchData} from "actions/profile";
+import {fetchData} from "datawheel-canon";
 import {VARIABLES, FORMATTERS} from "helpers/formatters";
 import {COLORS_CROP} from "helpers/colors";
 import {SectionColumns, SectionTitle} from "datawheel-canon";

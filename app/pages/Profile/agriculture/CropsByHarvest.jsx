@@ -3,7 +3,7 @@ import React from "react";
 import {Treemap} from "d3plus-react";
 import {SectionColumns, SectionTitle} from "datawheel-canon";
 
-import {fetchData} from "actions/profile";
+import {fetchData} from "datawheel-canon";
 import {COLORS_CROP} from "helpers/colors";
 import {VARIABLES} from "helpers/formatters";
 
