@@ -7,6 +7,8 @@ import {SectionRows, SectionColumns, SectionTitle} from "datawheel-canon";
 
 import {fetchData} from "datawheel-canon";
 import {VARIABLES} from "helpers/formatters";
+import {GLOSSARY} from "helpers/glossary";
+
 import Selector from "components/Selector";
 import {API} from "helpers/consts.js";
 
@@ -118,7 +120,7 @@ class RainfallBars extends SectionRows {
                 <Selector options={opts} callback={this.onChange}/>
               </div>
               <div className="section-stat">
-                <p>{sentence}.</p>
+                <p>{!isRainfall ? `Rainfall variability is ${GLOSSARY.findTerm("rainfall variability").toLowerCase()}. ` : null}{sentence}.</p>
               </div>
           </article>
         </div>

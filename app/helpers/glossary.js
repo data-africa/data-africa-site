@@ -8,3 +8,8 @@ export const GLOSSARY = [
   {term: "underweight", definition: "Below minus two standard deviations from median weight for age of the given population."},
   {term: "wasted", definition: "Below minus two standard deviations from median weight for height of the given population."}
 ];
+
+GLOSSARY.findTerm = function(term) {
+  const obj = this.filter(obj => obj.term === term);
+  return obj ? obj[0].definition : null;
+};
