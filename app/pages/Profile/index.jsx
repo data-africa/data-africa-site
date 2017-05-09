@@ -63,18 +63,27 @@ class GeoProfile extends Component {
   }
 
   componentDidMount() {
-    const {id} = this.props.params;
-    const {attrs} = this.props;
-    const attr = attrs.geo[id];
-    const data = [attr];
-    if (attr.level !== "adm0") data.unshift(attrs.geo[`040${id.slice(3, 10)}`]);
-    this.props.dispatch({type: "UPDATE_BREADCRUMB", data});
+    this.updateBreadcrumbs();
     window.addEventListener("scroll", this.scrollBind);
+  }
+
+  componentDidUpdate() {
+    if (this.props.params.id !== this.state.id) this.updateBreadcrumbs();
   }
 
   componentWillUnmount() {
     window.removeEventListener("scroll", this.scrollBind);
     this.props.dispatch({type: "UPDATE_BREADCRUMB", data: false});
+  }
+
+  updateBreadcrumbs() {
+    const {id} = this.props.params;
+    const {attrs} = this.props;
+    const attr = attrs.geo[id];
+    const data = [attr];
+    if (attr.level !== "adm0") data.unshift(attrs.geo[`040${id.slice(3, 10)}`]);
+    this.setState({id});
+    this.props.dispatch({type: "UPDATE_BREADCRUMB", data});
   }
 
   handleScroll() {
