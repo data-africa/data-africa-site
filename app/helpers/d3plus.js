@@ -1,3 +1,4 @@
+import {extent, mean} from "d3-array";
 import {titleCase} from "d3plus-text";
 
 import {COLORS_RAINFALL} from "helpers/colors";
@@ -32,6 +33,14 @@ const axisConfig = {
 };
 
 export default {
+  aggs: {
+    poverty_prop: mean,
+    proportion_of_children: mean,
+    year: arr => {
+      const e = extent(arr);
+      return e[0] === e[1] ? e[0] : e.join("–");
+    }
+  },
   barPadding: 4,
   cache: true,
   colorScaleConfig: {
@@ -81,6 +90,9 @@ export default {
       },
       height: () => 20,
       width: () => 20
+    },
+    tooltipConfig: {
+      body: false
     }
   },
   shapeConfig: {

@@ -6,6 +6,7 @@ import {BarChart, Geomap} from "d3plus-react";
 import {SectionRows, SectionColumns, SectionTitle} from "datawheel-canon";
 
 import {fetchData} from "datawheel-canon";
+import {tooltipBody} from "helpers/d3plus";
 import {VARIABLES} from "helpers/formatters";
 import {GLOSSARY} from "helpers/glossary";
 
@@ -59,6 +60,9 @@ class RainfallBars extends SectionRows {
                   strokeWidth: d => d.id === myId ? "2px" : "1px"
                 }},
                 tiles: false,
+                tooltipConfig: {
+                  body: tooltipBody.bind([variable])
+                },
                 topojson: topoPath,
                 topojsonFilter: topoFilt,
                 topojsonId: d => isAdm0 ? d.properties.iso_a3 : d.properties.geo,
@@ -75,6 +79,9 @@ class RainfallBars extends SectionRows {
               height: 450,
               legend: false,
               shapeConfig: {label: false},
+              tooltipConfig: {
+                body: tooltipBody.bind([variable])
+              },
               x: variable,
               xConfig: {
                 tickFormat: d => VARIABLES[variable](d),

@@ -1,11 +1,12 @@
 import React from "react";
 
+import {COLORS_RESIDENCE, COLORS_GENDER} from "helpers/colors";
+import {tooltipBody} from "helpers/d3plus";
 import {DICTIONARY} from "helpers/dictionary";
 import {VARIABLES, FORMATTERS, formatPlaceName} from "helpers/formatters";
 import {titleCase} from "d3plus-text";
 
 import {BarChart} from "d3plus-react";
-import {COLORS_RESIDENCE, COLORS_GENDER} from "helpers/colors";
 import Selector from "components/Selector";
 
 export function povertyContent(profile, poverty) {
@@ -64,12 +65,15 @@ export function povertyVizByMode(profile, vizData, povertyLevel, mode) {
       fill: d => colorMap[d[mode]],
       label: false
     },
+    tooltipConfig: {
+      body: d => `${ d.poverty_geo_name !== profile.name ? `<span class="d3plus-body-sub">Based on data from ${formatPlaceName(d, "poverty", profile.level)}</span>` : "" }${tooltipBody.bind(["year", "poverty_prop"])(d)}`
+    },
     x: "measure",
     xConfig: {
       tickFormat: d => DICTIONARY[d],
       title: "Poverty Measure"
     },
-    y: "value",
+    y: "poverty_prop",
     yConfig: {
       domain: [0, 1],
       tickFormat: FORMATTERS.shareWhole,
@@ -84,7 +88,7 @@ export function makeGeoSelector(profile, povertyData, targetGeo, onChange) {
   const places = [... new Set(povertyData.map(x => x.poverty_geo))];
   const opts = places.map(p => {
     const row = povertyData.filter(x => x.poverty_geo === p)[0];
-    return {value: p, label: formatPlaceName(row, "poverty", profile.level)};
+    return {poverty_prop: p, label: formatPlaceName(row, "poverty", profile.level)};
   });
   // If there is more than one place, insert a place dropdown
   const selector = places && places.length > 1 ? <Selector options={opts} callback={onChange}/> : "";
@@ -94,9 +98,9 @@ export function makeGeoSelector(profile, povertyData, targetGeo, onChange) {
   const filteredData = povertyData.filter(x => x.poverty_geo === target);
   // Format the data for viz display
   const vizData = filteredData.reduce((arr, d) => {
-    arr.push({...d, measure: "hc", value: d.hc});
-    arr.push({...d, measure: "povgap", value: d.povgap});
-    arr.push({...d, measure: "sevpov", value: d.sevpov});
+    arr.push({...d, measure: "hc", poverty_prop: d.hc});
+    arr.push({...d, measure: "povgap", poverty_prop: d.povgap});
+    arr.push({...d, measure: "sevpov", poverty_prop: d.sevpov});
     return arr;
   }, []);
   return {

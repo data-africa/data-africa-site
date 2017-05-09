@@ -5,6 +5,7 @@ import {SectionRows, SectionColumns, SectionTitle} from "datawheel-canon";
 import {titleCase} from "d3plus-text";
 
 import {fetchData} from "datawheel-canon";
+import {tooltipBody} from "helpers/d3plus";
 import {VARIABLES, FORMATTERS} from "helpers/formatters";
 import Selector from "components/Selector";
 import {COLORS_CROP} from "helpers/colors";
@@ -62,6 +63,9 @@ class CropsBySupply extends SectionRows {
                 }
               },
               stacked: true,
+              tooltipConfig: {
+                body: tooltipBody.bind([metric])
+              },
               x: metric,
               xConfig: {
                 tickFormat: VARIABLES[metric],
@@ -85,6 +89,9 @@ class CropsBySupply extends SectionRows {
                   shapeConfig: {
                     fill: d => COLORS_CROP[d.crop_parent]
                   },
+                  tooltipConfig: {
+                    body: tooltipBody.bind([metric])
+                  },
                   sum: d => d[metric],
                   title: `Rainfed Crops (${FORMATTERS.shareWhole(pctRainfall)} of crops)`
                 }} />
@@ -97,6 +104,9 @@ class CropsBySupply extends SectionRows {
                   legend: false,
                   shapeConfig: {
                     fill: d => COLORS_CROP[d.crop_parent]
+                  },
+                  tooltipConfig: {
+                    body: tooltipBody.bind([metric])
                   },
                   sum: d => d[metric],
                   title: `Irrigated Crops (${FORMATTERS.shareWhole(1 - pctRainfall)} of crops)`

@@ -5,8 +5,9 @@ import {SectionColumns, SectionTitle} from "datawheel-canon";
 
 import {fetchData} from "datawheel-canon";
 import {COLORS_POVERTY} from "helpers/colors";
+import {tooltipBody} from "helpers/d3plus";
 import {DICTIONARY} from "helpers/dictionary";
-import {FORMATTERS} from "helpers/formatters";
+import {formatPlaceName, FORMATTERS} from "helpers/formatters";
 import {povertyContent, makeGeoSelector} from "pages/Profile/poverty/shared";
 
 class Poverty extends SectionColumns {
@@ -46,7 +47,10 @@ class Poverty extends SectionColumns {
             fill: d => COLORS_POVERTY[d.measure],
             label: false
           },
-          x: "value",
+          tooltipConfig: {
+            body: d => `${ d.poverty_geo_name !== profile.name ? `<span class="d3plus-body-sub">Based on data from ${formatPlaceName(d, "poverty", profile.level)}</span>` : "" }${tooltipBody.bind(["year", "poverty_prop"])(d)}`
+          },
+          x: "poverty_prop",
           xConfig: {
             domain: [0, 1],
             tickFormat: FORMATTERS.shareWhole,

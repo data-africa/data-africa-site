@@ -5,6 +5,7 @@ import {SectionColumns, SectionTitle} from "datawheel-canon";
 
 import {fetchData} from "datawheel-canon";
 import {COLORS_CROP} from "helpers/colors";
+import {tooltipBody} from "helpers/d3plus";
 import {VARIABLES} from "helpers/formatters";
 
 class CropsByProduction extends SectionColumns {
@@ -16,7 +17,7 @@ class CropsByProduction extends SectionColumns {
 
     return (
       <SectionColumns>
-       
+
         <article className="section-text">
          <SectionTitle>Crops by Production Value</SectionTitle>
           The crop with the highest production value in { profile.name } is { data[0].crop_name }, with a value of <strong>{ VARIABLES.value_of_production (data[0].value_of_production) }</strong>.
@@ -28,6 +29,9 @@ class CropsByProduction extends SectionColumns {
           label: d => d.crop_name instanceof Array ? d.crop_parent : d.crop_name,
           shapeConfig: {
             fill: d => COLORS_CROP[d.crop_parent]
+          },
+          tooltipConfig: {
+            body: tooltipBody.bind(["value_of_production"])
           },
           sum: d => d.value_of_production
         }} />

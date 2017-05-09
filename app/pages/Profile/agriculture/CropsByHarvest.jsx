@@ -5,6 +5,7 @@ import {SectionColumns, SectionTitle} from "datawheel-canon";
 
 import {fetchData} from "datawheel-canon";
 import {COLORS_CROP} from "helpers/colors";
+import {tooltipBody} from "helpers/d3plus";
 import {VARIABLES} from "helpers/formatters";
 
 class CropsByHarvest extends SectionColumns {
@@ -28,6 +29,9 @@ class CropsByHarvest extends SectionColumns {
           label: d => d.crop_name instanceof Array ? d.crop_parent : d.crop_name,
           shapeConfig: {
             fill: d => COLORS_CROP[d.crop_parent]
+          },
+          tooltipConfig: {
+            body: tooltipBody.bind(["harvested_area"])
           },
           sum: d => d.harvested_area
         }} />
