@@ -57,4 +57,15 @@
     width: 8px;
     vertical-align: bottom;
   }
+
+  & .d3plus-body-key {
+    display: inline-block;
+    margin-bottom: 5px;
+  }
+
+  & .d3plus-body-value {
+    display: inline-block;
+    font-weight: 800;
+  }
+
 }
