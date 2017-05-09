@@ -5,8 +5,8 @@ import {BarChart} from "d3plus-react";
 import {SectionColumns, SectionTitle} from "datawheel-canon";
 
 import {COLORS_GENDER} from "helpers/colors";
-import {yearControls} from "helpers/d3plus";
-import {FORMATTERS} from "helpers/formatters";
+import {tooltipBody, yearControls} from "helpers/d3plus";
+import {formatPlaceName, FORMATTERS} from "helpers/formatters";
 import {fetchData} from "datawheel-canon";
 import {childHealthByMode} from "pages/Profile/health/shared";
 
@@ -38,6 +38,9 @@ class ConditionsByGender extends SectionColumns {
           stacked: true,
           stackOrder: ["male_severe", "male_moderate", "female_severe", "female_moderate"],
           time: "year",
+          tooltipConfig: {
+            body: d => `${ d.dhs_geo_name !== profile.name ? `<span class="d3plus-body-sub">Based on data from ${formatPlaceName(d, "health", profile.level)}</span>` : "" }${tooltipBody.bind(["year", "proportion_of_children"])(d)}`
+          },
           x: "proportion_of_children",
           xConfig: {
             domain: [0, 1],

@@ -11,6 +11,7 @@ export const DICTIONARY = {
   hc: "Headcount Ratio",
   num: "Number of People Living in Poverty",
   povgap: "Poverty Gap Ratio",
+  poverty_prop: "Poverty Rate",
   proportion_of_children: "Proportion of Children",
   ppp1: "$1.90/day (2011 PPP)",
   ppp2: "$3.10/day (2011 PPP)",

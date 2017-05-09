@@ -8,8 +8,8 @@ import {childHealth} from "pages/Profile/health/shared";
 
 import {API} from "helpers/consts.js";
 import {COLORS_CONDITION} from "helpers/colors";
-import {FORMATTERS} from "helpers/formatters";
-import {formatPlaceName} from "helpers/formatters";
+import {tooltipBody} from "helpers/d3plus";
+import {formatPlaceName, FORMATTERS} from "helpers/formatters";
 
 class Conditions extends SectionColumns {
 
@@ -37,7 +37,7 @@ class Conditions extends SectionColumns {
           stacked: true,
           stackOrder: ["wasted_severe", "wasted_moderate", "stunted_severe", "stunted_moderate", "underweight_severe", "underweight_moderate"],
           tooltipConfig: {
-            body: d => `Based on data from ${formatPlaceName(d, "health", profile.level)} in ${d.year}`
+            body: d => `${ d.dhs_geo_name !== profile.name ? `<span class="d3plus-body-sub">Based on data from ${formatPlaceName(d, "health", profile.level)}</span>` : "" }${tooltipBody.bind(["year", "proportion_of_children"])(d)}`
           },
           x: "year",
           xConfig: {

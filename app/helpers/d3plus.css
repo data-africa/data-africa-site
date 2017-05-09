@@ -58,6 +58,12 @@
     vertical-align: bottom;
   }
 
+  & .d3plus-body-sub {
+    color: var(--accent);
+    display: block;
+    margin-bottom: 5px;
+  }
+
   & .d3plus-body-key {
     display: inline-block;
     margin-bottom: 5px;
