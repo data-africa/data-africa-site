@@ -1,4 +1,6 @@
 import React from "react";
+import {nest} from "d3-collection";
+import {merge} from "d3plus-common";
 
 import {FORMATTERS, formatPlaceName} from "helpers/formatters";
 
@@ -30,6 +32,19 @@ function formatCategory(cat) {
   }
 }
 
+function formatCondition(condName) {
+  if (condName === "underweight") {
+    return "being underweight";
+  }
+  else if (condName === "stunted") {
+    return "stunting";
+  }
+  else if (condName === "wasted") {
+    return "wasting";
+  }
+  return condName;
+}
+
 export function childHealthByMode(profile, healthData, mode = "gender") {
   const [categoryA, categoryB] = mode === "gender" ? ["male", "female"] : ["urban", "rural"];
 
@@ -39,19 +54,30 @@ export function childHealthByMode(profile, healthData, mode = "gender") {
   else {
     const latestYear = Math.max(...healthData.map(d => d.year));
     const first = healthData[0];
-    const catAData = healthData.filter(x => x.year === latestYear && x[mode] === categoryA && x.severity === "severe");
-    const catBData = healthData.filter(x => x.year === latestYear && x[mode] === categoryB && x.severity === "severe");
+    const catAData = healthData.filter(x => x.year === latestYear && x[mode] === categoryA);
+    const catBData = healthData.filter(x => x.year === latestYear && x[mode] === categoryB);
 
-    const mostSevereSort = (a, b) => b.proportion_of_children - a.proportion_of_children;
-    catAData.sort(mostSevereSort);
-    catBData.sort(mostSevereSort);
-    const sevACond = catAData[0];
-    const sevBCond = catBData[0];
+    const column = "proportion_of_children";
+
+    const dataNestA = nest()
+      .key(d => [d.year, d.condition])
+      .entries(catAData)
+      .map(d => merge(d.values))
+      .sort((a, b) => b[column] - a[column]);
+
+    const dataNestB = nest()
+      .key(d => [d.year, d.condition])
+      .entries(catBData)
+      .map(d => merge(d.values))
+      .sort((a, b) => b[column] - a[column]);
+
+    const sevACond = dataNestA[0];
+    const sevBCond = dataNestB[0];
 
     if (sevACond && !sevBCond || sevBCond && !sevACond) {
       const [category, cond] = sevACond ? [categoryA, sevACond] : [categoryB, sevBCond];
-      return <p>The health condition most severely afflicting {category} children
-         in {latestYear} in {place} is severely {cond.condition} children
+      return <p>The health condition most afflicting {category} children
+         in {latestYear} in {place} is {formatCondition(cond.condition)} children
         with {FORMATTERS.shareWhole(cond.proportion_of_children)} of {categoryA} children
          affected.</p>;
     }
@@ -60,17 +86,13 @@ export function childHealthByMode(profile, healthData, mode = "gender") {
     const place = formatPlaceName(first, "health", profile.level);
 
     if (sameCondition) {
-      return <p>The health condition most severely afflicting {categoryA} and {categoryB} children
-       in {latestYear} in {place} is severely {sevACond.condition} children
-      with {FORMATTERS.shareWhole(sevACond.proportion_of_children)} of {categoryA} children
+      return <p>The health condition most afflicting {categoryA} and {categoryB} children
+       in {latestYear} in {place} is {formatCondition(sevACond.condition)} with {FORMATTERS.shareWhole(sevACond.proportion_of_children)} of {categoryA} children
        affected and {FORMATTERS.shareWhole(sevBCond.proportion_of_children)} of {categoryB} children affected.</p>;
     }
     else {
-      return <p>The health condition most severely afflicting {formatCategory(categoryA)} in {latestYear} in {place} is
-       severely {sevACond.condition} children
-      with {FORMATTERS.shareWhole(sevACond.proportion_of_children)} of {categoryA} children
-       affected. The health condition most severely afflicting {formatCategory(categoryB)} in {place}
-       is severely {sevACond.condition} children with {FORMATTERS.shareWhole(sevBCond.proportion_of_children)} of {categoryB} children affected.</p>;
+      return <p>The health condition most afflicting {formatCategory(categoryA)} in {latestYear} in {place} is {formatCondition(sevACond.condition)} with {FORMATTERS.shareWhole(sevACond.proportion_of_children)} of {categoryA} children
+       affected. The health condition most afflicting {formatCategory(categoryB)} in {place} is {formatCondition(sevBCond.condition)} with {FORMATTERS.shareWhole(sevBCond.proportion_of_children)} of {categoryB} children affected.</p>;
     }
   }
 }
