@@ -15,11 +15,11 @@ export function povertyContent(profile, poverty) {
   }
   const items = poverty.map(row => `${VARIABLES.totpop(row.num)} people living below ${DICTIONARY[row.poverty_level]}`);
   const place = formatPlaceName(first, "poverty", profile.level);
-  return <p>As of {first.year}, in {place} there were {items.join(" and ")}.</p>;
+  return <p>As of {first.year}, there were {items.join(" and ")} in {place}.</p>;
 }
 
 function formatGender(gender, isTitle = false) {
-  const inSentence = `households headed by ${gender}s`;
+  const inSentence = `${gender} headed households`;
   const inTitle = `${titleCase(gender)} Head of Household`;
   return isTitle ? inTitle : inSentence;
 }

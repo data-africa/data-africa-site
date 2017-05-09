@@ -3,7 +3,7 @@ import React from "react";
 import {BarChart} from "d3plus-react";
 import {SectionColumns, SectionTitle} from "datawheel-canon";
 
-import {fetchData} from "actions/profile";
+import {fetchData} from "datawheel-canon";
 import {COLORS_POVERTY} from "helpers/colors";
 import {DICTIONARY} from "helpers/dictionary";
 import {FORMATTERS} from "helpers/formatters";
@@ -29,9 +29,9 @@ class Poverty extends SectionColumns {
 
     return (
       <SectionColumns>
-        
+
         <article className="section-text">
-        <SectionTitle>Poverty Level by Measure</SectionTitle>
+        <SectionTitle>Poverty Levels</SectionTitle>
           {selector}
 
           {povertyContent(profile, filteredData)}

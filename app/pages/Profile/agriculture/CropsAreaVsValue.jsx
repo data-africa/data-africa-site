@@ -3,7 +3,7 @@ import React from "react";
 import {Plot} from "d3plus-react";
 import pluralize from "pluralize";
 
-import {fetchData} from "actions/profile";
+import {fetchData} from "datawheel-canon";
 import {VARIABLES, FORMATTERS} from "helpers/formatters";
 import {COLORS_CROP} from "helpers/colors";
 import {SectionColumns, SectionTitle} from "datawheel-canon";
@@ -47,14 +47,16 @@ class CropsAreaVsValue extends SectionColumns {
     const bottomCrop = crops[crops.length - 1];
 
     const logFormatter = varName => logScale ? val => VARIABLES[varName](Math.pow(10, val)) : VARIABLES[varName];
-
+    if (!crops || crops.length === 0) {
+      return null;
+    }
     return (
       <SectionColumns>
         <article className="section-text">
         <SectionTitle>Harvested Area Versus Value of Production</SectionTitle>
-          <p><strong>{ topCrop.name }</strong> are the crop with the highest production value per area in { profile.name }, with a harvested area of { VARIABLES.value_density(topCrop.density) }.</p>
-          <p><strong>{ bottomCrop.name }</strong> are the crop with the lowest production value per area in { profile.name }, with a harvested area of { VARIABLES.value_density(bottomCrop.density) }.</p>
-          <p>This means that growers of {topCrop.name} will earn approximately <strong>{FORMATTERS.round(topCrop.density / bottomCrop.density)} times</strong> more per hectacre of {topCrop.name} that they grow versus {bottomCrop.name}.</p>
+          <p><strong>{ topCrop.name }</strong> are the crop with the highest production value per area in { profile.name }, with { VARIABLES.value_density(topCrop.density) }.</p>
+          <p><strong>{ bottomCrop.name }</strong> are the crop with the lowest production value per area in { profile.name }, with { VARIABLES.value_density(bottomCrop.density) }.</p>
+          <p>This means that growers of {topCrop.name} will earn approximately <strong>{FORMATTERS.round(topCrop.density / bottomCrop.density)} times</strong> more per hectare than if they grow {bottomCrop.name}.</p>
         </article>
         <Plot config={{
           controls: this.logControls(),

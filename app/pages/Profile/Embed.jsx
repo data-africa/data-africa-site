@@ -1,6 +1,6 @@
-import React from "react";
+import React, {Component} from "react";
 import {connect} from "react-redux";
-import {Profile} from "datawheel-canon";
+import {CanonComponent} from "datawheel-canon";
 import d3plus from "helpers/d3plus";
 import "./sections.css";
 import "./Embed.css";
@@ -31,7 +31,7 @@ const sections = {
   PovertyByResidence
 };
 
-class Embed extends Profile {
+class Embed extends Component {
 
   constructor() {
     super();
@@ -40,17 +40,17 @@ class Embed extends Profile {
   render() {
 
     const {id, slug} = this.props.params;
-    const {attrs} = this.props;
+    const {attrs, data} = this.props;
 
     const attr = attrs.geo[id];
 
     const Comp = sections[slug];
 
-    return <Comp profile={attr} embed={ true } />;
+    return <CanonComponent data={data} d3plus={d3plus}>
+      <Comp profile={attr} embed={ true } />
+    </CanonComponent>;
   }
 }
-
-Embed.defaultProps = {d3plus};
 
 Embed.need = [
   Conditions,

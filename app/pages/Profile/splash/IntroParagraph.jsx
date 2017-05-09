@@ -1,8 +1,9 @@
 import React from "react";
+import {Link} from "react-router";
 
 import {Section} from "datawheel-canon";
 
-import {fetchData} from "actions/profile";
+import {fetchData} from "datawheel-canon";
 import {childHealth} from "pages/Profile/health/shared";
 import {povertyContent} from "pages/Profile/poverty/shared";
 
@@ -20,9 +21,9 @@ class IntroParagraph extends Section {
       ${direction} from ${oldPop.year} when the population of ${profile.name}
       was approximately ${VARIABLES.totpop(oldPop.totpop)}.` : "";
 
-    const country = "country located in Sub-Saharan Africa";
+    const country = "country located in Africa south of the Sahara";
     const parentId = `040${profile.id.slice(3, 10)}`;
-    const province = <span>province in <a className="link" href={`/profile/${parentId}`}>{profile.parent_name}</a></span>;
+    const province = <span>province of <Link className="link" to={`/profile/${parentId}`}>{profile.parent_name}</Link></span>;
     const entity = profile.level === "adm0" ? country : province;
     if (!recentPop) {
       return <p></p>;
@@ -35,7 +36,7 @@ class IntroParagraph extends Section {
 
   crops(profile, crops) {
     const top = crops[0];
-    return <p>The most widely harvested crop in {profile.name} by area was {top.crop_name} with {VARIABLES.harvested_area(top.harvested_area)} harvested for a total production value of {VARIABLES.value_of_production(top.value_of_production)}.</p>;
+    return <p>The most widely harvested crop in {profile.name} by area was {top.crop_name} with {VARIABLES.harvested_area(top.harvested_area)} harvested with a total production value of {VARIABLES.value_of_production(top.value_of_production)}.</p>;
   }
 
   render() {

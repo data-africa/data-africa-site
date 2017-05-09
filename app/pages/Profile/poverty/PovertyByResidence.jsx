@@ -2,7 +2,7 @@ import React from "react";
 import {SectionColumns, SectionTitle} from "datawheel-canon";
 import {DICTIONARY} from "helpers/dictionary";
 
-import {fetchData} from "actions/profile";
+import {fetchData} from "datawheel-canon";
 import {povertyVizByMode, povertyTextByMode, makeGeoSelector} from "pages/Profile/poverty/shared";
 import Selector from "components/Selector";
 
@@ -35,8 +35,8 @@ class PovertyByResidence extends SectionColumns {
     return <SectionColumns>
             <article className="section-text">
 
-            <SectionTitle>{ `Poverty Measures by Residence ${ DICTIONARY[povertyLevel] }` }</SectionTitle>
-     
+            <SectionTitle>Poverty Measures by Residence</SectionTitle>
+
 
               <span className="dropdown-title">Wages</span>
 

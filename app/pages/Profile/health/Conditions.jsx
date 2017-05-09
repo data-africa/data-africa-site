@@ -1,12 +1,12 @@
 import React from "react";
-import {fetchData} from "actions/profile";
+import {fetchData} from "datawheel-canon";
 import {titleCase} from "d3plus-text";
 
 import {BarChart} from "d3plus-react";
 import {SectionColumns, SectionTitle} from "datawheel-canon";
 import {childHealth} from "pages/Profile/health/shared";
 
-import {API} from ".env";
+import {API} from "helpers/consts.js";
 import {COLORS_CONDITION} from "helpers/colors";
 import {FORMATTERS} from "helpers/formatters";
 import {formatPlaceName} from "helpers/formatters";
@@ -30,6 +30,7 @@ class Conditions extends SectionColumns {
           label: d => d.condition instanceof Array ? titleCase(d.severity) : `${titleCase(d.severity)}ly ${titleCase(d.condition)}`,
           shapeConfig: {
             fill: d => COLORS_CONDITION[d.condition],
+            hoverOpacity: 0.1,
             label: false,
             opacity: d => d.severity === "severe" ? 1 : 0.4
           },

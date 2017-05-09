@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {Link} from "react-router";
 import "./Footer.css";
 
 class Footer extends Component {
@@ -11,15 +12,15 @@ class Footer extends Component {
           <div className="links">
             <ul className="list">
               <h5 className="title">Explore</h5>
-              <li className="item"><a className="link" href="/">Search</a></li>
-              <li className="item"><a className="link" href="/map">Map</a></li>
+              <li className="item"><Link className="link" to="/">Search</Link></li>
+              <li className="item"><Link className="link" to="/map">Map</Link></li>
             </ul>
             <ul className="list">
               <h5 className="title">About</h5>
-              <li className="item"><a className="link" href="/about#background">Background</a></li>
-              <li className="item"><a className="link" href="/about#data">Data Sources</a></li>
-              <li className="item"><a className="link" href="/about#glossary">Glossary</a></li>
-              <li className="item"><a className="link" href="/about#terms">Terms of Use</a></li>
+              <li className="item"><Link className="link" to="/about#background">Background</Link></li>
+              <li className="item"><Link className="link" to="/about#data">Data Sources</Link></li>
+              <li className="item"><Link className="link" to="/about#glossary">Glossary</Link></li>
+              <li className="item"><Link className="link" to="/about#terms">Terms of Use</Link></li>
             </ul>
           </div>
           <div className="logos">

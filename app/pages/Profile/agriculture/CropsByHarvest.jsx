@@ -3,7 +3,7 @@ import React from "react";
 import {Treemap} from "d3plus-react";
 import {SectionColumns, SectionTitle} from "datawheel-canon";
 
-import {fetchData} from "actions/profile";
+import {fetchData} from "datawheel-canon";
 import {COLORS_CROP} from "helpers/colors";
 import {VARIABLES} from "helpers/formatters";
 
@@ -16,10 +16,10 @@ class CropsByHarvest extends SectionColumns {
 
     return (
       <SectionColumns>
-        
+
         <article className="section-text">
           <SectionTitle>Crops by Harvested Area</SectionTitle>
-          The most common crop in { profile.name }, by harvested area, is { data[0].crop_name } with a harvested area of <strong>{ VARIABLES.harvested_area(data[0].harvested_area) }</strong>.
+          The most common crop in { profile.name }, by harvested area, is { data[0].crop_name } with <strong>{ VARIABLES.harvested_area(data[0].harvested_area) }</strong>.
         </article>
         <Treemap config={{
           data,

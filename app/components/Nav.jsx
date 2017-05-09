@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
+import {Link} from "react-router";
 import {toggleSearch} from "actions/index";
 import "./Nav.css";
 
@@ -11,13 +12,13 @@ class Nav extends Component {
       <nav className={ `nav-container${ children ? " subnav" : "" }${ visible ? "" : " hidden" }${ dark ? " dark" : "" }` }>
         <div className="nav">
           <div>
-            <a className="logo" href="/">
+            <Link className="logo" to="/">
               <span className="data">Data</span> <span className="africa">Africa</span>
-            </a>
+            </Link>
             {
               breadcrumb && breadcrumb.length ? breadcrumb.map((crumb, i) =>
                 i < breadcrumb.length - 1
-                ? <span key={ crumb.id }><a className="link" href={`/profile/${crumb.id}`}>{ crumb.name }</a><span className="divider">/</span></span>
+                ? <span key={ crumb.id }><Link className="link" to={`/profile/${crumb.id}`}>{ crumb.name }</Link><span className="divider">/</span></span>
                 : <span key={ crumb.id } className="profile link" onClick={ this.props.toggleSearch }>{ crumb.name }</span>
               ) : null
             }
@@ -25,7 +26,7 @@ class Nav extends Component {
           </div>
           <div>
             <span className={searchActive ? "link hidden active" : "link"} onClick={ this.props.toggleSearch }><img className="icon" src="/images/nav/search.svg"/>Search</span>
-            <a className="link" href="/map"><img className="icon" src="/images/nav/map.svg" />Map</a>
+            <Link className="link" to="/map"><img className="icon" src="/images/nav/map.svg" />Map</Link>
           </div>
         </div>
       </nav>

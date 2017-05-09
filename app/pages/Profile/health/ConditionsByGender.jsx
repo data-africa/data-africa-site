@@ -7,7 +7,7 @@ import {SectionColumns, SectionTitle} from "datawheel-canon";
 import {COLORS_GENDER} from "helpers/colors";
 import {yearControls} from "helpers/d3plus";
 import {FORMATTERS} from "helpers/formatters";
-import {fetchData} from "actions/profile";
+import {fetchData} from "datawheel-canon";
 import {childHealthByMode} from "pages/Profile/health/shared";
 
 class ConditionsByGender extends SectionColumns {
@@ -31,6 +31,7 @@ class ConditionsByGender extends SectionColumns {
           label: d => d.condition instanceof Array ? `${titleCase(d.gender)} ${titleCase(d.severity)}` : `${titleCase(d.severity)}ly ${titleCase(d.condition)} ${titleCase(d.gender)}s`,
           shapeConfig: {
             fill: d => COLORS_GENDER[d.gender],
+            hoverOpacity: 0.1,
             label: false,
             opacity: d => d.severity === "severe" ? 1 : 0.4
           },

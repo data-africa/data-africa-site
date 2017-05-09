@@ -1,9 +1,10 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
+import {browserHistory, Link} from "react-router";
 import {toggleSearch} from "actions/index";
 import "./Search.css";
 
-import {API} from ".env";
+import {API} from "helpers/consts.js";
 import axios from "axios";
 
 import {strip} from "d3plus-text";
@@ -69,7 +70,7 @@ class Search extends Component {
           this.refs.input.value = highlighted.querySelector("a").innerHTML;
           toggle();
           setTimeout(() => {
-            window.location = highlighted.querySelector("a").href;
+            browserHistory.push(highlighted.querySelector("a").href);
           }, 500);
         }
         else if (key === DOWN || key === UP) {
@@ -120,7 +121,7 @@ class Search extends Component {
         <ul className="results">
           { results.map(result =>
             <li key={ result.id } className="result">
-              <a href={ `/profile/${result.id}` }>{ result.name }</a>
+              <Link to={ `/profile/${result.id}` }>{ result.name }</Link>
             </li>
           )}
         </ul>

@@ -12,9 +12,9 @@ export function childHealth(profile, health, blankFallback = false) {
   const first = health && health.length > 0 ? health[0] : null;
   const place = formatPlaceName(first, "health", profile.level);
   const items = health.map(
-    (row, idx) => `${idx === health.length - 1 ? "and " : ""}${FORMATTERS.shareWhole(row.proportion_of_children)} are severely ${row.condition}`);
+    (row, idx) => `${idx === health.length - 1 ? "and " : ""}${FORMATTERS.shareWhole(row.proportion_of_children)} were severely ${row.condition}`);
   if (first) {
-    return <p>Among children in {place}, {items.join(", ")}.</p>;
+    return <p>Among children in {place} in {maxYear}, {items.join(", ")}.</p>;
   }
   else {
     return blankFallback ? <span></span> : <p>No data available</p>;
@@ -51,7 +51,7 @@ export function childHealthByMode(profile, healthData, mode = "gender") {
     if (sevACond && !sevBCond || sevBCond && !sevACond) {
       const [category, cond] = sevACond ? [categoryA, sevACond] : [categoryB, sevBCond];
       return <p>The health condition most severely afflicting {category} children
-         in {place} is severely {cond.condition} children
+         in {latestYear} in {place} is severely {cond.condition} children
         with {FORMATTERS.shareWhole(cond.proportion_of_children)} of {categoryA} children
          affected.</p>;
     }
@@ -61,12 +61,12 @@ export function childHealthByMode(profile, healthData, mode = "gender") {
 
     if (sameCondition) {
       return <p>The health condition most severely afflicting {categoryA} and {categoryB} children
-       in {place} is severely {sevACond.condition} children
+       in {latestYear} in {place} is severely {sevACond.condition} children
       with {FORMATTERS.shareWhole(sevACond.proportion_of_children)} of {categoryA} children
        affected and {FORMATTERS.shareWhole(sevBCond.proportion_of_children)} of {categoryB} children affected.</p>;
     }
     else {
-      return <p>The health condition most severely afflicting {formatCategory(categoryA)} in {place} is
+      return <p>The health condition most severely afflicting {formatCategory(categoryA)} in {latestYear} in {place} is
        severely {sevACond.condition} children
       with {FORMATTERS.shareWhole(sevACond.proportion_of_children)} of {categoryA} children
        affected. The health condition most severely afflicting {formatCategory(categoryB)} in {place}

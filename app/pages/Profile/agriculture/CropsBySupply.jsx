@@ -4,7 +4,7 @@ import {BarChart, Treemap} from "d3plus-react";
 import {SectionRows, SectionColumns, SectionTitle} from "datawheel-canon";
 import {titleCase} from "d3plus-text";
 
-import {fetchData} from "actions/profile";
+import {fetchData} from "datawheel-canon";
 import {VARIABLES, FORMATTERS} from "helpers/formatters";
 import Selector from "components/Selector";
 import {COLORS_CROP} from "helpers/colors";
@@ -27,7 +27,7 @@ class CropsBySupply extends SectionRows {
     const {waterData} = this.context.data;
     const irrData = waterData.filter(x => x.water_supply === "irrigated");
     const rainData = waterData.filter(x => x.water_supply === "rainfed");
-    const metricLabel = metric === "harvested_area" ? "harvested area" : "value of production";
+    const metricLabel = metric === "harvested_area" ? "harvested area" : "production value";
     const irrVals = irrData.map(x => x[metric]);
     const rainVals = rainData.map(y => y[metric]);
 
@@ -35,14 +35,14 @@ class CropsBySupply extends SectionRows {
     const totalRain = rainVals.reduce((a, b) => a + b, 0);
     const pctRainfall = totalRain / (totalRain + totalIrr);
     const opts = [{value: "harvested_area", label: "Harvested Area"},
-                  {value: "value_of_production", label: "Value of Production"}];
+                  {value: "value_of_production", label: "Production Value"}];
     return (
       <SectionColumns>
         <article className="section-text">
           <SectionTitle>Water Supply for Crops</SectionTitle>
           <Selector options={opts} callback={this.onChange}/>
           {FORMATTERS.shareWhole(pctRainfall)} percent of crops by {metricLabel} in {profile.name} are
-          fed by rainfall whereas {FORMATTERS.shareWhole(1 - pctRainfall)} percent as fed by irrigation.
+          rainfed, whereas {FORMATTERS.shareWhole(1 - pctRainfall)} percent as irrigated.
         </article>
         <div className="small-height">
         <SectionRows>
