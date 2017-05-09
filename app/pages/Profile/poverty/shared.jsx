@@ -44,8 +44,8 @@ export function povertyTextByMode(profile, povertyData, povLevel, mode = "gender
     return <p>As of {first.year}, {FORMATTERS.shareWhole(modeA.hc)} of {labelA} and {FORMATTERS.shareWhole(modeB.hc)} of {labelB} in {place} live below {DICTIONARY[modeB.poverty_level]}.</p>;
   }
   else if (modeA || modeB) {
-    const isA = modeA === null ? true : false;
-    const mode = isA ? modeA : modeB;
+    const isA = modeA ? true : false;
+    const mode = modeA || modeB;
     const label = isA ? labelA : labelB;
     return <p>As of {first.year}, {FORMATTERS.shareWhole(mode.hc)} of {label}.</p>;
   }
