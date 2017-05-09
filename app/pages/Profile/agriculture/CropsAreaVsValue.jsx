@@ -6,6 +6,7 @@ import pluralize from "pluralize";
 import {fetchData} from "datawheel-canon";
 import {VARIABLES, FORMATTERS} from "helpers/formatters";
 import {COLORS_CROP} from "helpers/colors";
+import {tooltipBody} from "helpers/d3plus";
 import {SectionColumns, SectionTitle} from "datawheel-canon";
 
 class CropsAreaVsValue extends SectionColumns {
@@ -69,6 +70,9 @@ class CropsAreaVsValue extends SectionColumns {
             fill: d => COLORS_CROP[d.crop_parent],
             stroke: "#979797",
             strokeWidth: 1
+          },
+          tooltipConfig: {
+            body: tooltipBody.bind(["harvested_area", "value_of_production"])
           },
           x: logScale ? "harvested_area_log" : "harvested_area",
           xConfig: {

@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {browserHistory} from "react-router";
-import d3plus from "helpers/d3plus";
+import d3plus, {tooltipBody} from "helpers/d3plus";
 import {DICTIONARY} from "helpers/dictionary";
 import {VARIABLES} from "helpers/formatters";
 import Radio from "components/Radio";
@@ -198,7 +198,7 @@ class Map extends Component {
       padding: "92 32 32 484",
       tiles: true,
       tooltipConfig: {
-        body: d => `${DICTIONARY[column]}: ${ column in VARIABLES ? VARIABLES[column](d[column]) : d[column] }`,
+        body: tooltipBody.bind([column]),
         footer: "",
         footerStyle: {
           "margin-top": 0

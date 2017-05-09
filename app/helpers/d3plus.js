@@ -1,4 +1,8 @@
+import {titleCase} from "d3plus-text";
+
 import {COLORS_RAINFALL} from "helpers/colors";
+import {DICTIONARY} from "helpers/dictionary";
+import {VARIABLES} from "helpers/formatters";
 
 const axisConfig = {
   barConfig: {
@@ -96,6 +100,7 @@ export default {
     background: "#fff",
     bodyStyle: {
       "color": "#4A4A4A",
+      "font-family": "Work Sans",
       "font-size": "12px",
       "font-weight": 400,
       "margin-top": "12px"
@@ -105,11 +110,13 @@ export default {
     footer: "click to highlight",
     footerStyle: {
       "color": "#ccc",
+      "font-family": "Work Sans",
       "font-size": "12px",
       "margin-top": "10px"
     },
     titleStyle: {
       "color": "#4A4A4A",
+      "font-family": "Work Sans",
       "font-size": "16px",
       "font-weight": 600
     }
@@ -136,4 +143,8 @@ export function yearControls(data) {
     type: "Radio"
   }];
 
+}
+
+export function tooltipBody(d) {
+  return this.map(key => `<span class="d3plus-body-key">${key in DICTIONARY ? DICTIONARY[key] : titleCase(key)}:</span> <span class="d3plus-body-value">${ key in VARIABLES ? VARIABLES[key](d[key]) : d[key] }</span>`).join("<br>");
 }
