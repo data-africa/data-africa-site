@@ -119,7 +119,6 @@ export default {
     },
     borderRadius: "4px",
     padding: "16px",
-    footer: "click to highlight",
     footerStyle: {
       "color": "#ccc",
       "font-family": "Work Sans",
