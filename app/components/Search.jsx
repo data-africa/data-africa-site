@@ -4,6 +4,8 @@ import {browserHistory, Link} from "react-router";
 import {API} from "helpers/consts.js";
 import axios from "axios";
 
+import {event, select} from "d3-selection";
+
 import {strip} from "d3plus-text";
 import {dataFold} from "d3plus-viz";
 
@@ -15,6 +17,10 @@ class Search extends Component {
       active: false,
       results: []
     };
+  }
+
+  onBlur() {
+    this.setState({active: false});
   }
 
   onChange(e) {
@@ -35,16 +41,24 @@ class Search extends Component {
 
   }
 
+  onFocus() {
+    this.setState({active: true});
+  }
+
   onToggle() {
 
     const {active} = this.state;
+    if (active) this.input.blur();
+    else this.input.focus();
     this.setState({active: !active});
 
   }
 
   componentDidMount() {
 
-    document.addEventListener("keydown", () => {
+    const {className, primary} = this.props;
+
+    select(document).on(`keydown.${ className }`, () => {
 
       const {active} = this.state;
       const key = event.keyCode;
@@ -54,20 +68,20 @@ class Search extends Component {
             S = 83,
             UP = 38;
 
-      if (!active && key === S && event.target.tagName.toLowerCase() !== "input") {
+      if (primary && !active && key === S && event.target.tagName.toLowerCase() !== "input") {
         event.preventDefault();
         this.onToggle();
       }
-      else if (active && key === ESC && event.target === this.refs.input) {
+      else if (active && key === ESC && event.target === this.input) {
         event.preventDefault();
         this.onToggle();
       }
-      else if (active && event.target === this.refs.input) {
+      else if (active && event.target === this.input) {
 
         const highlighted = document.querySelector(".highlighted");
 
         if (key === ENTER && highlighted) {
-          this.refs.input.value = highlighted.querySelector("a").innerHTML;
+          this.input.value = highlighted.querySelector("a").innerHTML;
           this.onToggle();
           setTimeout(() => {
             browserHistory.push(highlighted.querySelector("a").href);
@@ -107,17 +121,12 @@ class Search extends Component {
     const {active, results} = this.state;
     const InactiveComponent = this.props.inactiveComponent;
 
-    if (this.refs.input) {
-      if (active) this.refs.input.focus();
-      else this.refs.input.blur();
-    }
-
     return (
       <div className={ `${className} ${ active ? "active" : "" }` }>
         { InactiveComponent ? <InactiveComponent active={ active } toggle={ this.onToggle.bind(this) } /> : null }
         <div className={ active ? "input active" : "input" }>
           <img className="icon" src="/images/nav/search.svg" />
-          <input type="text" ref="input" onChange={ this.onChange.bind(this) } placeholder="Enter a location" />
+          <input type="text" ref={ input => this.input = input } onChange={ this.onChange.bind(this) } onFocus={ this.onFocus.bind(this) } onBlur={ this.onBlur.bind(this) } placeholder="Enter a location" />
         </div>
         <ul className={ active ? "results active" : "results" }>
           { results.map(result =>
@@ -134,7 +143,8 @@ class Search extends Component {
 
 Search.defaultProps = {
   className: "search",
-  inactiveComponent: false
+  inactiveComponent: false,
+  primary: false
 };
 
 export default Search;

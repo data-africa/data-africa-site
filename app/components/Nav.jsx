@@ -44,7 +44,7 @@ class Nav extends Component {
             { children }
           </div>
           <div>
-            <Search className="search-nav" inactiveComponent={ SearchButton } />
+            <Search primary={ true } className="search-nav" inactiveComponent={ SearchButton } />
             <Link className="link" to="/map"><img className="icon" src="/images/nav/map.svg" />Map</Link>
           </div>
         </div>
