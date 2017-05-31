@@ -1,3 +1,7 @@
+:root {
+  --search-width: 200px;
+}
+
 .nav-container {
   font-family: var(--font-family);
   left: 0;
@@ -89,6 +93,109 @@
 
       &.hidden {
         opacity: 0;
+      }
+
+    }
+
+    & .search-nav {
+      display: inline-block;
+      position: relative;
+
+      & .input {
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        right: 8px;
+        top: 0;
+        transition: opacity 0.5s, width 0.5s;
+        width: 0;
+
+        &.active {
+          opacity: 1;
+          width: var(--search-width);
+        }
+
+        & .icon {
+          display: inline-block;
+          position: absolute;
+          margin-top: 6px;
+          width: 24px;
+        }
+
+        & input {
+          background-color: transparent;
+          border: 0;
+          border-bottom: 1px solid white;
+          box-sizing: border-box;
+          color: white;
+          display: inline-block;
+          font-family: "Work Sans";
+          font-size: 16px;
+          font-weight: 400;
+          height: 35px;
+          max-width: 600px;
+          opacity: 0.6;
+          padding: 8px 16px 8px 32px;
+          transition: opacity 0.2s;
+          width: 100%;
+
+          &::placeholder {
+            color: white;
+          }
+
+          &:focus {
+            opacity: 1;
+            outline: none;
+          }
+
+        }
+
+      }
+
+      & .results {
+        box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.2);
+        display: block;
+        list-style: none;
+        margin: 0;
+        opacity: 0;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        right: 8px;
+        transition: opacity 0.2s, width 0.2s;
+        top: 34px;
+        width: 0;
+        z-index: var(--cover);
+
+        &.active {
+          opacity: 1;
+          width: var(--search-width);
+        }
+
+        & .result {
+          background-color: white;
+          border-left: 5px solid transparent;
+          box-sizing: border-box;
+          opacity: 0.8;
+          padding: 8px 16px 8px 32px;
+          transition: border-color 0.2s, opacity 0.2s;
+          width: var(--search-width);
+
+          & a {
+            color: black;
+            display: block;
+            font-size: 16px;
+            text-decoration: none;
+
+          }
+
+          &:hover, &.highlighted {
+            border-left: 5px solid var(--accent);
+            opacity: 1;
+          }
+
+        }
+
       }
 
     }

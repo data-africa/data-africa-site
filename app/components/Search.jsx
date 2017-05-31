@@ -1,8 +1,5 @@
 import React, {Component} from "react";
-import {connect} from "react-redux";
 import {browserHistory, Link} from "react-router";
-import {toggleSearch} from "actions/index";
-import "./Search.css";
 
 import {API} from "helpers/consts.js";
 import axios from "axios";
@@ -38,11 +35,17 @@ class Search extends Component {
 
   }
 
+  onToggle() {
+
+    const {active} = this.state;
+    this.setState({active: !active});
+
+  }
+
   componentDidMount() {
 
     document.addEventListener("keydown", () => {
 
-      const {local, searchActive, toggleSearch} = this.props;
       const {active} = this.state;
       const key = event.keyCode;
       const DOWN = 40,
@@ -51,24 +54,21 @@ class Search extends Component {
             S = 83,
             UP = 38;
 
-      const enabled = local ? active : searchActive;
-      const toggle = local ? () => this.setState({active: !active}) : toggleSearch;
-
-      if (!local && !enabled && key === S && event.target.tagName.toLowerCase() !== "input") {
+      if (!active && key === S && event.target.tagName.toLowerCase() !== "input") {
         event.preventDefault();
-        toggle();
+        this.onToggle();
       }
-      else if (enabled && key === ESC && event.target === this.refs.input) {
+      else if (active && key === ESC && event.target === this.refs.input) {
         event.preventDefault();
-        toggle();
+        this.onToggle();
       }
-      else if (enabled && event.target === this.refs.input) {
+      else if (active && event.target === this.refs.input) {
 
         const highlighted = document.querySelector(".highlighted");
 
         if (key === ENTER && highlighted) {
           this.refs.input.value = highlighted.querySelector("a").innerHTML;
-          toggle();
+          this.onToggle();
           setTimeout(() => {
             browserHistory.push(highlighted.querySelector("a").href);
           }, 500);
@@ -103,22 +103,23 @@ class Search extends Component {
 
   render() {
 
-    const {className, searchActive, local} = this.props;
+    const {className} = this.props;
     const {active, results} = this.state;
-    const enabled = local ? active : searchActive;
+    const InactiveComponent = this.props.inactiveComponent;
 
     if (this.refs.input) {
-      if (enabled) this.refs.input.focus();
+      if (active) this.refs.input.focus();
       else this.refs.input.blur();
     }
 
     return (
-      <div className={ `${className} ${ enabled ? "active" : "" }` }>
-        <div className="input">
+      <div className={ `${className} ${ active ? "active" : "" }` }>
+        { InactiveComponent ? <InactiveComponent active={ active } toggle={ this.onToggle.bind(this) } /> : null }
+        <div className={ active ? "input active" : "input" }>
           <img className="icon" src="/images/nav/search.svg" />
           <input type="text" ref="input" onChange={ this.onChange.bind(this) } placeholder="Enter a location" />
         </div>
-        <ul className="results">
+        <ul className={ active ? "results active" : "results" }>
           { results.map(result =>
             <li key={ result.id } className="result">
               <Link to={ `/profile/${result.id}` }>{ result.name }</Link>
@@ -132,9 +133,8 @@ class Search extends Component {
 }
 
 Search.defaultProps = {
-  className: "search-nav"
+  className: "search",
+  inactiveComponent: false
 };
 
-export default connect(state => ({
-  searchActive: state.search.searchActive
-}), {toggleSearch})(Search);
+export default Search;
