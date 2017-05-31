@@ -9,7 +9,7 @@ import Selector from "components/Selector";
 class PovertyByResidence extends SectionColumns {
   constructor(props) {
     super(props);
-    this.state = {povertyLevel: "ppp1", targetGeo: null};
+    this.state = {povertyLevel: "ppp2", targetGeo: null};
     this.onChange = this.onChange.bind(this);
     this.onChangeGeo = this.onChangeGeo.bind(this);
   }
@@ -41,7 +41,7 @@ class PovertyByResidence extends SectionColumns {
               <span className="dropdown-title">Wages</span>
 
               {selector}
-              <Selector options={opts} callback={this.onChange}/>
+              <Selector options={opts} callback={this.onChange} selected={povertyLevel} />
               {povertyTextByMode(profile, filteredData, povertyLevel, "residence")}
             </article>
             {viz}
