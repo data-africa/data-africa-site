@@ -1,12 +1,13 @@
 import React from "react";
 
+import {sum} from "d3-array";
 import {Treemap} from "d3plus-react";
 import {SectionColumns, SectionTitle} from "datawheel-canon";
 
 import {fetchData} from "datawheel-canon";
 import {COLORS_CROP} from "helpers/colors";
 import {tooltipBody} from "helpers/d3plus";
-import {VARIABLES} from "helpers/formatters";
+import {FORMATTERS, VARIABLES} from "helpers/formatters";
 
 class CropsByHarvest extends SectionColumns {
 
@@ -14,6 +15,7 @@ class CropsByHarvest extends SectionColumns {
 
     const {profile} = this.props;
     const data = this.context.data.harvested_area;
+    const total = sum(data, d => d.harvested_area);
 
     return (
       <SectionColumns>
@@ -31,7 +33,7 @@ class CropsByHarvest extends SectionColumns {
             fill: d => COLORS_CROP[d.crop_parent]
           },
           tooltipConfig: {
-            body: tooltipBody.bind(["harvested_area"])
+            body: tooltipBody.bind(["harvested_area", d => `<span class="d3plus-body-key">Share:</span> <span class="d3plus-body-value">${ FORMATTERS.share(d.harvested_area / total) }</span>`])
           },
           sum: d => d.harvested_area
         }} />
