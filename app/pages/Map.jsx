@@ -102,7 +102,10 @@ class Map extends Component {
     const isAdm0 = geoLevel === "adm0";
     let topojsonId = d => isAdm0 ? d.properties.iso_a3 : d.properties[variable];
 
-    const labelFunc = d => titleCase(d[variableName]);
+    const labelFunc = d => {
+      while (d.data) d = d.data;
+      return titleCase(d[variableName]);
+    };
     return {topojsonPath, variable, variableName, topojsonId, groupBy, labelFunc};
   }
 
