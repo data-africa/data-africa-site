@@ -109,7 +109,7 @@ class RainfallBars extends SectionRows {
     const hasData = data && data.length > 0 && (data[0][variable] !== null && data[0][variable] !== undefined);
 
     const res = data.length > 0 ? data[0] : {};
-    const opts = [{label: "Rainfall", value: "rainfall_awa_mm"},
+    const opts = [{label: "Average Annual Rainfall", value: "rainfall_awa_mm"},
                   {label: "Rainfall Variability", value: "cropland_rainfallCVgt20pct_pct"}];
     const title = isRainfall ? "Average Annual Rainfall" : "Rainfall Variability";
     const desc = isRainfall ? `${res.geo_name} had average annual rainfall of ${VARIABLES[variable](res[variable])}`
@@ -123,11 +123,11 @@ class RainfallBars extends SectionRows {
         <div className="rainfall-chart">
           <article className="section-text">
               <div className="section-head">
-                <SectionTitle>{title} by Location</SectionTitle>
+                <SectionTitle>Rainfall by Location</SectionTitle>
                 <Selector options={opts} callback={this.onChange}/>
               </div>
               <div className="section-stat">
-                <p>{!isRainfall ? `Rainfall variability is ${GLOSSARY.findTerm("rainfall variability").toLowerCase()}. ` : null}{sentence}.</p>
+                <p>{!isRainfall ? `Rainfall variability is ${GLOSSARY.findTerm("rainfall variability").toLowerCase()} ` : null}{sentence}.</p>
               </div>
           </article>
         </div>
