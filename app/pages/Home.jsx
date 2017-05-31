@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {browserHistory, Link} from "react-router";
-import {toggleSearch} from "actions/index";
 import Search from "components/Search";
 import {CanonComponent} from "datawheel-canon";
 import {selectAll} from "d3-selection";
@@ -96,4 +95,4 @@ Home.defaultProps = {
 export default connect(state => ({
   attrs: state.attrs.geo,
   focus: state.focus
-}), {toggleSearch})(Home);
+}))(Home);

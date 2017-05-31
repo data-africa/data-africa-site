@@ -82,7 +82,7 @@ class GeoProfile extends Component {
     const attr = attrs.geo[id];
     const data = [attr];
     if (attr.level !== "adm0") data.unshift(attrs.geo[`040${id.slice(3, 10)}`]);
-    this.setState({id});
+    this.setState({id: id, activeSub: false, subnav: false});
     this.props.dispatch({type: "UPDATE_BREADCRUMB", data});
   }
 
