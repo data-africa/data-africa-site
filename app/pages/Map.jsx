@@ -11,7 +11,7 @@ import axios from "axios";
 import "./Map.css";
 
 import {CanonComponent} from "datawheel-canon";
-import {mean} from "d3-array";
+import {extent, mean} from "d3-array";
 import {nest} from "d3-collection";
 import {selectAll} from "d3-selection";
 import {merge} from "d3plus-common";
@@ -51,7 +51,8 @@ class Map extends Component {
     geo = newVars.geo ? newVars.geo : geo;
     column = newVars.column ? newVars.column : column;
     const mapParams = this.datasetPrep(geo, column);
-    const required = mapParams.variable === "geo" ? column : `${[mapParams.variable, mapParams.variableName].join(",")},${column}`;
+    let required = mapParams.variable === "geo" ? column : `${[mapParams.variable, mapParams.variableName].join(",")},${column}`;
+    if (column === "rainfall_awa_mm") required += ",start_year";
     const show = mapParams.variable;
     const url = `${API}api/join/?show=year,${show}&sumlevel=latest_by_geo,${geo}&required=${required}&order=${column}&sort=desc&display_names=true`;
 
@@ -159,6 +160,9 @@ class Map extends Component {
     const levels = vars ? vars.filter(v => v.column === column)[0].levels[0] : {};
     const geoLevels = levels.geo ? levels.geo.filter(g => g !== "all") : [];
 
+    const years = extent(data.map(d => d.year).concat(data.map(d => d.start_year || d.year)));
+    console.log(years);
+
     const map = <Geomap config={{
       colorScale: column,
       colorScaleConfig: {
@@ -201,7 +205,7 @@ class Map extends Component {
       padding: "92 32 32 484",
       tiles: true,
       tooltipConfig: {
-        body: tooltipBody.bind([column]),
+        body: tooltipBody.bind(["year", column]),
         footer: "",
         footerStyle: {
           "margin-top": 0
@@ -230,6 +234,7 @@ class Map extends Component {
               {
                 geoLevels.length > 1 ? <Radio options={ geoLevels } checked={ geo } callback={ this.handleGeo } /> : null
               }
+              <span className="data-year">{ data.length ? `Data ${ years[0] !== years[1] ? `collected from ${years[0]} to` : "from" } ${ years[1] }` : null }</span>
               { this.renderTopTen() }
             </div>
             <svg id="legend"></svg>
