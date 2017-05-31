@@ -177,15 +177,24 @@
           border-left: 5px solid transparent;
           box-sizing: border-box;
           opacity: 0.8;
-          padding: 8px 16px 8px 32px;
+          padding: 8px 16px 8px 27px;
           transition: border-color 0.2s, opacity 0.2s;
           width: var(--search-width);
 
           & a {
             color: black;
             display: block;
-            font-size: 16px;
             text-decoration: none;
+
+            & .result-title {
+              display: block;
+              font-size: 16px;
+            }
+
+            & .result-sub {
+              display: block;
+              font-size: 12px;
+            }
 
           }
 
