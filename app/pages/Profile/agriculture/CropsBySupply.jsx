@@ -59,7 +59,7 @@ class CropsBySupply extends SectionRows {
                 body: tooltipBody.bind([metric, d => `<span class="d3plus-body-key">Share:</span> <span class="d3plus-body-value">${ FORMATTERS.shareWhole(d.water_supply === "rainfed" ? pctRainfall : 1 - pctRainfall) }</span>`])
               },
               shapeConfig: {
-                fill: d => d.water_supply === "rainfed" ? "#87CCFF" : "#1478C3",
+                fill: d => d.water_supply === "rainfed" ? "#A0C9E6" : "#0477C1",
                 label: d => d[metric] > totalHa / 5 ? titleCase(d.water_supply) : false,
                 Bar: {
                   labelConfig: {
