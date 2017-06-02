@@ -1,12 +1,14 @@
 import React from "react";
 
+import {sum} from "d3-array";
+
 import {BarChart, Treemap} from "d3plus-react";
 import {SectionRows, SectionColumns, SectionTitle} from "datawheel-canon";
 import {titleCase} from "d3plus-text";
 
 import {fetchData} from "datawheel-canon";
 import {tooltipBody} from "helpers/d3plus";
-import {VARIABLES, FORMATTERS} from "helpers/formatters";
+import {FORMATTERS, VARIABLES} from "helpers/formatters";
 import Selector from "components/Selector";
 import {COLORS_CROP} from "helpers/colors";
 
@@ -29,12 +31,11 @@ class CropsBySupply extends SectionRows {
     const irrData = waterData.filter(x => x.water_supply === "irrigated");
     const rainData = waterData.filter(x => x.water_supply === "rainfed");
     const metricLabel = metric === "harvested_area" ? "harvested area" : "production value";
-    const irrVals = irrData.map(x => x[metric]);
-    const rainVals = rainData.map(y => y[metric]);
+    const irrTotal = sum(irrData, d => d[metric]);
+    const rainTotal = sum(rainData, d => d[metric]);
+    const totalHa = sum(waterData, d => d[metric]);
 
-    const totalIrr = irrVals.reduce((a, b) => a + b, 0);
-    const totalRain = rainVals.reduce((a, b) => a + b, 0);
-    const pctRainfall = totalRain / (totalRain + totalIrr);
+    const pctRainfall = rainTotal / (rainTotal + irrTotal);
     const opts = [{value: "harvested_area", label: "Harvested Area"},
                   {value: "value_of_production", label: "Production Value"}];
     return (
@@ -54,8 +55,12 @@ class CropsBySupply extends SectionRows {
               groupPadding: 0,
               height: 150,
               label: d => titleCase(d.water_supply),
+              legendTooltip: {
+                body: tooltipBody.bind([metric, d => `<span class="d3plus-body-key">Share:</span> <span class="d3plus-body-value">${ FORMATTERS.shareWhole(d.water_supply === "rainfed" ? pctRainfall : 1 - pctRainfall) }</span>`])
+              },
               shapeConfig: {
                 fill: d => d.water_supply === "rainfed" ? "#A0C9E6" : "#0477C1",
+                label: d => d[metric] > totalHa / 5 ? titleCase(d.water_supply) : false,
                 Bar: {
                   labelConfig: {
                     textAnchor: "center"
@@ -64,7 +69,7 @@ class CropsBySupply extends SectionRows {
               },
               stacked: true,
               tooltipConfig: {
-                body: tooltipBody.bind([metric])
+                body: tooltipBody.bind([metric, d => `<span class="d3plus-body-key">Share:</span> <span class="d3plus-body-value">${ FORMATTERS.shareWhole(d.water_supply === "rainfed" ? pctRainfall : 1 - pctRainfall) }</span>`])
               },
               x: metric,
               xConfig: {
@@ -90,7 +95,7 @@ class CropsBySupply extends SectionRows {
                     fill: d => COLORS_CROP[d.crop_parent]
                   },
                   tooltipConfig: {
-                    body: tooltipBody.bind([metric])
+                    body: tooltipBody.bind([metric, d => `<span class="d3plus-body-key">Share:</span> <span class="d3plus-body-value">${ FORMATTERS.share(d[metric] / rainTotal) }</span>`])
                   },
                   sum: d => d[metric],
                   title: `Rainfed Crops (${FORMATTERS.shareWhole(pctRainfall)} of crops)`
@@ -106,7 +111,7 @@ class CropsBySupply extends SectionRows {
                     fill: d => COLORS_CROP[d.crop_parent]
                   },
                   tooltipConfig: {
-                    body: tooltipBody.bind([metric])
+                    body: tooltipBody.bind([metric, d => `<span class="d3plus-body-key">Share:</span> <span class="d3plus-body-value">${ FORMATTERS.share(d[metric] / irrTotal) }</span>`])
                   },
                   sum: d => d[metric],
                   title: `Irrigated Crops (${FORMATTERS.shareWhole(1 - pctRainfall)} of crops)`

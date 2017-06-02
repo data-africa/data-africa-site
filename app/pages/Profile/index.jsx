@@ -186,6 +186,7 @@ class GeoProfile extends Component {
               }} />
               <div className="meta">
                 <div className="title">{ attr.name }</div>
+                { attr.parent_name ? <div className="sub-title">{ attr.parent_name }</div> : null }
                 {
                   stats.filter(stat => stat).map(stat => {
                     let label = stat.label;

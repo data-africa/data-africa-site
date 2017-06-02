@@ -33,7 +33,7 @@ class Home extends Component {
               downloadButton: false,
               groupBy: "iso3",
               height: 500,
-              label: d => d.name,
+              label: d => d.data ? d.data.name : d.name,
               legend: false,
               ocean: "transparent",
               on: {
@@ -61,7 +61,7 @@ class Home extends Component {
                   "margin-top": 0
                 },
                 padding: "12px",
-                title: d => `${d.name}<img class='link-arrow' src='/images/nav/link-arrow.svg' />`
+                title: d => `${d.data ? d.data.name : d.name}<img class='link-arrow' src='/images/nav/link-arrow.svg' />`
               },
               topojson: "/topojson/continent.json",
               topojsonId: d => d.properties.iso_a3,
