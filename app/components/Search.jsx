@@ -47,10 +47,8 @@ class Search extends Component {
 
   onToggle() {
 
-    const {active} = this.state;
-    if (active) this.input.blur();
+    if (this.state.active) this.input.blur();
     else this.input.focus();
-    this.setState({active: !active});
 
   }
 
@@ -67,6 +65,8 @@ class Search extends Component {
             ESC = 27,
             S = 83,
             UP = 38;
+
+      console.log("active", active, className);
 
       if (primary && !active && key === S && event.target.tagName.toLowerCase() !== "input") {
         event.preventDefault();
