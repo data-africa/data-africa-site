@@ -90,11 +90,7 @@ class Search extends Component {
         const highlighted = document.querySelector(".highlighted");
 
         if (key === ENTER && highlighted) {
-          this.input.value = highlighted.querySelector("a").innerHTML;
-          this.onToggle();
-          setTimeout(() => {
-            browserHistory.push(highlighted.querySelector("a").href);
-          }, 500);
+          browserHistory.push(highlighted.querySelector("a").href);
         }
         else if (key === DOWN || key === UP) {
 
