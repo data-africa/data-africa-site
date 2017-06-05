@@ -9,12 +9,22 @@ import {event, select} from "d3-selection";
 import {strip} from "d3plus-text";
 import {dataFold} from "d3plus-viz";
 
+function s() {
+  return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+}
+
+function uuid() {
+  return `${s()}${s()}-${s()}-${s()}-${s()}-${s()}${s()}${s()}`;
+}
+
+
 class Search extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
       active: false,
+      id: uuid(),
       results: []
     };
   }
@@ -54,9 +64,10 @@ class Search extends Component {
 
   componentDidMount() {
 
-    const {className, primary} = this.props;
+    const {primary} = this.props;
+    const {id} = this.state;
 
-    select(document).on(`keydown.${ className }`, () => {
+    select(document).on(`keydown.${ id }`, () => {
 
       const {active} = this.state;
       const key = event.keyCode;
@@ -65,8 +76,6 @@ class Search extends Component {
             ESC = 27,
             S = 83,
             UP = 38;
-
-      console.log("active", active, className);
 
       if (primary && !active && key === S && event.target.tagName.toLowerCase() !== "input") {
         event.preventDefault();
