@@ -82,7 +82,7 @@ class GeoProfile extends Component {
     const attr = attrs.geo[id];
     const data = [attr];
     if (attr.level !== "adm0") data.unshift(attrs.geo[`040${id.slice(3, 10)}`]);
-    this.setState({id: id, activeSub: false, subnav: false});
+    this.setState({id, activeSub: false, subnav: false});
     this.props.dispatch({type: "UPDATE_BREADCRUMB", data});
   }
 
@@ -176,7 +176,10 @@ class GeoProfile extends Component {
                     "margin-top": 0
                   },
                   padding: "12px",
-                  title: d => `${d.name}${ d.id === id ? "" : "<img class='link-arrow' src='/images/nav/link-arrow.svg' />" }`
+                  title: d => {
+                    while (d.data) d = d.data;
+                    return `${d.name}${ d.id === id ? "" : "<img class='link-arrow' src='/images/nav/link-arrow.svg' />" }`;
+                  }
                 },
                 topojson: isAdm0 ? "/topojson/continent.json" : "/topojson/cell5m/adm1.json",
                 topojsonFilter: isAdm0 ? d => d : d => adm0 === d.properties.geo.slice(5, 10),
