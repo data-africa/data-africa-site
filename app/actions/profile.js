@@ -9,10 +9,9 @@ import {FORMATTERS, VARIABLES} from "helpers/formatters";
 
 polyfill();
 
-export function fetchStats(store) {
-
-  const prefix = `${API}api/join/?geo=${store.id}`;
-
+export function fetchStats(params, store) {
+  const id = store.data.geoid;
+  const prefix = `${API}api/join/?geo=${id}`;
   const crop = axios.get(`${prefix}&show=crop&sumlevel=lowest&required=harvested_area&order=harvested_area&sort=desc`)
     .then(res => {
 

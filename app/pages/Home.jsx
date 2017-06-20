@@ -72,10 +72,10 @@ class Home extends Component {
           </div>
           <div className="tiles">
             <h3 className="title">Explore Countries</h3>
-            <span className="more-link"><img className="icon" src={ `/images/sections/dropdown-arrow.svg` } /></span>
+            <span className="more-link"><img className="icon" src={"/images/sections/dropdown-arrow.svg"} /></span>
             {
               focus.map(f =>
-                <Link key={f} className="tile" to={ `/profile/${f}` } style={{backgroundImage: `url('/images/geo/${f}.jpg')`}}>
+                <Link key={f} className="tile" to={ `/profile/${attrs[f].url_name}` } style={{backgroundImage: `url('/images/geo/${f}.jpg')`}}>
                   <span className="name">{ attrs[f].name }</span>
                 </Link>
               )

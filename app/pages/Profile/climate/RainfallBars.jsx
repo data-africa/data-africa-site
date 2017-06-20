@@ -142,7 +142,7 @@ class RainfallBars extends SectionRows {
 }
 
 RainfallBars.need = [
-  fetchData("rainfall", "api/join/?show=geo&geo=<id>&sumlevel=all&required=start_year,cropland_rainfallCVgt20pct_pct,rainfall_awa_mm,cropland_total_ha&display_names=1")
+  fetchData("rainfall", "api/join/?show=geo&geo=<geoid>&sumlevel=all&required=start_year,cropland_rainfallCVgt20pct_pct,rainfall_awa_mm,cropland_total_ha&display_names=1")
 ];
 
 export default connect(state => ({

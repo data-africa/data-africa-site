@@ -60,6 +60,7 @@ export function povertyVizByMode(profile, vizData, povertyLevel, mode) {
     data: vizData,
     groupBy: [mode, "poverty_level"],
     groupPadding: 100,
+    height: 500,
     label: d => mode === "gender" ? formatGender(d[mode], true) : titleCase(d[mode]),
     shapeConfig: {
       fill: d => colorMap[d[mode]],

@@ -43,7 +43,7 @@ class CropsByHarvest extends SectionColumns {
 }
 
 CropsByHarvest.need = [
-  fetchData("harvested_area", "api/join/?geo=<id>&sumlevel=lowest&show=crop&required=harvested_area,value_of_production,crop_parent,crop_name&order=harvested_area&sort=desc")
+  fetchData("harvested_area", "api/join/?geo=<geoid>&sumlevel=lowest&show=crop&required=harvested_area,value_of_production,crop_parent,crop_name&order=harvested_area&sort=desc")
 ];
 
 export default CropsByHarvest;

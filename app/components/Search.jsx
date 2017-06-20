@@ -136,7 +136,7 @@ class Search extends Component {
         <ul className={ active ? "results active" : "results" }>
           { results.map(result =>
             <li key={ result.id } className="result">
-              <Link to={ `/profile/${result.id}` }>
+              <Link to={ `/profile/${result.url_name}` }>
                 <span className="result-title">{ result.name }</span>
                 { result.parent_name ? <span className="result-sub">{ result.parent_name }</span> : null }
               </Link>

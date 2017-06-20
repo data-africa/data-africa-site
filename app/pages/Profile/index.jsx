@@ -28,6 +28,9 @@ import Poverty from "./poverty/Poverty";
 import PovertyByGender from "./poverty/PovertyByGender";
 import PovertyByResidence from "./poverty/PovertyByResidence";
 
+import {fetchData} from "datawheel-canon";
+import {dataFold} from "d3plus-viz";
+
 const topics = [
   {
     slug: "introduction",
@@ -68,7 +71,8 @@ class GeoProfile extends Component {
   }
 
   componentDidUpdate() {
-    if (this.props.params.id !== this.state.id) this.updateBreadcrumbs();
+    console.log(this.state.id, this.props.data.geoid, "PARAMS!!!");
+    if (this.props.data.geoid !== this.state.id) this.updateBreadcrumbs();
   }
 
   componentWillUnmount() {
@@ -77,10 +81,14 @@ class GeoProfile extends Component {
   }
 
   updateBreadcrumbs() {
-    const {id} = this.props.params;
+    const id = this.props.data.geoid;
     const {attrs} = this.props;
     const attr = attrs.geo[id];
     const data = [attr];
+    if (!attr) {
+      console.log("No attribute object, skipping breadcrumb update.");
+      return;
+    }
     if (attr.level !== "adm0") data.unshift(attrs.geo[`040${id.slice(3, 10)}`]);
     this.setState({id, activeSub: false, subnav: false});
     this.props.dispatch({type: "UPDATE_BREADCRUMB", data});
@@ -106,13 +114,11 @@ class GeoProfile extends Component {
   }
 
   render() {
-
-    const {id} = this.props.params;
+    const id = this.props.data.geoid;
     const {attrs, data, focus, stats} = this.props;
     const {activeSub, subnav} = this.state;
 
     const attr = attrs.geo[id];
-
     const focusISO = focus.map(f => attrs.geo[f].iso3);
     const isAdm0 = attr.level === "adm0";
     const adm0 = id.slice(5, 10);
@@ -149,6 +155,7 @@ class GeoProfile extends Component {
                 data: splashData,
                 downloadButton: false,
                 groupBy: isAdm0 ? "iso3" : "id",
+                height: 400,
                 label: d => d.name,
                 legend: false,
                 ocean: "transparent",
@@ -284,6 +291,10 @@ class GeoProfile extends Component {
     );
   }
 }
+
+GeoProfile.preneed = [
+  fetchData("geoid", "attrs/geo/<id>", res => dataFold(res)[0].id)
+];
 
 GeoProfile.need = [
   fetchStats,

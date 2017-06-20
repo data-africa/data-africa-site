@@ -28,6 +28,7 @@ class ConditionsByResidence extends SectionColumns {
           discrete: "y",
           groupBy: ["residence", "severity"],
           groupPadding: 32,
+          height: 500,
           label: d => d.condition instanceof Array ? `${titleCase(d.severity)} ${titleCase(d.residence)}` : `${titleCase(d.severity)}ly ${titleCase(d.condition)} Children in ${titleCase(d.residence)} Areas`,
           shapeConfig: {
             fill: d => COLORS_RESIDENCE[`${d.residence}_${d.severity}`],
@@ -59,7 +60,7 @@ class ConditionsByResidence extends SectionColumns {
 }
 
 ConditionsByResidence.need = [
-  fetchData("healthByResidence", "api/join/?geo=<id>&show=year,condition,residence&required=dhs_geo_name,dhs_geo_parent_name,proportion_of_children&sumlevel=all,all,all")
+  fetchData("healthByResidence", "api/join/?geo=<geoid>&show=year,condition,residence&required=dhs_geo_name,dhs_geo_parent_name,proportion_of_children&sumlevel=all,all,all")
 ];
 
 export default ConditionsByResidence;

@@ -27,6 +27,7 @@ class Conditions extends SectionColumns {
           data: `${API}api/join/?show=condition&geo=${ profile.id }&required=dhs_geo_name,dhs_geo_parent_name,condition,severity,proportion_of_children`,
           groupBy: ["condition", "severity"],
           groupPadding: 64,
+          height: 500,
           label: d => d.condition instanceof Array ? titleCase(d.severity) : `${titleCase(d.severity)}ly ${titleCase(d.condition)}`,
           shapeConfig: {
             fill: d => COLORS_CONDITION[`${d.condition}_${d.severity}`],
@@ -56,7 +57,7 @@ class Conditions extends SectionColumns {
 }
 
 Conditions.need = [
-  fetchData("dhsHealth", "api/join/?geo=<id>&show=year,condition&required=dhs_geo_name,dhs_geo_parent_name,proportion_of_children&order=proportion_of_children&sort=desc&severity=severe&sumlevel=latest_by_geo,all")
+  fetchData("dhsHealth", "api/join/?geo=<geoid>&show=year,condition&required=dhs_geo_name,dhs_geo_parent_name,proportion_of_children&order=proportion_of_children&sort=desc&severity=severe&sumlevel=latest_by_geo,all")
 ];
 
 export default Conditions;

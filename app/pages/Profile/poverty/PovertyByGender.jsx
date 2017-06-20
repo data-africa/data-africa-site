@@ -50,7 +50,7 @@ class PovertyByGender extends SectionColumns {
 }
 
 PovertyByGender.need = [
-  fetchData("povertyByGender", "api/join/?show=year,gender&geo=<id>&required=poverty_geo_name,poverty_geo_parent_name,poverty_level,hc,sevpov,povgap&sumlevel=latest_by_geo,all")
+  fetchData("povertyByGender", "api/join/?show=year,gender&geo=<geoid>&required=poverty_geo_name,poverty_geo_parent_name,poverty_level,hc,sevpov,povgap&sumlevel=latest_by_geo,all")
 ];
 
 export default PovertyByGender;
