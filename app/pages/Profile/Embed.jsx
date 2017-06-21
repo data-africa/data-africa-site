@@ -4,7 +4,8 @@ import {CanonComponent} from "datawheel-canon";
 import d3plus from "helpers/d3plus";
 import "./sections.css";
 import "./Embed.css";
-
+import {fetchData} from "datawheel-canon";
+import {dataFold} from "d3plus-viz";
 import CropsAreaVsValue from "./agriculture/CropsAreaVsValue";
 import CropsByHarvest from "./agriculture/CropsByHarvest";
 import CropsByProduction from "./agriculture/CropsByProduction";
@@ -39,10 +40,10 @@ class Embed extends Component {
 
   render() {
 
-    const {id, slug} = this.props.params;
+    const {slug} = this.props.params;
     const {attrs, data} = this.props;
-
-    const attr = attrs.geo[id];
+    const {geoid} = this.props.data;
+    const attr = attrs.geo[geoid];
 
     const Comp = sections[slug];
 
@@ -51,6 +52,10 @@ class Embed extends Component {
     </CanonComponent>;
   }
 }
+
+Embed.preneed = [
+  fetchData("geoid", "attrs/geo/<id>", res => dataFold(res)[0].id)
+];
 
 Embed.need = [
   Conditions,
