@@ -163,7 +163,7 @@ class GeoProfile extends Component {
                   "click.shape": d => {
                     if (d && d.id !== id) {
                       selectAll(".d3plus-tooltip").remove();
-                      browserHistory.push(`/profile/${d.id}`);
+                      browserHistory.push(`/profile/${d.url_name}`);
                     }
                   }
                 },
