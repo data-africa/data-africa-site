@@ -28,6 +28,7 @@ class ConditionsByGender extends SectionColumns {
           discrete: "y",
           groupBy: ["gender", "severity"],
           groupPadding: 32,
+          height: 500,
           label: d => d.condition instanceof Array ? `${titleCase(d.gender)} ${titleCase(d.severity)}` : `${titleCase(d.severity)}ly ${titleCase(d.condition)} ${titleCase(d.gender)}s`,
           shapeConfig: {
             fill: d => COLORS_GENDER[`${d.gender}_${d.severity}`],
@@ -59,7 +60,7 @@ class ConditionsByGender extends SectionColumns {
 }
 
 ConditionsByGender.need = [
-  fetchData("healthByGender", "api/join/?geo=<id>&show=year,condition,gender&required=dhs_geo_name,dhs_geo_parent_name,proportion_of_children&sumlevel=all,all,all")
+  fetchData("healthByGender", "api/join/?geo=<geoid>&show=year,condition,gender&required=dhs_geo_name,dhs_geo_parent_name,proportion_of_children&sumlevel=all,all,all")
 ];
 
 export default ConditionsByGender;

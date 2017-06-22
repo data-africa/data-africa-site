@@ -127,7 +127,7 @@ class CropsBySupply extends SectionRows {
 }
 
 CropsBySupply.need = [
-  fetchData("waterData", "api/join/?geo=<id>&sumlevel=lowest,lowest&show=crop,water_supply&required=crop_parent,harvested_area,value_of_production,crop_name")
+  fetchData("waterData", "api/join/?geo=<geoid>&sumlevel=lowest,lowest&show=crop,water_supply&required=crop_parent,harvested_area,value_of_production,crop_name")
 ];
 
 export default CropsBySupply;

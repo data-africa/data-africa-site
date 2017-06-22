@@ -33,14 +33,14 @@ class Home extends Component {
               downloadButton: false,
               groupBy: "iso3",
               height: 500,
-              label: d => d.data ? d.data.name : d.name,
+              label: d => d.name,
               legend: false,
               ocean: "transparent",
               on: {
                 "click.shape": d => {
                   if (d) {
                     selectAll(".d3plus-tooltip").remove();
-                    browserHistory.push(`/profile/${d.id}`);
+                    browserHistory.push(`/profile/${d.url_name}`);
                   }
                 }
               },
@@ -48,7 +48,10 @@ class Home extends Component {
               shapeConfig: {
                 hoverOpacity: 1,
                 Path: {
-                  fill: d => focusISO.includes(d.feature.properties.iso_a3) ? "#74E19A" : "rgba(255, 255, 255, 0.35)",
+                  fill: d => {
+                    const id = d.feature ? d.feature.properties.iso_a3 : d.iso3;
+                    return focusISO.includes(id) ? "#74E19A" : "rgba(255, 255, 255, 0.35)";
+                  },
                   stroke: "rgba(255, 255, 255, 0.75)"
                 }
               },
@@ -61,7 +64,7 @@ class Home extends Component {
                   "margin-top": 0
                 },
                 padding: "12px",
-                title: d => `${d.data ? d.data.name : d.name}<img class='link-arrow' src='/images/nav/link-arrow.svg' />`
+                title: d => `${d.name}<img class='link-arrow' src='/images/nav/link-arrow.svg' />`
               },
               topojson: "/topojson/continent.json",
               topojsonId: d => d.properties.iso_a3,
@@ -72,10 +75,10 @@ class Home extends Component {
           </div>
           <div className="tiles">
             <h3 className="title">Explore Countries</h3>
-            <span className="more-link"><img className="icon" src={ `/images/sections/dropdown-arrow.svg` } /></span>
+            <span className="more-link"><img className="icon" src={"/images/sections/dropdown-arrow.svg"} /></span>
             {
               focus.map(f =>
-                <Link key={f} className="tile" to={ `/profile/${f}` } style={{backgroundImage: `url('/images/geo/${f}.jpg')`}}>
+                <Link key={f} className="tile" to={ `/profile/${attrs[f].url_name}` } style={{backgroundImage: `url('/images/geo/${f}.jpg')`}}>
                   <span className="name">{ attrs[f].name }</span>
                 </Link>
               )

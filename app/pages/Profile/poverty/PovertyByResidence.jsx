@@ -50,7 +50,7 @@ class PovertyByResidence extends SectionColumns {
 }
 
 PovertyByResidence.need = [
-  fetchData("povertyByResidence", "api/join/?show=year,residence&geo=<id>&required=poverty_geo_name,poverty_geo_parent_name,poverty_level,hc,sevpov,povgap&sumlevel=latest_by_geo,all")
+  fetchData("povertyByResidence", "api/join/?show=year,residence&geo=<geoid>&required=poverty_geo_name,poverty_geo_parent_name,poverty_level,hc,sevpov,povgap&sumlevel=latest_by_geo,all")
 ];
 
 export default PovertyByResidence;

@@ -28,6 +28,9 @@ import Poverty from "./poverty/Poverty";
 import PovertyByGender from "./poverty/PovertyByGender";
 import PovertyByResidence from "./poverty/PovertyByResidence";
 
+import {fetchData} from "datawheel-canon";
+import {dataFold} from "d3plus-viz";
+
 const topics = [
   {
     slug: "introduction",
@@ -68,7 +71,7 @@ class GeoProfile extends Component {
   }
 
   componentDidUpdate() {
-    if (this.props.params.id !== this.state.id) this.updateBreadcrumbs();
+    if (this.props.data.geoid !== this.state.id) this.updateBreadcrumbs();
   }
 
   componentWillUnmount() {
@@ -77,10 +80,14 @@ class GeoProfile extends Component {
   }
 
   updateBreadcrumbs() {
-    const {id} = this.props.params;
+    const id = this.props.data.geoid;
     const {attrs} = this.props;
     const attr = attrs.geo[id];
     const data = [attr];
+    if (!attr) {
+      console.log("No attribute object, skipping breadcrumb update.");
+      return;
+    }
     if (attr.level !== "adm0") data.unshift(attrs.geo[`040${id.slice(3, 10)}`]);
     this.setState({id, activeSub: false, subnav: false});
     this.props.dispatch({type: "UPDATE_BREADCRUMB", data});
@@ -106,20 +113,18 @@ class GeoProfile extends Component {
   }
 
   render() {
-
-    const {id} = this.props.params;
+    const id = this.props.data.geoid;
     const {attrs, data, focus, stats} = this.props;
     const {activeSub, subnav} = this.state;
 
     const attr = attrs.geo[id];
-
     const focusISO = focus.map(f => attrs.geo[f].iso3);
     const isAdm0 = attr.level === "adm0";
     const adm0 = id.slice(5, 10);
 
     const fill = isAdm0
-               ? d => d.feature.properties.iso_a3 === attr.iso3 ? "white" : focusISO.includes(d.feature.properties.iso_a3) ? "rgba(255, 255, 255, 0.35)" : "rgba(255, 255, 255, 0.1)"
-               : d => d.feature.properties.geo === id ? "white" : focusISO.includes(d.feature.properties.iso_a3) ? "rgba(255, 255, 255, 0.35)" : "rgba(255, 255, 255, 0.1)";
+               ? d => (d.iso3 || d.properties.iso_a3) === attr.iso3 ? "white" : focusISO.includes(d.iso3 || d.properties.iso_a3) ? "rgba(255, 255, 255, 0.35)" : "rgba(255, 255, 255, 0.1)"
+               : d => (d.id || d.properties.geo) === id ? "white" : focusISO.includes(d.id || d.properties.geo) ? "rgba(255, 255, 255, 0.35)" : "rgba(255, 255, 255, 0.1)";
 
     let splashData = [];
     if (isAdm0) {
@@ -149,6 +154,7 @@ class GeoProfile extends Component {
                 data: splashData,
                 downloadButton: false,
                 groupBy: isAdm0 ? "iso3" : "id",
+                height: 400,
                 label: d => d.name,
                 legend: false,
                 ocean: "transparent",
@@ -156,7 +162,7 @@ class GeoProfile extends Component {
                   "click.shape": d => {
                     if (d && d.id !== id) {
                       selectAll(".d3plus-tooltip").remove();
-                      browserHistory.push(`/profile/${d.id}`);
+                      browserHistory.push(`/profile/${d.url_name}`);
                     }
                   }
                 },
@@ -176,10 +182,7 @@ class GeoProfile extends Component {
                     "margin-top": 0
                   },
                   padding: "12px",
-                  title: d => {
-                    while (d.data) d = d.data;
-                    return `${d.name}${ d.id === id ? "" : "<img class='link-arrow' src='/images/nav/link-arrow.svg' />" }`;
-                  }
+                  title: d => `${d.name}${ d.id === id ? "" : "<img class='link-arrow' src='/images/nav/link-arrow.svg' />" }`
                 },
                 topojson: isAdm0 ? "/topojson/continent.json" : "/topojson/cell5m/adm1.json",
                 topojsonFilter: isAdm0 ? d => d : d => adm0 === d.properties.geo.slice(5, 10),
@@ -284,6 +287,10 @@ class GeoProfile extends Component {
     );
   }
 }
+
+GeoProfile.preneed = [
+  fetchData("geoid", "attrs/geo/<id>", res => dataFold(res)[0].id)
+];
 
 GeoProfile.need = [
   fetchStats,

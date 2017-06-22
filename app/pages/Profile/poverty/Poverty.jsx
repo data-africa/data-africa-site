@@ -42,6 +42,7 @@ class Poverty extends SectionColumns {
           discrete: "y",
           groupBy: "measure",
           groupPadding: 64,
+          height: 500,
           label: d => `${DICTIONARY[d.measure]}`,
           shapeConfig: {
             fill: d => COLORS_POVERTY[d.measure],
@@ -68,7 +69,7 @@ class Poverty extends SectionColumns {
 }
 
 Poverty.need = [
-  fetchData("povertyLevelData", "api/join/?geo=<id>&show=year,poverty_level&sumlevel=latest_by_geo,all&required=hc,povgap,sevpov,num,poverty_geo_name,poverty_geo_parent_name")
+  fetchData("povertyLevelData", "api/join/?geo=<geoid>&show=year,poverty_level&sumlevel=latest_by_geo,all&required=hc,povgap,sevpov,num,poverty_geo_name,poverty_geo_parent_name")
 ];
 
 export default Poverty;

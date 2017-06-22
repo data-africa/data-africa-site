@@ -37,7 +37,7 @@ class Nav extends Component {
             {
               breadcrumb && breadcrumb.length ? breadcrumb.map((crumb, i) =>
                 i < breadcrumb.length - 1
-                ? <span key={ crumb.id }><Link className="link" to={`/profile/${crumb.id}`}>{ crumb.name }</Link><span className="divider">/</span></span>
+                ? <span key={ crumb.id }><Link className="link" to={`/profile/${crumb.url_name}`}>{ crumb.name }</Link><span className="divider">/</span></span>
                 : <span key={ crumb.id } className="profile link">{ crumb.name }</span>
               ) : null
             }
