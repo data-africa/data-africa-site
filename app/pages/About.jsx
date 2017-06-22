@@ -39,9 +39,14 @@ class About extends Component {
     window.addEventListener("scroll", this.handleScroll.bind(this));
   }
 
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.handleScroll.bind(this));
+  }
+
   handleScroll() {
+    if (!this.sublinks) return;
     const {activeSub, subnav} = this.state;
-    const newSub = this.refs.sublinks.getBoundingClientRect().top <= 0;
+    const newSub = this.sublinks.getBoundingClientRect().top <= 0;
     let newActive = false;
     for (let i = 0; i < topics.length; i++) {
       const top = document.getElementById(topics[i].slug).getBoundingClientRect().top;
@@ -66,7 +71,7 @@ class About extends Component {
                 <div className="title">About</div>
             </div>
           </div>
-          <div ref="sublinks" className="sublinks">
+          <div ref={c => this.sublinks = c} className="sublinks">
             {
               topics.map(topic =>
                 <AnchorLink key={ topic.slug } className="sublink" to={ topic.slug }>
