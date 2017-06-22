@@ -12,7 +12,8 @@ export function childHealth(profile, health, blankFallback = false) {
   const maxYear = Math.max(...health.map(x => x.year));
   health = health.filter(x => x.year === maxYear);
   const first = health && health.length > 0 ? health[0] : null;
-  const place = formatPlaceName(first, "health", profile.level);
+  const level = first.geo && first.geo !== profile.geo ? "adm0" : profile.level;
+  const place = formatPlaceName(first, "health", level);
   const items = health.map(
     (row, idx) => `${idx === health.length - 1 ? "and " : ""}${FORMATTERS.shareWhole(row.proportion_of_children)} were severely ${row.condition}`);
   if (first) {
@@ -83,7 +84,8 @@ export function childHealthByMode(profile, healthData, mode = "gender") {
     }
 
     const sameCondition = sevBCond.condition === sevACond.condition;
-    const place = formatPlaceName(first, "health", profile.level);
+    const level = first.geo && first.geo !== profile.geo ? "adm0" : profile.level;
+    const place = formatPlaceName(first, "health", level);
 
     if (sameCondition) {
       return <p>The health condition most afflicting {categoryA} and {categoryB} children

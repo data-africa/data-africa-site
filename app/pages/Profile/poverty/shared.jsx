@@ -15,7 +15,8 @@ export function povertyContent(profile, poverty) {
     return <span></span>;
   }
   const items = poverty.map(row => `${VARIABLES.totpop(row.num)} people living below ${DICTIONARY[row.poverty_level]}`);
-  const place = formatPlaceName(first, "poverty", profile.level);
+  const level = first.geo && first.geo !== profile.geo ? "adm0" : profile.level;
+  const place = formatPlaceName(first, "poverty", level);
   return <p>As of {first.year}, there were {items.join(" and ")} in {place}.</p>;
 }
 
@@ -33,7 +34,8 @@ export function povertyTextByMode(profile, povertyData, povLevel, mode = "gender
   const [categoryA, categoryB] = isGender ? ["male", "female"] : ["urban", "rural"];
 
   const first = povertyData[0];
-  const place = formatPlaceName(first, "poverty", profile.level);
+  const level = first.geo && first.geo !== profile.geo ? "adm0" : profile.level;
+  const place = formatPlaceName(first, "poverty", level);
   let modeA = povertyData.filter(x => x[mode] === categoryA && povLevel === x.poverty_level);
   let modeB = povertyData.filter(x => x[mode] === categoryB && povLevel === x.poverty_level);
   modeA = modeA.length > 0 ? modeA[0] : null;
@@ -56,6 +58,8 @@ export function povertyTextByMode(profile, povertyData, povLevel, mode = "gender
 
 export function povertyVizByMode(profile, vizData, povertyLevel, mode, embed) {
   const colorMap = mode === "residence" ? COLORS_RESIDENCE : COLORS_GENDER;
+  const first = vizData[0];
+  const level = first.geo && first.geo !== profile.geo ? "adm0" : profile.level;
   return <BarChart config={{
     data: vizData,
     groupBy: [mode, "poverty_level"],
@@ -67,7 +71,7 @@ export function povertyVizByMode(profile, vizData, povertyLevel, mode, embed) {
       label: false
     },
     tooltipConfig: {
-      body: d => `${ d.poverty_geo_name !== profile.name ? `<span class="d3plus-body-sub">Based on data from ${formatPlaceName(d, "poverty", profile.level)}</span>` : "" }${tooltipBody.bind(["year", "poverty_prop"])(d)}`
+      body: d => `${ d.poverty_geo_name !== profile.name ? `<span class="d3plus-body-sub">Based on data from ${formatPlaceName(d, "poverty", level)}</span>` : "" }${tooltipBody.bind(["year", "poverty_prop"])(d)}`
     },
     x: "measure",
     xConfig: {
@@ -87,9 +91,11 @@ export function povertyVizByMode(profile, vizData, povertyLevel, mode, embed) {
 export function makeGeoSelector(profile, povertyData, targetGeo, onChange) {
   // Get a list of the unique places in the dataset
   const places = [... new Set(povertyData.map(x => x.poverty_geo))];
+  const first = povertyData[0];
+  const level = first.geo && first.geo !== profile.geo ? "adm0" : profile.level;
   const opts = places.map(p => {
     const row = povertyData.filter(x => x.poverty_geo === p)[0];
-    return {poverty_prop: p, label: formatPlaceName(row, "poverty", profile.level)};
+    return {poverty_prop: p, label: formatPlaceName(row, "poverty", level)};
   });
   // If there is more than one place, insert a place dropdown
   const selector = places && places.length > 1 ? <Selector options={opts} callback={onChange}/> : "";

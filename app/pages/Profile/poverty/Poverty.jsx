@@ -24,6 +24,7 @@ class Poverty extends SectionColumns {
   render() {
     const {embed, profile} = this.props;
     const {povertyLevelData} = this.context.data;
+    const level = povertyLevelData[0].geo && povertyLevelData[0].geo !== profile.geo ? "adm0" : profile.level;
     const targetGeo = this.state.targetGeo;
     const {filteredData, vizData, selector} = makeGeoSelector(profile, povertyLevelData,
                                                               targetGeo, this.onChangeGeo);
@@ -49,7 +50,7 @@ class Poverty extends SectionColumns {
             label: false
           },
           tooltipConfig: {
-            body: d => `${ d.poverty_geo_name !== profile.name ? `<span class="d3plus-body-sub">Based on data from ${formatPlaceName(d, "poverty", profile.level)}</span>` : "" }${tooltipBody.bind(["year", "poverty_prop"])(d)}`
+            body: d => `${ d.poverty_geo_name !== profile.name ? `<span class="d3plus-body-sub">Based on data from ${formatPlaceName(d, "poverty", level)}</span>` : "" }${tooltipBody.bind(["year", "poverty_prop"])(d)}`
           },
           x: "poverty_prop",
           xConfig: {

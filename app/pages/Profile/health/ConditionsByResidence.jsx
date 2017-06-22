@@ -15,6 +15,7 @@ class ConditionsByResidence extends SectionColumns {
   render() {
     const {embed, profile} = this.props;
     const {healthByResidence} = this.context.data;
+    const level = healthByResidence[0].geo && healthByResidence[0].geo !== profile.geo ? "adm0" : profile.level;
 
     return (
       <SectionColumns>
@@ -39,7 +40,7 @@ class ConditionsByResidence extends SectionColumns {
           stackOrder: ["urban_severe", "urban_moderate", "rural_severe", "rural_moderate"],
           time: "year",
           tooltipConfig: {
-            body: d => `${ d.dhs_geo_name !== profile.name ? `<span class="d3plus-body-sub">Based on data from ${formatPlaceName(d, "health", profile.level)}</span>` : "" }${tooltipBody.bind(["year", "proportion_of_children"])(d)}`
+            body: d => `${ d.dhs_geo_name !== profile.name ? `<span class="d3plus-body-sub">Based on data from ${formatPlaceName(d, "health", level)}</span>` : "" }${tooltipBody.bind(["year", "proportion_of_children"])(d)}`
           },
           x: "proportion_of_children",
           xConfig: {
