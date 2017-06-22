@@ -49,6 +49,7 @@ class CropsBySupply extends SectionRows {
         <div className="small-height">
         <SectionRows>
             <BarChart config={{
+              barPadding: 0,
               data: waterData.sort(a => a.water_supply === "rainfed" ? -1 : 1),
               discrete: "y",
               groupBy: ["water_supply"],

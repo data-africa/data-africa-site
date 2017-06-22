@@ -85,7 +85,7 @@ class RainfallBars extends SectionRows {
               x: variable,
               xConfig: {
                 tickFormat: d => VARIABLES[variable](d),
-                title: "Rainfall"
+                title: variable === "rainfall_awa_mm" ? "Average Annual Rainfall" : "Rainfall Variability"
               },
               y: "geo_name",
               yConfig: {

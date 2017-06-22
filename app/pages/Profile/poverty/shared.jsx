@@ -78,7 +78,7 @@ export function povertyVizByMode(profile, vizData, povertyLevel, mode) {
     yConfig: {
       domain: [0, 1],
       tickFormat: FORMATTERS.shareWhole,
-      title: "Proportion of Poverty"
+      title: "Proportion of Poor Population"
     }
   }}/>;
 

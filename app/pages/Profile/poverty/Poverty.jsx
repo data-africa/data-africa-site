@@ -55,7 +55,7 @@ class Poverty extends SectionColumns {
           xConfig: {
             domain: [0, 1],
             tickFormat: FORMATTERS.shareWhole,
-            title: "Proportion of Poverty"
+            title: "Proportion of Poor Population"
           },
           y: "poverty_level",
           yConfig: {

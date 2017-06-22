@@ -96,7 +96,7 @@ class About extends Component {
           <TopicTitle slug="background">Background</TopicTitle>
           <p className="paragraph">
             Data Africa is an open-source platform designed to provide information
-            on key themes such as: health, agriculture, climate, and poverty across Africa. The goal of the site is to present to a wide audience easy to understand visual narratives related to the key themes.
+            on key themes such as: health, agriculture, climate, and poverty across Africa. The goal of the site is to present these themes to a wide audience as easily understood visual narratives.
           </p>
           <p className="paragraph">
             The platform is initially focused around state and province level data for 13 countries, including:

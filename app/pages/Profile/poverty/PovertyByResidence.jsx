@@ -38,7 +38,7 @@ class PovertyByResidence extends SectionColumns {
             <SectionTitle>Poverty Measures by Residence</SectionTitle>
 
 
-              <span className="dropdown-title">Wages</span>
+              <span className="dropdown-title">Disposable Income</span>
 
               {selector}
               <Selector options={opts} callback={this.onChange} selected={povertyLevel} />
