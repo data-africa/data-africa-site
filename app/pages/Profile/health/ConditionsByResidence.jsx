@@ -13,7 +13,7 @@ import {fetchData} from "datawheel-canon";
 class ConditionsByResidence extends SectionColumns {
 
   render() {
-    const {profile} = this.props;
+    const {embed, profile} = this.props;
     const {healthByResidence} = this.context.data;
 
     return (
@@ -28,7 +28,7 @@ class ConditionsByResidence extends SectionColumns {
           discrete: "y",
           groupBy: ["residence", "severity"],
           groupPadding: 32,
-          height: 500,
+          height: embed ? undefined : 500,
           label: d => d.condition instanceof Array ? `${titleCase(d.severity)} ${titleCase(d.residence)}` : `${titleCase(d.severity)}ly ${titleCase(d.condition)} Children in ${titleCase(d.residence)} Areas`,
           shapeConfig: {
             fill: d => COLORS_RESIDENCE[`${d.residence}_${d.severity}`],

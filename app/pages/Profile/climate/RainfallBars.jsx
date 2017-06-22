@@ -25,7 +25,7 @@ class RainfallBars extends SectionRows {
   }
 
   renderViz() {
-    const {attrs, focus, profile} = this.props;
+    const {attrs, embed, focus, profile} = this.props;
     const {variable} = this.state;
     const sumlevel = profile.id.slice(0, 3);
     const adm0 = profile.id.slice(5, 10);
@@ -38,8 +38,7 @@ class RainfallBars extends SectionRows {
 
     const myId = isAdm0 ? profile.iso3 : profile.id;
 
-    return <div className="small-height">
-            <SectionColumns>
+    return <SectionColumns>
 
               <Geomap config={{
                 colorScale: variable,
@@ -51,7 +50,7 @@ class RainfallBars extends SectionRows {
                 colorScalePosition: "left",
                 data: apiUrl,
                 groupBy: d => d.data ? d.id : isAdm0 ? attrs[d.geo] ? attrs[d.geo].iso3 : d.geo : d.geo,
-                height: 400,
+                height: embed ? undefined : 400,
                 label: d => d.data ? d.data.geo_name : d.geo_name,
                 ocean: "transparent",
                 padding: 0,
@@ -76,7 +75,7 @@ class RainfallBars extends SectionRows {
               discrete: "y",
               groupBy: "geo_name",
               groupPadding: 4,
-              height: 450,
+              height: embed ? undefined : 450,
               legend: false,
               shapeConfig: {label: false},
               tooltipConfig: {
@@ -95,8 +94,7 @@ class RainfallBars extends SectionRows {
               },
               ySort: (a, b) => a[variable] - b[variable]
             }} />
-          </SectionColumns>
-        </div>;
+          </SectionColumns>;
 
   }
 
@@ -120,7 +118,7 @@ class RainfallBars extends SectionRows {
 
 
       <SectionRows>
-        <div className="rainfall-chart">
+        <div className="noFlex">
           <article className="section-text">
               <div className="section-head">
                 <SectionTitle>Rainfall by Location</SectionTitle>
@@ -131,9 +129,7 @@ class RainfallBars extends SectionRows {
               </div>
           </article>
         </div>
-        <SectionColumns>
-          {this.renderViz()}
-        </SectionColumns>
+        { this.renderViz() }
 
       </SectionRows>
 

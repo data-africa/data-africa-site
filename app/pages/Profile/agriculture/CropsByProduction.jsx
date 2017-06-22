@@ -14,7 +14,7 @@ class CropsByProduction extends SectionColumns {
 
   render() {
 
-    const {profile} = this.props;
+    const {embed, profile} = this.props;
     const data = this.context.data.value_of_production;
     const total = sum(data, d => d.value_of_production);
 
@@ -28,7 +28,7 @@ class CropsByProduction extends SectionColumns {
         <Treemap config={{
           data,
           groupBy: ["crop_parent", "crop_name"],
-          height: 450,
+          height: embed ? undefined : 450,
           label: d => d.crop_name instanceof Array ? d.crop_parent : d.crop_name,
           shapeConfig: {
             fill: d => COLORS_CROP[d.crop_parent]

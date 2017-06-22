@@ -1,3 +1,6 @@
+/* This needs to be added to canon! */
+.columns > *, .rows > * { flex: 1; }
+.columns > .noFlex, .rows > .noFlex { flex: none; }
 
 .profile > .section-container {
   background-color: #f2f2f2;
@@ -79,8 +82,8 @@
 		  margin: 16px 16px 16px 0px;
 		  padding-top: 0px;
 		  width: 500px;
-		}		
-	
+		}
+
 		& .dropdown {
 		  appearance: none;
 		  background: white;
@@ -101,7 +104,7 @@
 		  &:focus {
 		  	outline:0;
 		  }
-		}	
+		}
 
 	  & .section-text {
 		  font-size: 18px;
@@ -122,55 +125,14 @@
 
 		}
 
-		& .rainfall-chart {
-
-			& .section-text {
-				margin-top:16px;
-				width: 100%;
-
-			  & .section-head {
-			  	display: block;
-			  	float: left;
-			  	width: 300px;
-
-			  	& .section-title {
-			  		width: auto;
-			  	}
-
-			  }
-			  & .section-stat {
-			  	display: block;
-			  	float: right;
-			  	margin: 20px 16px 16px;
-			  	width: 500px;
-
-			  	& p {
-			  		display: block;
-			  		float: left;
-			  		width: auto;
-			  	}
-			  }
-
-			}
-
-		}
-
 		& .viz {
-			margin:16px 0px;
+			margin: 16px;
 
 			& .d3plus-Button {
 				margin: 0px 0px 4px !important;
 				padding-top: 0px !important;
 			}
 		}
-	  	
-	  & .small-height {
-	  	width: 100%;
 
-	  	& .viz {
-	  		min-height: auto;
-	  		width: 100%;
-	  	}
-	  }
 	}
 }

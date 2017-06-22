@@ -22,7 +22,7 @@ class Poverty extends SectionColumns {
   }
 
   render() {
-    const {profile} = this.props;
+    const {embed, profile} = this.props;
     const {povertyLevelData} = this.context.data;
     const targetGeo = this.state.targetGeo;
     const {filteredData, vizData, selector} = makeGeoSelector(profile, povertyLevelData,
@@ -42,7 +42,7 @@ class Poverty extends SectionColumns {
           discrete: "y",
           groupBy: "measure",
           groupPadding: 64,
-          height: 500,
+          height: embed ? undefined : 500,
           label: d => `${DICTIONARY[d.measure]}`,
           shapeConfig: {
             fill: d => COLORS_POVERTY[d.measure],

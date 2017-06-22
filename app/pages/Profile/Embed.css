@@ -1,4 +1,26 @@
 .container.embed {
   background-color: transparent;
   height: 100vh;
+  overflow: hidden;
+
+  & > .section {
+    box-sizing: border-box;
+    height: 100vh;
+    padding: 0;
+
+    & .columns, & .rows {
+      box-sizing: border-box;
+      height: 100%;
+    }
+
+    & .section-text {
+
+      & .section-title {
+        margin: 16px 0;
+      }
+
+    }
+
+  }
+
 }

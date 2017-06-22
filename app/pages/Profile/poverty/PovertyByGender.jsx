@@ -25,12 +25,12 @@ class PovertyByGender extends SectionColumns {
 
   render() {
     const {povertyByGender} = this.context.data;
-    const {profile} = this.props;
+    const {embed, profile} = this.props;
     const povertyLevel = this.state.povertyLevel;
     const targetGeo = this.state.targetGeo;
     const {filteredData, vizData, selector} = makeGeoSelector(profile, povertyByGender.filter(x => x.poverty_level === povertyLevel),
                                                           targetGeo, this.onChangeGeo);
-    const viz = povertyVizByMode(profile, vizData, povertyLevel, "gender");
+    const viz = povertyVizByMode(profile, vizData, povertyLevel, "gender", embed);
     const opts = ["ppp1", "ppp2"];
     return <SectionColumns>
             <article className="section-text">
@@ -42,7 +42,7 @@ class PovertyByGender extends SectionColumns {
 
               {selector}
               <Selector options={opts} callback={this.onChange} selected={povertyLevel} />
-              {povertyTextByMode(profile, filteredData, povertyLevel, "gender")}
+              {povertyTextByMode(profile, filteredData, povertyLevel, "gender", embed)}
             </article>
             {viz}
         </SectionColumns>;

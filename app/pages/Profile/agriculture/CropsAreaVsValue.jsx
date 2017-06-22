@@ -29,7 +29,7 @@ class CropsAreaVsValue extends SectionColumns {
 
   render() {
 
-    const {profile} = this.props;
+    const {embed, profile} = this.props;
     const {logScale} = this.state;
 
     const data = this.context.data.harvested_area.map(x => ({...x,
@@ -62,7 +62,7 @@ class CropsAreaVsValue extends SectionColumns {
         <Plot config={{
           controls: this.logControls(),
           data: crops,
-          height: 450,
+          height: embed ? undefined : 450,
           label: d => d.crop_name instanceof Array ? d.crop_parent : d.crop_name,
           legend: false,
           groupBy: ["crop_parent", "crop_name"],

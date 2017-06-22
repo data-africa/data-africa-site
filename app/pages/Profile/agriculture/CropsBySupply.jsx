@@ -25,7 +25,7 @@ class CropsBySupply extends SectionRows {
 
   render() {
 
-    const {profile} = this.props;
+    const {embed, profile} = this.props;
     const {metric} = this.state;
     const {waterData} = this.context.data;
     const irrData = waterData.filter(x => x.water_supply === "irrigated");
@@ -46,8 +46,8 @@ class CropsBySupply extends SectionRows {
           {FORMATTERS.shareWhole(pctRainfall)} percent of crops by {metricLabel} in {profile.name} are
           rainfed, whereas {FORMATTERS.shareWhole(1 - pctRainfall)} percent as irrigated.
         </article>
-        <div className="small-height">
         <SectionRows>
+          <div className="noFlex">
             <BarChart config={{
               barPadding: 0,
               data: waterData.sort(a => a.water_supply === "rainfed" ? -1 : 1),
@@ -84,44 +84,41 @@ class CropsBySupply extends SectionRows {
                 title: ""
               }
             }} />
-            <div className="margin-right">
-            <SectionColumns>
-                <Treemap config={{
-                  data: rainData,
-                  groupBy: ["crop_parent", "crop_name"],
-                  height: 250,
-                  label: d => d.crop_name instanceof Array ? d.crop_parent : d.crop_name,
-                  legend: false,
-                  shapeConfig: {
-                    fill: d => COLORS_CROP[d.crop_parent]
-                  },
-                  tooltipConfig: {
-                    body: tooltipBody.bind([metric, d => `<span class="d3plus-body-key">Share:</span> <span class="d3plus-body-value">${ FORMATTERS.share(d[metric] / rainTotal) }</span>`])
-                  },
-                  sum: d => d[metric],
-                  title: `Rainfed Crops (${FORMATTERS.shareWhole(pctRainfall)} of crops)`
-                }} />
+          </div>
+          <SectionColumns>
+            <Treemap config={{
+              data: rainData,
+              groupBy: ["crop_parent", "crop_name"],
+              height: embed ? undefined : 250,
+              label: d => d.crop_name instanceof Array ? d.crop_parent : d.crop_name,
+              legend: false,
+              shapeConfig: {
+                fill: d => COLORS_CROP[d.crop_parent]
+              },
+              tooltipConfig: {
+                body: tooltipBody.bind([metric, d => `<span class="d3plus-body-key">Share:</span> <span class="d3plus-body-value">${ FORMATTERS.share(d[metric] / rainTotal) }</span>`])
+              },
+              sum: d => d[metric],
+              title: `Rainfed Crops (${FORMATTERS.shareWhole(pctRainfall)} of crops)`
+            }} />
 
-                <Treemap config={{
-                  data: irrData,
-                  groupBy: ["crop_parent", "crop_name"],
-                  height: 250,
-                  label: d => d.crop_name instanceof Array ? d.crop_parent : d.crop_name,
-                  legend: false,
-                  shapeConfig: {
-                    fill: d => COLORS_CROP[d.crop_parent]
-                  },
-                  tooltipConfig: {
-                    body: tooltipBody.bind([metric, d => `<span class="d3plus-body-key">Share:</span> <span class="d3plus-body-value">${ FORMATTERS.share(d[metric] / irrTotal) }</span>`])
-                  },
-                  sum: d => d[metric],
-                  title: `Irrigated Crops (${FORMATTERS.shareWhole(1 - pctRainfall)} of crops)`
-                }} />
-
-            </SectionColumns>
-            </div>
-          </SectionRows>
-        </div>
+            <Treemap config={{
+              data: irrData,
+              groupBy: ["crop_parent", "crop_name"],
+              height: embed ? undefined : 250,
+              label: d => d.crop_name instanceof Array ? d.crop_parent : d.crop_name,
+              legend: false,
+              shapeConfig: {
+                fill: d => COLORS_CROP[d.crop_parent]
+              },
+              tooltipConfig: {
+                body: tooltipBody.bind([metric, d => `<span class="d3plus-body-key">Share:</span> <span class="d3plus-body-value">${ FORMATTERS.share(d[metric] / irrTotal) }</span>`])
+              },
+              sum: d => d[metric],
+              title: `Irrigated Crops (${FORMATTERS.shareWhole(1 - pctRainfall)} of crops)`
+            }} />
+          </SectionColumns>
+        </SectionRows>
       </SectionColumns>
     );
   }

@@ -54,13 +54,13 @@ export function povertyTextByMode(profile, povertyData, povLevel, mode = "gender
   }
 }
 
-export function povertyVizByMode(profile, vizData, povertyLevel, mode) {
+export function povertyVizByMode(profile, vizData, povertyLevel, mode, embed) {
   const colorMap = mode === "residence" ? COLORS_RESIDENCE : COLORS_GENDER;
   return <BarChart config={{
     data: vizData,
     groupBy: [mode, "poverty_level"],
     groupPadding: 100,
-    height: 500,
+    height: embed ? undefined : 500,
     label: d => mode === "gender" ? formatGender(d[mode], true) : titleCase(d[mode]),
     shapeConfig: {
       fill: d => colorMap[d[mode]],

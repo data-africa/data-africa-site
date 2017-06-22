@@ -13,7 +13,7 @@ import {childHealthByMode} from "pages/Profile/health/shared";
 class ConditionsByGender extends SectionColumns {
 
   render() {
-    const {profile} = this.props;
+    const {embed, profile} = this.props;
     const {healthByGender} = this.context.data;
 
     return (
@@ -28,7 +28,7 @@ class ConditionsByGender extends SectionColumns {
           discrete: "y",
           groupBy: ["gender", "severity"],
           groupPadding: 32,
-          height: 500,
+          height: embed ? undefined : 500,
           label: d => d.condition instanceof Array ? `${titleCase(d.gender)} ${titleCase(d.severity)}` : `${titleCase(d.severity)}ly ${titleCase(d.condition)} ${titleCase(d.gender)}s`,
           shapeConfig: {
             fill: d => COLORS_GENDER[`${d.gender}_${d.severity}`],
