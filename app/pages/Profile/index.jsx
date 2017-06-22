@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import Helmet from "react-helmet";
 import {connect} from "react-redux";
 import {browserHistory} from "react-router";
 import {fetchStats} from "actions/profile";
@@ -8,6 +9,8 @@ import "./intro.css";
 import "./topics.css";
 import "./sections.css";
 import Nav from "components/Nav";
+
+import header from "../../helmet.js";
 
 import {Geomap} from "d3plus-react";
 import {selectAll} from "d3-selection";
@@ -118,6 +121,7 @@ class GeoProfile extends Component {
     const {activeSub, subnav} = this.state;
 
     const attr = attrs.geo[id];
+    if (!attr) return null;
     const focusISO = focus.map(f => attrs.geo[f].iso3);
     const isAdm0 = attr.level === "adm0";
     const adm0 = id.slice(5, 10);
@@ -141,6 +145,7 @@ class GeoProfile extends Component {
     return (
       <CanonComponent data={data} d3plus={d3plus}>
         <div className="profile">
+          <Helmet title={ `${ header.title } - ${ attr.name }` } />
 
           <div className="intro">
 

@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import Helmet from "react-helmet";
 import {connect} from "react-redux";
 import {browserHistory} from "react-router";
 import d3plus, {tooltipBody} from "helpers/d3plus";
@@ -9,6 +10,8 @@ import Selector from "components/Selector";
 import {API} from "helpers/consts.js";
 import axios from "axios";
 import "./Map.css";
+
+import header from "../helmet.js";
 
 import {CanonComponent} from "datawheel-canon";
 import {extent, mean} from "d3-array";
@@ -225,6 +228,7 @@ class Map extends Component {
     return (
       <CanonComponent d3plus={d3plus}>
         <div className="map">
+          <Helmet title={ `${ header.title } - ${ DICTIONARY[column] } by ${ geo === "adm0" ? "Country" : "State/Province" }` } />
           <div className="floater">
 
             <div className="controls">

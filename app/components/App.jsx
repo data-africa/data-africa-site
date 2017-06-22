@@ -17,7 +17,7 @@ export default class App extends Component {
       <div className={ slug ? "container embed" : "container" }>
         { slug ? null : <Nav dark={ dark } /> }
         { this.props.children }
-        { slug || dark ? null : <Footer dark={ this.props.params.id === undefined } /> }
+        { slug || dark ? null : <Footer dark={ this.props.location.pathname === "/" } /> }
       </div>
     );
 

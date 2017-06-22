@@ -1,5 +1,4 @@
 .about {
-  margin-bottom: 40px;
 
   & .topic-title {
     background: transparent;
@@ -20,7 +19,7 @@
       color: black;
       font-weight: 600;
       padding-top: 100px;
-    
+
       &:hover {
         color: black;
       }
@@ -44,7 +43,7 @@
     & a {
       color: var(--light);
       font-weight: 400;
-      
+
       &:hover {
         color: var(--accent);
       }

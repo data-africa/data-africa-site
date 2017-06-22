@@ -1,10 +1,13 @@
 import React, {Component} from "react";
+import Helmet from "react-helmet";
 import {AnchorLink, TopicTitle} from "datawheel-canon";
 import Nav from "components/Nav";
 import "./About.css";
 
 import {GLOSSARY} from "helpers/glossary";
 import {titleCase} from "d3plus-text";
+
+import header from "../helmet.js";
 
 const topics = [
   {
@@ -59,8 +62,10 @@ class About extends Component {
 
   render() {
     const {activeSub, subnav} = this.state;
+    const title = activeSub ? topics.filter(t => t.slug === activeSub)[0].title : "About";
     return (
       <div className="about">
+        <Helmet title={ `${header.title} - ${title}` } />
         <div className="intro">
           <div className="splash">
             <div className="image"></div>

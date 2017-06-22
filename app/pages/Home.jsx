@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import Helmet from "react-helmet";
 import {connect} from "react-redux";
 import {browserHistory, Link} from "react-router";
 import Search from "components/Search";
@@ -8,6 +9,8 @@ import "./Home.css";
 import d3plus from "helpers/d3plus";
 
 import {Geomap} from "d3plus-react";
+
+import header from "../helmet.js";
 
 class Home extends Component {
 
@@ -19,6 +22,7 @@ class Home extends Component {
     return (
       <CanonComponent d3plus={d3plus}>
         <div className="home">
+          <Helmet title={ header.title } />
           <div className="splash">
             <div className="image"></div>
             <div className="gradient"></div>
