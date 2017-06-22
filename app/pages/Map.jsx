@@ -54,7 +54,7 @@ class Map extends Component {
     let required = mapParams.variable === "geo" ? column : `${[mapParams.variable, mapParams.variableName].join(",")},${column}`;
     if (column === "rainfall_awa_mm") required += ",start_year";
     const show = mapParams.variable;
-    const url = `${API}api/join/?show=year,${show}&sumlevel=latest_by_geo,${geo}&required=${required}&order=${column}&sort=desc&display_names=true`;
+    const url = `${API}api/join/?show=year,${show}&sumlevel=latest_by_geo,${geo}&required=${required},url_name&order=${column}&sort=desc&display_names=true`;
 
     axios.get(url).then(result => {
       const data = fold(result.data);
@@ -157,11 +157,10 @@ class Map extends Component {
     const {vars} = this.props;
     const {geo, column, data, loaded} = this.state;
     const mapParams = this.datasetPrep(geo, column);
-    const levels = vars ? vars.filter(v => v.column === column)[0].levels[0] : {};
+    const levels = vars && vars.length ? vars.filter(v => v.column === column)[0].levels[0] : {};
     const geoLevels = levels.geo ? levels.geo.filter(g => g !== "all") : [];
 
     const years = extent(data.map(d => d.year).concat(data.map(d => d.start_year || d.year)));
-    console.log(years);
 
     const map = <Geomap config={{
       colorScale: column,
@@ -196,9 +195,9 @@ class Map extends Component {
       legend: null,
       on: {
         "click.shape": d => {
-          if (d && d.geo) {
+          if (d && d.url_name) {
             selectAll(".d3plus-tooltip").remove();
-            browserHistory.push(`/profile/${d.geo}`);
+            browserHistory.push(`/profile/${d.url_name}`);
           }
         }
       },

@@ -71,7 +71,6 @@ class GeoProfile extends Component {
   }
 
   componentDidUpdate() {
-    console.log(this.state.id, this.props.data.geoid, "PARAMS!!!");
     if (this.props.data.geoid !== this.state.id) this.updateBreadcrumbs();
   }
 
@@ -124,8 +123,8 @@ class GeoProfile extends Component {
     const adm0 = id.slice(5, 10);
 
     const fill = isAdm0
-               ? d => d.feature.properties.iso_a3 === attr.iso3 ? "white" : focusISO.includes(d.feature.properties.iso_a3) ? "rgba(255, 255, 255, 0.35)" : "rgba(255, 255, 255, 0.1)"
-               : d => d.feature.properties.geo === id ? "white" : focusISO.includes(d.feature.properties.iso_a3) ? "rgba(255, 255, 255, 0.35)" : "rgba(255, 255, 255, 0.1)";
+               ? d => (d.iso3 || d.properties.iso_a3) === attr.iso3 ? "white" : focusISO.includes(d.iso3 || d.properties.iso_a3) ? "rgba(255, 255, 255, 0.35)" : "rgba(255, 255, 255, 0.1)"
+               : d => (d.id || d.properties.geo) === id ? "white" : focusISO.includes(d.id || d.properties.geo) ? "rgba(255, 255, 255, 0.35)" : "rgba(255, 255, 255, 0.1)";
 
     let splashData = [];
     if (isAdm0) {
@@ -183,10 +182,7 @@ class GeoProfile extends Component {
                     "margin-top": 0
                   },
                   padding: "12px",
-                  title: d => {
-                    while (d.data) d = d.data;
-                    return `${d.name}${ d.id === id ? "" : "<img class='link-arrow' src='/images/nav/link-arrow.svg' />" }`;
-                  }
+                  title: d => `${d.name}${ d.id === id ? "" : "<img class='link-arrow' src='/images/nav/link-arrow.svg' />" }`
                 },
                 topojson: isAdm0 ? "/topojson/continent.json" : "/topojson/cell5m/adm1.json",
                 topojsonFilter: isAdm0 ? d => d : d => adm0 === d.properties.geo.slice(5, 10),
