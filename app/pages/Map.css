@@ -60,8 +60,9 @@
             }
 
             &.value {
-              color: #4A4A4A;
-              font-weight: 400;
+              color: #999999;
+              font-family: "Roboto Mono";
+              font-weight: 500;
               text-align: right;
               white-space: nowrap;
             }

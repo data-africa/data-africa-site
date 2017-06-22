@@ -1,7 +1,6 @@
 module.exports = {
   link: [
-    {rel: "icon", href: "/images/favicon.ico?v=2"},
-    {rel: "stylesheet", href: "https://fonts.googleapis.com/css?family=Work+Sans:300,400,600"}
+    {rel: "icon", href: "/images/favicon.ico?v=2"}
   ],
   meta: [
     {charset: "utf-8"},
