@@ -43,8 +43,19 @@ class CropsBySupply extends SectionRows {
         <article className="section-text">
           <SectionTitle>Water Supply for Crops</SectionTitle>
           <Selector options={opts} callback={this.onChange}/>
-          {FORMATTERS.shareWhole(pctRainfall)} percent of crops by {metricLabel} in {profile.name} are
-          rainfed, whereas {FORMATTERS.shareWhole(1 - pctRainfall)} percent as irrigated.
+          <div className="stat-flex">
+            <div className="stat">
+              <div className="stat-value">{ FORMATTERS.shareWhole(pctRainfall) }</div>
+              <div className="stat-label">Rainfed</div>
+            </div>
+            <div className="stat">
+              <div className="stat-value">{ FORMATTERS.shareWhole(1 - pctRainfall) }</div>
+              <div className="stat-label">Irrigated</div>
+            </div>
+          </div>
+          <p>
+            In { waterData[0].year }, <strong>{FORMATTERS.shareWhole(pctRainfall)}</strong> of the crops produced in {profile.name} by {metricLabel} were rainfed, compared to <strong>{FORMATTERS.shareWhole(1 - pctRainfall)}</strong> irrigated.
+          </p>
         </article>
         <SectionRows>
           <div className="noFlex">

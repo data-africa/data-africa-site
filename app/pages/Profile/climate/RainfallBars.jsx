@@ -113,21 +113,26 @@ class RainfallBars extends SectionRows {
     const desc = isRainfall ? `${res.geo_name} had average annual rainfall of ${VARIABLES[variable](res[variable])}`
                   : `${VARIABLES[variable](res[variable])} of cropland area in ${res.geo_name} had
                      rainfall variability greater than 20%`;
-    const sentence = !hasData ? `Showing ${title.toLowerCase()} data across ${profile.parent_name}` : `From ${res.start_year} to ${res.year} ${desc} across a total cropland area of ${VARIABLES.harvested_area(res.cropland_total_ha)}`;
+    const sentence = !hasData ? `Showing ${title.toLowerCase()} data across ${profile.parent_name}.` : `From ${res.start_year} to ${res.year}, ${desc} across a total cropland area of ${VARIABLES.harvested_area(res.cropland_total_ha)}.`;
     return (
 
 
       <SectionRows>
         <div className="noFlex">
-          <article className="section-text">
-              <div className="section-head">
-                <SectionTitle>Rainfall by Location</SectionTitle>
-                <Selector options={opts} callback={this.onChange}/>
-              </div>
-              <div className="section-stat">
-                <p>{!isRainfall ? `Rainfall variability is ${GLOSSARY.findTerm("rainfall variability").toLowerCase()} ` : null}{sentence}.</p>
-              </div>
-          </article>
+          <SectionColumns>
+            <div className="section-text">
+              <SectionTitle>Rainfall by Location</SectionTitle>
+              <Selector options={opts} callback={this.onChange}/>
+            </div>
+            <div className="section-text">
+              <p>
+                { !isRainfall
+                ? `Rainfall variability is ${GLOSSARY.findTerm("rainfall variability").toLowerCase()} `
+                : null}
+                {sentence}
+              </p>
+            </div>
+          </SectionColumns>
         </div>
         { this.renderViz() }
 

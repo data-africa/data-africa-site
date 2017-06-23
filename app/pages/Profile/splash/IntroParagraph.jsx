@@ -107,8 +107,8 @@ class IntroParagraph extends Section {
           <div className="topic-name topic-intro">About</div>
           {this.population(profile, popData)}
           {this.crops(profile, crops)}
-          {childHealth(profile, dhsHealth, true)}
-          {povertyContent(profile, povertyData)}
+          {childHealth(profile, dhsHealth, true, false)}
+          {povertyContent(profile, povertyData, false)}
         </div>
         {profile.level === "adm0" ? this.internalMap(profile) : null}
       </div>

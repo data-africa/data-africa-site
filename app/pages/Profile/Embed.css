@@ -6,6 +6,7 @@
   & > .section {
     box-sizing: border-box;
     height: 100vh;
+    margin: 0;
     padding: 0;
 
     & .columns, & .rows {
@@ -14,11 +15,16 @@
     }
 
     & .section-text {
+      margin: 16px;
 
       & .section-title {
-        margin: 16px 0;
+        margin: 0 0 16px;
       }
 
+    }
+
+    & .viz {
+      margin: 16px;
     }
 
   }

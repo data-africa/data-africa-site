@@ -22,7 +22,13 @@ class CropsByHarvest extends SectionColumns {
 
         <article className="section-text">
           <SectionTitle>Crops by Harvested Area</SectionTitle>
-          The most common crop in { profile.name }, by harvested area, is { data[0].crop_name } with <strong>{ VARIABLES.harvested_area(data[0].harvested_area) }</strong>.
+          <div className="stat">
+            <div className="stat-value">{ data[0].crop_name }</div>
+            <div className="stat-label">Most Common Crop by Harvested Area</div>
+          </div>
+          <p>
+            In { data[0].year }, the most common crop in { profile.name } by harvested area was { data[0].crop_name } with <strong>{ VARIABLES.harvested_area(data[0].harvested_area) }</strong>.
+          </p>
         </article>
         <Treemap config={{
           data,

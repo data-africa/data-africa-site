@@ -23,7 +23,13 @@ class CropsByProduction extends SectionColumns {
 
         <article className="section-text">
          <SectionTitle>Crops by Production Value</SectionTitle>
-          The crop with the highest production value in { profile.name } is { data[0].crop_name }, with a value of <strong>{ VARIABLES.value_of_production (data[0].value_of_production) }</strong>.
+         <div className="stat">
+           <div className="stat-value">{ data[0].crop_name }</div>
+           <div className="stat-label">Most Common Crop by Production Value</div>
+         </div>
+         <p>
+           In { data[0].year }, the crop with the highest production value in { profile.name } was { data[0].crop_name }, with a value of <strong>{ VARIABLES.value_of_production (data[0].value_of_production) }</strong>.
+         </p>
         </article>
         <Treemap config={{
           data,

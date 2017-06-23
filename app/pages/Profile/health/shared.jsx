@@ -1,10 +1,11 @@
 import React from "react";
 import {nest} from "d3-collection";
 import {merge} from "d3plus-common";
+import {titleCase} from "d3plus-text";
 
 import {FORMATTERS, formatPlaceName} from "helpers/formatters";
 
-export function childHealth(profile, health, blankFallback = false) {
+export function childHealth(profile, health, blankFallback = false, stat = true) {
   if (!health) {
     return blankFallback ? <span></span> : <p>No data available</p>;
   }
@@ -17,7 +18,15 @@ export function childHealth(profile, health, blankFallback = false) {
   const items = health.map(
     (row, idx) => `${idx === health.length - 1 ? "and " : ""}${FORMATTERS.shareWhole(row.proportion_of_children)} were severely ${row.condition}`);
   if (first) {
-    return <p>Among children in {place} in {maxYear}, {items.join(", ")}.</p>;
+    return <div>
+      { stat
+      ? <div className="stat">
+          <div className="stat-value">{ FORMATTERS.shareWhole(health[0].proportion_of_children) }</div>
+          <div className="stat-label">Severely { titleCase(health[0].condition) }</div>
+        </div>
+      : null }
+      <p>Among children in {place} in {maxYear}, {items.join(", ")}.</p>
+    </div>;
   }
   else {
     return blankFallback ? <span></span> : <p>No data available</p>;
@@ -87,14 +96,31 @@ export function childHealthByMode(profile, healthData, mode = "gender") {
     const level = first.geo && first.geo !== profile.geo ? "adm0" : profile.level;
     const place = formatPlaceName(first, "health", level);
 
+    const Stat = () => <div className="stat-flex">
+      <div className="stat">
+        <div className="stat-value">{ FORMATTERS.shareWhole(sevACond.proportion_of_children) }</div>
+        <div className="stat-label">{ titleCase(categoryA) } { titleCase(formatCondition(sevACond.condition)) }</div>
+      </div>
+      <div className="stat">
+        <div className="stat-value">{ FORMATTERS.shareWhole(sevBCond.proportion_of_children) }</div>
+        <div className="stat-label">{ titleCase(categoryB) } { titleCase(formatCondition(sevBCond.condition)) }</div>
+      </div>
+    </div>;
+
     if (sameCondition) {
-      return <p>The health condition most afflicting {categoryA} and {categoryB} children
-       in {latestYear} in {place} is {formatCondition(sevACond.condition)} with {FORMATTERS.shareWhole(sevACond.proportion_of_children)} of {categoryA} children
-       affected and {FORMATTERS.shareWhole(sevBCond.proportion_of_children)} of {categoryB} children affected.</p>;
+      return <div>
+        <Stat />
+        <p>The health condition most afflicting {categoryA} and {categoryB} children
+         in {latestYear} in {place} is {formatCondition(sevACond.condition)} with {FORMATTERS.shareWhole(sevACond.proportion_of_children)} of {categoryA} children
+         affected and {FORMATTERS.shareWhole(sevBCond.proportion_of_children)} of {categoryB} children affected.</p>
+      </div>;
     }
     else {
-      return <p>The health condition most afflicting {formatCategory(categoryA)} in {latestYear} in {place} is {formatCondition(sevACond.condition)} with {FORMATTERS.shareWhole(sevACond.proportion_of_children)} of {categoryA} children
-       affected. The health condition most afflicting {formatCategory(categoryB)} in {place} is {formatCondition(sevBCond.condition)} with {FORMATTERS.shareWhole(sevBCond.proportion_of_children)} of {categoryB} children affected.</p>;
+      return <div>
+        <Stat />
+        <p>The health condition most afflicting {formatCategory(categoryA)} in {latestYear} in {place} is {formatCondition(sevACond.condition)} with {FORMATTERS.shareWhole(sevACond.proportion_of_children)} of {categoryA} children
+         affected. The health condition most afflicting {formatCategory(categoryB)} in {place} is {formatCondition(sevBCond.condition)} with {FORMATTERS.shareWhole(sevBCond.proportion_of_children)} of {categoryB} children affected.</p>
+      </div>;
     }
   }
 }

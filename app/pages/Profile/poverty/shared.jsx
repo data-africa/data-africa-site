@@ -9,7 +9,7 @@ import {titleCase} from "d3plus-text";
 import {BarChart} from "d3plus-react";
 import Selector from "components/Selector";
 
-export function povertyContent(profile, poverty) {
+export function povertyContent(profile, poverty, stat = true) {
   const first = poverty && poverty.length > 0 ? poverty[0] : null;
   if (!first) {
     return <span></span>;
@@ -17,7 +17,15 @@ export function povertyContent(profile, poverty) {
   const items = poverty.map(row => `${VARIABLES.totpop(row.num)} people living below ${DICTIONARY[row.poverty_level]}`);
   const level = first.geo && first.geo !== profile.geo ? "adm0" : profile.level;
   const place = formatPlaceName(first, "poverty", level);
-  return <p>As of {first.year}, there were {items.join(" and ")} in {place}.</p>;
+  return <div>
+    { stat
+    ? <div className="stat">
+        <div className="stat-value">{ VARIABLES.totpop(poverty[0].num) }</div>
+        <div className="stat-label">{ DICTIONARY[poverty[0].poverty_level] }</div>
+      </div>
+    : null }
+    <p>As of {first.year}, there were {items.join(" and ")} in {place}.</p>
+  </div>;
 }
 
 function formatGender(gender, isTitle = false) {
@@ -43,13 +51,32 @@ export function povertyTextByMode(profile, povertyData, povLevel, mode = "gender
   const labelA = isGender ? formatGender(categoryA) : `people living in ${categoryA} areas`;
   const labelB = isGender ? formatGender(categoryB) : `people living in ${categoryB} areas`;
   if (modeA && modeB) {
-    return <p>As of {first.year}, {FORMATTERS.shareWhole(modeA.hc)} of {labelA} and {FORMATTERS.shareWhole(modeB.hc)} of {labelB} in {place} live below {DICTIONARY[modeB.poverty_level]}.</p>;
+    return <div>
+      <div className="stat-flex">
+        <div className="stat">
+          <div className="stat-value">{ FORMATTERS.shareWhole(modeA.hc) }</div>
+          <div className="stat-label">{ titleCase(categoryA) }</div>
+        </div>
+        <div className="stat">
+          <div className="stat-value">{ FORMATTERS.shareWhole(modeB.hc) }</div>
+          <div className="stat-label">{ titleCase(categoryB) }</div>
+        </div>
+      </div>
+      <p>As of {first.year}, {FORMATTERS.shareWhole(modeA.hc)} of {labelA} and {FORMATTERS.shareWhole(modeB.hc)} of {labelB} in {place} live below {DICTIONARY[modeB.poverty_level]}.</p>
+    </div>;
   }
   else if (modeA || modeB) {
     const isA = modeA ? true : false;
     const mode = modeA || modeB;
+    const category = isA ? categoryA : categoryB;
     const label = isA ? labelA : labelB;
-    return <p>As of {first.year}, {FORMATTERS.shareWhole(mode.hc)} of {label}.</p>;
+    return <div>
+      <div className="stat">
+        <div className="stat-value">{ FORMATTERS.shareWhole(mode.hc) }</div>
+        <div className="stat-label">{ titleCase(category) }</div>
+      </div>
+      <p>As of {first.year}, {FORMATTERS.shareWhole(mode.hc)} of {label}.</p>
+    </div>;
   }
   else {
     return <p>No Data Available</p>;
