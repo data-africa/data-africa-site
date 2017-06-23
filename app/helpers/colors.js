@@ -1,6 +1,6 @@
 export const COLORS_CROP = {
   "Fruits": "#E0715C",
-  "Fibres": "#ED8859", 
+  "Fibres": "#ED8859",
   "Oil Crops": "#EBA160",
   "Pulses": "#F4CD72",
   "Cereals": "#F5E462",
@@ -48,12 +48,8 @@ export const COLORS_POVERTY = {
 
 export const COLORS_RAINFALL = [
   "#D0E4F2",
-  "#B9D7EC",
   "#A1C9E5",
-  "#8ABCDF",
   "#72AED8",
-  "#5BA1D2",
   "#4393CB",
-  "#2B86C5",
   "#1478BE"
 ];
