@@ -103,10 +103,13 @@ class IntroParagraph extends Section {
     const {popData, crops, dhsHealth, povertyData} = this.context.data;
     return (
       <div id="introduction">
-        {this.population(profile, popData)}
-        {this.crops(profile, crops)}
-        {childHealth(profile, dhsHealth, true)}
-        {povertyContent(profile, povertyData)}
+        <div className="intro-text">
+          <div className="topic-name topic-intro">About</div>
+          {this.population(profile, popData)}
+          {this.crops(profile, crops)}
+          {childHealth(profile, dhsHealth, true)}
+          {povertyContent(profile, povertyData)}
+        </div>
         {profile.level === "adm0" ? this.internalMap(profile) : null}
       </div>
     );

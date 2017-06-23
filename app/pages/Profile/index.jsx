@@ -231,7 +231,6 @@ class GeoProfile extends Component {
               <span className="more-link"><img className="icon" src="/images/sections/dropdown-arrow.svg" /></span>
             </div>
 
-            <div className="topic-name topic-intro">About</div>
             <IntroParagraph profile={attr} />
 
           </div>
