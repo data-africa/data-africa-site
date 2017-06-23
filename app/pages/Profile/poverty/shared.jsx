@@ -22,6 +22,7 @@ export function povertyContent(profile, poverty, stat = true) {
     ? <div className="stat">
         <div className="stat-value">{ VARIABLES.totpop(poverty[0].num) }</div>
         <div className="stat-label">{ DICTIONARY[poverty[0].poverty_level] }</div>
+        <div className="data-source">Data provided by <a href="http://iresearch.worldbank.org/PovcalNet/povOnDemand.aspx" target="_blank">World Bank's PovcalNet</a></div>
       </div>
     : null }
     <p>As of {first.year}, there were {items.join(" and ")} in {place}.</p>
@@ -63,6 +64,7 @@ export function povertyTextByMode(profile, povertyData, povLevel, mode = "gender
         </div>
       </div>
       <p>As of {first.year}, {FORMATTERS.shareWhole(modeA.hc)} of {labelA} and {FORMATTERS.shareWhole(modeB.hc)} of {labelB} in {place} live below {DICTIONARY[modeB.poverty_level]}.</p>
+      <div className="data-source">Data provided by <a href="http://iresearch.worldbank.org/PovcalNet/povOnDemand.aspx" target="_blank">World Bank's PovcalNet</a></div>
     </div>;
   }
   else if (modeA || modeB) {
@@ -76,6 +78,7 @@ export function povertyTextByMode(profile, povertyData, povLevel, mode = "gender
         <div className="stat-label">{ titleCase(category) }</div>
       </div>
       <p>As of {first.year}, {FORMATTERS.shareWhole(mode.hc)} of {label}.</p>
+      <div className="data-source">Data provided by <a href="http://iresearch.worldbank.org/PovcalNet/povOnDemand.aspx" target="_blank">World Bank's PovcalNet</a></div>
     </div>;
   }
   else {

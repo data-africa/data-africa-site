@@ -116,20 +116,6 @@
 		  line-height: 1.4;
 		  margin: 32px 32px 16px 0;
 
-		  & p {
-				margin: 0 0 16px;
-
-        &:last-child {
-          margin-bottom: 0;
-        }
-
-				& strong {
-			  	color: var(--accent);
-			  	font-weight: 600;
-				}
-
-		  }
-
       & .stat-flex {
         display: flex;
 
@@ -150,11 +136,42 @@
         }
 
         & .stat-label {
-			  	color: var(--accent);
+			  	color: #888;
           font-size: 12px;
           font-weight: 600;
         }
 
+      }
+
+		  & p {
+				margin: 0 0 16px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+				& strong {
+			  	color: var(--accent);
+			  	font-weight: 600;
+				}
+
+		  }
+
+      & .data-source {
+        color: #888;
+        font-size: 12px;
+
+        & a {
+          border-bottom: 1px solid #ccc;
+          color: #888;
+          text-decoration: none;
+          transition: color 0.1s, border-color 0.1s;
+
+          &:hover {
+            border-bottom: 1px solid #888;
+            color: #444;
+          }
+        }
       }
 
 		}

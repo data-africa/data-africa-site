@@ -56,6 +56,7 @@ class CropsBySupply extends SectionRows {
           <p>
             In { waterData[0].year }, <strong>{FORMATTERS.shareWhole(pctRainfall)}</strong> of the crops produced in {profile.name} by {metricLabel} were rainfed, compared to <strong>{FORMATTERS.shareWhole(1 - pctRainfall)}</strong> irrigated.
           </p>
+          <div className="data-source">Data provided by <a href="http://www.ifpri.org/publication/cell5m-geospatial-data-and-analytics-platform-harmonized-multi-disciplinary-data-layers" target="_blank">IFPRI's Cell5M Repository</a></div>
         </article>
         <SectionRows>
           <div className="noFlex">

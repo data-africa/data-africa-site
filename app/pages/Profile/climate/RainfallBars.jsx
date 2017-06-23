@@ -131,6 +131,7 @@ class RainfallBars extends SectionRows {
                 : null}
                 {sentence}
               </p>
+              <div className="data-source">Data provided by <a href="http://www.cru.uea.ac.uk/data/" target="_blank">University of East Anglia's Climatic Research Unit</a></div>
             </div>
           </SectionColumns>
         </div>

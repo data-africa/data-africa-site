@@ -133,10 +133,10 @@ class About extends Component {
             including:
           </p>
           <ul className="paragraph source-list">
-            <li><span>Poverty Data</span><a href="http://iresearch.worldbank.org/PovcalNet/povOnDemand.aspx" target="_blank">World Bank's PovcalNet</a></li>
-            <li><span>Health Data</span><a href="http://dhsprogram.com/" target="_blank">DHS Program</a></li>
             <li><span>Agricultural Data</span><a href="http://www.ifpri.org/publication/cell5m-geospatial-data-and-analytics-platform-harmonized-multi-disciplinary-data-layers" target="_blank">IFPRI's Cell5M repository</a></li>
             <li><span>Climate Data</span><a href="http://www.cru.uea.ac.uk/data/" target="_blank">University of East Anglia's Climatic Research Unit</a></li>
+            <li><span>Health Data</span><a href="http://dhsprogram.com/" target="_blank">DHS Program</a></li>
+            <li><span>Poverty Data</span><a href="http://iresearch.worldbank.org/PovcalNet/povOnDemand.aspx" target="_blank">World Bank's PovcalNet</a></li>
           </ul>
         </section>
 

@@ -26,6 +26,7 @@ class CropsByProduction extends SectionColumns {
          <div className="stat">
            <div className="stat-value">{ data[0].crop_name }</div>
            <div className="stat-label">Most Common Crop by Production Value</div>
+           <div className="data-source">Data provided by <a href="http://www.ifpri.org/publication/cell5m-geospatial-data-and-analytics-platform-harmonized-multi-disciplinary-data-layers" target="_blank">IFPRI's Cell5M Repository</a></div>
          </div>
          <p>
            In { data[0].year }, the crop with the highest production value in { profile.name } was { data[0].crop_name }, with a value of <strong>{ VARIABLES.value_of_production (data[0].value_of_production) }</strong>.

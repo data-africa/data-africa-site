@@ -54,10 +54,11 @@ class CropsAreaVsValue extends SectionColumns {
     return (
       <SectionColumns>
         <article className="section-text">
-        <SectionTitle>Harvested Area Versus Value of Production</SectionTitle>
+          <SectionTitle>Harvested Area Versus Value of Production</SectionTitle>
           <p><strong>{ topCrop.name }</strong> are the crop with the highest production value per area in { profile.name }, with { VARIABLES.value_density(topCrop.density) }.</p>
           <p><strong>{ bottomCrop.name }</strong> are the crop with the lowest production value per area in { profile.name }, with { VARIABLES.value_density(bottomCrop.density) }.</p>
           <p>This means that growers of {topCrop.name} will earn approximately <strong>{FORMATTERS.round(topCrop.density / bottomCrop.density)} times</strong> more per hectare than if they grow {bottomCrop.name}.</p>
+          <div className="data-source">Data provided by <a href="http://www.ifpri.org/publication/cell5m-geospatial-data-and-analytics-platform-harmonized-multi-disciplinary-data-layers" target="_blank">IFPRI's Cell5M Repository</a></div>
         </article>
         <Plot config={{
           controls: this.logControls(),
