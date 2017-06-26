@@ -64,7 +64,6 @@ export function povertyTextByMode(profile, povertyData, povLevel, mode = "gender
         </div>
       </div>
       <p>As of {first.year}, {FORMATTERS.shareWhole(modeA.hc)} of {labelA} and {FORMATTERS.shareWhole(modeB.hc)} of {labelB} in {place} live below {DICTIONARY[modeB.poverty_level]}.</p>
-      <div className="data-source">Data provided by <a href="http://iresearch.worldbank.org/PovcalNet/povOnDemand.aspx" target="_blank">World Bank's PovcalNet</a></div>
     </div>;
   }
   else if (modeA || modeB) {
@@ -78,7 +77,6 @@ export function povertyTextByMode(profile, povertyData, povLevel, mode = "gender
         <div className="stat-label">{ titleCase(category) }</div>
       </div>
       <p>As of {first.year}, {FORMATTERS.shareWhole(mode.hc)} of {label}.</p>
-      <div className="data-source">Data provided by <a href="http://iresearch.worldbank.org/PovcalNet/povOnDemand.aspx" target="_blank">World Bank's PovcalNet</a></div>
     </div>;
   }
   else {
@@ -90,7 +88,7 @@ export function povertyVizByMode(profile, vizData, povertyLevel, mode, embed) {
   const colorMap = mode === "residence" ? COLORS_RESIDENCE : COLORS_GENDER;
   const first = vizData[0];
   const level = first.geo && first.geo !== profile.geo ? "adm0" : profile.level;
-  return <BarChart config={{
+  return <BarChart ref={ comp => this.viz = comp } config={{
     data: vizData,
     groupBy: [mode, "poverty_level"],
     groupPadding: 100,

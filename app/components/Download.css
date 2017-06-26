@@ -1,0 +1,40 @@
+.download-btn {
+  color: #bbb;
+  display: inline-block;
+  font-size: 12px;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  margin-right: 16px;
+  opacity: 0.7;
+  text-transform: uppercase;
+  transition: opacity 0.2s;
+
+  &:hover {
+    cursor: pointer;
+    opacity: 1;
+  }
+
+  & img {
+    margin-bottom: 4px;
+    margin-right: 8px;
+    width: 25px;
+    vertical-align: middle;
+  }
+
+  & input {
+    color: #bbb;
+    font-family: "Work Sans";
+    padding: 3px 4px 2px;
+    transition: color 0.1s;
+    width: 230px;
+
+    &:focus {
+      color: var(--dark);
+    }
+
+    &::selection {
+      background: var(--accent);
+    }
+  }
+
+}

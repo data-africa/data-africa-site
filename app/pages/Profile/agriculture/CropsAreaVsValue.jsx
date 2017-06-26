@@ -8,6 +8,9 @@ import {VARIABLES, FORMATTERS} from "helpers/formatters";
 import {COLORS_CROP} from "helpers/colors";
 import {tooltipBody} from "helpers/d3plus";
 import {SectionColumns, SectionTitle} from "datawheel-canon";
+import Download from "components/Download";
+
+const url = "api/join/?geo=<geoid>&sumlevel=lowest&show=crop&required=harvested_area,value_of_production,crop_parent,crop_name&order=harvested_area&sort=desc";
 
 class CropsAreaVsValue extends SectionColumns {
   constructor(props) {
@@ -58,12 +61,14 @@ class CropsAreaVsValue extends SectionColumns {
           <p><strong>{ topCrop.name }</strong> are the crop with the highest production value per area in { profile.name }, with { VARIABLES.value_density(topCrop.density) }.</p>
           <p><strong>{ bottomCrop.name }</strong> are the crop with the lowest production value per area in { profile.name }, with { VARIABLES.value_density(bottomCrop.density) }.</p>
           <p>This means that growers of {topCrop.name} will earn approximately <strong>{FORMATTERS.round(topCrop.density / bottomCrop.density)} times</strong> more per hectare than if they grow {bottomCrop.name}.</p>
+          <Download component={ this }
+            title={ `Crops by Harvested Area in ${ profile.name } (${ data[0].year })` }
+            url={ url.replace("<geoid>", data[0].geo).replace("join/", "join/csv/") } />
           <div className="data-source">Data provided by <a href="http://www.ifpri.org/publication/cell5m-geospatial-data-and-analytics-platform-harmonized-multi-disciplinary-data-layers" target="_blank">IFPRI's Cell5M Repository</a></div>
         </article>
-        <Plot config={{
+        <Plot ref={ comp => this.viz = comp } config={{
           controls: this.logControls(),
           data: crops,
-          height: embed ? undefined : 450,
           label: d => d.crop_name instanceof Array ? d.crop_parent : d.crop_name,
           legend: false,
           groupBy: ["crop_parent", "crop_name"],
@@ -92,7 +97,7 @@ class CropsAreaVsValue extends SectionColumns {
 }
 
 CropsAreaVsValue.need = [
-  fetchData("harvested_area", "api/join/?geo=<geoid>&sumlevel=lowest&show=crop&required=harvested_area,value_of_production,crop_parent,crop_name&order=harvested_area&sort=desc")
+  fetchData("harvested_area", url)
 ];
 
 export default CropsAreaVsValue;

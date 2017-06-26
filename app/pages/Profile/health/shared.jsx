@@ -114,7 +114,6 @@ export function childHealthByMode(profile, healthData, mode = "gender") {
         <p>The health condition most afflicting {categoryA} and {categoryB} children
          in {latestYear} in {place} is {formatCondition(sevACond.condition)} with {FORMATTERS.shareWhole(sevACond.proportion_of_children)} of {categoryA} children
          affected and {FORMATTERS.shareWhole(sevBCond.proportion_of_children)} of {categoryB} children affected.</p>
-         <div className="data-source">Data provided by <a href="http://dhsprogram.com/" target="_blank">DHS Program</a></div>
       </div>;
     }
     else {
@@ -122,7 +121,6 @@ export function childHealthByMode(profile, healthData, mode = "gender") {
         <Stat />
         <p>The health condition most afflicting {formatCategory(categoryA)} in {latestYear} in {place} is {formatCondition(sevACond.condition)} with {FORMATTERS.shareWhole(sevACond.proportion_of_children)} of {categoryA} children
          affected. The health condition most afflicting {formatCategory(categoryB)} in {place} is {formatCondition(sevBCond.condition)} with {FORMATTERS.shareWhole(sevBCond.proportion_of_children)} of {categoryB} children affected.</p>
-         <div className="data-source">Data provided by <a href="http://dhsprogram.com/" target="_blank">DHS Program</a></div>
       </div>;
     }
   }

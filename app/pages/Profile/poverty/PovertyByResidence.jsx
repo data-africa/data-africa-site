@@ -1,10 +1,12 @@
 import React from "react";
 import {SectionColumns, SectionTitle} from "datawheel-canon";
-import {DICTIONARY} from "helpers/dictionary";
+import Download from "components/Download";
 
 import {fetchData} from "datawheel-canon";
 import {povertyVizByMode, povertyTextByMode, makeGeoSelector} from "pages/Profile/poverty/shared";
 import Selector from "components/Selector";
+
+const url = "api/join/?show=year,residence&geo=<geoid>&required=poverty_geo_name,poverty_geo_parent_name,poverty_level,hc,sevpov,povgap&sumlevel=latest_by_geo,all";
 
 class PovertyByResidence extends SectionColumns {
   constructor(props) {
@@ -30,19 +32,19 @@ class PovertyByResidence extends SectionColumns {
 
     const {filteredData, vizData, selector} = makeGeoSelector(profile, povertyByResidence.filter(x => x.poverty_level === povertyLevel),
                                                               targetGeo, this.onChangeGeo);
-    const viz = povertyVizByMode(profile, vizData, povertyLevel, "residence", embed);
+    const viz = povertyVizByMode.bind(this)(profile, vizData, povertyLevel, "residence", embed);
     const opts = ["ppp1", "ppp2"];
     return <SectionColumns>
             <article className="section-text">
-
-            <SectionTitle>Poverty Measures by Residence</SectionTitle>
-
-
+              <SectionTitle>Poverty Measures by Residence</SectionTitle>
               <span className="dropdown-title">Disposable Income</span>
-
               {selector}
               <Selector options={opts} callback={this.onChange} selected={povertyLevel} />
               {povertyTextByMode(profile, filteredData, povertyLevel, "residence")}
+              <Download component={ this }
+                title={ `Poverty Measures by Residence in ${ profile.name } (${ vizData[0].year })` }
+                url={ url.replace("<geoid>", vizData[0].geo).replace("join/", "join/csv/") } />
+              <div className="data-source">Data provided by <a href="http://iresearch.worldbank.org/PovcalNet/povOnDemand.aspx" target="_blank">World Bank's PovcalNet</a></div>
             </article>
             {viz}
         </SectionColumns>;
@@ -50,7 +52,7 @@ class PovertyByResidence extends SectionColumns {
 }
 
 PovertyByResidence.need = [
-  fetchData("povertyByResidence", "api/join/?show=year,residence&geo=<geoid>&required=poverty_geo_name,poverty_geo_parent_name,poverty_level,hc,sevpov,povgap&sumlevel=latest_by_geo,all")
+  fetchData("povertyByResidence", url)
 ];
 
 export default PovertyByResidence;

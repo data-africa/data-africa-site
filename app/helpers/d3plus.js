@@ -76,7 +76,6 @@ export default {
       "padding": "12px 16px"
     }
   },
-  downloadButton: true,
   legendConfig: {
     padding: 8,
     shapeConfig: {

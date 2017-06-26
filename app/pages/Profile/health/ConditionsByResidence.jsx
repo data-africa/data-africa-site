@@ -9,6 +9,9 @@ import {tooltipBody, yearControls} from "helpers/d3plus";
 import {formatPlaceName, FORMATTERS} from "helpers/formatters";
 import {childHealthByMode} from "pages/Profile/health/shared";
 import {fetchData} from "datawheel-canon";
+import Download from "components/Download";
+
+const url = "api/join/?geo=<geoid>&show=year,condition,residence&required=dhs_geo_name,dhs_geo_parent_name,proportion_of_children&sumlevel=all,all,all";
 
 class ConditionsByResidence extends SectionColumns {
 
@@ -22,8 +25,12 @@ class ConditionsByResidence extends SectionColumns {
         <article className="section-text">
         <SectionTitle>Health Conditions Among Children by Residence</SectionTitle>
           {childHealthByMode(profile, healthByResidence, "residence")}
+          <Download component={ this }
+            title={ `Health Conditions Among Children by Residence in ${ profile.name }` }
+            url={ url.replace("<geoid>", healthByResidence[0].geo).replace("join/", "join/csv/") } />
+          <div className="data-source">Data provided by <a href="http://dhsprogram.com/" target="_blank">DHS Program</a></div>
         </article>
-        <BarChart config={{
+        <BarChart ref={ comp => this.viz = comp } config={{
           controls: yearControls(healthByResidence),
           data: healthByResidence,
           discrete: "y",
@@ -61,7 +68,7 @@ class ConditionsByResidence extends SectionColumns {
 }
 
 ConditionsByResidence.need = [
-  fetchData("healthByResidence", "api/join/?geo=<geoid>&show=year,condition,residence&required=dhs_geo_name,dhs_geo_parent_name,proportion_of_children&sumlevel=all,all,all")
+  fetchData("healthByResidence", url)
 ];
 
 export default ConditionsByResidence;

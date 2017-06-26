@@ -63,7 +63,7 @@
 			& .viz {
 
 				&:first-child {
-					margin-right: 0;
+					margin-right: 16px;
 				}
 			}
 		}
@@ -146,10 +146,6 @@
 		  & p {
 				margin: 0 0 16px;
 
-        &:last-child {
-          margin-bottom: 0;
-        }
-
 				& strong {
 			  	color: var(--accent);
 			  	font-weight: 600;
@@ -177,7 +173,7 @@
 		}
 
 		& .viz {
-			margin: 16px;
+      margin: 32px 0 0 0;
 
 			& .d3plus-Button {
 				margin: 0 0 4px !important;

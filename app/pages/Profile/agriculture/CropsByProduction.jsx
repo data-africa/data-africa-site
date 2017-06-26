@@ -10,6 +10,10 @@ import {COLORS_CROP} from "helpers/colors";
 import {tooltipBody} from "helpers/d3plus";
 import {FORMATTERS, VARIABLES} from "helpers/formatters";
 
+import Download from "components/Download";
+
+const url = "api/join/?geo=<geoid>&show=crop&sumlevel=lowest&required=harvested_area,value_of_production,crop_parent,crop_name&order=value_of_production&sort=desc";
+
 class CropsByProduction extends SectionColumns {
 
   render() {
@@ -31,8 +35,11 @@ class CropsByProduction extends SectionColumns {
          <p>
            In { data[0].year }, the crop with the highest production value in { profile.name } was { data[0].crop_name }, with a value of <strong>{ VARIABLES.value_of_production (data[0].value_of_production) }</strong>.
          </p>
+         <Download component={ this }
+           title={ `Crops by Production Value in ${ profile.name } (${ data[0].year })` }
+           url={ url.replace("<geoid>", data[0].geo).replace("join/", "join/csv/") } />
         </article>
-        <Treemap config={{
+        <Treemap ref={ comp => this.viz = comp } config={{
           data,
           groupBy: ["crop_parent", "crop_name"],
           height: embed ? undefined : 450,
@@ -51,7 +58,7 @@ class CropsByProduction extends SectionColumns {
 }
 
 CropsByProduction.need = [
-  fetchData("value_of_production", "api/join/?geo=<geoid>&show=crop&sumlevel=lowest&required=harvested_area,value_of_production,crop_parent,crop_name&order=value_of_production&sort=desc")
+  fetchData("value_of_production", url)
 ];
 
 export default CropsByProduction;

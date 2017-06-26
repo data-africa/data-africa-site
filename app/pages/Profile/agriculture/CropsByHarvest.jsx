@@ -8,6 +8,9 @@ import {fetchData} from "datawheel-canon";
 import {COLORS_CROP} from "helpers/colors";
 import {tooltipBody} from "helpers/d3plus";
 import {FORMATTERS, VARIABLES} from "helpers/formatters";
+import Download from "components/Download";
+
+const url = "api/join/?geo=<geoid>&sumlevel=lowest&show=crop&required=harvested_area,value_of_production,crop_parent,crop_name&order=harvested_area&sort=desc";
 
 class CropsByHarvest extends SectionColumns {
 
@@ -31,8 +34,11 @@ class CropsByHarvest extends SectionColumns {
           <p>
             In { data[0].year }, the most common crop in { profile.name } by harvested area was { data[0].crop_name } with <strong>{ VARIABLES.harvested_area(data[0].harvested_area) }</strong>.
           </p>
+          <Download component={ this }
+            title={ `Crops by Harvested Area in ${ profile.name } (${ data[0].year })` }
+            url={ url.replace("<geoid>", data[0].geo).replace("join/", "join/csv/") } />
         </article>
-        <Treemap config={{
+        <Treemap ref={ comp => this.viz = comp } config={{
           data,
           groupBy: ["crop_parent", "crop_name"],
           height: embed ? undefined : 450,
@@ -51,7 +57,7 @@ class CropsByHarvest extends SectionColumns {
 }
 
 CropsByHarvest.need = [
-  fetchData("harvested_area", "api/join/?geo=<geoid>&sumlevel=lowest&show=crop&required=harvested_area,value_of_production,crop_parent,crop_name&order=harvested_area&sort=desc")
+  fetchData("harvested_area", url)
 ];
 
 export default CropsByHarvest;

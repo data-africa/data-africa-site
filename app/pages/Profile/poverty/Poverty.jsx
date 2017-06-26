@@ -9,6 +9,9 @@ import {tooltipBody} from "helpers/d3plus";
 import {DICTIONARY} from "helpers/dictionary";
 import {formatPlaceName, FORMATTERS} from "helpers/formatters";
 import {povertyContent, makeGeoSelector} from "pages/Profile/poverty/shared";
+import Download from "components/Download";
+
+const url = "api/join/?geo=<geoid>&show=year,poverty_level&sumlevel=latest_by_geo,all&required=hc,povgap,sevpov,num,poverty_geo_name,poverty_geo_parent_name";
 
 class Poverty extends SectionColumns {
   constructor(props) {
@@ -35,10 +38,12 @@ class Poverty extends SectionColumns {
         <article className="section-text">
         <SectionTitle>Poverty Levels</SectionTitle>
           {selector}
-
           {povertyContent(profile, filteredData)}
+          <Download component={ this }
+            title={ `Poverty Levels in ${ profile.name } (${ vizData[0].year })` }
+            url={ url.replace("<geoid>", povertyLevelData[0].geo).replace("join/", "join/csv/") } />
         </article>
-        <BarChart config={{
+        <BarChart ref={ comp => this.viz = comp } config={{
           data: vizData,
           discrete: "y",
           groupBy: "measure",
@@ -70,7 +75,7 @@ class Poverty extends SectionColumns {
 }
 
 Poverty.need = [
-  fetchData("povertyLevelData", "api/join/?geo=<geoid>&show=year,poverty_level&sumlevel=latest_by_geo,all&required=hc,povgap,sevpov,num,poverty_geo_name,poverty_geo_parent_name")
+  fetchData("povertyLevelData", url)
 ];
 
 export default Poverty;

@@ -11,6 +11,9 @@ import {tooltipBody} from "helpers/d3plus";
 import {FORMATTERS, VARIABLES} from "helpers/formatters";
 import Selector from "components/Selector";
 import {COLORS_CROP} from "helpers/colors";
+import Download from "components/Download";
+
+const url = "api/join/?geo=<geoid>&sumlevel=lowest,lowest&show=crop,water_supply&required=crop_parent,harvested_area,value_of_production,crop_name";
 
 class CropsBySupply extends SectionRows {
   constructor(props) {
@@ -56,9 +59,12 @@ class CropsBySupply extends SectionRows {
           <p>
             In { waterData[0].year }, <strong>{FORMATTERS.shareWhole(pctRainfall)}</strong> of the crops produced in {profile.name} by {metricLabel} were rainfed, compared to <strong>{FORMATTERS.shareWhole(1 - pctRainfall)}</strong> irrigated.
           </p>
+          <Download component={ this }
+            title={ `Water Supply for Crops by ${ titleCase(metricLabel) } in ${ profile.name } (${ waterData[0].year })` }
+            url={ url.replace("<geoid>", waterData[0].geo).replace("join/", "join/csv/") } />
           <div className="data-source">Data provided by <a href="http://www.ifpri.org/publication/cell5m-geospatial-data-and-analytics-platform-harmonized-multi-disciplinary-data-layers" target="_blank">IFPRI's Cell5M Repository</a></div>
         </article>
-        <SectionRows>
+        <SectionRows ref={ comp => this.viz = comp }>
           <div className="noFlex">
             <BarChart config={{
               barPadding: 0,
@@ -137,7 +143,7 @@ class CropsBySupply extends SectionRows {
 }
 
 CropsBySupply.need = [
-  fetchData("waterData", "api/join/?geo=<geoid>&sumlevel=lowest,lowest&show=crop,water_supply&required=crop_parent,harvested_area,value_of_production,crop_name")
+  fetchData("waterData", url)
 ];
 
 export default CropsBySupply;
