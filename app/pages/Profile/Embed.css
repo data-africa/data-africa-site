@@ -29,4 +29,10 @@
 
   }
 
+  &.noText {
+    & .section-text {
+      display: none;
+    }
+  }
+
 }
