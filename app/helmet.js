@@ -5,7 +5,7 @@ module.exports = {
   meta: [
     {charset: "utf-8"},
     {"http-equiv": "X-UA-Compatible", "content": "IE=edge"},
-    {name: "description", content: "Visualizing the open data landscape of Africa."},
+    {name: "description", content: "An open source agriculture, climate, poverty, and health visualization engine for Africa."},
     {name: "viewport", content: "width=device-width, initial-scale=1"},
     {name: "mobile-web-app-capable", content: "yes"},
     {name: "apple-mobile-web-app-capable", content: "yes"},
@@ -13,8 +13,8 @@ module.exports = {
     {name: "apple-mobile-web-app-title", content: "Data Africa"},
     {property: "og:title", content: "Data Africa"},
     {property: "og:type", content: "article"},
-    {property: "og:image", content: "/images/africa-share.jpg"},
-    {property: "og:description", content: "{{ meta_desc }}"}
+    {property: "og:image", content: "https://dataafrica.io/images/africa-share.jpg"},
+    {property: "og:description", content: "An open source agriculture, climate, poverty, and health visualization engine for Africa."}
   ],
   title: "Data Africa"
 };
