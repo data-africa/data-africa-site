@@ -9,27 +9,46 @@
     height: 800px;
     left: 0;
     position: absolute;
+    text-align: center;
     top: 0;
     width: 100%;
     z-index: var(--background);
 
     & .image {
-      background-image: url("/images/home/cgiar-1.jpg");
-      background-position: 50% -100px;
+      background-image: url("/images/home/cgiar-1-small.jpg");
+      background-position: left 50% bottom 0;
       background-size: cover;
       background-repeat: no-repeat;
       bottom: 0px;
-      height:750px;
-      left: 0;
-      position: absolute;
+      display: block;
+      height: 712px;
+      margin: 0 auto 0;
+      /*max-width: 1400px;*/
       top: 0;
       width: 100%;
+
+      @media only screen and (min-width : 1400px) {
+        background-position: left 50% bottom -50px;
+      }
+
+      @media only screen and (min-width : 1600px) {
+        background-position: left 50% bottom -100px;
+      }
+
+      @media only screen and (min-width : 1800px) {
+        background-position: left 50% bottom -150px;
+      }
+
+      @media only screen and (min-width : 2000px) {
+        background-position: left 50% bottom -200px;
+      }
+
     }
 
     & .gradient {
       background: linear-gradient(0deg, var(--dark), rgba(0, 0, 0, 0.0) 25%, rgba(0, 0, 0, 0.5));
-      bottom: 0px;
-      height: 750px;
+      bottom: 0;
+      height: 712px;
       left: 0;
       position: absolute;
       top: 0;
@@ -161,8 +180,7 @@
   & .tiles {
     display: flex;
     flex-wrap: wrap;
-    margin-top: calc(var(--gutter) * 1.75);
-    margin-bottom:56px;
+    margin-bottom: 56px;
     margin-left: -2%;
     margin-right: -2%;
     width: auto;
