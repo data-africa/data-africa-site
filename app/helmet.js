@@ -10,7 +10,11 @@ module.exports = {
     {name: "mobile-web-app-capable", content: "yes"},
     {name: "apple-mobile-web-app-capable", content: "yes"},
     {name: "apple-mobile-web-app-status-bar-style", content: "black"},
-    {name: "apple-mobile-web-app-title", content: "Data Africa"}
+    {name: "apple-mobile-web-app-title", content: "Data Africa"},
+    {property: "og:title", content: "Data Africa"},
+    {property: "og:type", content: "article"},
+    {property: "og:image", content: "/images/africa-share.jpg"},
+    {property: "og:description", content: "{{ meta_desc }}"}
   ],
   title: "Data Africa"
 };
