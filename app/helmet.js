@@ -14,7 +14,8 @@ module.exports = {
     {property: "og:title", content: "Data Africa"},
     {property: "og:type", content: "article"},
     {property: "og:image", content: "https://dataafrica.io/images/africa-share.jpg"},
-    {property: "og:description", content: "An open source agriculture, climate, poverty, and health visualization engine for Africa."}
+    {property: "og:description", content: "An open source agriculture, climate, poverty, and health visualization engine for Africa."},
+    {property: "fb:app_id", content: "260789081071557"}
   ],
   title: "Data Africa"
 };
