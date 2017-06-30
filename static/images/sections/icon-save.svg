@@ -19,7 +19,7 @@
         </mask>
     </defs>
     <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Icon-Save-Image" stroke="#DDDDDD">
+        <g id="Icon-Save-Image" stroke="#000000">
             <use id="Oval-15-Copy" mask="url(#mask-2)" stroke-width="4" xlink:href="#path-1"></use>
             <use id="Rectangle-24" mask="url(#mask-4)" stroke-width="4" xlink:href="#path-3"></use>
             <polygon id="Triangle" stroke-width="2" stroke-linejoin="round" points="15 20 20 26 10 26"></polygon>

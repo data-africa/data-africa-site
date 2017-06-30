@@ -10,7 +10,7 @@
         </mask>
     </defs>
     <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Icon-Embed" stroke="#DDDDDD">
+        <g id="Icon-Embed" stroke="#000000">
             <polygon id="Triangle-2" stroke-width="2" stroke-linejoin="round" points="30 18 13 26 13 10"></polygon>
             <use id="Oval-15-Copy" mask="url(#mask-2)" stroke-width="4" xlink:href="#path-1"></use>
             <path d="M28,18 L9,18" id="Line" stroke-width="2" stroke-linecap="square"></path>
