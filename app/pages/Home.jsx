@@ -42,7 +42,7 @@ class Home extends Component {
               ocean: "transparent",
               on: {
                 "click.shape": d => {
-                  if (d) {
+                  if (d && d.url_name) {
                     selectAll(".d3plus-tooltip").remove();
                     browserHistory.push(`/profile/${d.url_name}`);
                   }

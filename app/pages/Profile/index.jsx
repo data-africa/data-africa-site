@@ -165,7 +165,7 @@ class GeoProfile extends Component {
                 ocean: "transparent",
                 on: {
                   "click.shape": d => {
-                    if (d && d.id !== id) {
+                    if (d && d.url_name && d.id !== id) {
                       selectAll(".d3plus-tooltip").remove();
                       browserHistory.push(`/profile/${d.url_name}`);
                     }
