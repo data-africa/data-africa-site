@@ -22,11 +22,17 @@
   }
 
   & .inner {
+    box-sizing: border-box;
     display: flex;
     justify-content: space-between;
     margin: 0 auto;
-    padding: calc(var(--gutter) * 2) 0;
-    width: var(--width);
+    max-width: var(--width);
+    padding: calc(var(--gutter) * 2) 16px;
+    width: 100%;
+
+    @media only screen and (max-width : 800px) {
+      flex-direction: column;
+    }
 
     & .links {
 
