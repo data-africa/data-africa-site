@@ -20,7 +20,7 @@ class IntroParagraph extends Section {
     const recentPop = popData[0];
     const hasMultipleYears = popData.length > 1;
     const oldPop = hasMultipleYears ? popData[popData.length - 1] : {};
-    const level = oldPop.poverty_geo.startsWith("040") ? "adm0" : "adm1";
+    const level = oldPop && oldPop.poverty_geo && oldPop.poverty_geo.startsWith("040") ? "adm0" : "adm1";
     const place = formatPlaceName(recentPop, "poverty", level);
     const growth = hasMultipleYears ? (recentPop.totpop - oldPop.totpop) / oldPop.totpop : 0;
     const direction = growth > 0 ? "increase" : "decrease";
