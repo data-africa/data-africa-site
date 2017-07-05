@@ -10,6 +10,7 @@ import {Geomap} from "d3plus-react";
 import {selectAll} from "d3-selection";
 import {browserHistory} from "react-router";
 import {connect} from "react-redux";
+import {formatPlaceName} from "helpers/formatters";
 
 import {VARIABLES, FORMATTERS} from "helpers/formatters";
 
@@ -19,10 +20,12 @@ class IntroParagraph extends Section {
     const recentPop = popData[0];
     const hasMultipleYears = popData.length > 1;
     const oldPop = hasMultipleYears ? popData[popData.length - 1] : {};
+    const level = oldPop.poverty_geo.startsWith("040") ? "adm0" : "adm1";
+    const place = formatPlaceName(recentPop, "poverty", level);
     const growth = hasMultipleYears ? (recentPop.totpop - oldPop.totpop) / oldPop.totpop : 0;
     const direction = growth > 0 ? "increase" : "decrease";
     const growthSentence = hasMultipleYears ? ` This represents a ${FORMATTERS.shareWhole(growth)}
-      ${direction} from ${oldPop.year} when the population of ${profile.name}
+      ${direction} from ${oldPop.year} when the population of ${place}
       was approximately ${VARIABLES.totpop(oldPop.totpop)}.` : "";
 
     const country = "country located in Africa south of the Sahara";
@@ -32,8 +35,8 @@ class IntroParagraph extends Section {
     if (!recentPop) {
       return <p></p>;
     }
-    return <p>{profile.name} is a {entity}.
-    As of {recentPop.year} {profile.name} had a total population of approximately {VARIABLES.totpop(recentPop.totpop)} people.
+    return <p key={"popdata-para"}>{profile.name} is a {entity}.
+    As of {recentPop.year} {place} had a total population of approximately {VARIABLES.totpop(recentPop.totpop)} people.
     {growthSentence}
     </p>;
   }
@@ -120,7 +123,7 @@ IntroParagraph.need = [
   fetchData("povertyData", "api/join/?geo=<geoid>&show=year,poverty_level&sumlevel=latest_by_geo,all&required=num,poverty_geo_name,poverty_geo_parent_name&limit=2"),
   fetchData("dhsHealth", "api/join/?geo=<geoid>&show=year,condition&required=dhs_geo_name,dhs_geo_parent_name,proportion_of_children&order=proportion_of_children&sort=desc&severity=severe&sumlevel=latest_by_geo,all"),
   fetchData("crops", "api/join/?geo=<geoid>&show=crop&required=harvested_area,value_of_production&display_names=true&order=harvested_area&sort=desc&year=latest"),
-  fetchData("popData", "api/join/?geo=<geoid>&show=year&required=totpop&sumlevel=all&order=year&sort=desc&display_names=true")
+  fetchData("popData", "api/join/?geo=<geoid>&show=year&required=totpop,poverty_geo,poverty_geo_parent_name&sumlevel=all&order=year&sort=desc&display_names=true")
 ];
 
 export default connect(state => ({
