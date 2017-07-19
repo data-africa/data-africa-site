@@ -58,9 +58,11 @@ class Map extends Component {
     const origColumn = column;
 
     let required = mapParams.variable === "geo" ? column : `${[mapParams.variable, mapParams.variableName].join(",")},${column}`;
+    console.log(column, origColumn, dataset);
     if (column === "rainfall_awa_mm") required += ",start_year";
-    if (dataset === "poverty" && ["hc", "povgap", "sevpov", "num"].includes(column)) {
-      const url = `${API}api/poverty?show=${geo}&poverty_level=ppp1`;
+    if (dataset === "poverty" && (column.endsWith("ppp1") || column.endsWith("ppp2"))) {
+      const povLevel = column.split("_").slice(-1)[0];
+      const url = `${API}api/poverty?show=${geo}&poverty_level=${povLevel}`;
       axios.get(url).then(result => {
         const data = result.data.data;
         this.setState({geo, column, data, loaded: true}, () => this.handleUrl());
@@ -91,7 +93,7 @@ class Map extends Component {
     if (column.includes("proportion_of_children")) {
       return "dhs";
     }
-    else if (povCols.includes(column)) {
+    else if (povCols.includes(column) || column.endsWith("ppp1") || column.endsWith("ppp2")) {
       return "poverty";
     }
     else {
@@ -161,6 +163,9 @@ class Map extends Component {
     if (column.includes("proportion_of_children")) {
       column = "proportion_of_children";
     }
+    else if (column.endsWith("_ppp1") || column.endsWith("_ppp2")) {
+      column = column.split("_")[0];
+    }
     const dataNest = nest()
       .key(d => d[mapParams.variable])
       .entries(data)
@@ -187,6 +192,9 @@ class Map extends Component {
     const origColumn = column;
     if (column.includes("proportion_of_children")) {
       column = "proportion_of_children";
+    }
+    else if (column.endsWith("_ppp1") || column.endsWith("_ppp2")) {
+      column = column.split("_")[0];
     }
     const mapParams = this.datasetPrep(geo, column);
     const levels = vars && vars.length ? vars.filter(v => v.column === column)[0].levels[0] : {};
@@ -248,12 +256,17 @@ class Map extends Component {
       topojsonKey: "collection",
       topojsonFilter: this.dataset(column) !== "cell5m" && geo === "adm1" ? d => myPlaces.includes(d.properties[mapParams.variable]) : undefined
     }}/>;
-    let tmpVars = vars.filter(v => v.column !== "proportion_of_children");
+    let tmpVars = vars.filter(v => v.column !== "proportion_of_children" && !["hc", "sevpov", "povgap"].includes(v.column));
     const glevels = [{geo: ["all", "adm0", "adm1"]}];
+    let povTemplates = vars.filter(v => ["hc", "sevpov", "povgap", "num"].includes(v.column));
+    povTemplates = povTemplates.map(x => {
+      return [{...x, column: x.column + "_ppp1"}, {...x, column: x.column + "_ppp2"}];
+    }).reduce((obj, acc) => [...acc, ...obj]);
     tmpVars = [...tmpVars,
       {column: "proportion_of_children_wasted", levels: glevels},
       {column: "proportion_of_children_stunted", levels: glevels},
-      {column: "proportion_of_children_underweight", levels: glevels}
+      {column: "proportion_of_children_underweight", levels: glevels},
+      ...povTemplates
     ];
 
     const dropdownOptions = tmpVars.map(v => v.column)
