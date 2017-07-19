@@ -46,7 +46,7 @@ export const VARIABLES = {
   cropland_total_ha: d => `${abbreviate(d)} ha`,
   gini: format(".3"),
   harvested_area: d => `${abbreviate(d, true)} ha`,
-  hc: FORMATTERS.ratio,
+  hc: FORMATTERS.share,
   num: abbreviate,
   povgap: FORMATTERS.ratio,
   poverty_prop: FORMATTERS.shareWhole,

@@ -54,15 +54,25 @@ class Map extends Component {
     geo = newVars.geo ? newVars.geo : geo;
     column = newVars.column ? newVars.column : column;
     const mapParams = this.datasetPrep(geo, column);
+    const dataset = this.dataset(column);
     let required = mapParams.variable === "geo" ? column : `${[mapParams.variable, mapParams.variableName].join(",")},${column}`;
     if (column === "rainfall_awa_mm") required += ",start_year";
-    const show = mapParams.variable;
-    const url = `${API}api/join/?show=year,${show}&sumlevel=latest_by_geo,${geo}&required=${required},url_name&order=${column}&sort=desc&display_names=true`;
+    if (dataset === "poverty") {
+      const url = `${API}api/poverty?show=${geo}&poverty_level=ppp1`;
+      axios.get(url).then(result => {
+        const data = result.data.data;
+        this.setState({geo, column, data, loaded: true}, () => this.handleUrl());
+      });
+    }
+    else {
+      const show = mapParams.variable;
+      const url = `${API}api/join/?show=year,${show}&sumlevel=latest_by_geo,${geo}&required=${required},url_name&order=${column}&sort=desc&display_names=true`;
 
-    axios.get(url).then(result => {
-      const data = fold(result.data);
-      this.setState({geo, column, data, loaded: true}, () => this.handleUrl());
-    });
+      axios.get(url).then(result => {
+        const data = fold(result.data);
+        this.setState({geo, column, data, loaded: true}, () => this.handleUrl());
+      });
+    }
   }
 
 
@@ -162,9 +172,8 @@ class Map extends Component {
     const mapParams = this.datasetPrep(geo, column);
     const levels = vars && vars.length ? vars.filter(v => v.column === column)[0].levels[0] : {};
     const geoLevels = levels.geo ? levels.geo.filter(g => g !== "all") : [];
-
     const years = extent(data.map(d => d.year).concat(data.map(d => d.start_year || d.year)));
-
+    const myPlaces = Array.from(new Set(data.map(d => d[mapParams.variable])));
     const map = <Geomap config={{
       colorScale: column,
       colorScaleConfig: {
@@ -217,7 +226,8 @@ class Map extends Component {
       },
       topojson: mapParams.topojsonPath,
       topojsonId: mapParams.topojsonId,
-      topojsonKey: "collection"
+      topojsonKey: "collection",
+      topojsonFilter: this.dataset(column) === "poverty" && geo === "adm1" ? d => myPlaces.includes(d.properties[mapParams.variable]) : undefined
     }}/>;
 
     const dropdownOptions = vars.map(v => v.column)

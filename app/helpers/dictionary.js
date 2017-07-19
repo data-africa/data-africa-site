@@ -8,7 +8,7 @@ export const DICTIONARY = {
   cropland_total_ha: "Total Cropland in Hectares",
   gini: "GINI",
   harvested_area: "Harvested Area in Hectares",
-  hc: "Headcount Ratio",
+  hc: "Poverty Headcount Rate",
   num: "Number of People Living in Poverty",
   povgap: "Poverty Gap Ratio",
   poverty_prop: "Poverty Rate",
