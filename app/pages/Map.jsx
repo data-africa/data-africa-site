@@ -55,9 +55,11 @@ class Map extends Component {
     column = newVars.column ? newVars.column : column;
     const mapParams = this.datasetPrep(geo, column);
     const dataset = this.dataset(column);
+    const origColumn = column;
+
     let required = mapParams.variable === "geo" ? column : `${[mapParams.variable, mapParams.variableName].join(",")},${column}`;
     if (column === "rainfall_awa_mm") required += ",start_year";
-    if (dataset === "poverty") {
+    if (dataset === "poverty" && ["hc", "povgap", "sevpov", "num"].includes(column)) {
       const url = `${API}api/poverty?show=${geo}&poverty_level=ppp1`;
       axios.get(url).then(result => {
         const data = result.data.data;
@@ -65,7 +67,8 @@ class Map extends Component {
       });
     }
     else if (dataset === "dhs") {
-      const url = `${API}api/health?show=${geo}&severity=severe`;
+      const condition = origColumn.split("_").slice(-1)[0];
+      const url = `${API}api/health?show=${geo}&severity=severe&condition=${condition}`;
       axios.get(url).then(result => {
         const data = result.data.data;
         this.setState({geo, column, data, loaded: true}, () => this.handleUrl());
@@ -77,7 +80,7 @@ class Map extends Component {
 
       axios.get(url).then(result => {
         const data = fold(result.data);
-        this.setState({geo, column, data, loaded: true}, () => this.handleUrl());
+        this.setState({geo, column: origColumn, data, loaded: true}, () => this.handleUrl());
       });
     }
   }
@@ -85,7 +88,7 @@ class Map extends Component {
 
   dataset(column) {
     const povCols = ["povgap", "hc", "sevpov", "num", "gini", "totpop"];
-    if (column === "proportion_of_children") {
+    if (column.includes("proportion_of_children")) {
       return "dhs";
     }
     else if (povCols.includes(column)) {
@@ -150,11 +153,14 @@ class Map extends Component {
   }
 
   renderTopTen() {
-    const {geo, column, data} = this.state;
+    const {geo, data} = this.state;
+    let {column} = this.state;
     const mapParams = this.datasetPrep(geo, column);
 
     const averages = ["gini", "hc", "povgap", "sevpov"];
-
+    if (column.includes("proportion_of_children")) {
+      column = "proportion_of_children";
+    }
     const dataNest = nest()
       .key(d => d[mapParams.variable])
       .entries(data)
@@ -175,7 +181,13 @@ class Map extends Component {
 
   render() {
     const {vars} = this.props;
-    const {geo, column, data, loaded} = this.state;
+    const {geo, data, loaded} = this.state;
+    let {column} = this.state;
+
+    const origColumn = column;
+    if (column.includes("proportion_of_children")) {
+      column = "proportion_of_children";
+    }
     const mapParams = this.datasetPrep(geo, column);
     const levels = vars && vars.length ? vars.filter(v => v.column === column)[0].levels[0] : {};
     const geoLevels = levels.geo ? levels.geo.filter(g => g !== "all") : [];
@@ -236,8 +248,15 @@ class Map extends Component {
       topojsonKey: "collection",
       topojsonFilter: this.dataset(column) !== "cell5m" && geo === "adm1" ? d => myPlaces.includes(d.properties[mapParams.variable]) : undefined
     }}/>;
+    let tmpVars = vars.filter(v => v.column !== "proportion_of_children");
+    const glevels = [{geo: ["all", "adm0", "adm1"]}];
+    tmpVars = [...tmpVars,
+      {column: "proportion_of_children_wasted", levels: glevels},
+      {column: "proportion_of_children_stunted", levels: glevels},
+      {column: "proportion_of_children_underweight", levels: glevels}
+    ];
 
-    const dropdownOptions = vars.map(v => v.column)
+    const dropdownOptions = tmpVars.map(v => v.column)
       .sort((a, b) => DICTIONARY[a].localeCompare(DICTIONARY[b]));
 
     const loading = loaded ? null : <div className="loading"><div className="text">Loading...</div></div>;
@@ -250,7 +269,7 @@ class Map extends Component {
 
             <div className="controls">
               <span className="dropdown-title">Metric</span>
-              <Selector options={ dropdownOptions } callback={ this.handleColumn } selected={ column } />
+              <Selector options={ dropdownOptions } callback={ this.handleColumn } selected={ origColumn } />
               {
                 geoLevels.length > 1 ? <Radio options={ geoLevels } checked={ geo } callback={ this.handleGeo } /> : null
               }

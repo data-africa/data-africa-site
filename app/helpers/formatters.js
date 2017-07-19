@@ -48,11 +48,11 @@ export const VARIABLES = {
   harvested_area: d => `${abbreviate(d, true)} ha`,
   hc: FORMATTERS.share,
   num: abbreviate,
-  povgap: FORMATTERS.ratio,
+  povgap: format(",.2f"),
   poverty_prop: FORMATTERS.shareWhole,
   proportion_of_children: FORMATTERS.share,
   rainfall_awa_mm: d => `${FORMATTERS.round(d)}mm`,
-  sevpov: FORMATTERS.ratio,
+  sevpov: format(",.2f"),
   totpop: d => round2(d),
   value_of_production: d => `Intl $${abbreviate(d, true)}`,
   value_density: d => `Intl $${abbreviate(d)} per ha`
