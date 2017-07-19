@@ -64,6 +64,13 @@ class Map extends Component {
         this.setState({geo, column, data, loaded: true}, () => this.handleUrl());
       });
     }
+    else if (dataset === "dhs") {
+      const url = `${API}api/health?show=${geo}&severity=severe`;
+      axios.get(url).then(result => {
+        const data = result.data.data;
+        this.setState({geo, column, data, loaded: true}, () => this.handleUrl());
+      });
+    }
     else {
       const show = mapParams.variable;
       const url = `${API}api/join/?show=year,${show}&sumlevel=latest_by_geo,${geo}&required=${required},url_name&order=${column}&sort=desc&display_names=true`;
@@ -227,7 +234,7 @@ class Map extends Component {
       topojson: mapParams.topojsonPath,
       topojsonId: mapParams.topojsonId,
       topojsonKey: "collection",
-      topojsonFilter: this.dataset(column) === "poverty" && geo === "adm1" ? d => myPlaces.includes(d.properties[mapParams.variable]) : undefined
+      topojsonFilter: this.dataset(column) !== "cell5m" && geo === "adm1" ? d => myPlaces.includes(d.properties[mapParams.variable]) : undefined
     }}/>;
 
     const dropdownOptions = vars.map(v => v.column)

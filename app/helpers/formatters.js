@@ -50,7 +50,7 @@ export const VARIABLES = {
   num: abbreviate,
   povgap: FORMATTERS.ratio,
   poverty_prop: FORMATTERS.shareWhole,
-  proportion_of_children: FORMATTERS.ratio,
+  proportion_of_children: FORMATTERS.share,
   rainfall_awa_mm: d => `${FORMATTERS.round(d)}mm`,
   sevpov: FORMATTERS.ratio,
   totpop: d => round2(d),
