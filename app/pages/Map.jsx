@@ -256,7 +256,7 @@ class Map extends Component {
       topojsonKey: "collection",
       topojsonFilter: this.dataset(column) !== "cell5m" && geo === "adm1" ? d => myPlaces.includes(d.properties[mapParams.variable]) : undefined
     }}/>;
-    let tmpVars = vars.filter(v => v.column !== "proportion_of_children" && !["hc", "sevpov", "povgap"].includes(v.column));
+    let tmpVars = vars.filter(v => v.column !== "proportion_of_children" && !["num", "hc", "sevpov", "povgap"].includes(v.column));
     const glevels = [{geo: ["all", "adm0", "adm1"]}];
     let povTemplates = vars.filter(v => ["hc", "sevpov", "povgap", "num"].includes(v.column));
     povTemplates = povTemplates.map(x => {
