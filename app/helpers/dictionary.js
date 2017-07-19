@@ -21,5 +21,9 @@ export const DICTIONARY = {
   totpop: "Total Population",
   underweight: "Underweight",
   value_of_production: "Value of Production",
-  wasted: "Wasted"
+  wasted: "Wasted",
+  proportion_of_children_wasted: "Proportion of Children Severely Wasted",
+  proportion_of_children_stunted: "Proportion of Children Severely Stunted",
+  proportion_of_children_underweight: "Proportion of Children Severely Underweight"
+
 };
