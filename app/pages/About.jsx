@@ -23,8 +23,16 @@ const topics = [
     title: "Glossary"
   },
   {
-    slug: "terms",
-    title: "Terms of Use"
+    slug: "about",
+    title: "About Us"
+  },
+  {
+    slug: "acknowledgement",
+    title: "Acknowledgement"
+  },
+  {
+    slug: "citation",
+    title: "Citation"
   }
 ];
 
@@ -193,7 +201,7 @@ class About extends Component {
         </section>
 
         <section className="section section-glossary">
-          <TopicTitle slug="about">Acknowledgement</TopicTitle>
+          <TopicTitle slug="acknowledgement">Acknowledgement</TopicTitle>
           <div className="paragraph">
             <p className="definition">
             This work was undertaken as part of the HarvestChoice project and the
@@ -208,7 +216,7 @@ class About extends Component {
         </section>
 
         <section className="section section-glossary">
-          <TopicTitle slug="about">Citation</TopicTitle>
+          <TopicTitle slug="citation">Citation</TopicTitle>
           <div className="paragraph">
           For the citation of Data Africa, please use:
           <p>

@@ -20,7 +20,9 @@ class Footer extends Component {
               <li className="item"><Link className="link" to="/about#background">Background</Link></li>
               <li className="item"><Link className="link" to="/about#data">Data Sources</Link></li>
               <li className="item"><Link className="link" to="/about#glossary">Glossary</Link></li>
-              <li className="item"><Link className="link" to="/about#terms">Terms of Use</Link></li>
+              <li className="item"><Link className="link" to="/about#about">About Us</Link></li>
+              <li className="item"><Link className="link" to="/about#acknowledgement">Acknowledgement</Link></li>
+              <li className="item"><Link className="link" to="/about#citation">Citation</Link></li>
             </ul>
           </div>
           <div className="logos">
