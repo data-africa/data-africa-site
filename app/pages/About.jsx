@@ -100,11 +100,11 @@ class About extends Component {
         <section className="section section-background no-border">
           <TopicTitle slug="background">Background</TopicTitle>
           <p className="paragraph">
-            Data Africa is an open-source platform designed to provide information
-            on key themes such as: health, agriculture, climate, and poverty across Africa. The goal of the site is to present these themes to a wide audience as easily understood visual narratives.
+            Data Africa is an open data platform designed to provide information
+            on key themes for research and development such as: agriculture, climate, poverty and child health across Sub-Saharan Africa at the sub-national level. The main goal of the online tool is to present the themes to a wide, even non-technical audience through easily accessible visual narratives.
           </p>
           <p className="paragraph">
-            The platform is initially focused around state and province level data for 13 countries, including:
+            In its first stage, the platform is focused on national and sub-national level data for 13 countries:
           </p>
           <ul className="paragraph country-list">
             <li>Burkina Faso</li>
@@ -122,18 +122,18 @@ class About extends Component {
             <li>Zambia</li>
           </ul>
           <p className="paragraph">
-          Over time, we anticipate expanding the coverage of the platform in terms of the number of countries covered as well as increasing the amount of data available through the platform. For any questions, comments, or more information on the site please contact <a href="mailto:hello@dataafrica.io" className="email">hello@dataafrica.io</a>.
+          Over time, we anticipate expanding the coverage of the platform with additional countries and increasing the amount of data available through the platform. For any questions, comments, or more information on the site please contact <a href="mailto:hello@dataafrica.io" className="email">hello@dataafrica.io</a>.
           </p>
         </section>
 
         <section className="section section-data">
           <TopicTitle slug="data">Data Sources</TopicTitle>
           <p className="paragraph">
-            The data contained in this site draws from a variety of sources,
+            The data contained in the online tool draws from a variety of sources,
             including:
           </p>
           <ul className="paragraph source-list">
-            <li><span>Agricultural Data</span><a href="http://www.ifpri.org/publication/cell5m-geospatial-data-and-analytics-platform-harmonized-multi-disciplinary-data-layers" target="_blank">IFPRI's Cell5M repository</a></li>
+            <li><span>Agricultural Data</span><a href="http://www.ifpri.org/publication/cell5m-geospatial-data-and-analytics-platform-harmonized-multi-disciplinary-data-layers" target="_blank">IFPRI's CELL5M Database</a></li>
             <li><span>Climate Data</span><a href="http://www.cru.uea.ac.uk/data/" target="_blank">University of East Anglia's Climatic Research Unit</a></li>
             <li><span>Health Data</span><a href="http://dhsprogram.com/" target="_blank">DHS Program</a></li>
             <li><span>Poverty Data</span><a href="http://iresearch.worldbank.org/PovcalNet/povOnDemand.aspx" target="_blank">World Bank's PovcalNet</a></li>
@@ -150,6 +150,71 @@ class About extends Component {
               </p>
             </div>
           )}
+        </section>
+
+        <section className="section section-glossary">
+          <TopicTitle slug="about">About Us</TopicTitle>
+          <div className="paragraph">
+            <p className="term">HarvestChoice</p>
+            <p className="definition">
+            Data Africa is a HarvestChoice project website. HarvestChoice,
+            jointly implemented by IFPRI and University of Minnesota, generates
+            data and knowledge products to support strategic investments on
+            agricultural research and development in Africa South of the Sahara (SSA).
+            To learn more about HarvestChoice’s related work, visit our
+            Catalog, Repository, MapSPAM, AgAtlas, and InSTePP.
+            </p>
+          </div>
+
+          <div className="paragraph">
+            <p className="term">IFPRI</p>
+            <p className="definition">
+            The International Food Policy Research Institute (IFPRI), established
+            in 1975, provides research-based policy solutions to sustainably reduce
+            poverty and end hunger and malnutrition. The Institute conducts research,
+            communicates results, optimizes partnerships, and builds capacity to
+            ensure sustainable food production, promote healthy food systems,
+            improve markets and trade, transform agriculture, build resilience,
+            and strengthen institutions and governance. Gender is considered in
+            all of the Institute’s work. IFPRI collaborates with partners around
+            the world, including development implementers, public institutions, the private sector, and farmers’ organizations.
+            </p>
+          </div>
+          <div className="paragraph">
+            <p className="term">Datawheel</p>
+            <p className="definition">
+            Datawheel is a small but mighty crew of programmers and designers
+            with a passion for crafting data into predictive, decision-making,
+            and storytelling tools. Every visualization platform built by Datawheel is a
+            tailored solution that marries the needs of users and the data
+            supporting it.
+            </p>
+          </div>
+        </section>
+
+        <section className="section section-glossary">
+          <TopicTitle slug="about">Acknowledgement</TopicTitle>
+          <div className="paragraph">
+            <p className="definition">
+            This work was undertaken as part of the HarvestChoice project and the
+            CGIAR Research Program on Policies, Institutions, and Markets (PIM),
+            led by the International Food Policy Research Institute (IFPRI), in
+            collaboration with Datawheel and Barefoot Education for Afrika Trust (BEAT).
+            Funding support for this platform was provided by the Bill and Melinda Gates Foundation and USAID Bureau for Food Security.
+            Contents in this website have not gone through IFPRI’s standard peer-review procedure.
+            The opinions expressed here belong to the authors, and do not necessarily reflect those of PIM, IFPRI, or CGIAR.
+            </p>
+          </div>
+        </section>
+
+        <section className="section section-glossary">
+          <TopicTitle slug="about">Citation</TopicTitle>
+          <div className="paragraph">
+          For the citation of Data Africa, please use:
+          <p>
+            International Food Policy Research Institute (IFPRI) and Datawheel, 2017. http://DataAfrica.io. Accessed [today’s date].
+          </p>
+          </div>
         </section>
 
         <section className="section section-toc">
