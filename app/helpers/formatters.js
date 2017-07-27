@@ -41,8 +41,8 @@ export const FORMATTERS = {
 export const VARIABLES = {
   cropland_rainfallCVgt20pct_ha: d => `${abbreviate(d)} ha`,
   cropland_rainfallCVgt30pct_ha: d => `${abbreviate(d)} ha`,
-  cropland_rainfallCVgt20pct_pct: d => `${round2(d)}%`,
-  cropland_rainfallCVgt30pct_pct: d => `${round2(d)}%`,
+  cropland_rainfallCVgt20pct_pct: d => FORMATTERS.share(d / 100.0),
+  cropland_rainfallCVgt30pct_pct: d => FORMATTERS.share(d / 100.0),
   cropland_total_ha: d => `${abbreviate(d)} ha`,
   gini: format(".3"),
   harvested_area: d => `${abbreviate(d, true)} ha`,
