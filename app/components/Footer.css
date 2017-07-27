@@ -66,15 +66,21 @@
 
     & .logos {
 
-      & .ifpri {
+      & .harvest-choice {
         vertical-align: middle;
-        width: 132px;
+        width: 130px;
+      }
+
+      & .ifpri {
+        margin-left: 35px;
+        vertical-align: middle;
+        width: 130px;
       }
 
       & .datawheel {
-        margin-left: 23px;
+        margin-left: 15px;
         vertical-align: middle;
-        width: 205px;
+        width: 160px;
       }
 
     }
