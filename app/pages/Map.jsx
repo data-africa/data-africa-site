@@ -285,7 +285,10 @@ class Map extends Component {
       .sort((a, b) => DICTIONARY[a].localeCompare(DICTIONARY[b]));
 
     const loading = loaded ? null : <div className="loading"><div className="text">Loading...</div></div>;
-
+    let yearSpan = <span className="data-year">{ data.length ? `Data ${ years[0] !== years[1] ? `collected from ${years[0]} to` : "from" } ${ years[1] }` : null }</span>;
+    if (column === "cropland_total_ha") {
+      yearSpan = <span className="data-year">Data from 2005</span>;
+    }
     return (
       <CanonComponent d3plus={d3plus}>
         <div className="map">
@@ -298,7 +301,7 @@ class Map extends Component {
               {
                 geoLevels.length > 1 ? <Radio options={ geoLevels } checked={ geo } callback={ this.handleGeo } /> : null
               }
-              <span className="data-year">{ data.length ? `Data ${ years[0] !== years[1] ? `collected from ${years[0]} to` : "from" } ${ years[1] }` : null }</span>
+              { yearSpan }
               { this.renderTopTen() }
             </div>
             <svg id="legend"></svg>
