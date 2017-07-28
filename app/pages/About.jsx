@@ -141,10 +141,10 @@ class About extends Component {
             including:
           </p>
           <ul className="paragraph source-list">
-            <li><span>Agricultural Data</span><a href="http://www.ifpri.org/publication/cell5m-geospatial-data-and-analytics-platform-harmonized-multi-disciplinary-data-layers" target="_blank">IFPRI's CELL5M Database</a></li>
-            <li><span>Climate Data</span><a href="http://www.cru.uea.ac.uk/data/" target="_blank">University of East Anglia's Climatic Research Unit</a></li>
+            <li><span>Agricultural Data</span><a href="https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/G4TBLF" target="_blank">IFPRI's CELL5M Database</a></li>
+            <li><span>Climate Data</span><a href="http://www.cru.uea.ac.uk/" target="_blank">University of East Anglia's Climatic Research Unit</a></li>
             <li><span>Health Data</span><a href="http://dhsprogram.com/" target="_blank">DHS Program</a></li>
-            <li><span>Poverty Data</span><a href="http://iresearch.worldbank.org/PovcalNet/povOnDemand.aspx" target="_blank">World Bank's PovcalNet</a></li>
+            <li><span>Poverty Data</span><a href="http://iresearch.worldbank.org/PovcalNet/home.aspx" target="_blank">World Bank's PovcalNet</a></li>
           </ul>
         </section>
 
@@ -169,15 +169,14 @@ class About extends Component {
             jointly implemented by IFPRI and University of Minnesota, generates
             data and knowledge products to support strategic investments on
             agricultural research and development in Africa South of the Sahara (SSA).
-            To learn more about HarvestChoice’s related work, visit our
-            Catalog, Repository, MapSPAM, AgAtlas, and InSTePP.
+            To learn more about HarvestChoice’s related work, visit our <a href="https://harvestchoice.org/products/data" target="_blank">Catalog</a>, <a href="https://dataverse.harvard.edu/dataverse/harvestchoice" target="_blank">Repository</a>, <a href="http://mapspam.info/" target="_blank">MapSPAM</a>, <a target="_blank" href="http://agatlas.org/">AgAtlas</a>, and <a target="_blank" href="http://www.instepp.umn.edu/">InSTePP</a>.
             </p>
           </div>
 
           <div className="paragraph">
             <p className="term">IFPRI</p>
             <p className="definition">
-            The International Food Policy Research Institute (IFPRI), established
+            The <a href="http://www.ifpri.org/" target="_blank">International Food Policy Research Institute (IFPRI)</a>, established
             in 1975, provides research-based policy solutions to sustainably reduce
             poverty and end hunger and malnutrition. The Institute conducts research,
             communicates results, optimizes partnerships, and builds capacity to
@@ -191,7 +190,7 @@ class About extends Component {
           <div className="paragraph">
             <p className="term">Datawheel</p>
             <p className="definition">
-            Datawheel is a small but mighty crew of programmers and designers
+            <a href="http://datawheel.us" target="_blank">Datawheel</a> is a small but mighty crew of programmers and designers
             with a passion for crafting data into predictive, decision-making,
             and storytelling tools. Every visualization platform built by Datawheel is a
             tailored solution that marries the needs of users and the data
@@ -204,11 +203,10 @@ class About extends Component {
           <TopicTitle slug="acknowledgement">Acknowledgement</TopicTitle>
           <div className="paragraph">
             <p className="definition">
-            This work was undertaken as part of the HarvestChoice project and the
-            CGIAR Research Program on Policies, Institutions, and Markets (PIM),
-            led by the International Food Policy Research Institute (IFPRI), in
-            collaboration with Datawheel and Barefoot Education for Afrika Trust (BEAT).
-            Funding support for this platform was provided by the Bill and Melinda Gates Foundation and USAID Bureau for Food Security.
+            This work was undertaken as part of the <a target="_blank" href="https://harvestchoice.org/">HarvestChoice</a> project and the <a target="_blank" href="http://pim.cgiar.org/">CGIAR Research Program on Policies, Institutions, and Markets (PIM)</a>,
+            led by the <a href="http://ifpri.org">International Food Policy Research Institute (IFPRI)</a>, in
+            collaboration with <a target="_blank" href="http://datawheel.us">Datawheel</a> and <a target="_blank" href="http://www.beatafrica.org/">Barefoot Education for Afrika Trust (BEAT)</a>.
+            Funding support for this platform was provided by the <a target="_blank" href="https://www.gatesfoundation.org/">Bill and Melinda Gates Foundation</a> and <a target="_blank" href="https://www.usaid.gov/who-we-are/organization/bureaus/bureau-food-security">USAID Bureau for Food Security</a>.
             Contents in this website have not gone through IFPRI’s standard peer-review procedure.
             The opinions expressed here belong to the authors, and do not necessarily reflect those of PIM, IFPRI, or CGIAR.
             </p>
@@ -220,7 +218,7 @@ class About extends Component {
           <div className="paragraph">
           For the citation of Data Africa, please use:
           <p>
-            International Food Policy Research Institute (IFPRI) and Datawheel, 2017. http://DataAfrica.io. Accessed [today’s date].
+            International Food Policy Research Institute (IFPRI) and Datawheel, 2017. <a href="https://dataafrica.io">https://DataAfrica.io</a>. Accessed [today’s date].
           </p>
           </div>
         </section>
