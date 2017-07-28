@@ -59,7 +59,12 @@ class Map extends Component {
 
     let required = mapParams.variable === "geo" ? column : `${[mapParams.variable, mapParams.variableName].join(",")},${column}`;
     console.log(column, origColumn, dataset);
-    if (column === "rainfall_awa_mm") required += ",start_year";
+    if (["cropland_total_ha",
+      "rainfall_awa_mm",
+      "cropland_rainfallCVgt20pct_pct",
+      "cropland_rainfallCVgt20pct_ha",
+      "cropland_rainfallCVgt30pct_pct",
+      "cropland_rainfallCVgt30pct_ha"].includes(column)) required += ",start_year";
     if (dataset === "poverty" && (column.endsWith("ppp1") || column.endsWith("ppp2"))) {
       const povLevel = column.split("_").slice(-1)[0];
       const url = `${API}api/poverty?show=${geo}&poverty_level=${povLevel}`;
