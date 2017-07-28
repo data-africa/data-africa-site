@@ -76,6 +76,13 @@ class Map extends Component {
         this.setState({geo, column, data, loaded: true}, () => this.handleUrl());
       });
     }
+    else if (column === "harvested_area") {
+      const url = `${API}api/harvested_area?show=${geo}`;
+      axios.get(url).then(result => {
+        const data = result.data.data;
+        this.setState({geo, column, data, loaded: true}, () => this.handleUrl());
+      });
+    }
     else {
       const show = mapParams.variable;
       const url = `${API}api/join/?show=year,${show}&sumlevel=latest_by_geo,${geo}&required=${required},url_name&order=${column}&sort=desc&display_names=true`;
