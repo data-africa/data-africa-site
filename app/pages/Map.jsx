@@ -270,10 +270,10 @@ class Map extends Component {
     }}/>;
     let tmpVars = vars.filter(v => v.column !== "proportion_of_children" && !["num", "hc", "sevpov", "povgap"].includes(v.column));
     const glevels = [{geo: ["all", "adm0", "adm1"]}];
-    let povTemplates = vars.filter(v => ["hc", "sevpov", "povgap", "num"].includes(v.column));
-    povTemplates = povTemplates.map(x => {
-      return [{...x, column: x.column + "_ppp1"}, {...x, column: x.column + "_ppp2"}];
-    }).reduce((obj, acc) => [...acc, ...obj]);
+    const povTemplates = vars
+      .filter(v => ["hc", "sevpov", "povgap", "num"].includes(v.column))
+      .map(x => [{...x, column: `${x.column}_ppp1`}, {...x, column: `${x.column}_ppp2`}])
+      .reduce((obj, acc) => [...acc, ...obj], {});
     tmpVars = [...tmpVars,
       {column: "proportion_of_children_wasted", levels: glevels},
       {column: "proportion_of_children_stunted", levels: glevels},
