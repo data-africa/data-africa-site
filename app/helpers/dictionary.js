@@ -8,7 +8,7 @@ export const DICTIONARY = {
   cropland_total_ha: "Total Cropland in Hectares",
   gini: "GINI",
   harvested_area: "Harvested Area in Hectares",
-  hc: "Headcount Ratio",
+  hc: "Poverty Headcount Rate",
   num: "Number of People Living in Poverty",
   povgap: "Poverty Gap Ratio",
   poverty_prop: "Poverty Rate",
@@ -17,9 +17,21 @@ export const DICTIONARY = {
   ppp2: "$3.10/day (2011 PPP)",
   rainfall_awa_mm: "Average Annual Rainfall",
   sevpov: "Poverty Severity Ratio",
+  sevpov_ppp1: "Poverty Severity Ratio $1.90/day (2011 PPP)",
+  sevpov_ppp2: "Poverty Severity Ratio $3.10/day (2011 PPP)",
+  hc_ppp1: "Poverty Headcount Rate $1.90/day (2011 PPP)",
+  hc_ppp2: "Poverty Headcount Rate $3.10/day (2011 PPP)",
+  num_ppp1: "Number of People Living in Poverty $1.90/day (2011 PPP)",
+  num_ppp2: "Number of People Living in Poverty $3.10/day (2011 PPP)",
+  povgap_ppp1: "Poverty Gap Ratio $1.90/day (2011 PPP)",
+  povgap_ppp2: "Poverty Gap Ratio $3.10/day (2011 PPP)",
   stunted: "Stunted",
   totpop: "Total Population",
   underweight: "Underweight",
   value_of_production: "Value of Production",
-  wasted: "Wasted"
+  wasted: "Wasted",
+  proportion_of_children_wasted: "Proportion of Children Severely Wasted",
+  proportion_of_children_stunted: "Proportion of Children Severely Stunted",
+  proportion_of_children_underweight: "Proportion of Children Severely Underweight"
+
 };
