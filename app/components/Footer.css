@@ -72,13 +72,19 @@
       }
 
       & .ifpri {
-        margin-left: 35px;
+        margin-left: 25px;
+        vertical-align: middle;
+        width: 130px;
+      }
+
+      & .usaid {
+        margin-left: 10px;
         vertical-align: middle;
         width: 130px;
       }
 
       & .datawheel {
-        margin-left: 15px;
+        margin-left: 20px;
         vertical-align: middle;
         width: 160px;
       }
