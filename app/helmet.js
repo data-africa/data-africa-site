@@ -1,6 +1,6 @@
 module.exports = {
   link: [
-    {rel: "icon", href: "/images/favicon.ico?v=2"}
+    {rel: "icon", href: "/images/icon.ico", type: "image/x-icon"}
   ],
   meta: [
     {charset: "utf-8"},
