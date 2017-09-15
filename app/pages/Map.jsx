@@ -64,7 +64,7 @@ class Map extends Component {
       "cropland_rainfallCVgt20pct_pct",
       "cropland_rainfallCVgt20pct_ha",
       "cropland_rainfallCVgt30pct_pct",
-      "cropland_rainfallCVgt30pct_ha"].includes(column)) required += ",start_year";
+      "cropland_rainfallCVgt30pct_ha"].includes(column)) required += ",start_year,parent_name";
     if (dataset === "poverty" && (column.endsWith("ppp1") || column.endsWith("ppp2"))) {
       const povLevel = column.split("_").slice(-1)[0];
       const url = `${API}api/poverty?show=${geo}&poverty_level=${povLevel}`;
@@ -88,8 +88,16 @@ class Map extends Component {
         this.setState({geo, column, data, loaded: true}, () => this.handleUrl());
       });
     }
+    else if (column === "value_of_production") {
+      const url = `${API}api/production_value?show=${geo}`;
+      axios.get(url).then(result => {
+        const data = result.data.data;
+        this.setState({geo, column, data, loaded: true}, () => this.handleUrl());
+      });
+    }
     else {
       const show = mapParams.variable;
+      if (dataset === "poverty") required += ",poverty_geo_parent_name";
       const url = `${API}api/join/?show=year,${show}&sumlevel=latest_by_geo,${geo}&required=${required},url_name&order=${column}&sort=desc&display_names=true`;
 
       axios.get(url).then(result => {
@@ -142,7 +150,17 @@ class Map extends Component {
 
     const labelFunc = d => {
       while (d.data) d = d.data;
-      return titleCase(d[variableName]);
+      if (d.parent_name) {
+        d.geo_parent_name = d.parent_name;
+      }
+      else if (d.poverty_geo_parent_name) {
+        d.geo_parent_name = d.poverty_geo_parent_name;
+      }
+      else if (d.dhs_geo_parent_name) {
+        d.geo_parent_name = d.dhs_geo_parent_name;
+      }
+      const name = "geo_parent_name" in d && d.geo_parent_name ? `${d[variableName]}, ${d.geo_parent_name}` : d[variableName];
+      return titleCase(name);
     };
     return {topojsonPath, variable, variableName, topojsonId, groupBy, labelFunc};
   }
