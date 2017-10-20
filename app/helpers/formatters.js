@@ -1,6 +1,20 @@
 import {format, formatPrefix} from "d3-format";
 import {timeFormat} from "d3-time-format";
 
+export function intersperse(arr, sep) {
+  if (arr.length === 0) {
+    return [];
+  }
+
+  const result = arr.slice(1).reduce((xs, x) => xs.concat([sep, x]), [arr[0]]);
+  if (result.length <= 1) {
+    return result;
+  }
+  else {
+    return [...result.slice(0, -1), "and", " ", ...result.slice(-1)];
+  }
+}
+
 function round2(d) {
   if (d === undefined || d === null) return "N/A";
   return formatPrefix(",.2", d)(d).replace("G", "B");

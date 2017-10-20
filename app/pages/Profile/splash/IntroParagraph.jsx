@@ -13,6 +13,11 @@ import {connect} from "react-redux";
 import {formatPlaceName} from "helpers/formatters";
 
 import {VARIABLES, FORMATTERS} from "helpers/formatters";
+import axios from "axios";
+import {dataFold} from "d3plus-viz";
+import {API} from "helpers/consts";
+import locations from "data/locations.json";
+import {intersperse} from "helpers/formatters";
 
 class IntroParagraph extends Section {
 
@@ -30,7 +35,8 @@ class IntroParagraph extends Section {
 
     const country = "country located in Africa south of the Sahara";
     const parentId = `040${profile.id.slice(3, 10)}`;
-    const province = <span>province of <Link className="link" to={`/profile/${parentId}`}>{profile.parent_name}</Link></span>;
+    const parentSlug = locations.find(x => x.id === parentId).url_name;
+    const province = <span>province of <Link className="link" to={`/profile/${parentSlug}`}>{profile.parent_name}</Link></span>;
     const entity = profile.level === "adm0" ? country : province;
     if (!recentPop) {
       return <p></p>;
@@ -101,9 +107,28 @@ class IntroParagraph extends Section {
     }} />;
   }
 
+  links(geos) {
+    const skipList = ["and", " "];
+    return geos.map(x => {
+      let result;
+      if (skipList.includes(x)) {
+        result = x;
+      }
+      else {
+        result = <Link key={x.id} className="link" to={`/profile/${x.url_name}`}>{x.geo_name}</Link>;
+      }
+      return result;
+    });
+  }
+
+  placesList(adm1Places) {
+    const {profile} = this.props;
+    return <span>{profile.name} includes the areas of: {intersperse(this.links(adm1Places), ", ")}.</span>;
+  }
+
   render() {
     const {profile} = this.props;
-    const {popData, crops, dhsHealth, povertyData} = this.context.data;
+    const {popData, crops, dhsHealth, povertyData, adm1Places} = this.context.data;
     return (
       <div id="introduction">
         <div className="intro-text">
@@ -112,6 +137,7 @@ class IntroParagraph extends Section {
           {this.crops(profile, crops)}
           {childHealth(profile, dhsHealth, true, false)}
           {povertyContent(profile, povertyData, false)}
+          {adm1Places && adm1Places.length ? this.placesList(adm1Places) : null}
         </div>
         {profile.level === "adm0" ? this.internalMap(profile) : null}
       </div>
@@ -123,7 +149,24 @@ IntroParagraph.need = [
   fetchData("povertyData", "api/join/?geo=<geoid>&show=year,poverty_level&sumlevel=latest_by_geo,all&required=num,poverty_geo_name,poverty_geo_parent_name&limit=2"),
   fetchData("dhsHealth", "api/join/?geo=<geoid>&show=year,condition&required=dhs_geo_name,dhs_geo_parent_name,proportion_of_children&order=proportion_of_children&sort=desc&severity=severe&sumlevel=latest_by_geo,all"),
   fetchData("crops", "api/join/?geo=<geoid>&show=crop&required=harvested_area,value_of_production&display_names=true&order=harvested_area&sort=desc&year=latest"),
-  fetchData("popData", "api/join/?geo=<geoid>&show=year&required=totpop,poverty_geo,poverty_geo_parent_name&sumlevel=all&order=year&sort=desc&display_names=true")
+  fetchData("popData", "api/join/?geo=<geoid>&show=year&required=totpop,poverty_geo,poverty_geo_parent_name&sumlevel=all&order=year&sort=desc&display_names=true"),
+  params => {
+    const geoObj = locations.find(x => x.url_name === params.id);
+    const key = "adm1Places";
+    if (!geoObj || geoObj.id.startsWith("050")) {
+      return {
+        type: "GET_DATA",
+        promise: Promise.resolve({key, data: []})
+      };
+    }
+    else {
+      const url = `${API}api/join?show=geo&sumlevel=adm1&required=harvested_area,url_name&crop=acof&display_names=1&inside=geo:${geoObj.id}`;
+      return {
+        type: "GET_DATA",
+        promise: axios.get(url).then(res => ({key, data: dataFold(res.data)}))
+      };
+    }
+  }
 ];
 
 export default connect(state => ({
