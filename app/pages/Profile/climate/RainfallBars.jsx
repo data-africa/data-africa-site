@@ -60,17 +60,17 @@ class RainfallBars extends SectionRows {
       <SectionRows>
         <div className="noFlex">
           <SectionColumns>
-            <div className="section-text">
+            <div className="section-text section-text-left">
               <SectionTitle>Rainfall by Location</SectionTitle>
               <Selector options={opts} callback={this.onChange}/>
-            </div>
-            <div className="section-text">
               <p>
                 { !isRainfall
                 ? `Rainfall variability is ${GLOSSARY.findTerm("rainfall variability").toLowerCase()} `
                 : null}
                 {sentence}
               </p>
+            </div>
+            <div className="section-text section-text-right">
               <Download component={ this }
                 title={ `${ title } by Location in ${ profile.name } (${ data[0].year })` }
                 url={ apiUrl.replace("join/", "join/csv/") } />
@@ -100,7 +100,8 @@ class RainfallBars extends SectionRows {
             }},
             tiles: false,
             tooltipConfig: {
-              body: tooltipBody.bind([variable])
+              body: tooltipBody.bind([variable]),
+              padding: "12px 12px 12px 12px",
             },
             topojson: topoPath,
             topojsonFilter: topoFilt,

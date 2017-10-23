@@ -186,7 +186,7 @@ class GeoProfile extends Component {
                   footerStyle: {
                     "margin-top": 0
                   },
-                  padding: "12px",
+                  padding: "12px 12px 0px 12px",
                   title: d => `${d.name}${ d.id === id ? "" : "<img class='link-arrow' src='/images/nav/link-arrow.svg' />" }`
                 },
                 topojson: isAdm0 ? "/topojson/continent.json" : "/topojson/cell5m/adm1.json",

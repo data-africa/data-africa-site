@@ -1,12 +1,12 @@
 .download-btn {
   color: #000000;
-  display: inline-block;
+  display: block;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 1px;
   margin-bottom: 8px;
   margin-right: 16px;
-  opacity: 0.4;
+  opacity: 0.3;
   text-transform: uppercase;
   transition: opacity 0.2s;
 
@@ -28,7 +28,7 @@
     font-family: "Work Sans";
     padding: 3px 4px 2px;
     transition: color 0.1s;
-    width: 230px;
+    width: 200px;
 
     &:focus {
       color: var(--dark);
