@@ -30,10 +30,9 @@ class ConditionsByGender extends SectionColumns {
           groupPadding: 32,
           label: d => d.condition instanceof Array ? `${titleCase(d.gender)} ${titleCase(d.severity)}` : `${titleCase(d.severity)}ly ${titleCase(d.condition)} ${titleCase(d.gender)}s`,
           shapeConfig: {
-            fill: d => COLORS_GENDER[d.gender],
-            hoverOpacity: 0.1,
-            label: false,
-            opacity: d => d.severity === "severe" ? 1 : 0.4
+            fill: d => COLORS_GENDER[`${d.gender}_${d.severity}`],
+            hoverOpacity: 0.25,
+            label: false
           },
           stacked: true,
           stackOrder: ["male_severe", "male_moderate", "female_severe", "female_moderate"],

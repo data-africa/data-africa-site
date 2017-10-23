@@ -29,10 +29,9 @@ class Conditions extends SectionColumns {
           groupPadding: 64,
           label: d => d.condition instanceof Array ? titleCase(d.severity) : `${titleCase(d.severity)}ly ${titleCase(d.condition)}`,
           shapeConfig: {
-            fill: d => COLORS_CONDITION[d.condition],
-            hoverOpacity: 0.1,
-            label: false,
-            opacity: d => d.severity === "severe" ? 1 : 0.4
+            fill: d => COLORS_CONDITION[`${d.condition}_${d.severity}`],
+            hoverOpacity: 0.25,
+            label: false
           },
           stacked: true,
           stackOrder: ["wasted_severe", "wasted_moderate", "stunted_severe", "stunted_moderate", "underweight_severe", "underweight_moderate"],

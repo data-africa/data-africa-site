@@ -78,7 +78,6 @@ export default {
   },
   downloadButton: true,
   legendConfig: {
-    marginLeft: 50,
     padding: 8,
     shapeConfig: {
       labelConfig: {
@@ -90,10 +89,10 @@ export default {
       },
       height: () => 20,
       width: () => 20
-    },
-    tooltipConfig: {
-      body: false
     }
+  },
+  legendTooltip: {
+    body: ""
   },
   shapeConfig: {
     hoverOpacity: 0.7,
@@ -119,7 +118,6 @@ export default {
     },
     borderRadius: "4px",
     padding: "16px",
-    footer: "click to highlight",
     footerStyle: {
       "color": "#ccc",
       "font-family": "Work Sans",
@@ -158,5 +156,6 @@ export function yearControls(data) {
 }
 
 export function tooltipBody(d) {
+  while (d.__d3plus__) d = d.data;
   return this.map(key => `<span class="d3plus-body-key">${key in DICTIONARY ? DICTIONARY[key] : titleCase(key)}:</span> <span class="d3plus-body-value">${ key in VARIABLES ? VARIABLES[key](d[key]) : d[key] }</span>`).join("<br>");
 }

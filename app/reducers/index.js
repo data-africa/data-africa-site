@@ -1,18 +1,8 @@
-import {combineReducers} from "redux";
 import {titleCase} from "d3plus-text";
 import {dataFold} from "d3plus-viz";
 
 import profile from "./profile";
 import map from "./map";
-
-const searchActive = (state = false, action) => {
-  switch (action.type) {
-    case "TOGGLE_SEARCH":
-      return !state;
-    default:
-      return state;
-  }
-};
 
 export default {
   attrs: (state = {}) => {
@@ -37,6 +27,5 @@ export default {
   },
   focus: (state = {}) => state,
   map,
-  profile,
-  search: combineReducers({searchActive})
+  profile
 };

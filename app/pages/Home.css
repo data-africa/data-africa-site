@@ -117,8 +117,17 @@
             & a {
               color: white;
               display: block;
-              font-size: 32px;
               text-decoration: none;
+
+              & .result-title {
+                display: block;
+                font-size: 32px;
+              }
+
+              & .result-sub {
+                display: block;
+                font-size: 16px;
+              }
 
             }
 
