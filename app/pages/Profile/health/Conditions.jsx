@@ -10,23 +10,32 @@ import {API} from "helpers/consts.js";
 import {COLORS_CONDITION} from "helpers/colors";
 import {tooltipBody} from "helpers/d3plus";
 import {formatPlaceName, FORMATTERS} from "helpers/formatters";
+import Download from "components/Download";
+
+const url = "api/join/?geo=<geoid>&show=year,condition&required=dhs_geo_name,dhs_geo_parent_name,proportion_of_children&order=proportion_of_children&sort=desc&severity=severe&sumlevel=latest_by_geo,all";
 
 class Conditions extends SectionColumns {
 
   render() {
-    const {profile} = this.props;
+    const {embed, profile} = this.props;
     const {dhsHealth} = this.context.data;
+    const level = dhsHealth[0].geo && dhsHealth[0].geo !== profile.geo ? "adm0" : profile.level;
+    const dataURL = `${API}api/join/?show=condition&geo=${ profile.id }&required=dhs_geo_name,dhs_geo_parent_name,condition,severity,proportion_of_children`;
 
     return (
       <SectionColumns>
         <article className="section-text">
         <SectionTitle>Health Conditions Among Children</SectionTitle>
           {childHealth(profile, dhsHealth)}
+          <Download component={ this }
+            title={ `Health Conditions Among Children in ${ profile.name }` }
+            url={ dataURL.replace("join/", "join/csv/") } />
         </article>
-        <BarChart config={{
-          data: `${API}api/join/?show=condition&geo=${ profile.id }&required=dhs_geo_name,dhs_geo_parent_name,condition,severity,proportion_of_children`,
+        <BarChart ref={ comp => this.viz = comp } config={{
+          data: dataURL,
           groupBy: ["condition", "severity"],
-          groupPadding: 64,
+          groupPadding: 32,
+          height: embed ? undefined : 500,
           label: d => d.condition instanceof Array ? titleCase(d.severity) : `${titleCase(d.severity)}ly ${titleCase(d.condition)}`,
           shapeConfig: {
             fill: d => COLORS_CONDITION[`${d.condition}_${d.severity}`],
@@ -36,7 +45,7 @@ class Conditions extends SectionColumns {
           stacked: true,
           stackOrder: ["wasted_severe", "wasted_moderate", "stunted_severe", "stunted_moderate", "underweight_severe", "underweight_moderate"],
           tooltipConfig: {
-            body: d => `${ d.dhs_geo_name !== profile.name ? `<span class="d3plus-body-sub">Based on data from ${formatPlaceName(d, "health", profile.level)}</span>` : "" }${tooltipBody.bind(["year", "proportion_of_children"])(d)}`
+            body: d => `${ d.dhs_geo_name !== profile.name ? `<span class="d3plus-body-sub">Based on data from ${formatPlaceName(d, "health", level)}</span>` : "" }${tooltipBody.bind(["year", "proportion_of_children"])(d)}`
           },
           x: "year",
           xConfig: {
@@ -56,7 +65,7 @@ class Conditions extends SectionColumns {
 }
 
 Conditions.need = [
-  fetchData("dhsHealth", "api/join/?geo=<id>&show=year,condition&required=dhs_geo_name,dhs_geo_parent_name,proportion_of_children&order=proportion_of_children&sort=desc&severity=severe&sumlevel=latest_by_geo,all")
+  fetchData("dhsHealth", url)
 ];
 
 export default Conditions;

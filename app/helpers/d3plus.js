@@ -76,7 +76,6 @@ export default {
       "padding": "12px 16px"
     }
   },
-  downloadButton: true,
   legendConfig: {
     padding: 8,
     shapeConfig: {
@@ -157,5 +156,6 @@ export function yearControls(data) {
 
 export function tooltipBody(d) {
   while (d.__d3plus__) d = d.data;
-  return this.map(key => `<span class="d3plus-body-key">${key in DICTIONARY ? DICTIONARY[key] : titleCase(key)}:</span> <span class="d3plus-body-value">${ key in VARIABLES ? VARIABLES[key](d[key]) : d[key] }</span>`).join("<br>");
+  return this.map(key => typeof key === "function" ? key(d)
+    : `<span class="d3plus-body-key">${key in DICTIONARY ? DICTIONARY[key] : titleCase(key)}:</span> <span class="d3plus-body-value">${ key in VARIABLES ? VARIABLES[key](d[key]) : d[key] }</span>`).join("<br>");
 }

@@ -1,6 +1,20 @@
 import {format, formatPrefix} from "d3-format";
 import {timeFormat} from "d3-time-format";
 
+export function intersperse(arr, sep) {
+  if (arr.length === 0) {
+    return [];
+  }
+
+  const result = arr.slice(1).reduce((xs, x) => xs.concat([sep, x]), [arr[0]]);
+  if (result.length <= 1) {
+    return result;
+  }
+  else {
+    return [...result.slice(0, -1), "and", " ", ...result.slice(-1)];
+  }
+}
+
 function round2(d) {
   if (d === undefined || d === null) return "N/A";
   return formatPrefix(",.2", d)(d).replace("G", "B");
@@ -41,18 +55,18 @@ export const FORMATTERS = {
 export const VARIABLES = {
   cropland_rainfallCVgt20pct_ha: d => `${abbreviate(d)} ha`,
   cropland_rainfallCVgt30pct_ha: d => `${abbreviate(d)} ha`,
-  cropland_rainfallCVgt20pct_pct: d => `${round2(d)}%`,
-  cropland_rainfallCVgt30pct_pct: d => `${round2(d)}%`,
+  cropland_rainfallCVgt20pct_pct: d => FORMATTERS.share(d / 100.0),
+  cropland_rainfallCVgt30pct_pct: d => FORMATTERS.share(d / 100.0),
   cropland_total_ha: d => `${abbreviate(d)} ha`,
   gini: format(".3"),
   harvested_area: d => `${abbreviate(d, true)} ha`,
-  hc: FORMATTERS.ratio,
+  hc: FORMATTERS.share,
   num: abbreviate,
-  povgap: FORMATTERS.ratio,
+  povgap: format(",.2f"),
   poverty_prop: FORMATTERS.shareWhole,
-  proportion_of_children: FORMATTERS.ratio,
+  proportion_of_children: FORMATTERS.share,
   rainfall_awa_mm: d => `${FORMATTERS.round(d)}mm`,
-  sevpov: FORMATTERS.ratio,
+  sevpov: format(",.2f"),
   totpop: d => round2(d),
   value_of_production: d => `Intl $${abbreviate(d, true)}`,
   value_density: d => `Intl $${abbreviate(d)} per ha`

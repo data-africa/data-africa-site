@@ -44,7 +44,7 @@
       display: inline-block;
       font-size: 20px;
       font-weight: 800;
-      margin-right: 16px;
+      margin: 0 16px;
       padding:2px 0px 0px;
       text-decoration: none;
       text-transform: uppercase;
@@ -240,6 +240,10 @@
       &:hover {
         cursor: pointer;
         opacity: 1;
+      }
+
+      @media only screen and (max-width : 1020px) {
+        display: none;
       }
 
     }

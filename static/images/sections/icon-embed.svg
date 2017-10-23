@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>Icon Embed</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="18" cy="18" r="18"></circle>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="36" height="36" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Icon-Embed" stroke="#000000">
+            <polygon id="Triangle-2" stroke-width="2" stroke-linejoin="round" points="30 18 13 26 13 10"></polygon>
+            <use id="Oval-15-Copy" mask="url(#mask-2)" stroke-width="4" xlink:href="#path-1"></use>
+            <path d="M28,18 L9,18" id="Line" stroke-width="2" stroke-linecap="square"></path>
+        </g>
+    </g>
+</svg>

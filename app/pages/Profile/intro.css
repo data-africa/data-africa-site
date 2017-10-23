@@ -2,7 +2,7 @@
   font-family: var(--font-family);
 
   & .intro {
-    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
     color: white;
     margin: 0 auto;
     position: relative;
@@ -70,7 +70,12 @@
 
         & .title {
           font-size: 56px;
-          font-weight:600;
+          font-weight: 600;
+        }
+
+        & .sub-title {
+          font-size: 20px;
+          font-weight: 600;
         }
 
         & .stat {
@@ -128,6 +133,7 @@
       }
 
     }
+
     & .more-link {
       clear:both;
       display: block;
@@ -135,30 +141,51 @@
       text-align: center;
       width:100%;
     }
-    & .topic-intro {
-      color: white;
-      display: block;
-      font-size: 28px;
-      font-weight: 600;
-      margin: 0px auto 0px;
-      max-width: 1140px;
-      padding: 0px 56px 16px;
-      width: 60%;
 
-    }
     & #introduction {
-      display: block;
+      display: flex;
       font-size: 21px;
       font-weight: 300;
-      letter-spacing: 0px;
+      justify-content: center;
+      letter-spacing: 0;
       line-height: 160%;
-      margin: 0px auto 0px;
+      margin: 0 auto 0;
       max-width: 1140px;
-      padding: 0px 56px 56px;
-      width: 60%;
-      & p {
-        max-width: 100%;
-        opacity: 0.9;
+      padding: 0 56px 56px;
+
+      & .intro-text {
+        flex: 1;
+        max-width: 740px;
+
+        & .topic-intro {
+          color: white;
+          display: block;
+          font-size: 28px;
+          font-weight: 600;
+          margin: 0;
+
+        }
+
+        & p {
+          max-width: 100%;
+          opacity: 0.9;
+        }
+
+      }
+
+      & .viz {
+        flex: 1;
+        margin-top: 60px;
+        max-width: 400px;
+      }
+
+      @media only screen and (max-width : 768px) {
+        flex-direction: column;
+
+        & .viz {
+          max-width: none;
+        }
+
       }
 
     }

@@ -9,7 +9,7 @@ class Selector extends Component {
     return (
       <select className="dropdown" onChange={ callback } defaultValue={ selected }>
         {options.map(opt =>
-          <option className="option" key={opt.value || opt} value={opt.value || opt}>
+          <option className="option" key={opt.value || JSON.stringify(opt)} value={opt.value || opt}>
             {DICTIONARY[opt.label || opt] || opt.label}
           </option>
         )}

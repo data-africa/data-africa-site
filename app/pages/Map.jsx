@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import Helmet from "react-helmet";
 import {connect} from "react-redux";
 import {browserHistory} from "react-router";
 import d3plus, {tooltipBody} from "helpers/d3plus";
@@ -10,8 +11,10 @@ import {API} from "helpers/consts.js";
 import axios from "axios";
 import "./Map.css";
 
+import header from "../helmet.js";
+
 import {CanonComponent} from "datawheel-canon";
-import {mean} from "d3-array";
+import {extent, mean} from "d3-array";
 import {nest} from "d3-collection";
 import {selectAll} from "d3-selection";
 import {merge} from "d3plus-common";
@@ -51,23 +54,66 @@ class Map extends Component {
     geo = newVars.geo ? newVars.geo : geo;
     column = newVars.column ? newVars.column : column;
     const mapParams = this.datasetPrep(geo, column);
-    const required = mapParams.variable === "geo" ? column : `${[mapParams.variable, mapParams.variableName].join(",")},${column}`;
-    const show = mapParams.variable;
-    const url = `${API}api/join/?show=year,${show}&sumlevel=latest_by_geo,${geo}&required=${required}&order=${column}&sort=desc&display_names=true`;
+    const dataset = this.dataset(column);
+    const origColumn = column;
 
-    axios.get(url).then(result => {
-      const data = fold(result.data);
-      this.setState({geo, column, data, loaded: true}, () => this.handleUrl());
-    });
+    let required = mapParams.variable === "geo" ? column : `${[mapParams.variable, mapParams.variableName].join(",")},${column}`;
+    console.log(column, origColumn, dataset);
+    if (["cropland_total_ha",
+      "rainfall_awa_mm",
+      "cropland_rainfallCVgt20pct_pct",
+      "cropland_rainfallCVgt20pct_ha",
+      "cropland_rainfallCVgt30pct_pct",
+      "cropland_rainfallCVgt30pct_ha"].includes(column)) required += ",start_year,parent_name";
+    if (dataset === "poverty" && (column.endsWith("ppp1") || column.endsWith("ppp2"))) {
+      const povLevel = column.split("_").slice(-1)[0];
+      const url = `${API}api/poverty?show=${geo}&poverty_level=${povLevel}`;
+      axios.get(url).then(result => {
+        const data = result.data.data;
+        this.setState({geo, column, data, loaded: true}, () => this.handleUrl());
+      });
+    }
+    else if (dataset === "dhs") {
+      const condition = origColumn.split("_").slice(-1)[0];
+      const url = `${API}api/health?show=${geo}&severity=severe&condition=${condition}`;
+      axios.get(url).then(result => {
+        const data = result.data.data;
+        this.setState({geo, column, data, loaded: true}, () => this.handleUrl());
+      });
+    }
+    else if (column === "harvested_area") {
+      const url = `${API}api/harvested_area?show=${geo}`;
+      axios.get(url).then(result => {
+        const data = result.data.data;
+        this.setState({geo, column, data, loaded: true}, () => this.handleUrl());
+      });
+    }
+    else if (column === "value_of_production") {
+      const url = `${API}api/production_value?show=${geo}`;
+      axios.get(url).then(result => {
+        const data = result.data.data;
+        this.setState({geo, column, data, loaded: true}, () => this.handleUrl());
+      });
+    }
+    else {
+      const show = mapParams.variable;
+      if (dataset === "poverty") required += ",poverty_geo_parent_name";
+      const url = `${API}api/join/?show=year,${show}&sumlevel=latest_by_geo,${geo}&required=${required},url_name&order=${column}&sort=desc&display_names=true`;
+
+      axios.get(url).then(result => {
+        const data = fold(result.data);
+        this.setState({geo, column: origColumn, data, loaded: true}, () => this.handleUrl());
+      });
+    }
   }
 
 
   dataset(column) {
     const povCols = ["povgap", "hc", "sevpov", "num", "gini", "totpop"];
-    if (column === "proportion_of_children") {
+    if (column.includes("proportion_of_children")) {
       return "dhs";
     }
-    else if (povCols.includes(column)) {
+    else if (povCols.includes(column) || column.endsWith("ppp1") || column.endsWith("ppp2")) {
       return "poverty";
     }
     else {
@@ -102,7 +148,20 @@ class Map extends Component {
     const isAdm0 = geoLevel === "adm0";
     let topojsonId = d => isAdm0 ? d.properties.iso_a3 : d.properties[variable];
 
-    const labelFunc = d => titleCase(d[variableName]);
+    const labelFunc = d => {
+      while (d.data) d = d.data;
+      if (d.parent_name) {
+        d.geo_parent_name = d.parent_name;
+      }
+      else if (d.poverty_geo_parent_name) {
+        d.geo_parent_name = d.poverty_geo_parent_name;
+      }
+      else if (d.dhs_geo_parent_name) {
+        d.geo_parent_name = d.dhs_geo_parent_name;
+      }
+      const name = "geo_parent_name" in d && d.geo_parent_name ? `${d[variableName]}, ${d.geo_parent_name}` : d[variableName];
+      return titleCase(name);
+    };
     return {topojsonPath, variable, variableName, topojsonId, groupBy, labelFunc};
   }
 
@@ -126,11 +185,17 @@ class Map extends Component {
   }
 
   renderTopTen() {
-    const {geo, column, data} = this.state;
+    const {geo, data} = this.state;
+    let {column} = this.state;
     const mapParams = this.datasetPrep(geo, column);
 
     const averages = ["gini", "hc", "povgap", "sevpov"];
-
+    if (column.includes("proportion_of_children")) {
+      column = "proportion_of_children";
+    }
+    else if (column.endsWith("_ppp1") || column.endsWith("_ppp2")) {
+      column = column.split("_")[0];
+    }
     const dataNest = nest()
       .key(d => d[mapParams.variable])
       .entries(data)
@@ -151,11 +216,21 @@ class Map extends Component {
 
   render() {
     const {vars} = this.props;
-    const {geo, column, data, loaded} = this.state;
-    const mapParams = this.datasetPrep(geo, column);
-    const levels = vars ? vars.filter(v => v.column === column)[0].levels[0] : {};
-    const geoLevels = levels.geo ? levels.geo.filter(g => g !== "all") : [];
+    const {geo, data, loaded} = this.state;
+    let {column} = this.state;
 
+    const origColumn = column;
+    if (column.includes("proportion_of_children")) {
+      column = "proportion_of_children";
+    }
+    else if (column.endsWith("_ppp1") || column.endsWith("_ppp2")) {
+      column = column.split("_")[0];
+    }
+    const mapParams = this.datasetPrep(geo, column);
+    const levels = vars && vars.length ? vars.filter(v => v.column === column)[0].levels[0] : {};
+    const geoLevels = levels.geo ? levels.geo.filter(g => g !== "all") : [];
+    const years = extent(data.map(d => d.year).concat(data.map(d => d.start_year || d.year)));
+    const myPlaces = Array.from(new Set(data.map(d => d[mapParams.variable])));
     const map = <Geomap config={{
       colorScale: column,
       colorScaleConfig: {
@@ -189,16 +264,16 @@ class Map extends Component {
       legend: null,
       on: {
         "click.shape": d => {
-          if (d && d.geo) {
+          if (d && d.url_name) {
             selectAll(".d3plus-tooltip").remove();
-            browserHistory.push(`/profile/${d.geo}`);
+            browserHistory.push(`/profile/${d.url_name}`);
           }
         }
       },
       padding: "92 32 32 484",
       tiles: true,
       tooltipConfig: {
-        body: tooltipBody.bind([column]),
+        body: tooltipBody.bind(["year", column]),
         footer: "",
         footerStyle: {
           "margin-top": 0
@@ -208,25 +283,43 @@ class Map extends Component {
       },
       topojson: mapParams.topojsonPath,
       topojsonId: mapParams.topojsonId,
-      topojsonKey: "collection"
+      topojsonKey: "collection",
+      topojsonFilter: this.dataset(column) !== "cell5m" && geo === "adm1" ? d => myPlaces.includes(d.properties[mapParams.variable]) : undefined
     }}/>;
+    let tmpVars = vars.filter(v => v.column !== "proportion_of_children" && !["num", "hc", "sevpov", "povgap"].includes(v.column));
+    const glevels = [{geo: ["all", "adm0", "adm1"]}];
+    const povTemplates = vars
+      .filter(v => ["hc", "sevpov", "povgap", "num"].includes(v.column))
+      .map(x => [{...x, column: `${x.column}_ppp1`}, {...x, column: `${x.column}_ppp2`}])
+      .reduce((obj, acc) => [...acc, ...obj], {});
+    tmpVars = [...tmpVars,
+      {column: "proportion_of_children_wasted", levels: glevels},
+      {column: "proportion_of_children_stunted", levels: glevels},
+      {column: "proportion_of_children_underweight", levels: glevels},
+      ...povTemplates
+    ];
 
-    const dropdownOptions = vars.map(v => v.column)
+    const dropdownOptions = tmpVars.map(v => v.column)
       .sort((a, b) => DICTIONARY[a].localeCompare(DICTIONARY[b]));
 
     const loading = loaded ? null : <div className="loading"><div className="text">Loading...</div></div>;
-
+    let yearSpan = <span className="data-year">{ data.length ? `Data ${ years[0] !== years[1] ? `collected from ${years[0]} to` : "from" } ${ years[1] }` : null }</span>;
+    if (column === "cropland_total_ha") {
+      yearSpan = <span className="data-year">Data from 2005</span>;
+    }
     return (
       <CanonComponent d3plus={d3plus}>
         <div className="map">
+          <Helmet title={ `${ header.title } - ${ DICTIONARY[column] } by ${ geo === "adm0" ? "Country" : "State/Province" }` } />
           <div className="floater">
 
             <div className="controls">
               <span className="dropdown-title">Metric</span>
-              <Selector options={ dropdownOptions } callback={ this.handleColumn } selected={ column } />
+              <Selector options={ dropdownOptions } callback={ this.handleColumn } selected={ origColumn } />
               {
                 geoLevels.length > 1 ? <Radio options={ geoLevels } checked={ geo } callback={ this.handleGeo } /> : null
               }
+              { yearSpan }
               { this.renderTopTen() }
             </div>
             <svg id="legend"></svg>

@@ -9,19 +9,36 @@ import {event, select} from "d3-selection";
 import {strip} from "d3plus-text";
 import {dataFold} from "d3plus-viz";
 
+function s() {
+  return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+}
+
+function uuid() {
+  return `${s()}${s()}-${s()}-${s()}-${s()}-${s()}${s()}${s()}`;
+}
+
+
 class Search extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
       active: false,
+      id: uuid(),
       results: []
     };
   }
 
   onBlur() {
-    this.setState({active: false});
+    const {shouldBlur} = this.state;
+    if (!shouldBlur) {
+      this.setState({shouldBlur: true});
+    }
+    else {
+      this.setState({active: false});
+    }
   }
+
 
   onChange(e) {
 
@@ -47,18 +64,17 @@ class Search extends Component {
 
   onToggle() {
 
-    const {active} = this.state;
-    if (active) this.input.blur();
+    if (this.state.active) this.input.blur();
     else this.input.focus();
-    this.setState({active: !active});
 
   }
 
   componentDidMount() {
 
-    const {className, primary} = this.props;
+    const {primary} = this.props;
+    const {id} = this.state;
 
-    select(document).on(`keydown.${ className }`, () => {
+    select(document).on(`keydown.${ id }`, () => {
 
       const {active} = this.state;
       const key = event.keyCode;
@@ -81,11 +97,8 @@ class Search extends Component {
         const highlighted = document.querySelector(".highlighted");
 
         if (key === ENTER && highlighted) {
-          this.input.value = highlighted.querySelector("a").innerHTML;
-          this.onToggle();
-          setTimeout(() => {
-            browserHistory.push(highlighted.querySelector("a").href);
-          }, 500);
+          this.setState({active: false});
+          browserHistory.push(highlighted.querySelector("a").href);
         }
         else if (key === DOWN || key === UP) {
 
@@ -122,16 +135,16 @@ class Search extends Component {
     const InactiveComponent = this.props.inactiveComponent;
 
     return (
-      <div className={ `${className} ${ active ? "active" : "" }` }>
+      <div className={ `${className} ${ active ? "active" : "" }` } tabIndex="0"  onBlur={ this.onBlur.bind(this) }>
         { InactiveComponent ? <InactiveComponent active={ active } toggle={ this.onToggle.bind(this) } /> : null }
-        <div className={ active ? "input active" : "input" }>
+        <div className={ active ? "input active" : "input" } tabIndex="1">
           <img className="icon" src="/images/nav/search.svg" />
-          <input type="text" ref={ input => this.input = input } onChange={ this.onChange.bind(this) } onFocus={ this.onFocus.bind(this) } onBlur={ this.onBlur.bind(this) } placeholder="Enter a location" />
+          <input type="text" ref={ input => this.input = input } onChange={ this.onChange.bind(this) } onFocus={ this.onFocus.bind(this) } placeholder="Enter a location" />
         </div>
-        <ul className={ active ? "results active" : "results" }>
+        <ul className={ active ? "results active" : "results" }  tabIndex="2" >
           { results.map(result =>
-            <li key={ result.id } className="result">
-              <Link to={ `/profile/${result.id}` }>
+            <li key={ result.id } className="result" onMouseDown={() => this.setState({shouldBlur: false})}>
+              <Link to={ `/profile/${result.url_name}` } onClick={() => this.setState({active: false})}>
                 <span className="result-title">{ result.name }</span>
                 { result.parent_name ? <span className="result-sub">{ result.parent_name }</span> : null }
               </Link>
