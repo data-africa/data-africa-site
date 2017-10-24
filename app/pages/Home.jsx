@@ -65,9 +65,11 @@ class Home extends Component {
                 body: "",
                 footer: "",
                 footerStyle: {
-                  "margin-top": 0
+                  "margin-top": "0px",
+                  "margin-bottom": "0px",
+                  "padding": "0px"
                 },
-                padding: "12px",
+                padding: "12px 12px 0px 12px",
                 title: d => `${d.name}<img class='link-arrow' src='/images/nav/link-arrow.svg' />`
               },
               topojson: "/topojson/continent.json",

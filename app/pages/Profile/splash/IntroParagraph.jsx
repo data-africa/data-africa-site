@@ -91,9 +91,11 @@ class IntroParagraph extends Section {
         body: "",
         footer: "",
         footerStyle: {
-          "margin-top": 0
+          "margin-top": "0px",
+          "margin-bottom": "0px",
+          "padding": "0px"
         },
-        padding: "12px",
+        padding: "12px 12px 0px 12px",
         title: d => {
           while (d.data) d = d.data;
           return `${d.name}${ d.id === profile.id ? "" : "<img class='link-arrow' src='/images/nav/link-arrow.svg' />" }`;
@@ -123,7 +125,7 @@ class IntroParagraph extends Section {
 
   placesList(adm1Places) {
     const {profile} = this.props;
-    return <span>{profile.name} includes the areas of: {intersperse(this.links(adm1Places), ", ")}.</span>;
+    return <div className="place-list"><span className="place">{profile.name} includes the areas of:</span>{intersperse(this.links(adm1Places), ", ")}.</div>;
   }
 
   render() {
@@ -156,7 +158,8 @@ IntroParagraph.need = [
     if (!geoObj || geoObj.id.startsWith("050")) {
       return {
         type: "GET_DATA",
-        promise: Promise.resolve({key, data: []})
+        promise: Promise.resolve({key, data: []}),
+        height: 300
       };
     }
     else {

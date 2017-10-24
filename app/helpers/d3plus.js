@@ -113,16 +113,19 @@ export default {
       "font-family": "Work Sans",
       "font-size": "12px",
       "font-weight": 400,
-      "margin-top": "12px"
+      "margin-top": "12px",
     },
     borderRadius: "4px",
-    padding: "16px",
     footerStyle: {
       "color": "#ccc",
       "font-family": "Work Sans",
       "font-size": "12px",
-      "margin-top": "10px"
+      "margin-top": "0px",
+      "margin-bottom": "0px",
+      "padding": "0px"
     },
+    footer: "",
+    padding: "12px 12px 0px 12px",
     titleStyle: {
       "color": "#4A4A4A",
       "font-family": "Work Sans",

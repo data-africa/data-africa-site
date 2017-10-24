@@ -32,18 +32,18 @@ class Nav extends Component {
         <div className="nav">
           <div>
             <Link className="logo" to="/">
-              <span className="data">Data</span> <span className="africa">Africa</span>
+              <span className="mark"><img className="icon" src="/images/nav/data-africa-logo.svg"/></span><span className="data">Data</span> <span className="africa">Africa</span>
             </Link>
             {
               breadcrumb && breadcrumb.length ? breadcrumb.map((crumb, i) =>
                 i < breadcrumb.length - 1
-                ? <span key={ crumb.id }><Link className="link" to={`/profile/${crumb.url_name}`}>{ crumb.name }</Link><span className="divider">/</span></span>
-                : <span key={ crumb.id } className="profile link">{ crumb.name }</span>
+                ? <span key={ crumb.id }><Link className="link breadcrumb" to={`/profile/${crumb.url_name}`}>{ crumb.name }</Link><span className="divider">/</span></span>
+                : <span key={ crumb.id } className="profile link breadcrumb">{ crumb.name }</span>
               ) : null
             }
             { children }
           </div>
-          <div>
+          <div className="icon-links">
             <Search primary={ true } className="search-nav" inactiveComponent={ SearchButton } />
             <Link className="link" to="/map"><img className="icon" src="/images/nav/map.svg" />Map</Link>
           </div>
